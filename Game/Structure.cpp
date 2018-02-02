@@ -14,7 +14,7 @@ namespace Engine {
 
 	Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
 	{
-		building = type;
+		building = name;
 		hp = health;
 		pow = powerUsage;
 		eff = productionEfficiency;
@@ -22,6 +22,18 @@ namespace Engine {
 		position = pos;
 		placed = isPlaced;
 		active = isActive;
+	}
+
+	Structure::Structure(string building)
+	{
+		building = name;
+		health = 10;
+		powerUsage = 1;
+		productionEfficiency = 1;
+		radiationOutput= 0.1;
+		pos = vec3 (0,0,0); // needs to be passed in
+		isPlaced;
+		isActive;
 	}
 
 	Structure * Structure::Create(GameObject * gameObject, string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
@@ -36,9 +48,11 @@ namespace Engine {
 
 	}
 
-	string Structure::GetType()
+
+
+	string Structure::GetName()
 	{
-		return type;
+		return name;
 	}
 
 	int Structure::GetHealth()

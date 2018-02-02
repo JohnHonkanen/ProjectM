@@ -24,12 +24,24 @@
     <ClCompile Include="Game\Structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\StructureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Warehouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Production.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Structure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\StructureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Warehouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

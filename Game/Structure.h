@@ -11,7 +11,7 @@ namespace Engine {
 	class Structure : public Behaviour {
 	private:
 
-		string type;
+		string name;
 		int health;						//Buildings remaining health
 		int powerUsage;					//Set to 0 until power is added to game
 		int productionEfficiency;		//
@@ -26,11 +26,13 @@ namespace Engine {
 		Structure();
 		~Structure();
 		Structure(string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+		Structure(string building);
+
 
 		static Structure* Create(GameObject * gameObject, string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 		void Copy(GameObject *copyObject) {};
 
-		string GetType();					//Returns buildings type
+		string GetName();					//Returns buildings type
 		int  GetHealth();				//Returns building health
 		int  GetPowerusage();			//Returns power usage
 		int  GetProductionEfficiency();	//

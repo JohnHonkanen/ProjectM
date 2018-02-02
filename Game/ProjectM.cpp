@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	GameEngine engine = GameEngine();
 	//engine.SetDefaultPath(GameEngine::Paths::SETTINGS, "../GameEngine/MobaJuiceEngine/Engine/settings/");
-	engine.LoadSettings(string(engine.GetPath(GameEngine::Paths::SETTINGS) +  "default-settings.xml").c_str());
+	engine.LoadSettings(string(engine.GetPath(GameEngine::Paths::SETTINGS) +  "   default-settings.xml").c_str());
 	Scene *scene = engine.CreateScene("BlankScene"); // Declares a game scene
 	GameObjectManager *manager = scene->GetGameObjectManager(); // Grabs the game object manager from the engine
 	GameObject *structure = manager->CreateGameObject("Cube_1500"); 
