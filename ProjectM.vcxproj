@@ -134,13 +134,13 @@
     <ClCompile Include="Game\Production.cpp" />
     <ClCompile Include="Game\ProjectM.cpp" />
     <ClCompile Include="Game\Structure.cpp" />
-    <ClCompile Include="Game\StructureManager.cpp" />
+    <ClCompile Include="Game\BuildingManager.cpp" />
     <ClCompile Include="Game\Warehouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Production.h" />
     <ClInclude Include="Game\Structure.h" />
-    <ClInclude Include="Game\StructureManager.h" />
+    <ClInclude Include="Game\BuildingManager.h" />
     <ClInclude Include="Game\Warehouse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

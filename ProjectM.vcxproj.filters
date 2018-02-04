@@ -24,10 +24,10 @@
     <ClCompile Include="Game\Structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\StructureManager.cpp">
+    <ClCompile Include="Game\Warehouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Warehouse.cpp">
+    <ClCompile Include="Game\BuildingManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClInclude Include="Game\Structure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\StructureManager.h">
+    <ClInclude Include="Game\Warehouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Warehouse.h">
+    <ClInclude Include="Game\BuildingManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

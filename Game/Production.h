@@ -9,22 +9,22 @@
 using namespace std;
 using namespace glm;
 
-namespace Engine {
-	class Production : public Structure {
-	private:
 
-	public:
+class Production : public Structure {
+private:
 
-		int storage;
+public:
 
-		void setProduction(string type, int eff, bool act);
-		void domeProduction(int eff, bool act);
-		void factoryProduction(int eff, bool act);
-		void update(int eff, bool act);
+	int storage;
 
-		int getStorage();
-		void setStorage(int change);
+	void setProduction(string type, int eff, bool act);
+	void domeProduction(int eff, bool act);
+	void factoryProduction(int eff, bool act);
+	void update(int eff, bool act);
 
-	};
-}
+	int getStorage();
+	void setStorage(int change);
+
+};
+
 
