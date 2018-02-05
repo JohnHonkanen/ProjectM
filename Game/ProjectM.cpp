@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	resourceManager.Init();
 
-	Resources resource1 = resourceManager.FindResource(0);
+	Resources resource1 = resourceManager.FindResource(1);
 
 	cout << "ResourceID: " << resource1.GetItemID() << endl;
 	cout << "Item Name: " << resource1.GetName() << endl;
