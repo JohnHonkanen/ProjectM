@@ -2,7 +2,7 @@
 
 #include "Resources.h"
 
-class ResourceManager 
+class ResourceManager
 {
 public:
 
@@ -14,7 +14,7 @@ public:
 	Resources FindResource(int itemID);
 
 private:
-	int itemIndex;
+	int itemIndex = 0;
 	Resources resource[5];
 
 };

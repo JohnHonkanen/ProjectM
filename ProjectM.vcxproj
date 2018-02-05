@@ -132,11 +132,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\ProjectM.cpp" />
-    <ClCompile Include="Game\Scripts\ResourceManagerr.cpp" />
+    <ClCompile Include="Game\Scripts\ResourceManager.cpp" />
     <ClCompile Include="Game\Scripts\Resources.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\Scripts\ResourceManagerr.h" />
+    <ClInclude Include="Game\Scripts\ResourceManager.h" />
     <ClInclude Include="Game\Scripts\Resources.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

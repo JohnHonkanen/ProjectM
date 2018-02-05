@@ -2,7 +2,7 @@
 
 #include "MobaJuiceCore.h"
 #include "Scripts\Resources.h"
-#include "Scripts\ResourceManagerr.h"
+#include "Scripts\ResourceManager.h"
 
 int main(int argc, char *argv[])
 {
