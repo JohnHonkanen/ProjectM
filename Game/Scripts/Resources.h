@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
+//#include <sstream>
 
 using namespace std;
 
@@ -14,8 +16,8 @@ public:
 	
 	void CreateItem(int itemID, string itemName, int itemValue, int itemQuality);
 
-	int GetItemID(int itemID);
-	string GetItemName(string itemName);
+	int GetItemID() const;
+	string GetItemName() const;
 
 	int SetItemValue(int itemID, int itemValue, float mood);
 	int GetItemValue(int itemID, int itemValue, float mood);
@@ -25,11 +27,13 @@ public:
 
 	//Resources *resource;
 	vector<int> ResourceList;
+	//map<int, >
 	
 private:
 	int itemID, itemValue, itemQuality;
-	float mood;
-	string itemName;
+	int basePrice = 0; // Standard price
+	float mood = 0; // The modifier
+	string itemName, sku;
 
 };
 

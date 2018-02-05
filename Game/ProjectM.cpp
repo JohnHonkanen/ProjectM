@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MobaJuiceCore.h"
-#include "Resources.h"
+#include "Scripts\Resources.h"
 
 int main(int argc, char *argv[])
 {
