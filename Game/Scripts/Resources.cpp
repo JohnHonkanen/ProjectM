@@ -6,55 +6,50 @@ Resources::Resources()
 {
 }
 
+Resources::Resources(int itemID, string itemName, string sku, int basePrice)
+{
+	this->itemID = itemID;
+	this->itemName = itemName;
+	this->sku = sku;
+	this->basePrice = basePrice;
+	this->itemStock = itemStock;
+
+
+}
+
 
 Resources::~Resources()
 {
 }
 
-void Resources::CreateItem(int itemID, string itemName, int itemValue, int itemQuality)
+/*Retrieve the Resource Name*/
+string Resources::GetName()
 {
-	itemID = this->itemID;
-	itemName = this->itemName;
-	itemValue = this->itemValue;
-	itemQuality = this->itemQuality;
+	return this->itemName;
 }
 
-int Resources::GetItemID(int itemID)
+/*Retrieve the Stock-keeping Unit (Slug)*/
+string Resources::GetSKU()
 {
-	return itemID;
+	return this->sku;
 }
 
-string Resources::GetItemName(string itemName)
+/*Retrieve the Resource ID*/
+int Resources::GetItemID()
 {
-	return itemName;
+	return this->itemID;
 }
 
-int Resources::SetItemValue(int itemID, int itemValue, float mood)
+/*Retrieve the Amount (stock) of resources available in the marketplace*/
+int Resources::GetItemAmount()
 {
-	int multiplier;
-	mood = multiplier * GetItemValue(itemID, itemValue, mood);
-	itemValue = itemValue * mood;
-
-	return itemValue;
+	return this->itemStock;
 }
 
-// Need to identify itemID
-int Resources::GetItemValue(int itemID, int itemValue, float mood)
+/*Retrieve the Base price of the resource*/
+int Resources::GetBasePrice()
 {
-	return itemValue;
+	return this->basePrice;
 }
 
-int Resources::SetItemQuality(int itemID, int itemQuality)
-{
-	int multiplier;
-	mood = multiplier * GetItemQuality(itemID, itemValue);
-	itemValue = itemValue * mood;
 
-	return itemQuality;
-}
-
-int Resources::GetItemQuality(int itemID, int itemQuality)
-{
-	itemQuality = 1;
-	return itemQuality;
-}

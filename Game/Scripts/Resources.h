@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-//#include <sstream>
+
 
 using namespace std;
 
@@ -12,25 +12,23 @@ class Resources
 {
 public:
 	Resources();
+	Resources(int itemID, string itemName, string sku, int basePrice);
 	~Resources();
 	
-	void CreateItem(int itemID, string itemName, int itemValue, int itemQuality);
+	string GetName();
+	string GetSKU(); // SKU = Stock-keeping Unit
 
-	int GetItemID() const;
-	string GetItemName() const;
+	int GetItemID();
+	int GetItemAmount();
+	int GetBasePrice();
 
-	int SetItemValue(int itemID, int itemValue, float mood);
-	int GetItemValue(int itemID, int itemValue, float mood);
+	void IncreaseItemAmount();
+	void ReduceItemAmount();
+	void SetItemAmount();
 
-	int SetItemQuality(int itemID, int itemQuality);
-	int GetItemQuality(int itemID, int itemQuality); 
-
-	//Resources *resource;
-	vector<int> ResourceList;
-	//map<int, >
 	
 private:
-	int itemID, itemValue, itemQuality;
+	int itemID, itemValue, itemQuality, itemStock;
 	int basePrice = 0; // Standard price
 	float mood = 0; // The modifier
 	string itemName, sku;
