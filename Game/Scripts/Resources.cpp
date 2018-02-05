@@ -52,4 +52,22 @@ int Resources::GetBasePrice()
 	return this->basePrice;
 }
 
+/*Increment Item Stock in marketplace*/
+void Resources::IncreaseItemAmount(int itemStock)
+{
+	this->itemStock += itemStock;
+}
+
+/*Decrement Item Stock in marketplace*/
+void Resources::ReduceItemAmount(int itemStock)
+{
+	this->itemStock -= itemStock;
+}
+
+/*Set Item Stock in marketplace*/
+void Resources::SetItemAmount(int itemStock)
+{
+	this->itemStock += itemStock;
+}
+
 

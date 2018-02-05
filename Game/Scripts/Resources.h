@@ -22,9 +22,9 @@ public:
 	int GetItemAmount();
 	int GetBasePrice();
 
-	void IncreaseItemAmount();
-	void ReduceItemAmount();
-	void SetItemAmount();
+	void IncreaseItemAmount(int itemStock);
+	void ReduceItemAmount(int itemStock);
+	void SetItemAmount(int itemStock);
 
 	
 private:
