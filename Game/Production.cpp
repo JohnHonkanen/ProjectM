@@ -2,6 +2,11 @@
 
 using namespace std;
 
+//need create method
+
+//copy method - see camera control
+
+//serialization code please
 
 void Production::setProduction(string type, int eff, bool act)
 {
@@ -13,6 +18,7 @@ void Production::setProduction(string type, int eff, bool act)
 	}
 }
 
+//move production types into create method
 void Production::domeProduction(int eff, bool act)
 {
 	//Limits production types of building

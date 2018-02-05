@@ -4,6 +4,9 @@ Dev: Jack Smith (B000308927)
 */
 
 #include "BuildingManager.h"
+#include "Production.h"
+#include "Warehouse.h"
+#include "core\GameEngine.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -32,32 +35,49 @@ Structure * BuildingManager::LoadFromPrefab(const char * prefab)
 	return obj;
 }
 
-void BuildingManager::CreateNewBuilding(Structure * object)
+//based on get texture in texture manager
+Structure BuildingManager::CreateNewBuilding(Structure * object)//this needs to return something, not be void
 {
-	//Add(STRUCTURE_TYPE, parameters)
+	auto it = buildingList.find("RANDOMNANE");
+	if (it != buildingList.end()) {
+		return buildingList["RANDOMNANE"]->Instantiate();
+	}
+
+	assert(0);//this should never happen
+}
+//be in get method
+//void BuildingManager::CounterIncrease(string building)
+//{
+//	if (building == "dome") { domeCounter++; }
+//	else if (building == "factory") { factoryCounter++; }
+//	else if (building == "warehouse") { warehouseCounter++; }
+//}
+//int BuildingManager::GetCounter(string building)
+//{
+//	if (building == "dome") { return domeCounter; }
+//	else if (building == "factory") { return factoryCounter; }
+//	else if (building == "warehouse") { return warehouseCounter; }
+//}
+
+void BuildingManager::CreateStructure(STRUCTURE_TYPE type, std::string request)
+{
+	GameObject* gameObject = GameEngine::manager.gameObjectManager->CreateGameObject("RANDOMNAME");
+
+	switch (type)
+	{
+	case BuildingManager::PRODUCTION:
+		//make create in specific locations
+		Production::Create(gameObject, "RANDOMNANE", 10, 1, 1, 1, vec3(0, 0, 0), true, true);
+		break;
+	case BuildingManager::WAREHOUSE:
+		Warehouse::Create(gameObject, "RANDOMNANE", 10, 1, 1, 1, vec3(0, 0, 0), true, true);
+		break;
+	default:
+		break;
+	}
+
+	nextName = request /*+ " " + to_string(GetCounter(request))*/;
+	//CounterIncrease(request);
+	buildingList.insert(pair<string, GameObject*>(gameObject->name, gameObject));
 
 }
-
-void BuildingManager::CounterIncrease(string building)
-{
-	if (building == "dome") { domeCounter++; }
-	else if (building == "factory") { factoryCounter++; }
-	else if (building == "warehouse") { warehouseCounter++; }
-}
-
-int BuildingManager::GetCounter(string building)
-{
-	if (building == "dome") { return domeCounter; }
-	else if (building == "factory") { return factoryCounter; }
-	else if (building == "warehouse") { return warehouseCounter; }
-}
-
-void BuildingManager::CreateStructure(std::string request)
-{
-	nextName = request + " " + to_string(GetCounter(request));
-	CounterIncrease(request);
-	Structure *object = new Structure(nextName);
-	buildingList.insert(pair<string, BuildingObjectUniquePointer>(object->name, BuildingObjectUniquePointer(object)));
-
-}
-

@@ -44,7 +44,6 @@ Structure * Structure::Create(GameObject * gameObject, string building, int hp, 
 
 void Structure::OnLoad()
 {
-
 }
 
 int Structure::GetHealth()

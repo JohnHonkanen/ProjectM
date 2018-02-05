@@ -9,7 +9,6 @@
 using namespace std;
 using namespace glm;
 
-
 class Production : public Structure {
 private:
 

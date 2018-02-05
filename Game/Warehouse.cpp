@@ -7,8 +7,13 @@ Dev: Jack Smith (B000308927)
 
 using namespace std;
 
+//needs create method
 
-string Engine::Warehouse::DisplayContents()
+//copy method - see camera control
+
+//serialization code please
+
+string Warehouse::DisplayContents()
 {
 	for (int i = 0; i < storage.size; i++)
 	{
@@ -19,13 +24,13 @@ string Engine::Warehouse::DisplayContents()
 /*
 Sends resource to another building
 */
-void Engine::Warehouse::SendItem()
+void Warehouse::SendItem()
 {
 }
 /*
 Receives resource from another building and stores it in the warehouse storage
 */
-void Engine::Warehouse::ReceiveItem()
+void Warehouse::ReceiveItem()
 {
 }
 
@@ -36,7 +41,7 @@ Checks the warehouse storage against the item to see if it has space for the ite
 
 @returns true if the itemType is acceptable to the Warehouse, false if not.
 */
-bool Engine::Warehouse::CheckItem(string itemType)
+bool Warehouse::CheckItem(string itemType)
 {
 	/*
 	Checks the item type against a list of acceptable item types.
@@ -47,14 +52,14 @@ bool Engine::Warehouse::CheckItem(string itemType)
 If the CheckItem method succeeds then this method stores the resource it in the appropriate location in internal storage of the warehouse.
 
 */
-void Engine::Warehouse::PlaceItem()
+void Warehouse::PlaceItem()
 {
 	/*
 	Will read the storage array and place the item in the first empty slot.
 	*/
 }
 
-void Engine::Warehouse::Update(int change)
+void Warehouse::Update(int change)
 {
 	SetStorageSize(change);
 }

@@ -7,7 +7,7 @@
 using namespace std;
 using namespace glm;
 
-class Structure : enable_shared_from_this<Structure> {
+class Structure : public Behaviour {
 private:
 
 	int health;						//Buildings remaining health
@@ -44,7 +44,7 @@ public:
 	void SetHealth(int change);				//Changes buildings health
 	void setPowerUsage(int change);			//Changes building power usage
 	void SetProductionEfficiency(int change);	//Changes buildings
-	void	 SetRadiationOutput(int change);		//
+	void SetRadiationOutput(int change);		//
 	void SetPos(vec3 change);					//
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
@@ -57,5 +57,5 @@ public:
 	}
 };
 
-
-
+//In the event that the copy method is copying a reference/pointer type (or any other method that is doing something similar) remember the referenece cannot be copied
+//so a new reference to the same location must be created
