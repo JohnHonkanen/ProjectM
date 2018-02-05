@@ -6,7 +6,7 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(int itemID, string itemName, string sku, int basePrice)
+Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock)
 {
 	this->itemID = itemID;
 	this->itemName = itemName;
@@ -68,6 +68,31 @@ void Resources::ReduceItemAmount(int itemStock)
 void Resources::SetItemAmount(int itemStock)
 {
 	this->itemStock += itemStock;
+}
+
+/*Increase Item price*/
+void Resources::IncreaseItemPrice(float modifier)
+{
+	mood = modifier;
+
+	this->basePrice += GetBasePrice() * mood;
+}
+
+/*Increase Item price*/
+void Resources::DecreaseItemPrice(float modifier)
+{
+	mood = modifier;
+
+	this->basePrice -= GetBasePrice() * mood;
+
+	if (this->basePrice < 0) {
+		SetItemPrice(1);
+	}
+}
+
+void Resources::SetItemPrice(int basePrice)
+{
+	this->basePrice = basePrice;
 }
 
 
