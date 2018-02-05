@@ -1,7 +1,5 @@
 #include "Resources.h"
 
-
-
 Resources::Resources()
 {
 }
@@ -13,7 +11,6 @@ Resources::Resources(int itemID, string itemName, string sku, int basePrice, int
 	this->sku = sku;
 	this->basePrice = basePrice;
 	this->itemStock = itemStock;
-
 
 }
 

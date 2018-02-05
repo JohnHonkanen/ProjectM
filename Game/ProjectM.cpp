@@ -2,6 +2,7 @@
 
 #include "MobaJuiceCore.h"
 #include "Scripts\Resources.h"
+#include "Scripts\ResourceManagerr.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,8 +12,14 @@ int main(int argc, char *argv[])
 	//Scene *scene = engine.CreateScene("BlankScene");
 	//engine.Run();
 
-	Resources resource1 = Resources(1, "testItem", "TEST", 100, 0);
+	//Resources resource1 = Resources(1, "testItem", "TEST", 100, 0);
 	
+	ResourceManager resourceManager = ResourceManager();
+
+	resourceManager.Init();
+
+	Resources resource1 = resourceManager.FindResource(0);
+
 	cout << "ResourceID: " << resource1.GetItemID() << endl;
 	cout << "Item Name: " << resource1.GetName() << endl;
 	cout << "Slug: " << resource1.GetSKU() << endl;

@@ -132,7 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\ProjectM.cpp" />
-    <ClCompile Include="Game\Scripts\ResourceManager.cpp" />
+    <ClCompile Include="Game\Scripts\ResourceManagerr.cpp" />
     <ClCompile Include="Game\Scripts\Resources.cpp" />
   </ItemGroup>
   <ItemGroup>
