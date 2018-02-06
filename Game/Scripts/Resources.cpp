@@ -102,10 +102,9 @@ void Resources::SetItemSKU(string itemSKU)
 	this->sku = itemSKU;
 }
 
-int Resources::SetItemID(int itemID)
+void Resources::SetItemID(int itemID)
 {
 	this->itemID = itemID;
-	return this->itemID;
 }
 
 

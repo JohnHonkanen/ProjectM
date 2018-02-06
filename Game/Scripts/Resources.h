@@ -29,13 +29,18 @@ public:
 	
 	void SetItemName(string itemName);
 	void SetItemSKU(string itemSKU);
-	int SetItemID(int itemID);
+	void SetItemID(int itemID);
+
+	void marketAction(); // TO:DO : Increase/Decrease price if item purchase/sold is detected.
 
 private:
 	int itemID, itemValue, itemQuality, itemStock;
 	int basePrice; // Standard price
 	float mood; // The modifier
 	string itemName, sku;
+
+	bool purchase = false;
+	bool sold = false;
 
 };
 
