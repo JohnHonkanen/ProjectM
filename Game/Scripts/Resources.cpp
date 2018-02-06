@@ -92,4 +92,20 @@ void Resources::SetItemPrice(int basePrice)
 	this->basePrice = basePrice;
 }
 
+void Resources::SetItemName(string itemName)
+{
+	this->itemName = itemName;
+}
+
+void Resources::SetItemSKU(string itemSKU)
+{
+	this->sku = itemSKU;
+}
+
+int Resources::SetItemID(int itemID)
+{
+	this->itemID = itemID;
+	return this->itemID;
+}
+
 

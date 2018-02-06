@@ -26,6 +26,10 @@ public:
 	void IncreaseItemPrice(float modifier);
 	void DecreaseItemPrice(float modifier);
 	void SetItemPrice(int basePrice);
+	
+	void SetItemName(string itemName);
+	void SetItemSKU(string itemSKU);
+	int SetItemID(int itemID);
 
 private:
 	int itemID, itemValue, itemQuality, itemStock;

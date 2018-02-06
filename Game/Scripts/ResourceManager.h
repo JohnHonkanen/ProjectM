@@ -9,8 +9,7 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	void Init();
-	void AddResource(Resources resource);
+	Resources AddResource(Resources resource, int itemID);
 	Resources FindResource(int itemID);
 
 private:

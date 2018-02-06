@@ -12,13 +12,13 @@ int main(int argc, char *argv[])
 	//Scene *scene = engine.CreateScene("BlankScene");
 	//engine.Run();
 
-	//Resources resource1 = Resources(1, "testItem", "TEST", 100, 0);
+	Resources resource1 = Resources(1, "testItem", "TEST", 100, 0);
 	
 	ResourceManager resourceManager = ResourceManager();
 
-	resourceManager.Init();
+	//Resources resource1 = resourceManager.FindResource(1);
 
-	Resources resource1 = resourceManager.FindResource(1);
+	resource1 = resourceManager.AddResource(resource1, resource1.GetItemID());
 
 	cout << "ResourceID: " << resource1.GetItemID() << endl;
 	cout << "Item Name: " << resource1.GetName() << endl;

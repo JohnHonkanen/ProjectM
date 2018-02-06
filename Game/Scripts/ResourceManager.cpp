@@ -3,7 +3,7 @@
 
 ResourceManager::ResourceManager()
 {
-	this->Init();
+
 }
 
 ResourceManager::~ResourceManager()
@@ -11,19 +11,14 @@ ResourceManager::~ResourceManager()
 
 }
 
-void ResourceManager::Init()
-{
-	Resources resource1 = Resources(1, "testItem", "TEST", 100, 0);
-	this->AddResource(resource1);
-
-}
-
-void ResourceManager::AddResource(Resources resource)
+Resources ResourceManager::AddResource(Resources resource, int itemID)
 {
 	this->resource[resource.GetItemID()] = resource;
-	this->itemIndex++;
+	this->itemIndex = itemID;
 
+	return this->resource[itemIndex];
 }
+
 
 Resources ResourceManager::FindResource(int itemID)
 {
