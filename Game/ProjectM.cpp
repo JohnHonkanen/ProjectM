@@ -3,6 +3,7 @@
 #include "MobaJuiceCore.h"
 #include "Scripts\Resources.h"
 #include "Scripts\ResourceManager.h"
+#include "Scripts\PlayerEconomy.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,9 +13,13 @@ int main(int argc, char *argv[])
 	//Scene *scene = engine.CreateScene("BlankScene");
 	//engine.Run();
 
+	PlayerEconomy playerEconomy = PlayerEconomy();
+	playerEconomy.Init();
+
 	Resources resource1 = Resources(1, "item 1", "TEST", 100, 0);
 	Resources resource2 = Resources(2, "item 2", "TEST", 150, 0);
 	ResourceManager resourceManager = ResourceManager();
+
 
 	//Resources resource1 = resourceManager.FindResource(1);
 
