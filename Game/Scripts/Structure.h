@@ -4,11 +4,15 @@
 #include "core/GameObject.h"
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
+#include <array>
+#include <vector>
+#include <cstring>
+
 using namespace std;
 using namespace glm;
 
 class Structure : public Behaviour {
-private:
+protected:
 
 	int health;						//Buildings remaining health
 	int powerUsage;					//Set to 0 until power is added to game
@@ -18,6 +22,14 @@ private:
 	vec3 pos;						//Buildings position on grid
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
+
+
+	std::vector<string> storage;
+	//std::array<string, 9> storage; //std::array used for storing objects - used because accesing size is easy with it.
+	bool storageFull = false;
+	int itemsStored = 0;
+
+	int levelModifier = 1;
 
 public:
 	string name;
@@ -29,9 +41,10 @@ public:
 	Structure(string building);
 
 
-	static Structure* Create(GameObject * gameObject, string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	static Structure* Create(string name, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 	void Copy(GameObject *copyObject) {};
 
+	string GetName() { return name; }
 	int  GetHealth();				//Returns building health
 	int  GetPowerusage();			//Returns power usage
 	int  GetProductionEfficiency();	//
@@ -49,11 +62,20 @@ public:
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
 
+	string DisplayContents();
+	void SetStorageSize(int change) { storage[9 + change]; }
+	int GetItemsStored() { return itemsStored; }
+
+	void SendItem();
+	void ReceiveItem();
+	bool CheckItem(string itemType);
+	string PlaceItem(string resource);
+
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(health), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(pos), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+	   CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(pos), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive);
 	}
 };
 
