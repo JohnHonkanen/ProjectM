@@ -10,7 +10,7 @@ public:
 	PlayerEconomy();
 	~PlayerEconomy();
 	
-	int GiveGoldBars();
+	void GiveGoldBars(int amountToGive);
 	void AddGoldBars(int goldBars);
 	void RemoveGoldBars(int goldBars);
 	int GetGBAmount(int GBAmount);
@@ -18,5 +18,5 @@ public:
 	void Init();
 private:
 	int goldBars;
-
+	Resources resource;
 };

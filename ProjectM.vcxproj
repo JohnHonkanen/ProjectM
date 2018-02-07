@@ -132,10 +132,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\ProjectM.cpp" />
+    <ClCompile Include="Game\Scripts\PlayerEconomy.cpp" />
     <ClCompile Include="Game\Scripts\ResourceManager.cpp" />
     <ClCompile Include="Game\Scripts\Resources.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Scripts\PlayerEconomy.h" />
     <ClInclude Include="Game\Scripts\ResourceManager.h" />
     <ClInclude Include="Game\Scripts\Resources.h" />
   </ItemGroup>

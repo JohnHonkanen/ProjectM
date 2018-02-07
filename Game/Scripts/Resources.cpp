@@ -109,7 +109,7 @@ void Resources::SetItemID(int itemID)
 
 void Resources::update()
 {
-	if()
+	
 }
 
 

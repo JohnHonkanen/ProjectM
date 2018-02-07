@@ -16,59 +16,50 @@ int main(int argc, char *argv[])
 	PlayerEconomy playerEconomy = PlayerEconomy();
 	playerEconomy.Init();
 
-	Resources resource1 = Resources(1, "item 1", "TEST", 100, 0);
-	Resources resource2 = Resources(2, "item 2", "TEST", 150, 0);
 	ResourceManager resourceManager = ResourceManager();
-
-
-	//Resources resource1 = resourceManager.FindResource(1);
-
-	resource1 = resourceManager.AddResource(resource1, resource1.GetItemID());
-	resource2 = resourceManager.AddResource(resource2, resource2.GetItemID());
 	
-	cout << "ResourceID: " << resource1.GetItemID() << endl;
-	cout << "Item Name: " << resource1.GetName() << endl;
-	cout << "Slug: " << resource1.GetSKU() << endl;
-	cout << "Cost: " << resource1.GetBasePrice() << endl;
-	cout << "Stock: " << resource1.GetItemAmount() << endl << endl;
+	Resources resource = resourceManager.AddResource(1, "item 1", "TEST", 100, 0);
 	
-	resource1.SetItemAmount(1024);
-	resource1.SetItemPrice(5);
+	cout << "ResourceID: " << resource.GetItemID() << endl;
+	cout << "Item Name: " << resource.GetName() << endl;
+	cout << "Slug: " << resource.GetSKU() << endl;
+	cout << "Cost: " << resource.GetBasePrice() << endl;
+	cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
-	resource1 = resourceManager.FindResource(2);
+	resource = resourceManager.AddResource(2, "item 2", "TEST", 150, 0);
 
 
-	cout << "ResourceID: " << resource1.GetItemID() << endl;
-	cout << "Item Name: " << resource1.GetName() << endl;
-	cout << "Slug: " << resource1.GetSKU() << endl;
-	cout << "Cost: " << resource1.GetBasePrice() << endl;
-	cout << "Stock: " << resource1.GetItemAmount() << endl << endl;
+	cout << "ResourceID: " << resource.GetItemID() << endl;
+	cout << "Item Name: " << resource.GetName() << endl;
+	cout << "Slug: " << resource.GetSKU() << endl;
+	cout << "Cost: " << resource.GetBasePrice() << endl;
+	cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
-	resource1.SetItemAmount(1024);
-	resource1.SetItemPrice(5);
+	resource.SetItemAmount(1024);
+	resource.SetItemPrice(5);
 
-	//cout << "ResourceID: " << resource1.GetItemID() << endl;
-	//cout << "Item Name: " << resource1.GetName() << endl;
-	//cout << "Slug: " << resource1.GetSKU() << endl;
-	//cout << "Cost: " << resource1.GetBasePrice() << endl;
-	//cout << "Stock: " << resource1.GetItemAmount() << endl << endl;
+	cout << "ResourceID: " << resource.GetItemID() << endl;
+	cout << "Item Name: " << resource.GetName() << endl;
+	cout << "Slug: " << resource.GetSKU() << endl;
+	cout << "Cost: " << resource.GetBasePrice() << endl;
+	cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
-	//resource1.IncreaseItemPrice(5);
+	//resource.IncreaseItemPrice(5);
 
-	//cout << "ResourceID: " << resource1.GetItemID() << endl;
-	//cout << "Item Name: " << resource1.GetName() << endl;
-	//cout << "Slug: " << resource1.GetSKU() << endl;
-	//cout << "Cost: " << resource1.GetBasePrice() << endl;
-	//cout << "Stock: " << resource1.GetItemAmount() << endl << endl;
+	//cout << "ResourceID: " << resource.GetItemID() << endl;
+	//cout << "Item Name: " << resource.GetName() << endl;
+	//cout << "Slug: " << resource.GetSKU() << endl;
+	//cout << "Cost: " << resource.GetBasePrice() << endl;
+	//cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
-	//resource1.SetItemPrice(10);
-	//resource1.DecreaseItemPrice(50);
+	//resource.SetItemPrice(10);
+	//resource.DecreaseItemPrice(50);
 
-	//cout << "ResourceID: " << resource1.GetItemID() << endl;
-	//cout << "Item Name: " << resource1.GetName() << endl;
-	//cout << "Slug: " << resource1.GetSKU() << endl;
-	//cout << "Cost: " << resource1.GetBasePrice() << endl;
-	//cout << "Stock: " << resource1.GetItemAmount() << endl << endl;
+	//cout << "ResourceID: " << resource.GetItemID() << endl;
+	//cout << "Item Name: " << resource.GetName() << endl;
+	//cout << "Slug: " << resource.GetSKU() << endl;
+	//cout << "Cost: " << resource.GetBasePrice() << endl;
+	//cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
 	return 0;
 }

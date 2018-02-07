@@ -9,10 +9,11 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	Resources AddResource(Resources resource, int itemID);
+	Resources AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock);
 	Resources FindResource(int itemID);
 
 private:
 	int itemIndex = 0;
 	Resources resource[64];
+	Resources resources;
 };

@@ -11,9 +11,10 @@ ResourceManager::~ResourceManager()
 
 }
 
-Resources ResourceManager::AddResource(Resources resource, int itemID)
+Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock)
 {
-	this->resource[resource.GetItemID()] = resource;
+	this->resources = Resources(itemID, itemName, SKU, itemPrice, itemStock);
+	this->resource[resources.GetItemID()] = resources;
 	this->itemIndex = itemID;
 
 	return this->resource[itemIndex];
