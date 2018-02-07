@@ -107,4 +107,9 @@ void Resources::SetItemID(int itemID)
 	this->itemID = itemID;
 }
 
+void Resources::update()
+{
+	if()
+}
+
 
