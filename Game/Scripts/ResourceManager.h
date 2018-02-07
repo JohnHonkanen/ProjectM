@@ -14,6 +14,6 @@ public:
 
 private:
 	int itemIndex = 0;
-	Resources resource[64];
+	Resources resourceList[64];
 	Resources resources;
 };

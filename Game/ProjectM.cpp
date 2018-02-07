@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
 	resource.SetItemAmount(1024);
 	resource.SetItemPrice(5);
+	resource = resourceManager.FindResource(2);
 
 	cout << "ResourceID: " << resource.GetItemID() << endl;
 	cout << "Item Name: " << resource.GetName() << endl;
