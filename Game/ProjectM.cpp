@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 	playerEconomy.Init();
 
 	ResourceManager resourceManager = ResourceManager();
-	
 	Resources resource = resourceManager.AddResource(1, "item 1", "TEST", 100, 0);
 	
 	cout << "ResourceID: " << resource.GetItemID() << endl;
@@ -28,7 +27,6 @@ int main(int argc, char *argv[])
 
 	resource = resourceManager.AddResource(2, "item 2", "TEST", 150, 0);
 
-
 	cout << "ResourceID: " << resource.GetItemID() << endl;
 	cout << "Item Name: " << resource.GetName() << endl;
 	cout << "Slug: " << resource.GetSKU() << endl;
@@ -37,7 +35,7 @@ int main(int argc, char *argv[])
 
 	resource.SetItemAmount(1024);
 	resource.SetItemPrice(5);
-	resource = resourceManager.FindResource(2);
+	resource = resourceManager.FindResource(0); // WIP: Find player gold
 
 	cout << "ResourceID: " << resource.GetItemID() << endl;
 	cout << "Item Name: " << resource.GetName() << endl;

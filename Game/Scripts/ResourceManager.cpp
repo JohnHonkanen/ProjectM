@@ -11,6 +11,7 @@ ResourceManager::~ResourceManager()
 
 }
 
+/*Use to add resources into resourcemanagers list*/
 Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock)
 {
 	this->resources = Resources(itemID, itemName, SKU, itemPrice, itemStock);
@@ -20,7 +21,7 @@ Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, 
 	return this->resourceList[itemIndex];
 }
 
-
+/*Use to find resources*/
 Resources ResourceManager::FindResource(int itemID)
 {
 	return this->resourceList[itemID];
