@@ -16,20 +16,24 @@ using namespace glm;
 
 class Warehouse : public Structure {
 private:
-	std::array<string, 9> storage; //std::array used for storing objects - used because accesing size is easy with it.
-	bool storageFull = false;
-	int itemsStored = 0;
+
 
 public:
-	void Update(int change);
-	string DisplayContents();
-	void SetStorageSize(int change) { storage[9 + change]; }
-	int GetItemsStored() { return itemsStored; }
+	
+	
+	Warehouse::Warehouse(); 
+	Warehouse::~Warehouse();
+	Warehouse::Warehouse(string name, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
+	static Warehouse * Warehouse::Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	
+	void Copy(GameObject *copyObject);
 
-	void SendItem();
-	void ReceiveItem();
-	bool CheckItem(string itemType);y
-	void PlaceItem();
+	void OnLoad();
+	void Update();
+
+	void Update(int change);
+
+	
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>

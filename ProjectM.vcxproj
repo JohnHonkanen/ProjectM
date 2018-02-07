@@ -18,6 +18,21 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\Scripts\BuildingManager.h" />
+    <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
+    <ClInclude Include="Game\Scripts\Production.h" />
+    <ClInclude Include="Game\Scripts\Structure.h" />
+    <ClInclude Include="Game\Scripts\Warehouse.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
+    <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
+    <ClCompile Include="Game\Scripts\Production.cpp" />
+    <ClCompile Include="Game\Scripts\ProjectM.cpp" />
+    <ClCompile Include="Game\Scripts\Structure.cpp" />
+    <ClCompile Include="Game\Scripts\Warehouse.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{89D026E4-FC7A-4DD2-8836-F4E236F84EA5}</ProjectGuid>
@@ -130,19 +145,6 @@
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Game\Production.cpp" />
-    <ClCompile Include="Game\ProjectM.cpp" />
-    <ClCompile Include="Game\Structure.cpp" />
-    <ClCompile Include="Game\BuildingManager.cpp" />
-    <ClCompile Include="Game\Warehouse.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game\Production.h" />
-    <ClInclude Include="Game\Structure.h" />
-    <ClInclude Include="Game\BuildingManager.h" />
-    <ClInclude Include="Game\Warehouse.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

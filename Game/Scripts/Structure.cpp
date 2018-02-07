@@ -25,20 +25,11 @@ Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3
 
 Structure::Structure(string building)
 {
-	building = name;
-	health = 10;
-	powerUsage = 1;
-	productionEfficiency = 1;
-	radiationOutput = 0.1;
-	pos = vec3(0, 0, 0); // needs to be passed in
-	isPlaced;
-	isActive;
 }
 
-Structure * Structure::Create(GameObject * gameObject, string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
+Structure * Structure::Create(string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
 {
 	Structure *s = new Structure(building, hp, pow, eff, rad, position, placed, active);
-	gameObject->AddComponent(s);
 	return s;
 }
 
@@ -118,6 +109,79 @@ void Structure::SetPlaced(bool change)
 void Structure::SetActive(bool change)
 {
 	isActive = change;
+}
+
+//string Structure::DisplayContents()
+//{
+//	string contents;
+//
+//	for (int i = 0; i < storage.size; i++)
+//	{
+//		contents += storage[i];
+//	}
+//
+//	return contents;
+//}
+
+string Structure::DisplayContents()
+{
+	string contents;
+
+	for (auto it = storage.begin(); it != storage.end(); ++it)
+	{
+		contents += *it;
+	}
+
+	return contents;
+}
+
+/*
+Sends resource to another building
+*/
+void Structure::SendItem()
+{
+}
+/*
+Receives resource from another building and stores it in the warehouse storage
+*/
+void Structure::ReceiveItem()
+{
+}
+
+/*
+Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.
+
+@param - itemType - The type of resource to be sent to the Warehouse
+
+@returns true if the itemType is acceptable to the Warehouse, false if not.
+*/
+bool Structure::CheckItem(string itemType)
+{
+	/*
+	Checks the item type against a list of acceptable item types.
+	*/
+}
+
+/*
+If checkitem succeeds, the item is placed at a new slot in the vector.
+*/
+string Structure::PlaceItem(string resource)
+{
+	string report;
+
+	if (storage.size() < 9 * levelModifier)
+	{
+		storage.push_back(resource);
+
+		report = "Item placed in " + storage.size();
+	}
+
+	else
+	{
+		report = "Storage full";
+	}
+	
+	return report;
 }
 
 
