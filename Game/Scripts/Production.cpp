@@ -38,9 +38,6 @@ void Production::Copy(GameObject * copyObject)
 {
 	
 	Production * copy = new Production();
-	copy->storage = Production::storage;
-	copy->storageFull = Production::storageFull;
-	copy->itemsStored = Production::itemsStored;
 	copy->health = Production::health;
 	copy->powerUsage = Production::powerUsage;
 	copy->productionEfficiency = Production::productionEfficiency;
@@ -87,12 +84,12 @@ void Production::factoryProduction(int eff, bool act)
 	//To be loaded in from xml
 }
 
-void Production::update(int eff, bool act)
-{
-	if (act && storage.size() < 100) {
-		setStorage(getStorage() + 1 * eff);
-	}
-}
+//void Production::update(int eff, bool act)
+//{
+//	if (act && storage.size() < 100) {
+//		setStorage(getStorage() + 1 * eff);
+//	}
+//}
 
 
 

@@ -1,7 +1,7 @@
-#include "../stdafx.h"
 
 #include "ObjectPlacer.h"
 #include "core\GameEngine.h"
+
 ObjectPlacer * ObjectPlacer::Create(GameObject * gameObject, GameObject * itemToBuild, TerrainSnapper * snapper)
 {
 	ObjectPlacer *p = new ObjectPlacer();

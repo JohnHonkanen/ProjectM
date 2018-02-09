@@ -2,16 +2,16 @@
 
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
+#include "Inventory.h"
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
-#include <array>
 #include <vector>
-#include <cstring>
 
 using namespace std;
 using namespace glm;
 
 class Structure : public Behaviour {
+
 protected:
 
 	int health;						//Buildings remaining health
@@ -23,13 +23,9 @@ protected:
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
 
-
-	std::vector<string> storage;
-	//std::array<string, 9> storage; //std::array used for storing objects - used because accesing size is easy with it.
-	bool storageFull = false;
-	int itemsStored = 0;
-
 	int levelModifier = 1;
+
+	Inventory *inv;
 
 public:
 	string name;
@@ -61,15 +57,6 @@ public:
 	void SetPos(vec3 change);					//
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
-
-	string DisplayContents();
-	void SetStorageSize(int change) { storage[9 + change]; }
-	int GetItemsStored() { return itemsStored; }
-
-	void SendItem();
-	void ReceiveItem();
-	bool CheckItem(string itemType);
-	string PlaceItem(string resource);
 
 	void OnLoad();
 	template<class Archive>

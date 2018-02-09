@@ -43,9 +43,6 @@ Warehouse * Warehouse::Create(GameObject * gameObject, string name, int hp, int 
 void Warehouse::Copy(GameObject * copyObject)
 {
 	Warehouse * copy = new Warehouse();
-	copy->storage = Warehouse::storage;
-	copy->storageFull = Warehouse::storageFull;
-	copy->itemsStored = Warehouse::itemsStored;
 	copy->health = Warehouse::health;
 	copy->powerUsage = Warehouse::powerUsage;
 	copy->productionEfficiency = Warehouse::productionEfficiency;
@@ -70,5 +67,5 @@ void Warehouse::Update()
 
 void Warehouse::Update(int change)
 {
-	SetStorageSize(change);
+	inv->SetStorageSize(change);
 }

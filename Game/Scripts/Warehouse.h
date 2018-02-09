@@ -8,6 +8,7 @@ Dev: Jack Smith (B000308927)
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"
+#include "Inventory.h"
 #include <array>
 
 using namespace std;
@@ -16,11 +17,9 @@ using namespace glm;
 
 class Warehouse : public Structure {
 private:
-
+	Inventory *inv;
 
 public:
-	
-	
 	Warehouse::Warehouse(); 
 	Warehouse::~Warehouse();
 	Warehouse::Warehouse(string name, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
@@ -30,10 +29,7 @@ public:
 
 	void OnLoad();
 	void Update();
-
 	void Update(int change);
-
-	
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>
