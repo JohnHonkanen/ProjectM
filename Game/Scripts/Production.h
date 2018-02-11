@@ -1,5 +1,4 @@
 #pragma once
-
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
 #include <cereal\cereal.hpp>
@@ -11,13 +10,13 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-
+	int dt, storage;
 public:
 
-	Production::Production();
-	Production::~Production();
-	Production::Production(string name, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
-	static Production * Production::Create(string name, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	Production();
+	~Production();
+	Production(string name, string type ,int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
+	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 
 	void Copy(GameObject *copyObject);
 
@@ -27,10 +26,9 @@ public:
 	void setProduction(string type, int eff, bool act);
 	void domeProduction(int eff, bool act);
 	void factoryProduction(int eff, bool act);
-	void update(int eff, bool act);
 
-	int getStorage();
-	void setStorage(int change);
+	//int getStorage();
+	//void setStorage(int change); //Defunct method
 
 
 	// Serilazation method to store the required variables to an xml document.
@@ -40,5 +38,3 @@ public:
 		ar(CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(pos), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
 	}
 };
-
-

@@ -32,19 +32,19 @@ protected:
 	int levelModifier = 1;
 
 public:
-	string name;
-
+	string name, type;
 
 	Structure();
 	~Structure();
-	Structure(string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	Structure(string building, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 	Structure(string building);
 
 
-	static Structure* Create(string name, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	static Structure* Create(string name, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 	void Copy(GameObject *copyObject) {};
 
 	string GetName() { return name; }
+	string GetType() { return type; };
 	int  GetHealth();				//Returns building health
 	int  GetPowerusage();			//Returns power usage
 	int  GetProductionEfficiency();	//

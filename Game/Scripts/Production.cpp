@@ -1,24 +1,20 @@
 #include "Production.h"
+#include <ctime>
 
 using namespace std;
 
-//need create method - X
-
-//copy method - X
-
-//serialization code please - X
-
-Production::Production() {
-
+Production::Production()
+{
 }
 
 Production::~Production()
 {
 }
 
-Production::Production(string buildingName, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+Production::Production(string buildingName, string type, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
 {
 	name = buildingName;
+
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
@@ -28,15 +24,15 @@ Production::Production(string buildingName, int hp, int pow, int eff, int radOut
 	isActive = active;
 }
 
-Production * Production::Create(string name, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
+Production * Production::Create(string name, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
 {
-	Production *p= new Production(name, hp, pow, eff, rad, position, placed, active);
+	Production *p = new Production(name, typ, hp, pow, eff, rad, position, placed, active);
 	return p;
 }
 
 void Production::Copy(GameObject * copyObject)
 {
-	
+
 	Production * copy = new Production();
 	copy->storage = Production::storage;
 	copy->storageFull = Production::storageFull;
@@ -50,8 +46,6 @@ void Production::Copy(GameObject * copyObject)
 	copy->isActive = Production::isActive;
 
 	copyObject->AddComponent(copy);
-
-	
 }
 
 void Production::OnLoad()
@@ -60,6 +54,21 @@ void Production::OnLoad()
 
 void Production::Update()
 {
+	time_t t = time(0);   // get time now
+	struct tm * currentTime = localtime(&t);
+
+	if ((dt - (int)currentTime) <= 300) {
+		dt = (int)currentTime;
+		if (GetActive() == true && storage < 100) {
+			storage += (1 * productionEfficiency);
+			cout << storage; // testing
+		}
+
+		if (storage >= 50) {
+			//call warehouse storage update method
+		}
+
+	}
 }
 
 void Production::setProduction(string type, int eff, bool act)
@@ -72,27 +81,10 @@ void Production::setProduction(string type, int eff, bool act)
 	}
 }
 
-//move production types into create method
-void Production::domeProduction(int eff, bool act)
-{
-	//Limits production types of building
-	//based on its type
-	//To be loaded in from xml
-}
 
-void Production::factoryProduction(int eff, bool act)
-{
-	//Limits production types of building
-	//based on its type
-	//To be loaded in from xml
-}
-
-void Production::update(int eff, bool act)
-{
-	if (act && storage.size() < 100) {
-		setStorage(getStorage() + 1 * eff);
-	}
-}
-
-
-
+//void Production::setStorage(int change) //Defunct method
+//{
+//	/*
+//	storage = += change;
+//	*/
+//}

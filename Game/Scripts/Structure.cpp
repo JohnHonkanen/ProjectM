@@ -11,25 +11,27 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
 {
-	building = name;
-	hp = health;
-	pow = powerUsage;
-	eff = productionEfficiency;
-	radOut = radiationOutput;
-	position = pos;
-	placed = isPlaced;
-	active = isActive;
+	
+	name = building;
+	type = typ;
+	health = hp;
+	powerUsage = pow;
+	productionEfficiency = eff;
+	radiationOutput = radOut;
+	pos = position;
+	isPlaced = placed;
+	isActive = active;
 }
 
 Structure::Structure(string building)
 {
 }
 
-Structure * Structure::Create(string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
+Structure * Structure::Create(string building, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
 {
-	Structure *s = new Structure(building, hp, pow, eff, rad, position, placed, active);
+	Structure *s = new Structure(building, typ, hp, pow, eff, rad, position, placed, active);
 	return s;
 }
 
@@ -183,5 +185,3 @@ string Structure::PlaceItem(string resource)
 	
 	return report;
 }
-
-
