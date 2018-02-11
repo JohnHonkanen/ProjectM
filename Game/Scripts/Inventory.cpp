@@ -1,3 +1,9 @@
+/*
+Inventory class used as a component of all Stuctures. Gives them the capacity to process and store resources
+Dev: Jack Smith (B000308927)
+*/
+
+
 #include "Inventory.h"
 
 Inventory::Inventory()
@@ -38,7 +44,7 @@ void Inventory::PlaceItem(Resources res)
 {
 	for (int i = 0; i < storage.size; i++)
 	{
-		if (storage.size < (9 * inventoryLevel))
+		if (storage.size < (INITIAL_STORAGE * inventoryLevel))
 		{
 			if (storage[i].GetItemID() == res.GetItemID())
 			{
@@ -62,6 +68,7 @@ void Inventory::PlaceItem(Resources res)
 }
 // Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
 // Call this method as it does so.
+
 /*
 	Checks the Inventory to see if the resource type is already contained in the inventory
 

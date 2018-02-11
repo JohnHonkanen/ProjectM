@@ -2,10 +2,6 @@
 
 using namespace std;
 
-//need create method - X
-
-//copy method - X
-
 //serialization code please - X
 
 Production::Production() {
@@ -38,6 +34,7 @@ void Production::Copy(GameObject * copyObject)
 {
 	
 	Production * copy = new Production();
+	copy->name = Production::name;
 	copy->health = Production::health;
 	copy->powerUsage = Production::powerUsage;
 	copy->productionEfficiency = Production::productionEfficiency;
