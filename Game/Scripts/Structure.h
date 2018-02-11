@@ -58,6 +58,7 @@ public:
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
 
+
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)

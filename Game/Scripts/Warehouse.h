@@ -27,6 +27,8 @@ public:
 	
 	void Copy(GameObject *copyObject);
 
+	
+
 	void OnLoad();
 	void Update();
 	void Update(int change);

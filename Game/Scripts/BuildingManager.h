@@ -27,6 +27,9 @@ public:
 	GameObject* CreateNewBuilding(Structure * object, string asset);
 	GameObject* GetBuilding(string name);
 
+
+	void SearchWarehouses(map<string, unique_ptr<GameObject>> buildings);
+
 	template<class Archive>
 	void serialize(Archive & ar)
 	{

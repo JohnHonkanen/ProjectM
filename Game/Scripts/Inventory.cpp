@@ -6,6 +6,7 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
+	delete[] res;
 }
 
 /*
@@ -73,7 +74,7 @@ bool Inventory::ContainsItem(Resources res)
 	bool result = false;
 	for (int i = 0; i < storage.size; i++)
 	{
-		if (storage[i].GetItemID == res.GetItemID)
+		if (storage[i].GetItemID() == res.GetItemID())
 		{
 			result = true;
 		}

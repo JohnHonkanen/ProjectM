@@ -14,7 +14,7 @@ using namespace std;
 //serialization code please - X
 
 Warehouse::Warehouse() {
-
+	delete[] inv;
 }
 
 Warehouse::~Warehouse()

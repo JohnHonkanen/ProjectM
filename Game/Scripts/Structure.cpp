@@ -11,17 +11,17 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
-{
-	building = name;
-	hp = health;
-	pow = powerUsage;
-	eff = productionEfficiency;
-	radOut = radiationOutput;
-	position = pos;
-	placed = isPlaced;
-	active = isActive;
-}
+//Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+//{
+//	building = name;
+//	hp = health;
+//	pow = powerUsage;
+//	eff = productionEfficiency;
+//	radOut = radiationOutput;
+//	position = pos;
+//	placed = isPlaced;
+//	active = isActive;
+//}
 
 Structure::Structure(string building)
 {
@@ -111,6 +111,18 @@ void Structure::SetActive(bool change)
 	isActive = change;
 }
 
+
+Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+{
+	name = building;
+	health = hp;
+	powerUsage = pow;
+	productionEfficiency = eff;
+	radiationOutput = radOut;
+	pos = position;
+	isPlaced = placed;
+	isActive = active;
+}
 
 
 

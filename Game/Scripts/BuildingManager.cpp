@@ -65,3 +65,14 @@ GameObject * BuildingManager::GetBuilding(string name)
 
 	return buildingList[name].get()->Instantiate();
 }
+
+void BuildingManager::SearchWarehouses(map<string, unique_ptr<GameObject>> buildings)
+{
+	for (auto it = buildings.begin(); it!= buildings.end(); it++)
+	{
+		if (buildings.at("Warehouse"))
+		{
+			// Pass the resource to the warehouse.	
+		}
+	}
+}
