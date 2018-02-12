@@ -14,7 +14,6 @@ Resources::Resources(int itemID, string itemName, string sku, int basePrice, int
 
 }
 
-
 Resources::~Resources()
 {
 }
