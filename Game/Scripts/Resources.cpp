@@ -1,4 +1,7 @@
 #include "Resources.h"
+#include "core\GameEngine.h"
+
+using namespace Engine;
 
 Resources::Resources()
 {
@@ -71,7 +74,7 @@ void Resources::IncreaseItemPrice(float modifier)
 {
 	mood = modifier;
 
-	this->basePrice += GetBasePrice() * mood;
+	this->basePrice += GetBasePrice() + baseModifier * mood;
 }
 
 /*Increase Item price*/
@@ -79,7 +82,7 @@ void Resources::DecreaseItemPrice(float modifier)
 {
 	mood = modifier;
 
-	this->basePrice -= GetBasePrice() * mood;
+	this->basePrice -= GetBasePrice() + mood;
 
 	if (this->basePrice < 0) {
 		SetItemPrice(1);
@@ -108,22 +111,34 @@ void Resources::SetItemID(int itemID)
 
 void Resources::update()
 {
+	int IOKey = GameEngine::manager.inputManager.GetKey("IO");
+	int oldPrice = basePrice;
 	
-	switch (switch_on)
-	{
-		// if key I is pressed (Increase)
-		IncreaseItemPrice(2.5);
-		
-		break;
-
-		// if key O is pressed (Decrease)
-		DecreaseItemPrice(2.5);
-		break;
-
-	default:
-		break;
+	if (IOKey == 1) {
+		if (keyReleased == true) { // if key I is pressed (Increase)
+			keyReleased = false;
+			IncreaseItemPrice(2.5);
+			cout << "itemPrice increased from: " << oldPrice << " to " << basePrice << endl;
+		}
+	}
+	else {
+		if (IOKey == 0) {
+			keyReleased = true;
+		}
 	}
 
+	if (IOKey == -1) { // Needs optimization
+		if (keyReleased == true) { // if key I is pressed (Increase)
+			keyReleased = false;
+			DecreaseItemPrice(2.5);
+			cout << "itemPrice decreased from: " << oldPrice << " to " << basePrice << endl;
+		}
+	}
+	else {
+		if (IOKey == 0) {
+			keyReleased = true;
+		}
+	}
 }
 
 

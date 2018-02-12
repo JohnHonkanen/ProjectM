@@ -1,5 +1,6 @@
 #include "ResourceManager.h"
-
+#include "core\GameEngine.h"
+#include "core\InputManager.h"
 
 ResourceManager::ResourceManager()
 {
@@ -40,10 +41,15 @@ void ResourceManager::Copy(GameObject * copyObject)
 
 void ResourceManager::Update()
 {
+	this->resourceList[0] = resources;
+	resources.update();
+
 }
 
 void ResourceManager::Start()
 {
+	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
+
 	Resources resource = AddResource(1, "item 1", "TEST", 100, 0);
 	cout << "ResourceID: " << resource.GetItemID() << endl;
 	cout << "Item Name: " << resource.GetName() << endl;

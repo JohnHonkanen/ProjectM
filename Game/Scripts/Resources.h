@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 class Resources
 {
 public:
@@ -37,10 +38,12 @@ private:
 	int itemID, itemValue, itemQuality, itemStock;
 	int basePrice; // Standard price
 	float mood; // The modifier
+	float baseModifier = 5.0;
 	string itemName, sku;
 
 	bool purchase = false;
 	bool sold = false;
+	bool keyReleased = true;
 
 };
 
