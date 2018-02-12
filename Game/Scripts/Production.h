@@ -22,10 +22,11 @@ public:
 
 	void OnLoad();
 	void Update();
+	void Draw(GameObject *obj, string name);
 
 	void setProduction(string type, int eff, bool act);
-	void domeProduction(int eff, bool act);
-	void factoryProduction(int eff, bool act);
+	//void domeProduction(int eff, bool act);
+	//void factoryProduction(int eff, bool act);
 
 	//int getStorage();
 	//void setStorage(int change); //Defunct method
