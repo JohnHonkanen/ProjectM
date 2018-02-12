@@ -1,11 +1,13 @@
 /*
 Warehouse class used to store and send/recieve resources
-Dev: Jack Smith (B000308927)
+Dev: Jack Smith (B00308927)
 */
 
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
 #include <cereal\cereal.hpp>
+#include <cereal\types\string.hpp>
+#include <cereal\types\vector.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"
 #include "Inventory.h"
@@ -22,8 +24,8 @@ private:
 public:
 	Warehouse::Warehouse(); 
 	Warehouse::~Warehouse();
-	Warehouse::Warehouse(string name, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
-	static Warehouse * Warehouse::Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	Warehouse::Warehouse(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
+	static Warehouse * Warehouse::Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, bool placed, bool active);
 	
 	void Copy(GameObject *copyObject);
 
@@ -37,7 +39,15 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(pos), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+		ar(CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
 	}
 };
 
+using namespace Engine;
+
+#include <cereal/archives/xml.hpp>
+//Register Warehouse as a derived class
+CEREAL_REGISTER_TYPE(Warehouse);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Structure, Warehouse);

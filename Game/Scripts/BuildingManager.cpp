@@ -1,6 +1,6 @@
 /*
-The Structure Manager class used to create and manage structures
-Dev: Jack Smith (B000308927)
+The Building Manager class used to create and manage structures
+Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 */
 
 #include "BuildingManager.h"
@@ -25,13 +25,13 @@ void BuildingManager::Start()
 
 	//Basic Factory
 	CreateNewBuilding(
-		Production::Create("Basic Factory", 10, 1, 1, 1, vec3(0), false, false),
+		Production::Create("Basic Factory", 10, 1, 1, 1, false, false),
 		"AssetPath"
 	);
 
 	//Radiation Factory
 	CreateNewBuilding(
-		Production::Create("Radiation Factory", 10, 1, 1, 1000, vec3(0), false, false),
+		Production::Create("Radiation Factory", 10, 1, 1, 1000, false, false),
 		"AssetPath"
 	);
 

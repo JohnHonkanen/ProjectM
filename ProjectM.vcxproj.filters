@@ -30,10 +30,10 @@
     <ClInclude Include="Game\Scripts\Warehouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scripts\Inventory.h">
+    <ClInclude Include="Game\Scripts\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scripts\Resources.h">
+    <ClInclude Include="Game\Scripts\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,9 @@
+/*
+Structure class that maintains the base properties off all structures
+
+Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+*/
+
 #include "Structure.h"
 
 using namespace std;
@@ -11,26 +17,19 @@ Structure::~Structure()
 {
 }
 
-//Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
-//{
-//	building = name;
-//	hp = health;
-//	pow = powerUsage;
-//	eff = productionEfficiency;
-//	radOut = radiationOutput;
-//	position = pos;
-//	placed = isPlaced;
-//	active = isActive;
-//}
-
 Structure::Structure(string building)
 {
 }
 
-Structure * Structure::Create(string building, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
+Structure::Structure(string building, int hp, int pow, int eff, int radOut, bool placed, bool active)
 {
-	Structure *s = new Structure(building, hp, pow, eff, rad, position, placed, active);
-	return s;
+	name = building;
+	health = hp;
+	powerUsage = pow;
+	productionEfficiency = eff;
+	radiationOutput = radOut;
+	isPlaced = placed;
+	isActive = active;
 }
 
 void Structure::OnLoad()
@@ -54,11 +53,6 @@ int Structure::GetProductionEfficiency()
 int Structure::GetRadiationOutput()
 {
 	return radiationOutput;
-}
-
-vec3 Structure::GetPos()
-{
-	return pos;
 }
 
 bool Structure::GetPlaced()
@@ -96,11 +90,6 @@ void Structure::SetRadiationOutput(int change)
 	radiationOutput *= change;
 }
 
-void Structure::SetPos(vec3 change)
-{
-	pos = change;
-}
-
 void Structure::SetPlaced(bool change)
 {
 	isPlaced = change;
@@ -109,19 +98,6 @@ void Structure::SetPlaced(bool change)
 void Structure::SetActive(bool change)
 {
 	isActive = change;
-}
-
-
-Structure::Structure(string building, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
-{
-	name = building;
-	health = hp;
-	powerUsage = pow;
-	productionEfficiency = eff;
-	radiationOutput = radOut;
-	pos = position;
-	isPlaced = placed;
-	isActive = active;
 }
 
 

@@ -1,6 +1,6 @@
 /*
 Inventory class used as a component of all Stuctures. Gives them the capacity to process and store resources
-Dev: Jack Smith (B000308927)
+Dev: Jack Smith (B00308927)
 */
 
 
@@ -90,7 +90,7 @@ bool Inventory::ContainsItem(Resources res)
 }
 void Inventory::ChangeResourceQuantity(int change)
 {
-	res->SetItemAmount(-change);
+	//res->SetItemAmount(-change);
 }
 /*
 Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.

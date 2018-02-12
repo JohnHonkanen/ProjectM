@@ -1,3 +1,9 @@
+/*
+Production Class - Used for maintaing any building type that produces resources.
+
+Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+*/
+
 #include "Production.h"
 
 using namespace std;
@@ -12,21 +18,20 @@ Production::~Production()
 {
 }
 
-Production::Production(string buildingName, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+Production::Production(string buildingName, int hp, int pow, int eff, int radOut, bool placed, bool active)
 {
 	name = buildingName;
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
 	radiationOutput = radOut;
-	pos = position;
 	isPlaced = placed;
 	isActive = active;
 }
 
-Production * Production::Create(string name, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
+Production * Production::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active)
 {
-	Production *p= new Production(name, hp, pow, eff, rad, position, placed, active);
+	Production *p= new Production(name, hp, pow, eff, rad, placed, active);
 	return p;
 }
 
@@ -39,7 +44,6 @@ void Production::Copy(GameObject * copyObject)
 	copy->powerUsage = Production::powerUsage;
 	copy->productionEfficiency = Production::productionEfficiency;
 	copy->radiationOutput = Production::radiationOutput;
-	copy->pos = Production::pos;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
 
@@ -81,12 +85,12 @@ void Production::factoryProduction(int eff, bool act)
 	//To be loaded in from xml
 }
 
-//void Production::update(int eff, bool act)
-//{
-//	if (act && storage.size() < 100) {
-//		setStorage(getStorage() + 1 * eff);
-//	}
-//}
+void Production::update(int eff, bool act)
+{
+	if (act && inv->InventorySize() < 100) {
+		setStorage(getStorage() + 1 * eff);
+	}
+}
 
 
 

@@ -1,6 +1,6 @@
 /*
-The Structure Manager class used to create and manage structures
-Dev: Jack Smith (B000308927)
+The Building Manager class used to create and manage structures
+Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 */
 #pragma once
 #include <map>
