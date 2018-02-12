@@ -109,6 +109,21 @@ void Resources::SetItemID(int itemID)
 void Resources::update()
 {
 	
+	switch (switch_on)
+	{
+		// if key I is pressed (Increase)
+		IncreaseItemPrice(2.5);
+		
+		break;
+
+		// if key O is pressed (Decrease)
+		DecreaseItemPrice(2.5);
+		break;
+
+	default:
+		break;
+	}
+
 }
 
 

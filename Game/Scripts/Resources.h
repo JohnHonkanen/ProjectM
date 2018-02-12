@@ -31,7 +31,7 @@ public:
 	void SetItemSKU(string itemSKU);
 	void SetItemID(int itemID);
 
-	void update(); // TO:DO : Increase/Decrease price if item purchase/sold is detected.
+	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
 private:
 	int itemID, itemValue, itemQuality, itemStock;
