@@ -23,7 +23,6 @@ public:
 	*/
 	void Start();
 
-
 	GameObject* CreateNewBuilding(Structure * object, string asset);
 	GameObject* GetBuilding(string name);
 

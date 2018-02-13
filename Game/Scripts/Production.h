@@ -5,7 +5,6 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 */
 
 #pragma once
-
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
 #include <cereal\cereal.hpp>
@@ -22,25 +21,26 @@ class Production : public Structure {
 private:
 	Inventory *inv;
 
+	int dt, storage;
 public:
 
-	Production::Production();
-	Production::~Production();
-	Production::Production(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
-	static Production * Production::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active);
+	Production();
+	~Production();
+	Production(string name, string type ,int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
+	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
 
 	void Copy(GameObject *copyObject);
 
 	void OnLoad();
 	void Update();
+	void Draw(GameObject *obj, string name);
 
 	void setProduction(string type, int eff, bool act);
-	void domeProduction(int eff, bool act);
-	void factoryProduction(int eff, bool act);
-	void update(int eff, bool act);
+	//void domeProduction(int eff, bool act);
+	//void factoryProduction(int eff, bool act);
 
-	int getStorage();
-	void setStorage(int change);
+	//int getStorage();
+	//void setStorage(int change); //Defunct method
 
 
 	// Serilazation method to store the required variables to an xml document.

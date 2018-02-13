@@ -8,7 +8,6 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 
 using namespace std;
 
-
 Structure::Structure() {
 
 }
@@ -17,19 +16,22 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string name)
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
 {
+	
+	name = building;
+	type = typ;
+	health = hp;
+	powerUsage = pow;
+	productionEfficiency = eff;
+	radiationOutput = radOut;
+	pos = position;
+	isPlaced = placed;
+	isActive = active;
 }
 
-Structure::Structure(string name, int hp, int pow, int eff, int radOut, bool placed, bool active)
+Structure::Structure(string building)
 {
-	this->name = name;
-	this->health = hp;
-	this->powerUsage = pow;
-	this->productionEfficiency = eff;
-	this->radiationOutput = radOut;
-	this->isPlaced = placed;
-	this->isActive = active;
 }
 
 void Structure::OnLoad()
