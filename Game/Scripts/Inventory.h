@@ -34,7 +34,7 @@ public:
 	string DisplayContents();
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
 	int GetItemsStored() { return itemsStored; }
-
+	std::vector<Resources> GetInventory() { return storage; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
 	bool ContainsItem(Resources res);
