@@ -8,8 +8,6 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 
 using namespace std;
 
-//serialization code please - X
-
 Production::Production() {
 
 }
@@ -18,15 +16,15 @@ Production::~Production()
 {
 }
 
-Production::Production(string buildingName, int hp, int pow, int eff, int radOut, bool placed, bool active)
+Production::Production(string name, int hp, int pow, int eff, int radOut, bool placed, bool active)
 {
-	name = buildingName;
-	health = hp;
-	powerUsage = pow;
-	productionEfficiency = eff;
-	radiationOutput = radOut;
-	isPlaced = placed;
-	isActive = active;
+	this->name = name;
+	this->health = hp;
+	this->powerUsage = pow;
+	this->productionEfficiency = eff;
+	this->radiationOutput = radOut;
+	this->isPlaced = placed;
+	this->isActive = active;
 }
 
 Production * Production::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active)

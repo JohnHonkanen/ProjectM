@@ -35,14 +35,11 @@ protected:
 public:
 	string name;
 
-
 	Structure();
 	~Structure();
-	Structure(string building, int hp, int pow, int eff, int rad, bool placed, bool active);
-	Structure(string building);
+	Structure(string name, int hp, int pow, int eff, int rad, bool placed, bool active);
+	Structure(string name);
 
-
-	virtual Structure* Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active) = 0;
 	virtual void Copy(GameObject *copyObject) = 0;
 
 	string GetName() { return name; }

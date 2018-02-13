@@ -24,12 +24,9 @@ private:
 public:
 	Warehouse::Warehouse(); 
 	Warehouse::~Warehouse();
-	Warehouse::Warehouse(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
-	static Warehouse * Warehouse::Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, bool placed, bool active);
-	
+	Warehouse::Warehouse(string name, int hp, int pow, int eff, int rad, bool placed, bool active);
+	static Warehouse * Warehouse::Create(GameObject * gameObject, string name, int hp, int pow, int eff, int rad, bool placed, bool active);
 	void Copy(GameObject *copyObject);
-
-	
 
 	void OnLoad();
 	void Update();

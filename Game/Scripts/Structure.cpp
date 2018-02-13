@@ -17,19 +17,19 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building)
+Structure::Structure(string name)
 {
 }
 
-Structure::Structure(string building, int hp, int pow, int eff, int radOut, bool placed, bool active)
+Structure::Structure(string name, int hp, int pow, int eff, int radOut, bool placed, bool active)
 {
-	name = building;
-	health = hp;
-	powerUsage = pow;
-	productionEfficiency = eff;
-	radiationOutput = radOut;
-	isPlaced = placed;
-	isActive = active;
+	this->name = name;
+	this->health = hp;
+	this->powerUsage = pow;
+	this->productionEfficiency = eff;
+	this->radiationOutput = radOut;
+	this->isPlaced = placed;
+	this->isActive = active;
 }
 
 void Structure::OnLoad()

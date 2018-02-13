@@ -15,15 +15,15 @@ Warehouse::~Warehouse()
 {
 }
 
-Warehouse::Warehouse(string buildingName, int hp, int pow, int eff, int radOut, bool placed, bool active)
+Warehouse::Warehouse(string name, int hp, int pow, int eff, int rad, bool placed, bool active)
 {
-	name = buildingName;
-	health = hp;
-	powerUsage = pow;
-	productionEfficiency = eff;
-	radiationOutput = radOut;
-	isPlaced = placed;
-	isActive = active;
+	this->name = name;
+	this->health = hp;
+	this->powerUsage = pow;
+	this->productionEfficiency = eff;
+	this->radiationOutput = rad;
+	this->isPlaced = placed;
+	this->isActive = active;
 }
 
 Warehouse * Warehouse::Create(GameObject * gameObject, string name, int hp, int pow, int eff, int rad, bool placed, bool active)
@@ -33,7 +33,7 @@ Warehouse * Warehouse::Create(GameObject * gameObject, string name, int hp, int 
 	return w;
 }
 
-void Warehouse::Copy(GameObject * copyObject)
+void Warehouse::Copy(GameObject *copyObject)
 {
 	Warehouse * copy = new Warehouse();
 	copy->name = Warehouse::name;

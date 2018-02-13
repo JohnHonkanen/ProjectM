@@ -26,7 +26,7 @@ public:
 
 	Production::Production();
 	Production::~Production();
-	Production::Production(string name, int hp, int pow, int eff, int radOut,bool placed, bool active);
+	Production::Production(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
 	static Production * Production::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active);
 
 	void Copy(GameObject *copyObject);
