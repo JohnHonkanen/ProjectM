@@ -26,7 +26,7 @@ string Inventory::DisplayContents()
 
 	for (int i = 0; i < storage.size(); i++)
 	{
-		contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + storage[i].GetItemAmount() + "\n";
+		contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
 	}
 
 	return contents;
@@ -42,9 +42,9 @@ string Inventory::DisplayContents()
 */
 void Inventory::PlaceItem(Resources res)
 {
-	for (int i = 0; i < storage.size; i++)
+	for (int i = 0; i < storage.size(); i++)
 	{
-		if (storage.size < (INITIAL_STORAGE * inventoryLevel))
+		if (storage.size() < (INITIAL_STORAGE * inventoryLevel))
 		{
 			if (storage[i].GetItemID() == res.GetItemID())
 			{
@@ -56,7 +56,7 @@ void Inventory::PlaceItem(Resources res)
 				}
 				else
 				{
-					storage[i].SetItemAmount(storage[i].GetItemAmoumt() + res.GetItemAmount());
+					storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
 				}
 			}
 			else
@@ -79,7 +79,7 @@ void Inventory::PlaceItem(Resources res)
 bool Inventory::ContainsItem(Resources res)
 {
 	bool result = false;
-	for (int i = 0; i < storage.size; i++)
+	for (int i = 0; i < storage.size(); i++)
 	{
 		if (storage[i].GetItemID() == res.GetItemID())
 		{

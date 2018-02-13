@@ -24,7 +24,7 @@ public:
 
 	Production();
 	~Production();
-	Production(string name, string type ,int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
+	Production(string name, string type ,int hp, int pow, int eff, int radOut, bool placed, bool active);
 	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active);
 
 	void Copy(GameObject *copyObject);

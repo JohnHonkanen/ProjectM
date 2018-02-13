@@ -18,7 +18,7 @@ Production::~Production()
 }
 
 Production::Production(string buildingName, string typ, int hp, int pow, int eff, 
-						int radOut, vec3 position, bool placed, bool active)
+						int radOut, bool placed, bool active)
 {
 	name = buildingName;
 	type = typ;
@@ -31,9 +31,9 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 }
 
 Production * Production::Create(string name, string typ, int hp, int pow, int eff, 
-								int rad, vec3 position, bool placed, bool active)
+								int rad, bool placed, bool active)
 {
-	Production *p = new Production(name, typ, hp, pow, eff, rad, position, placed, active);
+	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active);
 	return p;
 }
 
