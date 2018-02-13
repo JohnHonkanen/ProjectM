@@ -25,7 +25,6 @@ Structure::Structure(string building, string typ, int hp, int pow, int eff, int 
 	powerUsage = pow;
 	productionEfficiency = eff;
 	radiationOutput = radOut;
-	pos = position;
 	isPlaced = placed;
 	isActive = active;
 }
@@ -101,79 +100,3 @@ void Structure::SetActive(bool change)
 {
 	isActive = change;
 }
-
-//string Structure::DisplayContents()
-//{
-//	string contents;
-//
-//	for (int i = 0; i < storage.size; i++)
-//	{
-//		contents += storage[i];
-//	}
-//
-//	return contents;
-//}
-
-string Structure::DisplayContents()
-{
-	string contents;
-
-	for (auto it = storage.begin(); it != storage.end(); ++it)
-	{
-		contents += *it;
-	}
-
-	return contents;
-}
-
-/*
-Sends resource to another building
-*/
-void Structure::SendItem()
-{
-}
-/*
-Receives resource from another building and stores it in the warehouse storage
-*/
-void Structure::ReceiveItem()
-{
-}
-
-/*
-Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.
-
-@param - itemType - The type of resource to be sent to the Warehouse
-
-@returns true if the itemType is acceptable to the Warehouse, false if not.
-*/
-bool Structure::CheckItem(string itemType)
-{
-	/*
-	Checks the item type against a list of acceptable item types.
-	*/
-}
-
-/*
-If checkitem succeeds, the item is placed at a new slot in the vector.
-*/
-string Structure::PlaceItem(string resource)
-{
-	string report;
-
-	if (storage.size() < 9 * levelModifier)
-	{
-		storage.push_back(resource);
-
-		report = "Item placed in " + storage.size();
-	}
-
-	else
-	{
-		report = "Storage full";
-	}
-	
-	return report;
-}
-
-
-

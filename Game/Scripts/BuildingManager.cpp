@@ -25,13 +25,13 @@ void BuildingManager::Start()
 
 	//Basic Factory
 	CreateNewBuilding(
-		Production::Create("Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Factory 1","Basic Factory", 10, 1, 1, 1, false, false),
 		"AssetPath"
 	);
 
 	//Radiation Factory
 	CreateNewBuilding(
-		Production::Create("Radiation Factory", 10, 1, 1, 1000, false, false),
+		Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false),
 		"AssetPath"
 	);
 

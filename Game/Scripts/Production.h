@@ -19,15 +19,13 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	Inventory *inv;
-
 	int dt, storage;
 public:
 
 	Production();
 	~Production();
 	Production(string name, string type ,int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
-	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active);
 
 	void Copy(GameObject *copyObject);
 

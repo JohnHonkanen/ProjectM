@@ -22,8 +22,8 @@ public:
 	
 	Warehouse(); 
 	~Warehouse();
-	Warehouse(string name, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
-	static Warehouse * Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active);
+	Warehouse(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
+	static Warehouse * Create(GameObject * gameObject, string name,  int hp, int pow, int eff, int rad, bool placed, bool active);
 	
 	void Copy(GameObject *copyObject);
 

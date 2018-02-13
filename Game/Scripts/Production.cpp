@@ -26,7 +26,6 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 	powerUsage = pow;
 	productionEfficiency = eff;
 	radiationOutput = radOut;
-	pos = position;
 	isPlaced = placed;
 	isActive = active;
 }
@@ -64,8 +63,8 @@ void Production::Update()
 
 	if ((dt - (int)currentTime) >= 300) {
 		dt = (int)currentTime;
-		if (GetActive() == true && storage < 100) {
-			storage += (1 * productionEfficiency); 
+		if (GetActive() == true && inv->InventorySize() < 100) {
+//			setStorage(getStorage() + 1 * eff); 
 			//storage being used as a generalised term until proper building storage can be called
 			cout << storage; // testing
 		}
@@ -82,9 +81,7 @@ void Production::setProduction(string type, int eff, bool act)
 {
 	/*if (type == "dome") {
 		domeProduction(eff, act);
-	if (act && inv->InventorySize() < 100) {
-		setStorage(getStorage() + 1 * eff);
-	}
+	
 	else if (type == "factory") {
 		factoryProduction(eff, act);
 	}*/
