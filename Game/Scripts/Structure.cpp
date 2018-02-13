@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 Structure::Structure() {
 
 }
@@ -27,12 +26,6 @@ Structure::Structure(string building, string typ, int hp, int pow, int eff, int 
 
 Structure::Structure(string building)
 {
-}
-
-Structure * Structure::Create(string building, string typ, int hp, int pow, int eff, int rad, vec3 position, bool placed, bool active)
-{
-	Structure *s = new Structure(building, typ, hp, pow, eff, rad, position, placed, active);
-	return s;
 }
 
 void Structure::OnLoad()
