@@ -16,7 +16,7 @@ using namespace glm;
 
 class Warehouse : public Structure {
 private:
-
+	Inventory *inv;
 
 public:
 	
@@ -38,7 +38,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(pos), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive), CEREAL_NVP(inv);
 	}
 };
 

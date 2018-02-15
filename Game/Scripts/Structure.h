@@ -53,7 +53,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(inv);
+		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(inv);
 	}
 };
 
