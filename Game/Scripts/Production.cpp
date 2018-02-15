@@ -5,7 +5,7 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 */
 
 #include "Production.h"
-#include <ctime>
+#include "utility\Clock.h"`
 
 using namespace std;
 
@@ -56,13 +56,13 @@ void Production::OnLoad()
 {
 }
 
-void Production::Update()
+void Production::Update(double currentTime)
 {
-	time_t t = time(0);   // get time now
-	struct tm * currentTime = localtime(&t);
+	//time_t t = time(0);   // get time now
+	//struct tm * currentTime = localtime(&t);
 
-	if ((dt - (int)currentTime) >= 300) {
-		dt = (int)currentTime;
+	if ((dt - currentTime) >= 300) {
+		dt = currentTime;
 		if (GetActive() == true && inv->InventorySize() < 100) {
 //			setStorage(getStorage() + 1 * eff); 
 			//storage being used as a generalised term until proper building storage can be called

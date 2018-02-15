@@ -30,7 +30,7 @@ public:
 	void Copy(GameObject *copyObject);
 
 	void OnLoad();
-	void Update();
+	void Update(double currentTime);
 	void Draw(GameObject *obj, string name);
 
 	void setProduction(string type, int eff, bool act);
