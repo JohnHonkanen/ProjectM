@@ -39,5 +39,5 @@ private:
 	bool active = false;
 	bool complete = false;
 
-	int ContractList[64];
+	int ContractList[64]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
 };
