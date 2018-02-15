@@ -27,7 +27,7 @@
     <ClCompile Include="Game\Scripts\PlayerEconomy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\contract.cpp">
+    <ClCompile Include="Game\Scripts\Contract.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="Game\Scripts\PlayerEconomy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scripts\contract.h">
+    <ClInclude Include="Game\Scripts\Contract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

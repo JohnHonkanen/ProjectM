@@ -4,6 +4,15 @@ Contract::Contract()
 {
 }
 
+Contract::Contract(Resources resource, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFullFilled)
+{
+	this->Resource = resource;
+	this->payment = paymentToRecieve;
+	this->amount = amountToFulfill;
+	this->time = contractTime;
+	this->current = currentFullFilled;
+}
+
 Contract::~Contract()
 {
 }
