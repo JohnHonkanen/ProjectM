@@ -16,7 +16,7 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building, string typ, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active)
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active)
 {
 	
 	name = building;

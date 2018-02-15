@@ -42,3 +42,9 @@ public:
 	}
 };
 
+#include <cereal/archives/xml.hpp>
+//Register Production as a derived class
+CEREAL_REGISTER_TYPE(Warehouse);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Warehouse, Structure);

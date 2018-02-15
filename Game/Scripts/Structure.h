@@ -28,7 +28,7 @@ public:
 
 	Structure();
 	~Structure();
-	Structure(string building, string typ, int hp, int pow, int eff, int radOut, vec3 position, bool placed, bool active);
+	Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active);
 	Structure(string building);
 
 	void Copy(GameObject *copyObject) {};
@@ -56,6 +56,13 @@ public:
 		CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(inv);
 	}
 };
+
+#include <cereal/archives/xml.hpp>
+//Register Production as a derived class
+CEREAL_REGISTER_TYPE(Structure);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Structure, Behaviour);
 
 //In the event that the copy method is copying a reference/pointer type (or any other method that is doing something similar) remember the referenece cannot be copied
 //so a new reference to the same location must be created
