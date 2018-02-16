@@ -6,7 +6,7 @@ Contract::Contract()
 
 Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
 {
-	this->Resource = resource;
+	this->resource = resource;
 	this->payment = paymentToRecieve;
 	this->amount = amountToFulfill;
 	this->time = contractTime;
@@ -36,7 +36,7 @@ int Contract::GetPayment()
 
 Resources Contract::GetResource()
 {
-	return this->Resource;
+	return this->resource;
 }
 
 int Contract::GetAmount()
@@ -61,18 +61,27 @@ int Contract::GetCurrent()
 	return this->current;
 }
 
-void Contract::SetContractID()
+void Contract::SetContractID(int contractID)
 {
-	contractID = rand() % 5 + 1;
 	this->contractID = contractID;
 
 }
 
 void Contract::GenerateContract()
 {
-	int itemID = Resource.GetItemID();
-	this->Resource = itemID;
+	int temp = rand() % 64;
+
+	int itemID = 1;//rand() % 64 + 1; // Skip 0, 0 is gold.
+	this->resource = resourceManager.FindResource(itemID);
+
+	contractID = rand() % 640000 / 3 + 1;
+
+	cout << contractID << endl;
+
+	cout << resource.GetName();
+
 	//Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
+
 }
 
 void Contract::AddContract(int contractID)
@@ -113,7 +122,7 @@ void Contract::Start()
 {
 }
 
-void Contract::DebugContract()
+void Contract::DebugContractOnce()
 {
 	// print result of contracts
 

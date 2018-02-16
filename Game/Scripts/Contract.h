@@ -18,7 +18,7 @@ public:
 	void SetTime(); // Set time left on contract
 	int GetTime(); // Get time left on contract
 	int GetCurrent(); // Get current amount fulfilled of contract
-	void SetContractID();
+	void SetContractID(int contractID); // Set contract ID
 
 	void GenerateContract(); // generate contract
 	void AddContract(int contractID); // Add contract to contract list
@@ -32,14 +32,15 @@ public:
 	void Update();
 	void Start();
 
-	void DebugContract(); // Use to debug contract
+	void DebugContractOnce(); // Use to debug contract
 
 private:
 	int payment, amount, time;
 	int current = 0;
 	int difficulty = 1;
 	int contractID;
-	Resources Resource;
+	Resources resource;
+	ResourceManager resourceManager;
 
 	bool active = false;
 	bool complete = false;
