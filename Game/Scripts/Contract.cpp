@@ -76,7 +76,7 @@ void Contract::GenerateContract()
 
 	contractID = rand() % 640000 / 3 + 1;
 
-	cout << contractID << endl;
+	cout << "contractID: " << contractID << endl;
 
 	cout << resource.GetName();
 
