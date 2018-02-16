@@ -18,12 +18,9 @@ class Inventory : public Behaviour
 {
 
 private:
-
-	std::vector<Resources> storage;
-	Resources *res;
 	const int INITIAL_STORAGE = 9;
+	std::vector<Resources> storage/* = std::vector<Resources>()*/;
 	bool storageFull = false;
-	int itemsStored = 0;
 	int inventoryLevel = 1;
 
 public:
@@ -33,13 +30,16 @@ public:
 
 	string DisplayContents();
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
-	int GetItemsStored() { return itemsStored; }
 	std::vector<Resources> GetInventory() { return storage; }
+	bool GetStorageFull() { return storageFull; }
+	int GetInventoryLevel() { return inventoryLevel; }
+	int SetInventoryLevel(int newLevel) { inventoryLevel = newLevel; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
 	bool ContainsItem(Resources res);
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }
+	bool InventoryEmpty() { return storage.empty(); }
 
 	void Start();
 	void Update();
@@ -50,8 +50,6 @@ public:
 		CEREAL_NVP(storage), CEREAL_NVP(storageFull), CEREAL_NVP(itemsStored), CEREAL_NVP(inventoryLevel);
 	}
 };
-
-using namespace Engine;
 
 #include <cereal/archives/xml.hpp>
 //Register Inventory as a derived class

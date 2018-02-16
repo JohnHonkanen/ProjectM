@@ -32,7 +32,9 @@ public:
 
 	void Update(int change);
 
-	
+	void InsertItem(Resources res);
+	std::vector<Resources> GetInventory() { return inv->GetInventory(); }
+	string ViewInventory() { return inv->DisplayContents(); }
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>

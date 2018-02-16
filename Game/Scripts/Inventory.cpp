@@ -12,7 +12,6 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
-	delete[] res;
 }
 
 /*
@@ -24,10 +23,23 @@ string Inventory::DisplayContents()
 {
 	string contents;
 
-	for (int i = 0; i < storage.size(); i++)
+	/*if (Inventory::InventoryEmpty())
 	{
-		contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+		contents = "Inventory is empty.";
+	}*/
+	if (storage.empty())
+	{
+		contents = "Inventory is empty.";
 	}
+	else
+	{
+		for (int i = 0; i < Inventory::InventorySize(); i++)
+		{
+			contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+		}
+	}
+
+	
 
 	return contents;
 }
@@ -46,6 +58,7 @@ void Inventory::PlaceItem(Resources res)
 	{
 		if (storage.size() < (INITIAL_STORAGE * inventoryLevel))
 		{
+			storageFull = false;
 			if (storage[i].GetItemID() == res.GetItemID())
 			{
 				if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))
@@ -63,6 +76,11 @@ void Inventory::PlaceItem(Resources res)
 			{
 				storage.push_back(res);
 			}	
+		}
+		else
+		{
+			storageFull = true;
+			cout << "Storage is full" << endl;
 		}
 	}
 }

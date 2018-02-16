@@ -62,3 +62,13 @@ void Warehouse::Update(int change)
 {
 	inv->SetInventorySize(change);
 }
+
+/*
+	Wrapper method that Inserts an item into the inventory of the Warehouse. 
+
+	@param - The resource to be inserted.
+*/
+void Warehouse::InsertItem(Resources res)
+{
+	inv->PlaceItem(res);
+}

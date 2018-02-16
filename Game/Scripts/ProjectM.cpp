@@ -5,6 +5,10 @@
 #include "hud\HUDCanvas.h"
 #include "hud\widgets\HUDContainer.h"
 #include "hud\widgets\TextWidget.h"
+#include "Structure.h"
+#include "Production.h"
+#include "Warehouse.h"
+#include "Inventory.h"
 
 int main(int argc, char *argv[])
 {
@@ -60,6 +64,11 @@ int main(int argc, char *argv[])
 		}
 
 	}
+	Resources res = Resources(1, "box", "BigBox", 5, 1);
+	GameObject *warehouse = manager->CreateGameObject("Warehouse");
+	Warehouse *w = Warehouse::Create(warehouse, "Warehouse", 10, 1, 1, 1, true, true);
+//	w->InsertItem(res);
+	w->ViewInventory();
 
 	engine.Run();
 	return 0;
