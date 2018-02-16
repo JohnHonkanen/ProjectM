@@ -8,13 +8,14 @@ ContractManager::~ContractManager()
 {
 }
 
-Contract ContractManager::AddContract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
+Contract ContractManager::AddContract(int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
 {
 	int generatedResID = 1; //rand() % 64;
+	this->resource = resourceManager.FindResource(generatedResID);
+	this->contractID = rand() % 640000;
 
-	resourceID = resourceManager.FindResource(generatedResID);
-	contractID = rand() % 640000 + resourceID.GetItemID;
-	paymentToRecieve = 100;
+	contract.SetPayment(100);
+	this->paymentAmount = contract.GetPayment();
 	amountToFulfill = 100;
 	currentFulFilled = 0;
 	difficultyLevel = contract.GetDifficulty();
@@ -28,7 +29,7 @@ Contract ContractManager::AddContract(Resources resourceID, int contractID, int 
 
 	this->contractIndex = contractID;
 	
-	this->contract = Contract(resourceID, contractID, paymentToRecieve, amountToFulfill, contractTime, currentFulFilled, difficultyLevel);
+	this->contract = Contract(this->resource, this->contractID, this->paymentAmount, amountToFulfill, contractTime, currentFulFilled, difficultyLevel);
 	this->contractList[contractIndex] = contract;
 
 	cout << "contractID: " << contractID << endl;

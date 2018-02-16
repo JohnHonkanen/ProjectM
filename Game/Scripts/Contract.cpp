@@ -34,6 +34,11 @@ int Contract::GetPayment()
 	return this->payment;
 }
 
+void Contract::SetPayment(int paymentAmount)
+{
+	this->payment = paymentAmount;
+}
+
 Resources Contract::GetResource()
 {
 	return this->resource;

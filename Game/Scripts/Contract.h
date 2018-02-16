@@ -11,6 +11,7 @@ public:
 	int GetDifficulty(); // Gets contract difficulty
 	void SetDifficulty(); // Sets contract difficulty, default is 1.
 	int GetPayment(); // Get payment amount player is to receive if contract is fulfilled.
+	void SetPayment(int paymentAmount); // Set contract payment
 	Resources GetResource(); 
 	int GetAmount(); // Get amount to fulfill on contract
 	void SetTime(); // Set time left on contract
