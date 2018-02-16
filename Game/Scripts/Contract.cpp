@@ -4,7 +4,7 @@ Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
+Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
 {
 	this->Resource = resource;
 	this->payment = paymentToRecieve;
@@ -12,6 +12,7 @@ Contract::Contract(Resources resource, int paymentToRecieve, int amountToFulfill
 	this->time = contractTime;
 	this->current = currentFulFilled;
 	this->difficulty = difficultyLevel;
+	this->contractID = contractID;
 }
 
 Contract::~Contract()
@@ -60,6 +61,24 @@ int Contract::GetCurrent()
 	return this->current;
 }
 
+void Contract::SetContractID()
+{
+	contractID = rand() % 5 + 1;
+	this->contractID = contractID;
+
+}
+
+void Contract::GenerateContract()
+{
+	int itemID = Resource.GetItemID();
+	this->Resource = itemID;
+	//Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
+}
+
+void Contract::AddContract(int contractID)
+{
+}
+
 bool Contract::GetStatus()
 {
 	return this->active;
@@ -92,4 +111,11 @@ void Contract::Update()
 
 void Contract::Start()
 {
+}
+
+void Contract::DebugContract()
+{
+	// print result of contracts
+
+	printf("Contract ID: %i\n", contractID);
 }
