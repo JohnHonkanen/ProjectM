@@ -18,6 +18,6 @@ public:
 	void Init();
 private:
 	int goldBars;
+
 	Resources resource;
-	Contract contract;
 };

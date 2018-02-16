@@ -13,9 +13,9 @@ ContractManager::~ContractManager()
 Contract ContractManager::AddContract(int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
 {
 	int generatedResID = 1; //rand() % 64;
-	this->resource = resourceManager.FindResource(generatedResID);
+	this->resource = resourceManager->FindResource(generatedResID);
 	resource = this->resource;
-	this->contractID = rand() % 640000;
+	this->contractID = (rand() % 640000) + 1;
 
 	contract.SetPayment(100);
 	this->paymentAmount = contract.GetPayment();
@@ -45,9 +45,10 @@ Contract ContractManager::FindContract(int contractID)
 	return this->contractList[contractID];
 }
 
-ContractManager * ContractManager::Create(GameObject * gameObject)
+ContractManager * ContractManager::Create(GameObject * gameObject, ResourceManager* resourceManager)
 {
 	ContractManager * c = new ContractManager();
+	c->resourceManager = resourceManager;
 	gameObject->AddComponent(c);
 	return c;
 }
@@ -58,12 +59,29 @@ void ContractManager::Copy(GameObject * copyObject)
 
 void ContractManager::Update()
 {
-	
+	clock.UpdateClock();
+	if (clock.Alarm()) {
+		AddContract(0, 0, 0, 0);
+		cout << "Contract ID: " << contract.GetContractID() << " added!" << endl;
+		clock.ResetClock();
+	}
+
+	int keyPressed = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
+
+	if (keyPressed == 1) {
+		AddContract(0, 0, 0, 0);
+		cout << "Contract ID: "  << contract.GetContractID() << " added!" << endl;
+	}
+	else {
+		if (keyPressed == -1 || keyPressed == 0) {
+			// make sure key only pressed once
+		}
+	}
 }
 
 void ContractManager::Start()
 {
 	Engine::GameEngine::manager.inputManager.AddKey("AddContract", "p");
-	Contract contract = AddContract(0, 0, 0, 0);
-
+	clock.SetDelay(1000);
+	clock.StartClock();
 }

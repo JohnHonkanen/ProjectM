@@ -48,7 +48,7 @@ void ResourceManager::Update()
 
 }
 
-void ResourceManager::Start()
+void ResourceManager::OnLoad()
 {
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
@@ -58,4 +58,6 @@ void ResourceManager::Start()
 	cout << "Slug: " << resource.GetSKU() << endl;
 	cout << "Cost: " << resource.GetBasePrice() << endl;
 	cout << "Stock: " << resource.GetItemAmount() << endl << endl;
+
+	FindResource(1);
 }

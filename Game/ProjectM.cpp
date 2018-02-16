@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
 	playerEconomy.Init();
 
 	GameObject* resourceManager = gameObjectManager->CreateGameObject("resourceManager");
-	ResourceManager::Create(resourceManager);
+	ResourceManager* rm = ResourceManager::Create(resourceManager);
 
 	GameObject* contractManager = gameObjectManager->CreateGameObject("contractManager");
-	ContractManager::Create(contractManager);
+	ContractManager::Create(contractManager, rm);
 
 	engine.Run();
 

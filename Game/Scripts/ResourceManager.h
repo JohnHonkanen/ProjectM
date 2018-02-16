@@ -18,7 +18,7 @@ public:
 	void Copy(GameObject *copyObject);
 	void Update();
 
-	void Start();
+	void OnLoad();
 
 	static const int sizeOfList = 64;
 private:

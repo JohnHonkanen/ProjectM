@@ -1,8 +1,10 @@
 #pragma once
 #include "Contract.h"
 #include "ResourceManager.h"
+#include "PlayerEconomy.h"
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
+#include "utility\Clock.h"
 
 class ContractManager : public Behaviour {
 public:
@@ -13,7 +15,7 @@ public:
 	Contract AddContract(int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
 	Contract FindContract(int contractID);
 
-	static ContractManager* Create(GameObject *gameObject);
+	static ContractManager* Create(GameObject *gameObject, ResourceManager* resourceManager);
 	void Copy(GameObject *copyObject);
 	void Update();
 	void Start();
@@ -24,5 +26,6 @@ private:
 	Resources resource;
 	Contract contract;
 	Contract contractList[ResourceManager::sizeOfList]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
-	ResourceManager resourceManager;
+	ResourceManager* resourceManager;
+	Engine::Utility::Clock clock;
 };
