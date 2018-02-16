@@ -1,47 +1,66 @@
-#include "core\GameEngine.h"
+
 #include "MobaJuiceCore.h"
-#include "ObjectPlacer.h"
-#include "BuildingManager.h"
-#include "Structure.h"
-#include "Production.h"
-#include "Warehouse.h"
+#include "core\GameEngine.h"
+#include "hud\HUD.h"
+#include "hud\HUDCanvas.h"
+#include "hud\widgets\HUDContainer.h"
+#include "hud\widgets\TextWidget.h"
 
 int main(int argc, char *argv[])
 {
 	GameEngine engine = GameEngine();
-	engine.SetDefaultPath(GameEngine::Paths::SETTINGS, "../GameEngine/MobaJuiceEngine/Engine/settings/");
 	engine.LoadSettings(string(engine.GetPath(GameEngine::Paths::SETTINGS) + "default-settings.xml").c_str());
-	Scene *scene = engine.CreateScene("BlankScene"); // Declares a game scene
-													 //engine.Load("TerrainScene.xml");
-													 //Scene *scene = engine.GetActiveScene();
-	scene->AddSkyBox("Assets/Skybox/Nebula/Nebula.tga");
-	GameObjectManager *manager = scene->GetGameObjectManager(); // Grabs the game object manager from the engine
-	GameObject * camera = manager->Find("camera");
-	Terrain::TerrainSnapper * tSnapper = camera->GetComponent<TerrainSnapper>();
 
-	GameObject *structure = manager->CreateGameObject("Cube_1500");
-	// Sets up a game object called structure. The CreateGameObject method registers the object.
-	//Structure::Create("hub", 10, 5, 3, 1, vec3(1.0f), true, false);
-	// Adds a structure component to the structure game object.
-	// Takes the game object, the structure type, the structure's health points, it's power usage, 
-	// it's production efficiency, it's radiation output, it's position, whether or not it is placed 
-	// and whether or not it is active as parameters.
+	engine.manager.inputManager.AddKey("build", "b");
 
-	MeshRenderer::Create(structure, "Assets/Models/cube/cube.obj");
-	// Creates a mesh for the structure with ther specified asset file.
-	TextureSetter::Create(structure, "Assets/Textures/sand.png");
-	// Sets a texture for the structure with the specified texture.
+	Scene *scene = engine.CreateScene("TerrainScene");
+	scene->AddSkyBox("Game/Assets/Skybox/Nebula/Nebula.tga");
 
-	structure->transform->SetScale(vec3(5.0f));
+	GameObjectManager *manager = scene->GetGameObjectManager();
 
-	tSnapper->SetHeldObject(structure);
+	GameObject * camera = manager->CreateGameObject("camera");
+	Camera * c = Camera::Create(camera);
+	c->SetFarClippingPlane(1000.0f);
+	FreeCameraControl::Create(camera);
 
-	ObjectPlacer::Create(camera, structure, tSnapper);
+	/*GameObject * text = manager->CreateGameObject("text");
+	Text2D::Create(text, "text2D", "Pre-alpha build 0.2.1.3", {255, 255, 255}, "Assets/Fonts/MavenPro-Regular.ttf");
+	text->transform->Scale(vec3(200, 20, 0));
+	text->transform->Translate(vec3(220, 700, 0));*/
 
-	GameObject * terrain = manager->Find("Terrain");
-	Terrain::TerrainGrid *grid = terrain->GetComponent<Terrain::TerrainGrid>();
+	//Add HUD
+	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
+	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 300, 10, 640 , 360 }, "");
+	HUD::WHUDContainer * container = HUD::WHUDContainer::Create(canvas, { 100 , 100, 100, 100 }, "Game/Assets/Textures/ground.jpg", true);
+	HUD::TextWidget *text = HUD::TextWidget::Create(canvas, { 0, 50, 100, 100 }, "Cow and Chicken", "Game/Assets/Fonts/MavenPro-Regular.ttf", 48, 1, vec3(1, 0, 1));
 
-	tSnapper->grid = grid;
+
+	GameObject * terrain = manager->CreateGameObject("Terrain");
+	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 10, "terrainGridShader", true, vec3(0, 1, 0));
+	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
+	Terrain::TerrainSnapper * tSnapper = Terrain::TerrainSnapper::Create(camera, grid);
+
+	{
+		GameObject *rock = manager->CreateGameObject("Cube");
+		MeshRenderer::Create(rock, "Game/Assets/Models/cube/cube.obj");
+		TextureSetter::Create(rock, "Game/Assets/Textures/sand.png");
+		rock->transform->SetScale(vec3(5.0f));
+	}
+
+	{
+		for (int i = 0; i < 100; i++) {
+			GameObject *rock = manager->CreateGameObject("rock" + to_string(i));
+			MeshRenderer::Create(rock, "Game/Assets/Models/rock/Rock.obj");
+			TextureSetter::Create(rock, "Game/Assets/Textures/Rock/Rock_d.jpg");
+			rock->transform->SetScale(vec3(0.3f));
+			rock->transform->Rotate(vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50));
+			int x = rand() % 150 - 75;
+			int z = rand() % 150 - 75;
+			rock->transform->SetPosition(x * 10, grid->GetHeight(x, z) - rand() % 10, z * 10);
+		}
+
+	}
+
 
 	engine.Run();
 	return 0;
