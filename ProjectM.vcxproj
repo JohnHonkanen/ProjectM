@@ -144,7 +144,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\GameEngine\libs\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\boost-1.65.1\libs;..\GameEngine\MobaJuiceEngine\Engine\dependencies\assimp-3.3.1\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\DevIL-1.8.0\lib\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\irrKlang-1.5.0\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2-2.0.6\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glew-2.1.0\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\freetype2\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>MobaJuiceEngine.lib;assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32.lib;irrKlang.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;freetype271.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
