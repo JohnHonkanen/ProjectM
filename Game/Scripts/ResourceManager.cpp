@@ -25,7 +25,9 @@ Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, 
 /*Use to find resources*/
 Resources ResourceManager::FindResource(int itemID)
 {
-	return this->resourceList[itemID];
+	this->resourceList[itemID] = resources;
+	cout << "Item Name: " << resources.GetName() << " found!" << endl << endl;
+	return resources;
 }
 
 ResourceManager * ResourceManager::Create(GameObject * gameObject)

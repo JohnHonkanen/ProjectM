@@ -1,4 +1,6 @@
 #include "ContractManager.h"
+#include "core\GameEngine.h"
+#include "core\InputManager.h"
 
 ContractManager::ContractManager()
 {
@@ -12,6 +14,7 @@ Contract ContractManager::AddContract(int amountToFulfill, int contractTime, int
 {
 	int generatedResID = 1; //rand() % 64;
 	this->resource = resourceManager.FindResource(generatedResID);
+	resource = this->resource;
 	this->contractID = rand() % 640000;
 
 	contract.SetPayment(100);
@@ -26,15 +29,13 @@ Contract ContractManager::AddContract(int amountToFulfill, int contractTime, int
 	else {
 		contractIndex++;
 	}
-
-	this->contractIndex = contractID;
 	
-	this->contract = Contract(this->resource, this->contractID, this->paymentAmount, amountToFulfill, contractTime, currentFulFilled, difficultyLevel);
+	this->contract = Contract(resource, this->contractID, this->paymentAmount, amountToFulfill, contractTime, currentFulFilled, difficultyLevel);
 	this->contractList[contractIndex] = contract;
 
+	cout << "contractIndex: " << contractIndex << endl;
 	cout << "contractID: " << contractID << endl;
-
-	cout << resource.GetName();
+	cout << "resource Name: " << resource.GetName() << endl << endl;
 
 	return this->contractList[contractIndex];
 }
@@ -57,8 +58,12 @@ void ContractManager::Copy(GameObject * copyObject)
 
 void ContractManager::Update()
 {
+	
 }
 
 void ContractManager::Start()
 {
+	Engine::GameEngine::manager.inputManager.AddKey("AddContract", "p");
+	Contract contract = AddContract(0, 0, 0, 0);
+
 }
