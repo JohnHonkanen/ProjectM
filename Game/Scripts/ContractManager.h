@@ -10,7 +10,7 @@ public:
 	~ContractManager();
 
 	Contract AddContract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
-	Contract FindContract();
+	Contract FindContract(int contractID);
 
 	static ContractManager* Create(GameObject *gameObject);
 	void Copy(GameObject *copyObject);

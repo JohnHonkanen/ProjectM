@@ -22,6 +22,7 @@ Contract ContractManager::AddContract(Resources resourceID, int contractID, int 
 	}
 
 	this->contractIndex = contractID;
+	
 
 	this->contract = Contract(resourceID, contractID, paymentToRecieve, amountToFulfill, contractTime, currentFulFilled, difficultyLevel);
 	this->contractList[contractIndex] = contract;
@@ -30,9 +31,9 @@ Contract ContractManager::AddContract(Resources resourceID, int contractID, int 
 	return this->contractList[contractIndex];
 }
 
-Contract ContractManager::FindContract()
+Contract ContractManager::FindContract(int contractID)
 {
-	return Contract();
+	return this->contractList[contractID];
 }
 
 ContractManager * ContractManager::Create(GameObject * gameObject)
