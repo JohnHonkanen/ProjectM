@@ -72,27 +72,6 @@ void Contract::SetContractID(int contractID)
 
 }
 
-void Contract::GenerateContract()
-{
-	int temp = rand() % 64;
-
-	int itemID = 1;//rand() % 64 + 1; // Skip 0, 0 is gold.
-	this->resource = resourceManager.FindResource(itemID);
-
-	contractID = rand() % 640000 / 3 + 1;
-
-	cout << "contractID: " << contractID << endl;
-
-	cout << resource.GetName();
-
-	//Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
-
-}
-
-void Contract::AddContract(int contractID)
-{
-}
-
 bool Contract::GetStatus()
 {
 	return this->active;

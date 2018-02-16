@@ -19,8 +19,6 @@ public:
 	int GetContractID(); // Get Contract ID
 	void SetContractID(int contractID); // Set contract ID
 
-	void GenerateContract(); // generate contract
-	void AddContract(int contractID); // Add contract to contract list
 	bool GetStatus(); // Get the status of contract (true/false)
 	void SetStatus(bool active); // Return true
 	
@@ -39,6 +37,4 @@ private:
 
 	bool active = false;
 	bool complete = false;
-
-	int ContractList[64]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
 };

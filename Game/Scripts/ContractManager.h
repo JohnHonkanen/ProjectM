@@ -9,6 +9,7 @@ public:
 	ContractManager();
 	~ContractManager();
 
+
 	Contract AddContract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
 	Contract FindContract(int contractID);
 
@@ -21,6 +22,6 @@ private:
 	int contractIndex = 0;
 	Resources resource;
 	Contract contract;
-	Contract contractList[ResourceManager::sizeOfList];
+	Contract contractList[ResourceManager::sizeOfList]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
 	ResourceManager resourceManager;
 };
