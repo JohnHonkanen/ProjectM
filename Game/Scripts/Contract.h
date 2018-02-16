@@ -1,13 +1,11 @@
 #pragma once
 
-#include "components\Behaviour.h"
-#include "core\GameObject.h"
 #include "ResourceManager.h"
 
-class Contract : public Behaviour{
+class Contract{
 public:
 	Contract();
-	Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
+	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -18,6 +16,7 @@ public:
 	void SetTime(); // Set time left on contract
 	int GetTime(); // Get time left on contract
 	int GetCurrent(); // Get current amount fulfilled of contract
+	int GetContractID(); // Get Contract ID
 	void SetContractID(int contractID); // Set contract ID
 
 	void GenerateContract(); // generate contract
@@ -27,15 +26,11 @@ public:
 	
 	bool IsComplete(); // Return true
 
-	static Contract* Create(GameObject *gameObject);
-	void Copy(GameObject *copyObject);
-	void Update();
-	void Start();
-
 	void DebugContractOnce(); // Use to debug contract
 
 private:
-	int payment, amount, time;
+	int payment, amount;
+	int time = 120; 
 	int current = 0;
 	int difficulty = 1;
 	int contractID;

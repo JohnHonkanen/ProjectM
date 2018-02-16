@@ -6,6 +6,7 @@
 #include "Scripts\PlayerEconomy.h"
 #include "Scripts\Contract.h"
 #include "core\GameEngine.h"
+#include "Scripts\ContractManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,10 +23,8 @@ int main(int argc, char *argv[])
 	GameObject* resourceManager = gameObjectManager->CreateGameObject("resourceManager");
 	ResourceManager::Create(resourceManager);
 
-
-	GameObject* contract = gameObjectManager->CreateGameObject("contract");
-	Contract* c = Contract::Create(contract);
-	c->GenerateContract();
+	GameObject* contractManager = gameObjectManager->CreateGameObject("contractManager");
+	ContractManager::Create(contractManager);
 
 	engine.Run();
 

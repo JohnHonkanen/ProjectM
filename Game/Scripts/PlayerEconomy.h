@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ResourceManager.h"
-
+#include "ContractManager.h"
 
 using namespace std;
 
@@ -19,4 +19,5 @@ public:
 private:
 	int goldBars;
 	Resources resource;
+	Contract contract;
 };

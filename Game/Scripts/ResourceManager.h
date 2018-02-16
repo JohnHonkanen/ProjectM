@@ -20,9 +20,10 @@ public:
 
 	void Start();
 
-
+	static const int sizeOfList = 64;
 private:
 	int itemIndex = 0;
-	Resources resourceList[64];
+	
+	Resources resourceList[sizeOfList];
 	Resources resources;
 };

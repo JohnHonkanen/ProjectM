@@ -61,6 +61,11 @@ int Contract::GetCurrent()
 	return this->current;
 }
 
+int Contract::GetContractID()
+{
+	return this->contractID;
+}
+
 void Contract::SetContractID(int contractID)
 {
 	this->contractID = contractID;
@@ -101,25 +106,6 @@ void Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	return this->complete;
-}
-
-Contract * Contract::Create(GameObject * gameObject)
-{
-	Contract * c = new Contract();
-	gameObject->AddComponent(c);
-	return c;
-}
-
-void Contract::Copy(GameObject * copyObject)
-{
-}
-
-void Contract::Update()
-{
-}
-
-void Contract::Start()
-{
 }
 
 void Contract::DebugContractOnce()
