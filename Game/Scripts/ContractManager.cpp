@@ -18,7 +18,7 @@ Contract ContractManager::AddContract()
 	this->contractID = (rand() % 640000) + 1;
 
 	contract.SetDifficulty();
-	contract.SetPayment(100);
+	contract.SetPayment();
 	contract.SetTime(18000);
 	contract.SetAmount();
 	contract.SetContractIndex(contractIndex);
@@ -38,13 +38,10 @@ Contract ContractManager::AddContract()
 	else {
 		contractIndex++;
 	}
-	
 
-	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, this->difficulty, this->active, this->complete, this->contractIndex);
+	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, 
+		this->difficulty, this->active, this->complete, this->contractIndex);
 	this->contractList[contractIndex] = contract;
-
-	
-
 
 	printf("Contract ID: %i \n", contract.GetContractID());
 	printf("Contract Issue Number: %i \n", contractIndex);

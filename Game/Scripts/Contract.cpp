@@ -37,19 +37,17 @@ int Contract::GetPayment()
 	return this->payment;
 }
 
-void Contract::SetPayment(int paymentAmount)
+void Contract::SetPayment()
 {
-	tempDif = GetDifficulty();
-
 	//TO:DO Take resource value into account when calculating payment amount to set + difficulty level as a modifier
 	if (tempDif == 1) {
-		this->payment = rand() % 10 + paymentAmount;
+		this->payment = DifficultyModifier();
 	}
 	else if (tempDif == 2) {
-		this->payment = rand() % 20 + paymentAmount;
+		this->payment = DifficultyModifier();
 	}
 	else {
-		this->payment = rand() % 60 + paymentAmount;
+		this->payment = DifficultyModifier();
 	}
 }
 
@@ -160,4 +158,12 @@ void Contract::DebugContractOnce()
 	// print result of contracts
 
 	printf("Contract ID: %i\n", contractID);
+}
+
+int Contract::DifficultyModifier()
+{
+	tempDif = GetDifficulty();
+	difficultyModifier = this->difficultyModifier * tempDif;
+
+	return difficultyModifier;
 }
