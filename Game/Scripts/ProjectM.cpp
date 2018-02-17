@@ -41,27 +41,6 @@ int main(int argc, char *argv[])
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
 	Terrain::TerrainSnapper * tSnapper = Terrain::TerrainSnapper::Create(camera, grid);
 
-	{
-		GameObject *rock = manager->CreateGameObject("Cube");
-		MeshRenderer::Create(rock, "Game/Assets/Models/cube/cube.obj");
-		TextureSetter::Create(rock, "Game/Assets/Textures/sand.png");
-		rock->transform->SetScale(vec3(5.0f));
-	}
-
-	{
-		for (int i = 0; i < 100; i++) {
-			GameObject *rock = manager->CreateGameObject("rock" + to_string(i));
-			MeshRenderer::Create(rock, "Game/Assets/Models/rock/Rock.obj");
-			TextureSetter::Create(rock, "Game/Assets/Textures/Rock/Rock_d.jpg");
-			rock->transform->SetScale(vec3(0.3f));
-			rock->transform->Rotate(vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50));
-			int x = rand() % 150 - 75;
-			int z = rand() % 150 - 75;
-			rock->transform->SetPosition(x * 10, grid->GetHeight(x, z) - rand() % 10, z * 10);
-		}
-
-	}
-
 	engine.Run();
 	return 0;
 }

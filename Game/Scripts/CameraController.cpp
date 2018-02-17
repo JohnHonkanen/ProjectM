@@ -25,7 +25,7 @@ void CameraController::Start()
 	speed = 1.0f;
 	smoothing = 0.2f;
 
-	transform->SetEulerAngle(vec3(75.0f, 0, 0));
+	transform->SetEulerAngle(vec3(60.0f, 0, 0));
 	transform->SetPosition(vec3(0, distance, 0));
 }
 
