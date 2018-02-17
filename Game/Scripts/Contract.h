@@ -5,7 +5,7 @@
 class Contract{
 public:
 	Contract();
-	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel);
+	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -15,16 +15,20 @@ public:
 	Resources GetResource(); 
 	int GetAmount(); // Get amount to fulfill on contract
 	void SetAmount(); // Set amount to fulfill on contract
+
 	void SetTime(int timer); // Set time left on contract
 	int GetTime(); // Get time left on contract
+	int ReduceTime(); // Reduce Time on contract over time.
+
 	int GetCurrent(); // Get current amount fulfilled of contract
 	int GetContractID(); // Get Contract ID
 	void SetContractID(int contractID); // Set contract ID
 
 	bool GetStatus(); // Get the status of contract (true/false)
-	void SetStatus(bool active); // Return true
+	bool SetStatus(bool active); // Return true
 	
 	bool IsComplete(); // Return true
+	bool InitComplete(bool completeStatus); // Initial complete, return false;
 
 	void DebugContractOnce(); // Use to debug contract
 

@@ -4,7 +4,7 @@ Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel)
+Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete)
 {
 	this->resource = resource;
 	this->payment = paymentToRecieve;
@@ -13,6 +13,8 @@ Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int
 	this->current = currentFulFilled;
 	this->difficulty = difficultyLevel;
 	this->contractID = contractID;
+	this->active = activeStatus;
+	this->complete = complete;
 }
 
 Contract::~Contract()
@@ -80,18 +82,24 @@ void Contract::SetTime(int timer)
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->time = rand() % 100 + timer;
+		this->time = rand() % 1000 + timer;
 	}
 	else if (tempDif == 2) {
-		this->time = rand() % 200 + timer;
+		this->time = rand() % 2000 + timer;
 	}
 	else {
-		this->time = rand() % 600 + timer;
+		this->time = rand() % 6000 + timer;
 	}
 }
 
 int Contract::GetTime()
 {
+	return this->time;
+}
+
+int Contract::ReduceTime()
+{
+	this->time -= 1000;
 	return this->time;
 }
 
@@ -118,13 +126,20 @@ bool Contract::GetStatus()
 	return this->active;
 }
 
-void Contract::SetStatus(bool active)
+bool Contract::SetStatus(bool active)
 {
 	this->active = true;
+	return this->active;
 }
 
 bool Contract::IsComplete()
 {
+	return this->complete;
+}
+
+bool Contract::InitComplete(bool completeStatus)
+{
+	this->complete = completeStatus;
 	return this->complete;
 }
 

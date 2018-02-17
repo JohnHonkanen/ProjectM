@@ -29,4 +29,5 @@ private:
 	ResourceManager* resourceManager;
 	Engine::Utility::Clock clock;
 	bool keyReleased = true;
+	bool active, complete;
 };

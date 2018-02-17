@@ -19,7 +19,7 @@ Contract ContractManager::AddContract()
 
 	contract.SetDifficulty();
 	contract.SetPayment(100);
-	contract.SetTime(180);
+	contract.SetTime(18000);
 	contract.SetAmount();
 
 	this->paymentAmount = contract.GetPayment();
@@ -27,6 +27,9 @@ Contract ContractManager::AddContract()
 	this->currentlyFulFilled = 0;
 	this->difficulty = contract.GetDifficulty();
 	this->time = contract.GetTime();
+	this->active = contract.SetStatus(true);
+	this->complete = contract.InitComplete(false);
+
 	if (contractIndex >= ResourceManager::sizeOfList) {
 		contractIndex = 0;
 	}
@@ -34,7 +37,7 @@ Contract ContractManager::AddContract()
 		contractIndex++;
 	}
 	
-	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, this->difficulty);
+	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, this->difficulty, this->active, this->complete);
 	this->contractList[contractIndex] = contract;
 
 	printf("Contract ID: %i \n", contract.GetContractID());
@@ -44,6 +47,8 @@ Contract ContractManager::AddContract()
 	printf("Currently fulfilled %i \n", contract.GetCurrent());
 	printf("Contract Length: %i \n", contract.GetTime());
 	printf("Contract Difficulty: %i \n", contract.GetDifficulty());
+	printf("Contract Status: %i \n", contract.GetStatus());
+	printf("Contract Complete: %i \n", contract.IsComplete());
 	cout << endl;
 
 	return this->contractList[contractIndex];
