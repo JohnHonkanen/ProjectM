@@ -23,9 +23,9 @@ Contract ContractManager::AddContract()
 	contract.SetAmount();
 
 	this->paymentAmount = contract.GetPayment();
-	this->amountToFulfill = contract.GetAmount(); //
+	this->amountToFulfill = contract.GetAmount();
 	this->currentlyFulFilled = 0;
-	this->difficulty = contract.GetDifficulty(); // 
+	this->difficulty = contract.GetDifficulty();
 	this->time = contract.GetTime();
 	if (contractIndex >= ResourceManager::sizeOfList) {
 		contractIndex = 0;
@@ -44,6 +44,7 @@ Contract ContractManager::AddContract()
 	printf("Currently fulfilled %i \n", contract.GetCurrent());
 	printf("Contract Length: %i \n", contract.GetTime());
 	printf("Contract Difficulty: %i \n", contract.GetDifficulty());
+	cout << endl;
 
 	return this->contractList[contractIndex];
 }
@@ -68,19 +69,22 @@ void ContractManager::Copy(GameObject * copyObject)
 void ContractManager::Update()
 {
 	clock.UpdateClock();
-	if (clock.Alarm()) {
-		AddContract();
-		clock.ResetClock();
-	}
+	//if (clock.Alarm()) {
+	//	AddContract();
+	//	clock.ResetClock();
+	//}
 
-	int keyPressed = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
+	int AddContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 
-	if (keyPressed == 1) {
-		AddContract();
+	if (AddContractKey == 1) {
+		if (keyReleased == true) {
+			keyReleased = false;
+			AddContract();
+		}	
 	}
 	else {
-		if (keyPressed == -1 || keyPressed == 0) {
-			// make sure key only pressed once
+		if (AddContractKey == 0 ) {
+			keyReleased = true;
 		}
 	}
 }

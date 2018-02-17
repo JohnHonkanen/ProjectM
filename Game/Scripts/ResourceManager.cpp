@@ -26,7 +26,7 @@ Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, 
 Resources ResourceManager::FindResource(int itemID)
 {
 	this->resourceList[itemID] = resources;
-	cout << "Item Name: " << resources.GetName() << " found!" << endl << endl;
+	//cout << "Item Name: " << resources.GetName() << " found!" << endl << endl;
 	return resources;
 }
 
@@ -53,11 +53,11 @@ void ResourceManager::OnLoad()
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
 	Resources resource = AddResource(1, "item 1", "TEST", 100, 0);
-	cout << "ResourceID: " << resource.GetItemID() << endl;
-	cout << "Item Name: " << resource.GetName() << endl;
-	cout << "Slug: " << resource.GetSKU() << endl;
-	cout << "Cost: " << resource.GetBasePrice() << endl;
-	cout << "Stock: " << resource.GetItemAmount() << endl << endl;
+	//cout << "ResourceID: " << resource.GetItemID() << endl;
+	//cout << "Item Name: " << resource.GetName() << endl;
+	//cout << "Slug: " << resource.GetSKU() << endl;
+	//cout << "Cost: " << resource.GetBasePrice() << endl;
+	//cout << "Stock: " << resource.GetItemAmount() << endl << endl;
 
 	FindResource(1);
 }
