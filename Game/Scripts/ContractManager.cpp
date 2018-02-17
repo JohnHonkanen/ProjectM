@@ -16,7 +16,7 @@ Contract ContractManager::AddContract()
 	int generatedContractID = (rand() % 640000) + 1;
 
 	Resources resource = resourceManager->FindResource(generatedResID);
-	Contract contract = Contract(resource);
+	Contract contract = Contract(resource, this);
 
 	if (this->contractIndex >= ResourceManager::sizeOfList) {
 		contractIndex = 0;
@@ -78,6 +78,9 @@ void ContractManager::Update()
 						printf("Contract ID: %i \n", contractList[i].GetContractID());
 						printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
 						printf("Contract Length: %i \n", contractList[i].GetTime());
+						printf("Contract Amount To Deliver: %i \n", contractList[i].GetAmount());
+						printf("Contract Reward: %i \n", contractList[i].GetPayment());
+						printf("Contract Difficulty: %i \n", contractList[i].GetDifficulty());
 						cout << endl;
 						break;
 					}

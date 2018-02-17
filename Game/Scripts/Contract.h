@@ -2,11 +2,11 @@
 
 #include "ResourceManager.h"
 
+class ContractManager;
 class Contract{
 public:
 	Contract();
-	Contract(Resources resource);
-	//Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex);
+	Contract(Resources resource, ContractManager* contractManager);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -37,11 +37,12 @@ public:
 
 	void DebugContractOnce(); // Use to debug contract
 
-	int DifficultyModifier();
+	int DifficultyModifier(int tempDif);
 
 	int GetResourceID(); // Resource ID for contract
 private:
-	int payment, amount, tempDif;
+	int payment, tempDif;
+	int amount = 1;
 	int time = 120; 
 	int current = 0;
 	int difficulty = 1;
@@ -49,6 +50,7 @@ private:
 	int difficultyModifier = 100; // bonus
 	Resources resource;
 	ResourceManager* resourceManager;
+	ContractManager* contractManager;
 
 	bool active = false;
 	bool complete = false;

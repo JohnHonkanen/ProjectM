@@ -5,24 +5,12 @@ Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource)
+Contract::Contract(Resources resource, ContractManager* contractManager)
 {
 	this->resource = resource;
+	this->contractManager = contractManager;
 }
 
-//Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex)
-//{
-//	this->resource = resource;
-//	this->payment = paymentToRecieve;
-//	this->amount = amountToFulfill;
-//	this->time = contractTime;
-//	this->current = currentFulFilled;
-//	this->difficulty = difficultyLevel;
-//	this->contractID = contractID;
-//	this->active = activeStatus;
-//	this->complete = complete;
-//	this->contractIndex = contractIndex;
-//}
 
 Contract::~Contract()
 {
@@ -35,7 +23,7 @@ int Contract::GetDifficulty()
 
 void Contract::SetDifficulty()
 {
-	this->difficulty = rand() % 3;
+	this->difficulty = (rand() % 3) + 1;
 }
 
 int Contract::GetPayment()
@@ -45,15 +33,16 @@ int Contract::GetPayment()
 
 void Contract::SetPayment()
 {
+	int tempDif = GetDifficulty();
 	//TO:DO Take resource value into account when calculating payment amount to set + difficulty level as a modifier
 	if (tempDif == 1) {
-		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
+		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
 	}
 	else if (tempDif == 2) {
-		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
+		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
 	}
 	else {
-		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
+		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
 	}
 }
 
@@ -72,13 +61,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = rand() % 100 + 150;
+		this->amount = (rand() % 100) + 150;
 	}
 	else if (tempDif == 2) {
-		this->amount = rand() % 200 + 300;
+		this->amount = (rand() % 200) + 300;
 	}
 	else {
-		this->amount = rand() % 600 + 900;
+		this->amount = (rand() % 600) + 900;
 	}
 }
 
@@ -87,13 +76,13 @@ void Contract::SetTime(int timer)
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->time = rand() % 1000 + timer;
+		this->time = (rand() % 1000) + timer;
 	}
 	else if (tempDif == 2) {
-		this->time = rand() % 2000 + timer;
+		this->time = (rand() % 2000) + timer;
 	}
 	else {
-		this->time = rand() % 6000 + timer;
+		this->time = (rand() % 6000) + timer;
 	}
 }
 
@@ -166,9 +155,8 @@ void Contract::DebugContractOnce()
 	printf("Contract ID: %i\n", contractID);
 }
 
-int Contract::DifficultyModifier()
+int Contract::DifficultyModifier(int tempDif)
 {
-	tempDif = GetDifficulty();
 	difficultyModifier = this->difficultyModifier * tempDif;
 
 	return difficultyModifier;
