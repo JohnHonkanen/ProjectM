@@ -39,6 +39,9 @@
     <ClInclude Include="Game\Scripts\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scripts\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
