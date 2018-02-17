@@ -1,3 +1,6 @@
+/*
+	Camera controller class used to control the gameobject that camera component is part of.
+*/
 #pragma once
 #include "components\Behaviour.h"
 #include <glm\glm.hpp>
@@ -26,7 +29,6 @@ private:
 	float sensitivity;
 	float speed;
 	float smoothing;
-	glm::vec3 focusPoint;
 	glm::vec3 movement;
 	float distance;
 

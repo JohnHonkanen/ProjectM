@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Scripts\BuildingController.h" />
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
     <ClInclude Include="Game\Scripts\GameManager.h" />
@@ -26,9 +27,11 @@
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
     <ClInclude Include="Game\Scripts\Structure.h" />
+    <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
     <ClInclude Include="Game\Scripts\Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Scripts\BuildingController.cpp" />
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />
     <ClCompile Include="Game\Scripts\GameManager.cpp" />
@@ -37,6 +40,7 @@
     <ClCompile Include="Game\Scripts\Production.cpp" />
     <ClCompile Include="Game\Scripts\ProjectM.cpp" />
     <ClCompile Include="Game\Scripts\Structure.cpp" />
+    <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp" />
     <ClCompile Include="Game\Scripts\Warehouse.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

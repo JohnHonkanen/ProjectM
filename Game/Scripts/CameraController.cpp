@@ -20,17 +20,20 @@ void CameraController::Copy(GameObject * copyObject)
 
 void CameraController::Start()
 {
-	distance = 200;
-	sensitivity = 0.5f;
+	/** Default values */
+	distance = 200; //Distance from the ground
+	sensitivity = 0.5f; //Sensitivity of keypress
 	speed = 1.0f;
-	smoothing = 0.2f;
+	smoothing = 0.2f; //Smoothing factor for lerp
 
+	/** Default Setup */
 	transform->SetEulerAngle(vec3(60.0f, 0, 0));
 	transform->SetPosition(vec3(0, distance, 0));
 }
 
 void CameraController::Update(double dt)
 {
+	/** Calculate the smooth movement to translate by*/
 	vec3 smoothMovement;
 	vec3 movementDir = movement * vec3(sensitivity * smoothing);
 	movementDir *= speed;
@@ -44,6 +47,7 @@ void CameraController::Update(double dt)
 
 void CameraController::Input()
 {
+	/** Check and poll key inputs */
 	InputManager * inputManager = &GameEngine::manager.inputManager;
 	// Horizontal
 	int h = inputManager->GetKey("Horizontal");

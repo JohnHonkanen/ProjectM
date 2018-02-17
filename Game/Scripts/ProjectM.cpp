@@ -7,6 +7,7 @@
 #include "hud\widgets\TextWidget.h"
 #include "CameraController.h"
 #include "GameManager.h"
+#include "BuildingController.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,22 +21,30 @@ int main(int argc, char *argv[])
 
 	GameObjectManager *manager = scene->GetGameObjectManager();
 
-	
-
 	//Game Manager
 	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
-	GameManager* gameManager =  GameManager::Create(gameManagerObject);
+	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
 
 	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
 	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 10, "terrainGridShader", true, vec3(0, 1, 0));
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
 
+	//Temp Object to Test Building Manager
+	GameObject *structure = manager->CreateGameObject("Temp Structure");
+	MeshRenderer::Create(structure, "Game/Assets/Models/cube/cube.obj");
+	TextureSetter::Create(structure, "Game/Assets/Textures/sand.png");
+	structure->transform->SetScale(vec3(5.0f));
+
 	//Player
 	GameObject *playerObject = manager->CreateGameObject("Player");
 	Camera * c = Camera::Create(playerObject);
 	c->SetFarClippingPlane(1000.0f);
 	CameraController::Create(playerObject);
+	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager);
+	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
+	//Temp Function
+	buildingController->AddTempObject(structure);
 
 
 	//Add HUD
