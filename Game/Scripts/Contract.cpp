@@ -34,7 +34,8 @@ int Contract::GetPayment()
 void Contract::SetPayment()
 {
 	int tempDif = GetDifficulty();
-	//TO:DO Take resource value into account when calculating payment amount to set + difficulty level as a modifier
+	SetAmount();
+
 	if (tempDif == 1) {
 		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
 	}

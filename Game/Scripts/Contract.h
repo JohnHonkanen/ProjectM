@@ -41,8 +41,7 @@ public:
 
 	int GetResourceID(); // Resource ID for contract
 private:
-	int payment, tempDif;
-	int amount = 1;
+	int payment, tempDif, amount;
 	int time = 120; 
 	int current = 0;
 	int difficulty = 1;
