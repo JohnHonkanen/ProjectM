@@ -14,17 +14,19 @@ using namespace glm;
 class Structure : public Behaviour {
 protected:
 
-	Inventory *inv;
 	int health;						//Buildings remaining health
 	int powerUsage;					//Set to 0 until power is added to game
 	int productionEfficiency;		//
 	int radiationOutput;			//
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
-
-public:
 	string name;
 	string type;
+
+	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
+
+public:
+	
 
 	Structure();
 	~Structure();
@@ -49,11 +51,15 @@ public:
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
 
+	void InsertItem(Resources res);
+	std::vector<Resources> GetInventory() { return inv->GetInventory(); }
+	string ViewInventory() { return inv->DisplayContents(); }
+
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(inv);
+		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced);
 	}
 };
 

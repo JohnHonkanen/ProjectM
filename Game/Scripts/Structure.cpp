@@ -100,3 +100,13 @@ void Structure::SetActive(bool change)
 {
 	isActive = change;
 }
+
+/*
+Wrapper method that Inserts an item into the inventory of the Warehouse.
+
+@param - The resource to be inserted.
+*/
+void Structure::InsertItem(Resources res)
+{
+	inv->PlaceItem(res);
+}

@@ -66,7 +66,7 @@ void Resources::ReduceItemAmount(int itemStock)
 /*Set Item Stock in marketplace*/
 void Resources::SetItemAmount(int itemStock)
 {
-	this->itemStock += itemStock;
+	this->itemStock = itemStock;
 }
 
 /*Increase Item price*/

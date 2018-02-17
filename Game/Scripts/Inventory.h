@@ -12,14 +12,15 @@ Dev: Jack Smith (B00308927)
 #include <cereal/types/string.hpp>
 #include <vector>
 
+
 using namespace std;
 
 class Inventory : public Behaviour
 {
 
 private:
-	const int INITIAL_STORAGE = 9;
-	std::vector<Resources> storage/* = std::vector<Resources>()*/;
+	int INITIAL_STORAGE = 9;
+	std::vector<Resources> storage;
 	bool storageFull = false;
 	int inventoryLevel = 1;
 
@@ -27,6 +28,8 @@ public:
 
 	Inventory();
 	~Inventory();
+
+	void Copy(GameObject *copyObject);
 
 	string DisplayContents();
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
@@ -47,7 +50,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(storage), CEREAL_NVP(storageFull), CEREAL_NVP(itemsStored), CEREAL_NVP(inventoryLevel);
+		CEREAL_NVP(storage), CEREAL_NVP(storageFull), CEREAL_NVP(inventoryLevel);
 	}
 };
 

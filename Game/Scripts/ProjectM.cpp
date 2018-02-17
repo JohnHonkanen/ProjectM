@@ -64,11 +64,39 @@ int main(int argc, char *argv[])
 		}
 
 	}
-	Resources res = Resources(1, "box", "BigBox", 5, 1);
+	
+	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50);
+	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51);
+
+	Resources res3 = Resources(3, "box ", "BigBox ", 5, 1);
+	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1);
+	Resources res5 = Resources(5, "box ", "BigBox ", 5, 1);
+	Resources res6 = Resources(6, "box ", "BigBox ", 5, 1);
+	Resources res7 = Resources(7, "box ", "BigBox ", 5, 1);
+	Resources res8 = Resources(8, "box ", "BigBox ", 5, 1);
+	Resources res9 = Resources(9, "box ", "BigBox ", 5, 1);
+	Resources res10 = Resources(10, "box ", "BigBox ", 5, 1);
+	
 	GameObject *warehouse = manager->CreateGameObject("Warehouse");
 	Warehouse *w = Warehouse::Create(warehouse, "Warehouse", 10, 1, 1, 1, true, true);
-//	w->InsertItem(res);
-	w->ViewInventory();
+
+	cout << w->ViewInventory() << endl; // Printing when empty.
+
+	w->InsertItem(res1); // Inserting resources with the same ID who add into each other.
+	w->InsertItem(res2);
+
+	cout << w->ViewInventory() << endl; // Displaying added values.
+
+	w->InsertItem(res3);
+	w->InsertItem(res4);
+	w->InsertItem(res5);
+	w->InsertItem(res6);
+	w->InsertItem(res7);
+	w->InsertItem(res8);
+	w->InsertItem(res9);
+	w->InsertItem(res10); // Hits storage is full error.
+
+	cout << w->ViewInventory() << endl; // Displaying full inventory.
 
 	engine.Run();
 	return 0;
