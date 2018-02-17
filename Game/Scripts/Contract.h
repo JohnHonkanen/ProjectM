@@ -5,7 +5,7 @@
 class Contract{
 public:
 	Contract();
-	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete);
+	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -21,6 +21,10 @@ public:
 	int ReduceTime(); // Reduce Time on contract over time.
 
 	int GetCurrent(); // Get current amount fulfilled of contract
+
+	int GetContractIndex(); // Get Contract Index
+	int SetContractIndex(int contractIndex); // Set Contract index
+
 	int GetContractID(); // Get Contract ID
 	void SetContractID(int contractID); // Set contract ID
 
@@ -37,7 +41,7 @@ private:
 	int time = 120; 
 	int current = 0;
 	int difficulty = 1;
-	int contractID;
+	int contractID, contractIndex;
 	Resources resource;
 	ResourceManager resourceManager;
 

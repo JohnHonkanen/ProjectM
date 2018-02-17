@@ -21,6 +21,7 @@ Contract ContractManager::AddContract()
 	contract.SetPayment(100);
 	contract.SetTime(18000);
 	contract.SetAmount();
+	contract.SetContractIndex(contractIndex);
 
 	this->paymentAmount = contract.GetPayment();
 	this->amountToFulfill = contract.GetAmount();
@@ -29,16 +30,21 @@ Contract ContractManager::AddContract()
 	this->time = contract.GetTime();
 	this->active = contract.SetStatus(true);
 	this->complete = contract.InitComplete(false);
+	this->contractIndex = contract.GetContractIndex();
 
-	if (contractIndex >= ResourceManager::sizeOfList) {
+	if (this->contractIndex >= ResourceManager::sizeOfList) {
 		contractIndex = 0;
 	}
 	else {
 		contractIndex++;
 	}
 	
-	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, this->difficulty, this->active, this->complete);
+
+	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, this->difficulty, this->active, this->complete, this->contractIndex);
 	this->contractList[contractIndex] = contract;
+
+	
+
 
 	printf("Contract ID: %i \n", contract.GetContractID());
 	printf("Contract Issue Number: %i \n", contractIndex);
@@ -77,22 +83,24 @@ void ContractManager::Update()
 	if (clock.Alarm()) {
 		for (int i = 0; i < ResourceManager::sizeOfList; i++) {
 			if(FindContract(i).GetStatus() == true) {
-				if(contract.GetTime() > 0){
-					contract.ReduceTime();
-					printf("Contract ID: %i \n", contract.GetContractID());
-					printf("Contract Issue Number: %i \n", contractIndex);
-					printf("Contract Length: %i \n", contract.GetTime());
-					cout << endl;
-					
-					break;
-				}
-				else {
-					FindContract(i).SetStatus(false);
-					FindContract(i).IsComplete();
-				}
-				
+					if (contractList[i].GetTime() > 0) {
+						contractList[i].ReduceTime();
+						printf("Contract ID: %i \n", contractList[i].GetContractID());
+						printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
+						printf("Contract Length: %i \n", contractList[i].GetTime());
+						cout << endl;
+						break;
+					}
+					else {
+						FindContract(i).SetStatus(false);
+						FindContract(i).IsComplete();
+					}
 			}
-			i = 0;
+			else {
+				if (FindContract(i).GetStatus() == false) {
+					i = 0;
+				}
+			}
 		}
 		clock.ResetClock();
 	}

@@ -4,7 +4,7 @@ Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete)
+Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex)
 {
 	this->resource = resource;
 	this->payment = paymentToRecieve;
@@ -15,6 +15,7 @@ Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int
 	this->contractID = contractID;
 	this->active = activeStatus;
 	this->complete = complete;
+	this->contractIndex = contractIndex;
 }
 
 Contract::~Contract()
@@ -108,6 +109,16 @@ int Contract::GetCurrent()
 {
 	// currently fulfilled
 	return this->current;
+}
+
+int Contract::GetContractIndex()
+{
+	return this->contractIndex;
+}
+
+int Contract::SetContractIndex(int contractIndex)
+{
+	return this->contractIndex = contractIndex;
 }
 
 int Contract::GetContractID()
