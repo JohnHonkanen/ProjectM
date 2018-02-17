@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
+    <ClInclude Include="Game\Scripts\CameraController.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
+    <ClCompile Include="Game\Scripts\CameraController.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
     <ClCompile Include="Game\Scripts\Production.cpp" />

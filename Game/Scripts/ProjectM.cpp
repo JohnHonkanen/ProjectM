@@ -5,6 +5,7 @@
 #include "hud\HUDCanvas.h"
 #include "hud\widgets\HUDContainer.h"
 #include "hud\widgets\TextWidget.h"
+#include "CameraController.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
 	GameObject * camera = manager->CreateGameObject("camera");
 	Camera * c = Camera::Create(camera);
 	c->SetFarClippingPlane(1000.0f);
-	FreeCameraControl::Create(camera);
+	CameraController::Create(camera);
 
 	/*GameObject * text = manager->CreateGameObject("text");
 	Text2D::Create(text, "text2D", "Pre-alpha build 0.2.1.3", {255, 255, 255}, "Assets/Fonts/MavenPro-Regular.ttf");
