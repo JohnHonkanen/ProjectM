@@ -1,22 +1,28 @@
 #include "Contract.h"
+#include "ContractManager.h"
 
 Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex)
+Contract::Contract(Resources resource)
 {
 	this->resource = resource;
-	this->payment = paymentToRecieve;
-	this->amount = amountToFulfill;
-	this->time = contractTime;
-	this->current = currentFulFilled;
-	this->difficulty = difficultyLevel;
-	this->contractID = contractID;
-	this->active = activeStatus;
-	this->complete = complete;
-	this->contractIndex = contractIndex;
 }
+
+//Contract::Contract(Resources resource, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex)
+//{
+//	this->resource = resource;
+//	this->payment = paymentToRecieve;
+//	this->amount = amountToFulfill;
+//	this->time = contractTime;
+//	this->current = currentFulFilled;
+//	this->difficulty = difficultyLevel;
+//	this->contractID = contractID;
+//	this->active = activeStatus;
+//	this->complete = complete;
+//	this->contractIndex = contractIndex;
+//}
 
 Contract::~Contract()
 {
@@ -41,13 +47,13 @@ void Contract::SetPayment()
 {
 	//TO:DO Take resource value into account when calculating payment amount to set + difficulty level as a modifier
 	if (tempDif == 1) {
-		this->payment = DifficultyModifier();
+		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
 	}
 	else if (tempDif == 2) {
-		this->payment = DifficultyModifier();
+		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
 	}
 	else {
-		this->payment = DifficultyModifier();
+		this->payment = DifficultyModifier() + this->resource.GetBasePrice();
 	}
 }
 
@@ -166,4 +172,9 @@ int Contract::DifficultyModifier()
 	difficultyModifier = this->difficultyModifier * tempDif;
 
 	return difficultyModifier;
+}
+
+int Contract::GetResourceID()
+{
+	return this->resourceID;
 }

@@ -52,12 +52,9 @@ void ResourceManager::OnLoad()
 {
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
-	Resources resource = AddResource(1, "item 1", "TEST", 100, 0);
-	//cout << "ResourceID: " << resource.GetItemID() << endl;
-	//cout << "Item Name: " << resource.GetName() << endl;
-	//cout << "Slug: " << resource.GetSKU() << endl;
-	//cout << "Cost: " << resource.GetBasePrice() << endl;
-	//cout << "Stock: " << resource.GetItemAmount() << endl << endl;
+	Resources resource = AddResource(1, "Milk", "DAIRY", 100, 0);
+	resource = AddResource(2, "Beef", "MEAT", 200, 0);
 
 	FindResource(1);
+	FindResource(2);
 }

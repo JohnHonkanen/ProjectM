@@ -12,25 +12,11 @@ ContractManager::~ContractManager()
 
 Contract ContractManager::AddContract()
 {
-	int generatedResID = 1; //rand() % 64;
-	this->resource = resourceManager->FindResource(generatedResID);
-	resource = this->resource;
-	this->contractID = (rand() % 640000) + 1;
+	int generatedResID = (rand() % 2) + 1; // Rand value should be between 1 and active resource in resource list. (Currently: 2)
+	int generatedContractID = (rand() % 640000) + 1;
 
-	contract.SetDifficulty();
-	contract.SetPayment();
-	contract.SetTime(18000);
-	contract.SetAmount();
-	contract.SetContractIndex(contractIndex);
-
-	this->paymentAmount = contract.GetPayment();
-	this->amountToFulfill = contract.GetAmount();
-	this->currentlyFulFilled = 0;
-	this->difficulty = contract.GetDifficulty();
-	this->time = contract.GetTime();
-	this->active = contract.SetStatus(true);
-	this->complete = contract.InitComplete(false);
-	this->contractIndex = contract.GetContractIndex();
+	Resources resource = resourceManager->FindResource(generatedResID);
+	Contract contract = Contract(resource);
 
 	if (this->contractIndex >= ResourceManager::sizeOfList) {
 		contractIndex = 0;
@@ -39,13 +25,20 @@ Contract ContractManager::AddContract()
 		contractIndex++;
 	}
 
-	this->contract = Contract(resource, this->contractID, this->paymentAmount, this->amountToFulfill, this->time, this->currentlyFulFilled, 
-		this->difficulty, this->active, this->complete, this->contractIndex);
+	contract.SetContractID(generatedContractID);
+	contract.SetDifficulty();
+	contract.SetPayment();
+	contract.SetTime(18000);
+	contract.SetAmount();
+	contract.SetContractIndex(contractIndex);
+	contract.SetStatus(true);
+	contract.InitComplete(false);
+
 	this->contractList[contractIndex] = contract;
 
 	printf("Contract ID: %i \n", contract.GetContractID());
-	printf("Contract Issue Number: %i \n", contractIndex);
-	printf("Resource name to deliver: %s \n", resource.GetName().c_str());
+	printf("Contract Issue Number: %i \n", contract.GetContractIndex()); // Edited. check
+	printf("Resource name to deliver: %s \n", contract.GetResource().GetName().c_str());
 	printf("Resource amount to deliver: %i \n", contract.GetAmount());
 	printf("Currently fulfilled %i \n", contract.GetCurrent());
 	printf("Contract Length: %i \n", contract.GetTime());
@@ -102,7 +95,7 @@ void ContractManager::Update()
 		clock.ResetClock();
 	}
 
-	addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
+	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 
 	if (addContractKey == 1) {
 		if (keyReleased == true) {

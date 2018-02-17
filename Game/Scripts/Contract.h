@@ -5,7 +5,8 @@
 class Contract{
 public:
 	Contract();
-	Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex);
+	Contract(Resources resource);
+	//Contract(Resources resourceID, int contractID, int paymentToRecieve, int amountToFulfill, int contractTime, int currentFulFilled, int difficultyLevel, bool activeStatus, bool complete, int contractIndex);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -37,15 +38,17 @@ public:
 	void DebugContractOnce(); // Use to debug contract
 
 	int DifficultyModifier();
+
+	int GetResourceID(); // Resource ID for contract
 private:
 	int payment, amount, tempDif;
 	int time = 120; 
 	int current = 0;
 	int difficulty = 1;
-	int contractID, contractIndex;
+	int contractID, contractIndex, resourceID;
 	int difficultyModifier = 100; // bonus
 	Resources resource;
-	ResourceManager resourceManager;
+	ResourceManager* resourceManager;
 
 	bool active = false;
 	bool complete = false;
