@@ -20,7 +20,7 @@ public:
 
 	void OnLoad();
 
-	static const int sizeOfList = 64;
+	static const int sizeOfList = 1280;
 private:
 	int itemIndex = 0;
 	

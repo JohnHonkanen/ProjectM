@@ -38,7 +38,7 @@ Contract ContractManager::AddContract()
 	this->contractList[contractIndex] = contract;
 
 	printf("Contract ID: %i \n", contract.GetContractID());
-	//printf("Contract Issue Number: %i \n", contractIndex);
+	printf("Contract Issue Number: %i \n", contractIndex);
 	printf("Resource name to deliver: %s \n", resource.GetName().c_str());
 	printf("Resource amount to deliver: %i \n", contract.GetAmount());
 	printf("Currently fulfilled %i \n", contract.GetCurrent());
@@ -74,16 +74,16 @@ void ContractManager::Update()
 	//	clock.ResetClock();
 	//}
 
-	int AddContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
+	addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 
-	if (AddContractKey == 1) {
+	if (addContractKey == 1) {
 		if (keyReleased == true) {
 			keyReleased = false;
 			AddContract();
 		}	
 	}
 	else {
-		if (AddContractKey == 0 ) {
+		if (addContractKey == 0 ) {
 			keyReleased = true;
 		}
 	}

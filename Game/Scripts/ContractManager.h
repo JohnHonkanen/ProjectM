@@ -22,7 +22,7 @@ public:
 
 private:
 	int contractIndex = 0;
-	int contractID, paymentAmount, amountToFulfill, currentlyFulFilled, difficulty, time;
+	int contractID, paymentAmount, amountToFulfill, currentlyFulFilled, difficulty, time, addContractKey;
 	Resources resource;
 	Contract contract;
 	Contract contractList[ResourceManager::sizeOfList]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
