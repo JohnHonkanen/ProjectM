@@ -9,12 +9,13 @@ public:
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
-	void SetDifficulty(); // Sets contract difficulty, default is 1.
+	void SetDifficulty(); // Sets random contract difficulty between 1 and 3. 
 	int GetPayment(); // Get payment amount player is to receive if contract is fulfilled.
 	void SetPayment(int paymentAmount); // Set contract payment
 	Resources GetResource(); 
 	int GetAmount(); // Get amount to fulfill on contract
-	void SetTime(); // Set time left on contract
+	void SetAmount(); // Set amount to fulfill on contract
+	void SetTime(int timer); // Set time left on contract
 	int GetTime(); // Get time left on contract
 	int GetCurrent(); // Get current amount fulfilled of contract
 	int GetContractID(); // Get Contract ID
@@ -28,7 +29,7 @@ public:
 	void DebugContractOnce(); // Use to debug contract
 
 private:
-	int payment, amount;
+	int payment, amount, tempDif;
 	int time = 120; 
 	int current = 0;
 	int difficulty = 1;

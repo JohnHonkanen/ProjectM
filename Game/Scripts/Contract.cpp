@@ -26,7 +26,7 @@ int Contract::GetDifficulty()
 
 void Contract::SetDifficulty()
 {
-	this->difficulty = difficulty;
+	this->difficulty = rand() % 3;
 }
 
 int Contract::GetPayment()
@@ -36,7 +36,18 @@ int Contract::GetPayment()
 
 void Contract::SetPayment(int paymentAmount)
 {
-	this->payment = paymentAmount;
+	tempDif = GetDifficulty();
+
+	//TO:DO Take resource value into account when calculating payment amount to set + difficulty level as a modifier
+	if (tempDif == 1) {
+		this->payment = rand() % 10 + paymentAmount;
+	}
+	else if (tempDif == 2) {
+		this->payment = rand() % 20 + paymentAmount;
+	}
+	else {
+		this->payment = rand() % 60 + paymentAmount;
+	}
 }
 
 Resources Contract::GetResource()
@@ -49,9 +60,24 @@ int Contract::GetAmount()
 	return this->amount;
 }
 
-void Contract::SetTime()
+void Contract::SetAmount()
 {
-	this->time = time;
+	tempDif = GetDifficulty();
+
+	if (tempDif == 1) {
+		this->amount = rand() % 100 + 150;
+	}
+	else if (tempDif == 2) {
+		this->amount = rand() % 200 + 300;
+	}
+	else {
+		this->amount = rand() % 600 + 900;
+	}
+}
+
+void Contract::SetTime(int timer)
+{
+	this->time = timer;
 }
 
 int Contract::GetTime()
