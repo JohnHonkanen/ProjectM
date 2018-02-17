@@ -135,6 +135,7 @@ bool Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	return this->complete;
+	cout << "Contract completed!" << endl << endl;
 }
 
 bool Contract::InitComplete(bool completeStatus)

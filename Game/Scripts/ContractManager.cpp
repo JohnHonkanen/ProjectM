@@ -74,10 +74,28 @@ void ContractManager::Copy(GameObject * copyObject)
 void ContractManager::Update()
 {
 	clock.UpdateClock();
-	//if (clock.Alarm()) {
-	//	AddContract();
-	//	clock.ResetClock();
-	//}
+	if (clock.Alarm()) {
+		for (int i = 0; i < ResourceManager::sizeOfList; i++) {
+			if(FindContract(i).GetStatus() == true) {
+				if(contract.GetTime() > 0){
+					contract.ReduceTime();
+					printf("Contract ID: %i \n", contract.GetContractID());
+					printf("Contract Issue Number: %i \n", contractIndex);
+					printf("Contract Length: %i \n", contract.GetTime());
+					cout << endl;
+					
+					break;
+				}
+				else {
+					FindContract(i).SetStatus(false);
+					FindContract(i).IsComplete();
+				}
+				
+			}
+			i = 0;
+		}
+		clock.ResetClock();
+	}
 
 	addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 
@@ -99,4 +117,5 @@ void ContractManager::Start()
 	Engine::GameEngine::manager.inputManager.AddKey("AddContract", "p");
 	clock.SetDelay(1000);
 	clock.StartClock();
+	AddContract();
 }
