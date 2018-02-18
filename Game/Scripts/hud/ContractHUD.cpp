@@ -3,6 +3,8 @@
 #include "hud\HUDCanvas.h"
 #include "hud/widgets/HUDContainer.h"
 #include "../ContractManager.h"
+#include "hud\widgets\TextWidget.h"
+#include "ContractHUDElement.h"
 
 ContractHUD * ContractHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, ContractManager * contractManager)
 {
@@ -25,10 +27,23 @@ void ContractHUD::OnLoad()
 	// Create HUD elements based on contracts in the ContractManager
 	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 300, 200 }, "Game/Assets/Textures/Cblack.jpg", true);
 	wrapper->SetActive(false);
-	contract = EHUD::WHUDContainer::Create(wrapper, { 25, 125, 250, 150 }, "Game/Assets/Textures/black.jpg", true);
-	contract->SetActive(false);
+
+	
+
 
 	Engine::GameEngine::manager.inputManager.AddKey("toggleContractHUD", "c");
+}
+
+void ContractHUD::Start()
+{
+	Contract* contract = contractManager->FindPersistentContract(1);
+	CHElement = ContractHUDElement::Create(wrapper, { 25, 25, 0, 0 }, contract);
+}
+
+void ContractHUD::Update()
+{
+	//text->text = "word: " + to_string(count);
+	//count++;
 }
 
 void ContractHUD::Input()
@@ -40,8 +55,8 @@ void ContractHUD::Input()
 			keyReleased = false;
 			
 			wrapper->SetActive(!wrapper->IsActive());
-			contract->SetActive(true);
-			contractManager->CheckForActiveContract();
+			
+			//contractManager->CheckForActiveContract();
 				
 		} 
 	}
@@ -50,5 +65,4 @@ void ContractHUD::Input()
 			keyReleased = true;
 		}
 	}
-	
 }

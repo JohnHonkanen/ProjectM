@@ -9,6 +9,7 @@ namespace Engine {
 	namespace HUD {
 		class HUDCanvas;
 		class HUDElement;
+		class TextWidget;
 	}
 }
 
@@ -21,6 +22,8 @@ public:
 
 	void Copy(GameObject *copyObject);
 	void OnLoad();
+	void Start();
+	void Update();
 
 	void Input();
 
@@ -28,7 +31,9 @@ private:
 	/*HUD elements*/
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
-	EHUD::HUDElement* contract;
+
+	class ContractHUDElement* CHElement;
+	int count = 0;
 
 	class ContractManager* contractManager;
 	bool keyReleased = true;

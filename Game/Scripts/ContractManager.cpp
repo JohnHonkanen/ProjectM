@@ -55,6 +55,11 @@ Contract ContractManager::FindContract(int contractID)
 	return this->contractList[contractID];
 }
 
+Contract * ContractManager::FindPersistentContract(int contractID)
+{
+	return &this->contractList[contractID];;
+}
+
 void ContractManager::CheckForActiveContract()
 {
 	for (int i = 1; i <= this->contractIndex; i++) {

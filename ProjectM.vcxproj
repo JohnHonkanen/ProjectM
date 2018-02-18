@@ -27,6 +27,7 @@
     <ClInclude Include="Game\Scripts\hud\BuildingButton.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
     <ClInclude Include="Game\Scripts\hud\ButtonWidget.h" />
+    <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Game\Scripts\hud\BuildingButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\ButtonWidget.cpp" />
+    <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
     <ClCompile Include="Game\Scripts\Production.cpp" />
