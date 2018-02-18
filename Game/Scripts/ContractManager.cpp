@@ -58,13 +58,14 @@ Contract ContractManager::FindContract(int contractID)
 bool ContractManager::CheckForActiveContract()
 {
 	for (int i = 0; i < ResourceManager::sizeOfList; i++) {
-		
-		active = FindContract(i).GetStatus();
-		if (active == true) {
-			return true;
-		}
-		else {
-			return false;
+		if(FindContract(i).GetStatus == true){
+			active = true;
+			if (active == true) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 }
