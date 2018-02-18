@@ -10,6 +10,5 @@ public:
 
 	BuildingManager buildingManager;
 	ResourceManager resourceManager;
-
 	
 };
