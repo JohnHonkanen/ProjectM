@@ -55,16 +55,10 @@ Contract ContractManager::FindContract(int contractID)
 	return this->contractList[contractID];
 }
 
-ContractManager * ContractManager::Create(GameObject * gameObject, ResourceManager* resourceManager)
-{
-	ContractManager * c = new ContractManager();
-	c->resourceManager = resourceManager;
-	gameObject->AddComponent(c);
-	return c;
-}
 
-void ContractManager::Copy(GameObject * copyObject)
+void ContractManager::SetResourceManager(ResourceManager* resourceManager)
 {
+	this->resourceManager = resourceManager;
 }
 
 void ContractManager::Update()
@@ -75,24 +69,19 @@ void ContractManager::Update()
 			if(FindContract(i).GetStatus() == true) {
 					if (contractList[i].GetTime() > 0) {
 						contractList[i].ReduceTime();
-						printf("Contract ID: %i \n", contractList[i].GetContractID());
-						printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
-						printf("Contract Length: %i \n", contractList[i].GetTime());
-						printf("Contract Amount To Deliver: %i \n", contractList[i].GetAmount());
-						printf("Contract Reward: %i \n", contractList[i].GetPayment());
-						printf("Contract Difficulty: %i \n", contractList[i].GetDifficulty());
-						cout << endl;
+						//printf("Contract ID: %i \n", contractList[i].GetContractID());
+						//printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
+						//printf("Contract Length: %i \n", contractList[i].GetTime());
+						//printf("Contract Amount To Deliver: %i \n", contractList[i].GetAmount());
+						//printf("Contract Reward: %i \n", contractList[i].GetPayment());
+						//printf("Contract Difficulty: %i \n", contractList[i].GetDifficulty());
+						//cout << endl;
 						break;
 					}
 					else {
 						FindContract(i).SetStatus(false);
 						FindContract(i).IsComplete();
 					}
-			}
-			else {
-				if (FindContract(i).GetStatus() == false) {
-					i = 0;
-				}
 			}
 		}
 		clock.ResetClock();

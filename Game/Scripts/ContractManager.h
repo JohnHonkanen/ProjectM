@@ -2,11 +2,10 @@
 #include "Contract.h"
 #include "ResourceManager.h"
 #include "PlayerEconomy.h"
-#include "components\Behaviour.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
 
-class ContractManager : public Behaviour {
+class ContractManager {
 public:
 	ContractManager();
 	~ContractManager();
@@ -15,8 +14,7 @@ public:
 	Contract AddContract();
 	Contract FindContract(int contractID);
 
-	static ContractManager* Create(GameObject *gameObject, ResourceManager* resourceManager);
-	void Copy(GameObject *copyObject);
+	void SetResourceManager(ResourceManager* resourceManager);
 	void Update();
 	void Start();
 

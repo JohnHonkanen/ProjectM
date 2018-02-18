@@ -156,7 +156,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game\ProjectM.cpp" />
     <ClCompile Include="Game\Scripts\Contract.cpp" />
     <ClCompile Include="Game\Scripts\ContractManager.cpp" />
     <ClCompile Include="Game\Scripts\PlayerEconomy.cpp" />
