@@ -8,6 +8,7 @@
 #include "CameraController.h"
 #include "GameManager.h"
 #include "BuildingController.h"
+#include "hud\ContractHUD.h"
 
 int main(int argc, char *argv[])
 {
@@ -49,9 +50,13 @@ int main(int argc, char *argv[])
 
 	//Add HUD
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
-	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 300, 10, 640 , 360 }, "");
+	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 	HUD::WHUDContainer * container = HUD::WHUDContainer::Create(canvas, { 100 , 100, 100, 100 }, "Game/Assets/Textures/ground.jpg", true);
 	HUD::TextWidget *text = HUD::TextWidget::Create(canvas, { 0, 50, 100, 100 }, "Cow and Chicken", "Game/Assets/Fonts/MavenPro-Regular.ttf", 48, 1, vec3(1, 0, 1));
+
+	//HUD GameObjects
+	GameObject* hudController = manager->CreateGameObject("Hud Controller");
+	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 
 	engine.Run();
 	return 0;
