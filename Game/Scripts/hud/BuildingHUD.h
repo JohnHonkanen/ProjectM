@@ -23,10 +23,12 @@ public:
 								class BuildingController * buildingController);
 
 	void Copy(GameObject *copyObject);
+
+	void OnLoad();
 private:
 	/**HUD elements */
 	EHUD::HUDCanvas * root;
-	std::vector<EHUD::HUDElement*> list;
+	EHUD::HUDElement* wrapper;
 	/**/
 
 	class BuildingManager * buildingManager;

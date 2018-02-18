@@ -48,6 +48,9 @@
     <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\BuildingHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
