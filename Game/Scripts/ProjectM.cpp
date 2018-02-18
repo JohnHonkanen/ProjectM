@@ -9,6 +9,7 @@
 #include "GameManager.h"
 #include "BuildingController.h"
 #include "hud\BuildingHUD.h"
+#include "Production.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,29 @@ int main(int argc, char *argv[])
 	//Game Manager
 	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
 	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
+
+	//Temp Code to make Structures
+	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
+
+	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+
+	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
+
+
+	//End of Temp Code
+
 
 	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
@@ -50,9 +74,7 @@ int main(int argc, char *argv[])
 
 	//Add HUD
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
-	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 300, 10, 640 , 360 }, "");
-	HUD::WHUDContainer * container = HUD::WHUDContainer::Create(canvas, { 100 , 100, 100, 100 }, "Game/Assets/Textures/ground.jpg", true);
-	HUD::TextWidget *text = HUD::TextWidget::Create(canvas, { 0, 50, 100, 100 }, "Cow and Chicken", "Game/Assets/Fonts/MavenPro-Regular.ttf", 48, 1, vec3(1, 0, 1));
+	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");

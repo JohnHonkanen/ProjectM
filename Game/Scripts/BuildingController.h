@@ -14,6 +14,8 @@ public:
 	void Start();
 	void Update(double dt);
 
+	void SetBuildMode(bool mode);
+	void SetMouseHeld(bool state);
 	//To Be Removed
 	void AddTempObject(GameObject *object);
 	//Our Collision Helper to check our point in grid
@@ -21,5 +23,8 @@ public:
 private:
 	BuildingManager * buildingManager;
 	GameObject * objectToBuild;
-	bool showGameObject;
+	std::string structureName;
+	bool ghostInstantiated;
+	bool buildMode = false;
+	bool mouseHeld = false;
 };

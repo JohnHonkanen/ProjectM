@@ -8,6 +8,7 @@ namespace Engine
 	{
 		class HUDCanvas;
 		class HUDElement;
+		class TextWidget;
 	}
 }
 
@@ -25,6 +26,10 @@ public:
 	void Copy(GameObject *copyObject);
 
 	void OnLoad();
+
+	void Input();
+
+	class BuildingController * GetController();
 private:
 	/**HUD elements */
 	EHUD::HUDCanvas * root;
@@ -33,6 +38,8 @@ private:
 
 	class BuildingManager * buildingManager;
 	class BuildingController * buildingController;
+
+	bool keyHeld = false;
 
 
 };
