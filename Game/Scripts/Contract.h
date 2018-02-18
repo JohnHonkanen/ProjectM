@@ -19,9 +19,12 @@ public:
 
 	void SetTime(int timer); // Set time left on contract
 	int GetTime(); // Get time left on contract
-	int ReduceTime(); // Reduce Time on contract over time.
+	int ReduceTime(int millisecond); // Reduce Time on contract over time.
 
 	int GetCurrent(); // Get current amount fulfilled of contract
+	int SetCurrent(int currentAmount); // Set current amount
+	int IncreaseCurrent(int amountToIncrease); // Increase current amount fulfilled of contract
+	int DecreaseCurrent(int amountToDecrease); // Decrease current amount fulfilled of contract
 
 	int GetContractIndex(); // Get Contract Index
 	int SetContractIndex(int contractIndex); // Set Contract index

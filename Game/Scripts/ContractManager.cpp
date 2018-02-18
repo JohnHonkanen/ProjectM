@@ -36,16 +36,16 @@ Contract ContractManager::AddContract()
 
 	this->contractList[contractIndex] = contract;
 
-	printf("Contract ID: %i \n", contract.GetContractID());
-	printf("Contract Issue Number: %i \n", contract.GetContractIndex()); // Edited. check
-	printf("Resource name to deliver: %s \n", contract.GetResource().GetName().c_str());
-	printf("Resource amount to deliver: %i \n", contract.GetAmount());
-	printf("Currently fulfilled %i \n", contract.GetCurrent());
-	printf("Contract Length: %i \n", contract.GetTime());
-	printf("Contract Difficulty: %i \n", contract.GetDifficulty());
-	printf("Contract Status: %i \n", contract.GetStatus());
-	printf("Contract Complete: %i \n", contract.IsComplete());
-	cout << endl;
+	//printf("Contract ID: %i \n", contract.GetContractID());
+	//printf("Contract Issue Number: %i \n", contract.GetContractIndex()); 
+	//printf("Resource name to deliver: %s \n", contract.GetResource().GetName().c_str());
+	//printf("Resource amount to deliver: %i \n", contract.GetAmount());
+	//printf("Currently fulfilled %i \n", contract.GetCurrent());
+	//printf("Contract Length: %i \n", contract.GetTime());
+	//printf("Contract Difficulty: %i \n", contract.GetDifficulty());
+	//printf("Contract Status: %i \n", contract.GetStatus());
+	//printf("Contract Complete: %i \n", contract.IsComplete());
+	//cout << endl;
 
 	return this->contractList[contractIndex];
 }
@@ -80,13 +80,13 @@ void ContractManager::SetResourceManager(ResourceManager* resourceManager)
 void ContractManager::Update()
 {
 	clock.UpdateClock();
-	
 
 	if (clock.Alarm()) {
-
+		FindPersistentContract(1)->ReduceTime(1000);
 			
+		clock.ResetClock();
 		}
-	clock.ResetClock();
+	
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 

@@ -1,5 +1,6 @@
 #include "Contract.h"
 #include "ContractManager.h"
+#include "glm\glm.hpp"
 
 Contract::Contract()
 {
@@ -92,9 +93,16 @@ int Contract::GetTime()
 	return this->time;
 }
 
-int Contract::ReduceTime()
+int Contract::ReduceTime(int millisecond)
 {
-	this->time -= 1000;
+	this->time -= millisecond;
+
+	if (this->time < 0) {
+		this->time = 0;
+		SetStatus(false);
+		IsComplete();
+	}
+
 	return this->time;
 }
 
@@ -103,6 +111,33 @@ int Contract::GetCurrent()
 {
 	// currently fulfilled
 	return this->current;
+}
+
+int Contract::SetCurrent(int currentAmount)
+{
+	return this->current = currentAmount;
+}
+
+int Contract::IncreaseCurrent(int amountToIncrease)
+{
+	if (GetCurrent() > GetAmount()) {
+		return GetAmount();
+	}
+	else {
+		this->current += amountToIncrease;
+		return SetCurrent(this->current);
+	}
+}
+
+int Contract::DecreaseCurrent(int amountToDecrease)
+{
+	if (GetCurrent() <= 0) {
+		return 0;
+	}
+	else {
+		this->current -= amountToDecrease;
+		return SetCurrent(this->current);
+	}
 }
 
 int Contract::GetContractIndex()
