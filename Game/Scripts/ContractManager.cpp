@@ -55,6 +55,20 @@ Contract ContractManager::FindContract(int contractID)
 	return this->contractList[contractID];
 }
 
+bool ContractManager::CheckForActiveContract()
+{
+	for (int i = 0; i < ResourceManager::sizeOfList; i++) {
+		
+		active = FindContract(i).GetStatus();
+		if (active == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}
+
 
 void ContractManager::SetResourceManager(ResourceManager* resourceManager)
 {
@@ -69,9 +83,12 @@ void ContractManager::Update()
 			if(FindContract(i).GetStatus() == true) {
 					if (contractList[i].GetTime() > 0) {
 						contractList[i].ReduceTime();
+						//CheckForActiveContract();
+
+						cout << contractList[i].GetStatus() << endl;
 						//printf("Contract ID: %i \n", contractList[i].GetContractID());
 						//printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
-						//printf("Contract Length: %i \n", contractList[i].GetTime());
+						printf("Contract Length: %i \n", contractList[i].GetTime());
 						//printf("Contract Amount To Deliver: %i \n", contractList[i].GetAmount());
 						//printf("Contract Reward: %i \n", contractList[i].GetPayment());
 						//printf("Contract Difficulty: %i \n", contractList[i].GetDifficulty());
