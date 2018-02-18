@@ -28,6 +28,7 @@ private:
 	/*HUD elements*/
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
+	EHUD::HUDElement* contract;
 
 	class ContractManager* contractManager;
 	bool keyReleased = true;

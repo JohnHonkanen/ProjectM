@@ -24,6 +24,8 @@ void ContractHUD::OnLoad()
 	// Create HUD elements based on contracts in the ContractManager
 	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 300, 200 }, "Game/Assets/Textures/black.jpg", true);
 	wrapper->SetActive(false);
+	contract = EHUD::WHUDContainer::Create(wrapper, { 25, 125, 250, 150 }, "Game/Assets/Textures/Cblack.jpg", true);
+	contract->SetActive(false);
 
 	Engine::GameEngine::manager.inputManager.AddKey("toggleContractHUD", "c");
 }
@@ -36,6 +38,8 @@ void ContractHUD::Input()
 		if (keyReleased == true) {
 			keyReleased = false;
 			wrapper->SetActive(!wrapper->IsActive());
+			contract->SetActive(!contract->IsActive());
+			
 		}
 	}
 	else {
