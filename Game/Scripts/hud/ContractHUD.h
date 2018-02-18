@@ -22,11 +22,14 @@ public:
 	void Copy(GameObject *copyObject);
 	void OnLoad();
 
+	void Input();
+
 private:
 	/*HUD elements*/
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
 
 	class ContractManager* contractManager;
+	bool keyReleased = true;
 
 };
