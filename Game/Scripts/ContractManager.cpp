@@ -55,27 +55,15 @@ Contract ContractManager::FindContract(int contractID)
 	return this->contractList[contractID];
 }
 
-bool ContractManager::CheckForActiveContract()
+void ContractManager::CheckForActiveContract()
 {
 	for (int i = 1; i <= this->contractIndex; i++) {
 		
 		printf("Contract ID: %i \n", FindContract(i).GetContractID());
 		printf("Contract Issue Number: %i \n", FindContract(i).GetContractIndex()); // Edited. check
 		printf("Contract Status: %i \n", FindContract(i).GetStatus());
-
-
-		//if(FindContract(i).GetStatus() == true){
-		//	
-		//	cout << "Status: TRUE" << endl;
-		//	return this->statusCheck = true;
-		//} else {
-		//	cout << "Status: FALSE" << endl;
-		//	return this->statusCheck = false;
-		//	
-		//}
+		cout << endl;
 	}
-
-	return false;
 }
 
 

@@ -13,7 +13,7 @@ public:
 
 	Contract AddContract();
 	Contract FindContract(int contractID);
-	bool CheckForActiveContract(); // Gets current active contract
+	void CheckForActiveContract(); // Gets current active contract
 
 	void SetResourceManager(ResourceManager* resourceManager);
 	void Update();
