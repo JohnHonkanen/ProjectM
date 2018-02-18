@@ -25,58 +25,88 @@ void BuildingController::Copy(GameObject * copyObject)
 
 void BuildingController::SetObjectToBuild(std::string structure)
 {
-	//If already holding an object, delete it from the game loop
-	if (objectToBuild != nullptr)
+
+	if (objectToBuild)
 	{
 		GameEngine::manager.gameObjectManager->DeregisterGameObject(objectToBuild->name);
 		delete objectToBuild;
 	}
-
 	// Create our Object and insert it to the game Loop
-	objectToBuild = buildingManager->GetBuilding(structure)->Instantiate();
+	structureName = structure;
+	objectToBuild = buildingManager->GetBuilding(structure);
+	objectToBuild->transform->Scale(vec3(5.0f));
 	// Sets Wheter we want to display the object on the map or not
-	objectToBuild->enabled = showGameObject;
+	objectToBuild->enabled = true;
+	buildMode = true;
 }
 
 void BuildingController::Start()
 {
-	showGameObject = true;
+	buildMode = false;
 	
 }
 
 void BuildingController::Update(double dt)
 {
-	if (objectToBuild != nullptr)
-	{
-		//Set Gameobject to enabled state according to wheter we want it to show
-		objectToBuild->enabled = showGameObject;
-	}
-	
-
-	if (showGameObject)
+	if (buildMode)
 	{
 		int mx, my; //Mouse Position
 		GameEngine::manager.inputManager.GetMousePos(mx, my);
 
 		//Get our Snap-point
-		vec3 snapPoint = colHelper.GetMouseToTerrainSnap(vec2(mx,my));
-
+		vec3 snapPoint = colHelper.GetMouseToTerrainSnap(vec2(mx, my));
 		//Place our ghost object there
 		if (objectToBuild != nullptr)
 		{
 			objectToBuild->transform->SetPosition(snapPoint);
-		}
-		
 
-		/*If mouse click is pressed / event build object*/
-		//Instantiate our object
-		if (GameEngine::manager.inputManager.GetKey("mouse0"))
-		{
-			objectToBuild->Instantiate();
-		}
-		//Add it to the active hub
-		//easy peezy
+			objectToBuild->enabled = true;
+
+			/*If mouse click is pressed / event build object*/
+			//Instantiate our object
+			if (GameEngine::manager.inputManager.GetKey("mouse0"))
+			{
+				if (!mouseHeld)
+				{
+					mouseHeld = true;
+					GameObject * structure = buildingManager->GetBuilding(structureName);
+					structure->transform->SetPosition(snapPoint);
+					structure->transform->Scale(vec3(5.0f));
+					buildMode = false;
+				}
+				
+				
+			}
+			else {
+				mouseHeld = false;
+			}
+			if (GameEngine::manager.inputManager.GetKey("mouse1"))
+			{
+				buildMode = false;
+			}
+
+			//Add it to the active hub
+			//easy peezy
+		}	
 	}
+	else
+	{
+		if (objectToBuild != nullptr)
+		{
+			objectToBuild->enabled = false;
+		}
+	}
+		
+}
+
+void BuildingController::SetBuildMode(bool mode)
+{
+	buildMode = mode;
+}
+
+void BuildingController::SetMouseHeld(bool state)
+{
+	mouseHeld = state;
 }
 
 void BuildingController::AddTempObject(GameObject * object)
