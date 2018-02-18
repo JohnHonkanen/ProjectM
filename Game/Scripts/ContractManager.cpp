@@ -88,8 +88,10 @@ void ContractManager::Update()
 		}
 	
 
-	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
+	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
+	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");
 
+	// Add Contract
 	if (addContractKey == 1) {
 		if (keyReleased == true) {
 			keyReleased = false;
@@ -101,11 +103,38 @@ void ContractManager::Update()
 			keyReleased = true;
 		}
 	}
+
+	// Change current amount
+
+	if (changeCurrent == 1) {
+		if (keyReleased == true) { // if key j is pressed (Increase)
+			keyReleased = false;
+			FindPersistentContract(1)->IncreaseCurrent(5);
+		}
+	}
+	else {
+		if (changeCurrent == 0) {
+			keyReleased = true;
+		}
+	}
+
+	if (changeCurrent == -1) { 
+		if (keyReleased == true) { // if key k is pressed (Decrease)
+			keyReleased = false;
+			FindPersistentContract(1)->DecreaseCurrent(5);
+		}
+	}
+	else {
+		if (changeCurrent == 0) {
+			keyReleased = true;
+		}
+	}
 }
 
 void ContractManager::Start()
 {
-	Engine::GameEngine::manager.inputManager.AddKey("AddContract", "p");
+	Engine::GameEngine::manager.inputManager.AddKey("Add Contract", "p");
+	GameEngine::manager.inputManager.AddKey("Change Current", "j", "k");
 	clock.SetDelay(1000);
 	clock.StartClock();
 	AddContract();
