@@ -18,6 +18,31 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\Scripts\BuildingController.h" />
+    <ClInclude Include="Game\Scripts\BuildingManager.h" />
+    <ClInclude Include="Game\Scripts\CameraController.h" />
+    <ClInclude Include="Game\Scripts\GameManager.h" />
+    <ClInclude Include="Game\Scripts\Inventory.h" />
+    <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
+    <ClInclude Include="Game\Scripts\Production.h" />
+    <ClInclude Include="Game\Scripts\Structure.h" />
+    <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
+    <ClInclude Include="Game\Scripts\Warehouse.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Scripts\BuildingController.cpp" />
+    <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
+    <ClCompile Include="Game\Scripts\CameraController.cpp" />
+    <ClCompile Include="Game\Scripts\GameManager.cpp" />
+    <ClCompile Include="Game\Scripts\Inventory.cpp" />
+    <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
+    <ClCompile Include="Game\Scripts\Production.cpp" />
+    <ClCompile Include="Game\Scripts\ProjectM.cpp" />
+    <ClCompile Include="Game\Scripts\Structure.cpp" />
+    <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp" />
+    <ClCompile Include="Game\Scripts\Warehouse.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{89D026E4-FC7A-4DD2-8836-F4E236F84EA5}</ProjectGuid>
@@ -91,8 +116,8 @@
       <AdditionalIncludeDirectories>..\GameEngine\MobaJuiceEngine\Engine\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glm-0.9.8.5\glm;..\GameEngine\MobaJuiceEngine\Engine\dependencies\catch-2.0.0.4\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glew-2.1.0\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\DevIL-1.8.0\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\assimp-3.3.1\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\boost-1.65.1\includes;..\GameEngine\MobaJuiceEngine\Engine\dependencies\irrKlang-1.5.0\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2-2.0.6\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\cereal-1.2.2\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2_ttf-2.0.14\include;..\GameEngine\MobaJuiceEngine\Engine\dependencies\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\GameEngine\libs\x64\Debug;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\boost-1.65.1\libs;..\GameEngine\MobaJuiceEngine\Engine\dependencies\assimp-3.3.1\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\DevIL-1.8.0\lib\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\irrKlang-1.5.0\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2-2.0.6\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\freetype2\win64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MobaJuiceEngine.lib;assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32.lib;freetype271.lib;irrKlang.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\GameEngine\libs\x64\Debug;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\boost-1.65.1\libs;..\GameEngine\MobaJuiceEngine\Engine\dependencies\assimp-3.3.1\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\DevIL-1.8.0\lib\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\irrKlang-1.5.0\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2-2.0.6\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glew-2.1.0\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\freetype2\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MobaJuiceEngine.lib;assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32.lib;irrKlang.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;freetype271.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -127,7 +152,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\GameEngine\libs\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\boost-1.65.1\libs;..\GameEngine\MobaJuiceEngine\Engine\dependencies\assimp-3.3.1\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\DevIL-1.8.0\lib\x64\Release;..\GameEngine\MobaJuiceEngine\Engine\dependencies\irrKlang-1.5.0\lib\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\SDL2-2.0.6\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\glew-2.1.0\lib\Release\x64;..\GameEngine\MobaJuiceEngine\Engine\dependencies\freetype2\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>MobaJuiceEngine.lib;assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32.lib;irrKlang.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;freetype271.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

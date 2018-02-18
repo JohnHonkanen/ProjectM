@@ -1,0 +1,7 @@
+Added Serialzation, copy and Create methods to Prod, Warehouse
+
+Moved storage variables and methods to structure for the moment since it seems like everything is gona need storage again...
+
+Lots of errors now because everything in main was tuned to work with the old setup.
+
+Need to know how to delegate constructor to another class without including it in both classes - See Structure constructor that takes only the name as a parameter.
