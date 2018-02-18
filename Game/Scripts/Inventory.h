@@ -23,6 +23,7 @@ private:
 	std::vector<Resources> storage;
 	bool storageFull = false;
 	int inventoryLevel = 1;
+	int atStorageIndex;
 
 public:
 
@@ -35,10 +36,12 @@ public:
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
 	std::vector<Resources> GetInventory() { return storage; }
 	bool GetStorageFull() { return storageFull; }
+	int GetAtStorageIndex() { return atStorageIndex; }
 	int GetInventoryLevel() { return inventoryLevel; }
 	int SetInventoryLevel(int newLevel) { inventoryLevel = newLevel; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
+	void SendItem(Resources res, int i);
 	bool ContainsItem(Resources res);
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }

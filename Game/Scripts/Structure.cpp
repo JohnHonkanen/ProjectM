@@ -109,4 +109,8 @@ Wrapper method that Inserts an item into the inventory of the Warehouse.
 void Structure::InsertItem(Resources res)
 {
 	inv->PlaceItem(res);
+	if (!inv->GetStorageFull())
+	{
+		inv->SendItem(res, inv->GetAtStorageIndex());
+	}
 }

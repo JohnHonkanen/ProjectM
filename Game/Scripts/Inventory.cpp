@@ -55,12 +55,9 @@ string Inventory::DisplayContents()
 	Any excess resource is sent to the back of the vector. - Does not handle event where all warehouses are full.
 
 	@param res - A resource to be placed in the vector (inside the inventory)
-
-	@returns - true if a succesful placement is made, false if not.
 */
 void Inventory::PlaceItem(Resources res)
 {
-	
 		if (storage.size() < (INITIAL_STORAGE * inventoryLevel))
 		{
 			if (storage.empty())
@@ -79,6 +76,7 @@ void Inventory::PlaceItem(Resources res)
 							res.SetItemAmount((storage[i].GetItemAmount() + res.GetItemAmount()) - 100);
 							storage[i].SetItemAmount(100);
 							storage.push_back(res);
+							atStorageIndex = i;
 							break;
 						}
 						else
@@ -89,6 +87,7 @@ void Inventory::PlaceItem(Resources res)
 					else
 					{
 						storage.push_back(res);
+						atStorageIndex = i;
 						break;
 					}
 				}
@@ -99,7 +98,16 @@ void Inventory::PlaceItem(Resources res)
 			storageFull = true;
 			cout << "Storage is full" << endl;
 		}
-	
+}
+
+/*
+	Removes the item to be sent from the storage
+
+	@param - the resource to be sent
+*/
+void Inventory::SendItem(Resources res, int i)
+{	
+	storage.erase(storage.begin() + i);
 }
 // Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
 // Call this method as it does so.
