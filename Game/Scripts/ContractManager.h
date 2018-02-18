@@ -27,4 +27,5 @@ private:
 	Engine::Utility::Clock clock;
 	bool keyReleased = true;
 	bool active, complete;
+	bool statusCheck = true;
 };

@@ -53,5 +53,4 @@ private:
 
 	bool active = false;
 	bool complete = false;
-
 };

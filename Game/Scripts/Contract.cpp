@@ -133,8 +133,7 @@ bool Contract::GetStatus()
 
 bool Contract::SetStatus(bool active)
 {
-	this->active = true;
-	return this->active;
+	return this->active = active;
 }
 
 bool Contract::IsComplete()

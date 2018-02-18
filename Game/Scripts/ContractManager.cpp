@@ -57,17 +57,25 @@ Contract ContractManager::FindContract(int contractID)
 
 bool ContractManager::CheckForActiveContract()
 {
-	for (int i = 0; i < ResourceManager::sizeOfList; i++) {
-		if(FindContract(i).GetStatus == true){
-			active = true;
-			if (active == true) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+	for (int i = 1; i <= this->contractIndex; i++) {
+		
+		printf("Contract ID: %i \n", FindContract(i).GetContractID());
+		printf("Contract Issue Number: %i \n", FindContract(i).GetContractIndex()); // Edited. check
+		printf("Contract Status: %i \n", FindContract(i).GetStatus());
+
+
+		//if(FindContract(i).GetStatus() == true){
+		//	
+		//	cout << "Status: TRUE" << endl;
+		//	return this->statusCheck = true;
+		//} else {
+		//	cout << "Status: FALSE" << endl;
+		//	return this->statusCheck = false;
+		//	
+		//}
 	}
+
+	return false;
 }
 
 
@@ -79,31 +87,13 @@ void ContractManager::SetResourceManager(ResourceManager* resourceManager)
 void ContractManager::Update()
 {
 	clock.UpdateClock();
-	if (clock.Alarm()) {
-		for (int i = 0; i < ResourceManager::sizeOfList; i++) {
-			if(FindContract(i).GetStatus() == true) {
-					if (contractList[i].GetTime() > 0) {
-						contractList[i].ReduceTime();
-						//CheckForActiveContract();
+	
 
-						cout << contractList[i].GetStatus() << endl;
-						//printf("Contract ID: %i \n", contractList[i].GetContractID());
-						//printf("Contract Issue Number: %i \n", contractList[i].GetContractIndex());
-						printf("Contract Length: %i \n", contractList[i].GetTime());
-						//printf("Contract Amount To Deliver: %i \n", contractList[i].GetAmount());
-						//printf("Contract Reward: %i \n", contractList[i].GetPayment());
-						//printf("Contract Difficulty: %i \n", contractList[i].GetDifficulty());
-						//cout << endl;
-						break;
-					}
-					else {
-						FindContract(i).SetStatus(false);
-						FindContract(i).IsComplete();
-					}
-			}
+	if (clock.Alarm()) {
+
+			
 		}
-		clock.ResetClock();
-	}
+	clock.ResetClock();
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("AddContract");
 

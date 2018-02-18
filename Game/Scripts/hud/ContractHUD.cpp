@@ -38,12 +38,12 @@ void ContractHUD::Input()
 	if (userInput == 1) {
 		if (keyReleased == true) {
 			keyReleased = false;
-			wrapper->SetActive(!wrapper->IsActive());
 			
-		} 
-		
-		if (contractManager->CheckForActiveContract() == true)
+			wrapper->SetActive(!wrapper->IsActive());
 			contract->SetActive(true);
+			contractManager->CheckForActiveContract();
+				
+		} 
 	}
 	else {
 		if (userInput == 0) {
