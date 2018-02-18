@@ -80,10 +80,6 @@ int main(int argc, char *argv[])
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
-
-
-	//HUD GameObjects
-	GameObject* hudController = manager->CreateGameObject("Hud Controller");
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 
 	engine.Run();
