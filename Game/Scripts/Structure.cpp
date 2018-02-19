@@ -114,3 +114,13 @@ void Structure::InsertItem(Resources res)
 		inv->SendItem(res, inv->GetAtStorageIndex());
 	}
 }
+
+/*
+	Does the sending of an item from one building to another
+
+
+*/
+void Structure::SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res)
+{
+	//destInv->PlaceItem(res);
+}
