@@ -13,7 +13,7 @@ public:
 	void SetDifficulty(); // Sets random contract difficulty between 1 and 3. 
 	int GetPayment(); // Get payment amount player is to receive if contract is fulfilled.
 	void SetPayment(); // Set contract payment
-	Resources GetResource(); 
+	Resources GetResource(); // Get resource in contract
 	int GetAmount(); // Get amount to fulfill on contract
 	void SetAmount(); // Set amount to fulfill on contract
 
