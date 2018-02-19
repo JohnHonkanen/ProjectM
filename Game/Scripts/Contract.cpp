@@ -120,8 +120,8 @@ int Contract::SetCurrent(int currentAmount)
 
 int Contract::IncreaseCurrent(int amountToIncrease)
 {
-	if (GetCurrent() > GetAmount()) {
-		return GetAmount();
+	if (GetCurrent() >= GetAmount()) {
+		return SetCurrent(GetAmount());
 	}
 	else {
 		this->current += amountToIncrease;
@@ -132,7 +132,7 @@ int Contract::IncreaseCurrent(int amountToIncrease)
 int Contract::DecreaseCurrent(int amountToDecrease)
 {
 	if (GetCurrent() <= 0) {
-		return 0;
+		return SetCurrent(0);
 	}
 	else {
 		this->current -= amountToDecrease;
