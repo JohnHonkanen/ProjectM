@@ -13,6 +13,8 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"
 #include "Inventory.h"
+#include "utility\Clock.h"`
+
 
 using namespace std;
 using namespace glm;
@@ -20,6 +22,8 @@ using namespace glm;
 class Production : public Structure {
 private:
 	int dt, storage;
+
+	Engine::Utility::Clock clock;
 public:
 
 	Production();
@@ -29,6 +33,7 @@ public:
 
 	void Copy(GameObject *copyObject);
 
+	void Start();
 	void OnLoad();
 	void Update(double currentTime);
 	void Draw(GameObject *obj, string name);

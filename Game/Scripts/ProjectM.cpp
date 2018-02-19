@@ -61,6 +61,12 @@ int main(int argc, char *argv[])
 	TextureSetter::Create(structure, "Game/Assets/Textures/sand.png");
 	structure->transform->SetScale(vec3(5.0f));
 
+	//Temp object to test production - greg
+	GameObject * domeGerg = gameManager->buildingManager.CreateNewBuilding(Production::Create("Dome1", "dome", 10, 1, 1, 0, true, true), "Game/Assets/Models/cube/cube.obj");
+	domeGerg->material->diffuseMap = "Game/Assets/Textures/sand.png";
+	domeGerg->transform->SetScale(vec3(5.0f));
+
+
 	//Player
 	GameObject *playerObject = manager->CreateGameObject("Player");
 	Camera * c = Camera::Create(playerObject);

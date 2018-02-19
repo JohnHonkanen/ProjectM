@@ -5,7 +5,6 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 */
 
 #include "Production.h"
-#include "utility\Clock.h"`
 
 using namespace std;
 
@@ -52,16 +51,21 @@ void Production::Copy(GameObject * copyObject)
 	copyObject->AddComponent(copy);
 }
 
+void Production::Start()
+{
+	clock.SetDelay(1000);
+	clock.StartClock();
+}
+
 void Production::OnLoad()
 {
 }
 
 void Production::Update(double currentTime)
 {
-	//time_t t = time(0);   // get time now
-	//struct tm * currentTime = localtime(&t);
+	clock.UpdateClock();
 
-	if ((dt - currentTime) >= 300) {
+	if (clock.Alarm()) {
 		dt = currentTime;
 		if (GetActive() == true && inv->InventorySize() < 100) {
 //			setStorage(getStorage() + 1 * eff); 
@@ -71,6 +75,7 @@ void Production::Update(double currentTime)
 		if (storage >= 50) {
 			//call warehouse storage update method from player
 		}
+		clock.ResetClock();
 	}
 }
 

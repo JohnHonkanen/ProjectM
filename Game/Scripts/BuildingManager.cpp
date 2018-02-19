@@ -29,6 +29,12 @@ void BuildingManager::Start()
 		"AssetPath"
 	);
 
+	//Basic Factory
+	CreateNewBuilding(
+		Production::Create("Dome 1", "Basic Dome", 10, 1, 1, 1, false, false),
+		"AssetPath"
+	);
+
 	//Radiation Factory
 	CreateNewBuilding(
 		Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false),
