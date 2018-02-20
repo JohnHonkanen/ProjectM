@@ -82,11 +82,12 @@ void ContractManager::Update()
 	clock.UpdateClock();
 
 	if (clock.Alarm()) {
-		FindPersistentContract(1)->ReduceTime(1000);
-			
-		clock.ResetClock();
+
+		for (int i = 0; i <= NumberOfActiveContract(); i++) {
+			FindPersistentContract(i)->ReduceTime(1000);
+			clock.ResetClock();
 		}
-	
+	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
 	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");

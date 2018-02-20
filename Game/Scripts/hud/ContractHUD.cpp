@@ -61,11 +61,7 @@ void ContractHUD::Input()
 		if (keyReleased == true) {
 			keyReleased = false;
 			
-			
-
 			wrapper->SetActive(!wrapper->IsActive());
-
-
 
 		} 
 	}
