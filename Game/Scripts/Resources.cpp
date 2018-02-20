@@ -82,7 +82,7 @@ void Resources::DecreaseItemPrice(float modifier)
 {
 	mood = modifier;
 
-	this->basePrice -= GetBasePrice() + mood;
+	this->basePrice -= mood;
 
 	if (this->basePrice < 0) {
 		SetItemPrice(1);

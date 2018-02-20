@@ -9,6 +9,12 @@
 #include "Production.h"
 #include "Warehouse.h"
 #include "Inventory.h"
+#include "CameraController.h"
+#include "GameManager.h"
+#include "BuildingController.h"
+#include "hud\BuildingHUD.h"
+#include "Production.h"
+#include "hud\ContractHUD.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,46 +28,58 @@ int main(int argc, char *argv[])
 
 	GameObjectManager *manager = scene->GetGameObjectManager();
 
-	GameObject * camera = manager->CreateGameObject("camera");
-	Camera * c = Camera::Create(camera);
-	c->SetFarClippingPlane(1000.0f);
-	FreeCameraControl::Create(camera);
+	//Game Manager
+	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
+	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
 
-	/*GameObject * text = manager->CreateGameObject("text");
-	Text2D::Create(text, "text2D", "Pre-alpha build 0.2.1.3", {255, 255, 255}, "Assets/Fonts/MavenPro-Regular.ttf");
-	text->transform->Scale(vec3(200, 20, 0));
-	text->transform->Translate(vec3(220, 700, 0));*/
+	//Temp Code to make Structures
+	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
 
-	//Add HUD
-	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
-	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 300, 10, 640 , 360 }, "");
-	HUD::WHUDContainer * container = HUD::WHUDContainer::Create(canvas, { 100 , 100, 100, 100 }, "Game/Assets/Textures/ground.jpg", true);
-	HUD::TextWidget *text = HUD::TextWidget::Create(canvas, { 0, 50, 100, 100 }, "Cow and Chicken", "Game/Assets/Fonts/MavenPro-Regular.ttf", 48, 1, vec3(1,0,1));
+	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+
+	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
+		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false),
+		"Game/Assets/Models/cube/cube.obj"
+	);
+	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
 
 
+	//End of Temp Code
+
+
+	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
 	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 10, "terrainGridShader", true, vec3(0, 1, 0));
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
-	Terrain::TerrainSnapper * tSnapper = Terrain::TerrainSnapper::Create(camera, grid);
 
-	{
-		GameObject *rock = manager->CreateGameObject("Cube");
-		MeshRenderer::Create(rock, "Game/Assets/Models/cube/cube.obj");
-		TextureSetter::Create(rock, "Game/Assets/Textures/sand.png");
-		rock->transform->SetScale(vec3(5.0f));
-	}
+	//Temp Object to Test Building Manager
+	GameObject *structure = manager->CreateGameObject("Temp Structure");
+	MeshRenderer::Create(structure, "Game/Assets/Models/cube/cube.obj");
+	TextureSetter::Create(structure, "Game/Assets/Textures/sand.png");
+	structure->transform->SetScale(vec3(5.0f));
 
-	{
-		for (int i = 0; i < 100; i++) {
-			GameObject *rock = manager->CreateGameObject("rock" + to_string(i));
-			MeshRenderer::Create(rock, "Game/Assets/Models/rock/Rock.obj");
-			TextureSetter::Create(rock, "Game/Assets/Textures/Rock/Rock_d.jpg");
-			rock->transform->SetScale(vec3(0.3f));
-			rock->transform->Rotate(vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50));
-			int x = rand() % 150 - 75;
-			int z = rand() % 150 - 75;
-			rock->transform->SetPosition(x * 10, grid->GetHeight(x, z) - rand() % 10, z * 10);
-		}
+	//Player
+	GameObject *playerObject = manager->CreateGameObject("Player");
+	Camera * c = Camera::Create(playerObject);
+	c->SetFarClippingPlane(1000.0f);
+	CameraController::Create(playerObject);
+	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager);
+	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
+	//Temp Function
+	buildingController->AddTempObject(structure);
+
+
+	//Add HUD
+	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
+	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
 	}
 	
@@ -97,6 +115,11 @@ int main(int argc, char *argv[])
 	w->InsertItem(res10); // Hits storage is full error.
 
 	cout << w->ViewInventory() << endl; // Displaying full inventory.
+
+	//HUD GameObjects
+	GameObject *hudController = manager->CreateGameObject("Hud Controller");
+	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
+	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 
 	engine.Run();
 	return 0;
