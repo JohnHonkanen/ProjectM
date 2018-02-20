@@ -14,7 +14,6 @@ using namespace glm;
 class Structure : public Behaviour {
 protected:
 
-	Inventory *inv;
 	int health;						//Buildings remaining health
 	int powerUsage;					//Set to 0 until power is added to game
 	int productionEfficiency;		//
@@ -22,6 +21,7 @@ protected:
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
 
+	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 public:
 	string name;
 	string type;

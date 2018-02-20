@@ -1,7 +1,7 @@
 /*
 Structure class that maintains the base properties off all structures
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Devs: Greg Smith (B00308929)
 */
 
 #include "Structure.h"

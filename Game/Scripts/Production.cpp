@@ -1,7 +1,7 @@
 /*
 Production Class - Used for maintaing any building type that produces resources.
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Dev: Greg Smith (B00308929)
 */
 
 #include "Production.h"
@@ -69,7 +69,9 @@ void Production::Update(double currentTime)
 	if (clock.Alarm()) {//check if alarm has gone off
 		
 		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
-			StoreItem(resourceManager->FindResource(GetProduction()));
+			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
+			temp.IncreaseItemAmount(1+GetProductionEfficiency());			//sets value of item created
+			StoreItem(temp);												//passes temp resource to place item wrapper for inventory
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
@@ -94,17 +96,3 @@ void Production::SetProduction(string type, int eff, bool act)
 		producing = 
 	}*/
 }
-
-
-//void Production::setStorage(int change) //Defunct method
-//{
-//	/*
-//	storage = += change;
-//	*/
-//}
-
-/*to draw building note
-MeshRenderer::Create(gameobject, assetpath);
-if you want to scale up and down
-use the gameobject.transform.scale, translate, rotate
-*/

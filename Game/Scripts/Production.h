@@ -1,7 +1,7 @@
 /*
 Production Class - Used for maintaing any building type that produces resources.
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Dev: Greg Smith (B00308929)
 */
 
 #pragma once
@@ -40,7 +40,6 @@ public:
 	void Start();
 	void OnLoad();
 	void Update(double currentTime);
-	void Draw(GameObject *obj, string name);
 
 	void SetProduction(string type, int eff, bool act);
 	int GetProduction() { return producing; }
@@ -55,7 +54,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+		ar(CEREAL_NVP(name), CEREAL_NVP(type), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
 	}
 };
 
