@@ -8,6 +8,7 @@ Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 #include <cereal\cereal.hpp>
 #include <cereal\types\map.hpp>
 #include "Structure.h"
+#include "ResourceManager.h"
 
 using namespace std;
 typedef unique_ptr<Structure> BuildingObjectUniquePointer;
@@ -28,13 +29,13 @@ public:
 
 
 	void SearchWarehouses(map<string, unique_ptr<GameObject>> buildings);
-
+	void SetResourceManager(ResourceManager * resourceManager);
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
 		ar(CEREAL_NVP(buildingList));
 	}
 private:
+	ResourceManager * resourceManager;
 	map<string, unique_ptr<GameObject>> buildingList;			// map struct used to store a structure related to a specific structure name from a file : original
-
 };

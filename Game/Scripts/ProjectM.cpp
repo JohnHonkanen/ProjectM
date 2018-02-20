@@ -29,19 +29,19 @@ int main(int argc, char *argv[])
 
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Dome", "Dome", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
-
+	
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Factory", "Factory", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
@@ -60,12 +60,6 @@ int main(int argc, char *argv[])
 	MeshRenderer::Create(structure, "Game/Assets/Models/cube/cube.obj");
 	TextureSetter::Create(structure, "Game/Assets/Textures/sand.png");
 	structure->transform->SetScale(vec3(5.0f));
-
-	//Temp object to test production - greg
-	GameObject * domeGerg = gameManager->buildingManager.CreateNewBuilding(Production::Create("Dome1", "dome", 10, 1, 1, 0, true, true), "Game/Assets/Models/cube/cube.obj");
-	domeGerg->material->diffuseMap = "Game/Assets/Textures/sand.png";
-	domeGerg->transform->SetScale(vec3(5.0f));
-
 
 	//Player
 	GameObject *playerObject = manager->CreateGameObject("Player");

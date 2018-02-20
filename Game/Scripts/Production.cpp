@@ -17,7 +17,7 @@ Production::~Production()
 }
 
 Production::Production(string buildingName, string typ, int hp, int pow, int eff, 
-						int radOut, bool placed, bool active)
+						int radOut, bool placed, bool active, ResourceManager * resourceMan)
 {
 	name = buildingName;
 	type = typ;
@@ -27,12 +27,13 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 	radiationOutput = radOut;
 	isPlaced = placed;
 	isActive = active;
+	resourceManager = resourceMan;
 }
 
 Production * Production::Create(string name, string typ, int hp, int pow, int eff, 
-								int rad, bool placed, bool active)
+								int rad, bool placed, bool active, ResourceManager * resourceMan)
 {
-	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active);
+	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active, resourceMan);
 	return p;
 }
 
@@ -68,26 +69,29 @@ void Production::Update(double currentTime)
 	if (clock.Alarm()) {//check if alarm has gone off
 		
 		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
-			inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
-			cout << inv->DisplayContents();							// testing console
+			StoreItem(resourceManager->FindResource(GetProduction()));
 		}
-		if (storage >= 50) {
+		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
 		}
 		clock.ResetClock();
 	}
 }
-//
+
+void Production::StoreItem(Resources res) {
+	inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
+	cout << inv->DisplayContents();							// testing console
+}
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
-void Production::setProduction(string type, int eff, bool act)
+void Production::SetProduction(string type, int eff, bool act)
 {
-	/*if (type == "dome") {
-		domeProduction(eff, act);
-	
-	else if (type == "factory") {
-		factoryProduction(eff, act);
+	if (type == "Dome") {
+		producing = 1;
+	}
+	/*else if (type == "factory") {
+		producing = 
 	}*/
 }
 
