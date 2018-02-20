@@ -65,10 +65,12 @@ Contract * ContractManager::FindPersistentContract(int contractID)
 int ContractManager::NumberOfActiveContract()
 {
 	int count = 0;
-	for (int i = 1; i <= this->contractIndex; i++) {
+	for (int i = 0; i < this->contractIndex; i++) {
 		
-		return count++;
+		 count++;
 	}
+	cout << count << endl;
+	return  count;
 }
 
 
@@ -83,9 +85,8 @@ void ContractManager::Update()
 
 	if (clock.Alarm()) {
 
-		for (int i = 0; i <= NumberOfActiveContract(); i++) {
-			FindPersistentContract(i)->ReduceTime(1000);
-			
+		for (int i = 0; i < NumberOfActiveContract(); i++) {
+			FindPersistentContract(i+1)->ReduceTime(1000);
 		}
 		clock.ResetClock();
 	}
@@ -142,5 +143,7 @@ void ContractManager::Start()
 	GameEngine::manager.inputManager.AddKey("Change Current", "j", "k");
 	clock.SetDelay(1000);
 	clock.StartClock();
+	AddContract();
+	AddContract();
 	AddContract();
 }
