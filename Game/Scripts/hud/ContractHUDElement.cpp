@@ -23,19 +23,19 @@ void ContractHUDElement::Start()
 	resourceIcon = EHUD::WHUDContainer::Create(this, { 163, 84, 14, 14 }, contract->GetResourceIcon(), true);
 
 	// Contract Issue Number
-	EHUD::TextWidget::Create(contractHUD, { 10, 16, 0, 0 }, "Contract Issue Number: " + to_string(contract->GetContractIndex()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	contractIssueNumber = EHUD::TextWidget::Create(contractHUD, { 10, 16, 0, 0 }, "Contract Issue Number: " + to_string(contract->GetContractIndex()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract ID
-	EHUD::TextWidget::Create(contractHUD, { 10, 32, 0, 0 }, "Contract ID: " + to_string(contract->GetContractID()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	contractID = EHUD::TextWidget::Create(contractHUD, { 10, 32, 0, 0 }, "Contract ID: " + to_string(contract->GetContractID()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract Difficulty
-	EHUD::TextWidget::Create(contractHUD, { 10, 48, 0, 0 }, "Difficulty Level: " + to_string(contract->GetDifficulty()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	difficulty = EHUD::TextWidget::Create(contractHUD, { 10, 48, 0, 0 }, "Difficulty Level: " + to_string(contract->GetDifficulty()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract Amount to FulFill
 	fulfill = EHUD::TextWidget::Create(contractHUD, { 10, 64, 0, 0 }, "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract Reward
-	EHUD::TextWidget::Create(contractHUD, { 10, 80, 0, 0 }, "Reward: " + to_string(contract->GetPayment()) + " Gold", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	reward = EHUD::TextWidget::Create(contractHUD, { 10, 80, 0, 0 }, "Reward: " + to_string(contract->GetPayment()) + " Gold", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract Resource Name
 	resource = EHUD::TextWidget::Create(contractHUD, { 10, 96, 0, 0 }, "Resource to Deliver:(   ) ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
@@ -57,6 +57,21 @@ void ContractHUDElement::Update()
 	}
 
 
+	// Contract Issue Number
+	contractIssueNumber->text = "Contract Issue Number: " + to_string(contract->GetContractIndex());
+	
+	// Contract ID
+	contractID->text = "Contract ID: " + to_string(contract->GetContractID());
+
+	// Contract Difficulty
+	difficulty->text = "Difficulty Level: " + to_string(contract->GetDifficulty());
+
+	// Contract Amount to FulFill
+	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
+	
+	// Contract Reward
+	reward->text = "Reward: " + to_string(contract->GetPayment()) + " Gold";
+
 	// Contract Resource Name
 	resource->text = "Resource to Deliver:(   ) ", "Game/Assets/Fonts/MavenPro-Regular.ttf";
 	resourceName->text = contract->GetResource().GetName();
@@ -66,9 +81,6 @@ void ContractHUDElement::Update()
 
 	// Contract time left
 	text->text = "Time Left: " + to_string((int)contract->GetTime() / 1000) + "s";
-
-	// Contract amount to fulfill
-	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
 
 	if (contract->GetStatus() == 0) {
 		SetAllActive(false);
