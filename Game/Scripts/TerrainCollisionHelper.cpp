@@ -5,9 +5,14 @@
 glm::vec3 TerrainCollisionHelper::GetMouseToTerrainSnap(glm::vec2 mousePosition)
 {
 	vec3 colPoint = CalcRayTerrainCollisionPoint(mousePosition);
-
+	coordinates = grid->GetCoordinates(colPoint);
 	//Note this might have to change
 	return grid->GetSnapPoint(colPoint) + vec3(5, 4.0f, 5); //Place our Object in the center of the grid
+}
+
+glm::vec2 TerrainCollisionHelper::GetMouseToTerrainCoordinates()
+{
+	return coordinates;
 }
 
 void TerrainCollisionHelper::SetGrid(TerrainGrid * in_grid)

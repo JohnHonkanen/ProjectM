@@ -32,7 +32,7 @@ void PlayerEconomy::Init()
 {
 	PlayerEconomy playerEconomy = PlayerEconomy();
 	ResourceManager resourceManager = ResourceManager();
-	this->resource = resourceManager.AddResource(0, "Gold Bars", "GOLD", 1, 0); 
+	this->resource = resourceManager.AddResource(0, "Gold Bars", "GOLD", 1, 0, ""); 
 	
 	cout << "Gold Bars: " << resource.GetItemID() << endl;
 	playerEconomy.GiveGoldBars(1000);
