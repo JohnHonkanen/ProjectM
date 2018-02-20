@@ -107,7 +107,6 @@ int Contract::ReduceTime(int millisecond)
 		SetStatus(false);
 		IsComplete();
 	}
-
 	return this->time;
 }
 
