@@ -7,13 +7,14 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock)
+Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
 {
 	this->itemID = itemID;
 	this->itemName = itemName;
 	this->sku = sku;
 	this->basePrice = basePrice;
 	this->itemStock = itemStock;
+	this->resourceIcon = resourceIcon;
 
 }
 

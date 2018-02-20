@@ -11,7 +11,7 @@ class Resources
 {
 public:
 	Resources();
-	Resources(int itemID, string itemName, string sku, int basePrice, int itemStock);
+	Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon);
 	~Resources();
 	
 	string GetName();
@@ -39,7 +39,7 @@ private:
 	int basePrice; // Standard price
 	float mood; // The modifier
 	float baseModifier = 5.0;
-	string itemName, sku;
+	string itemName, sku, resourceIcon;
 
 	bool purchase = false;
 	bool sold = false;
