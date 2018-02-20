@@ -14,6 +14,7 @@ public:
 	void Start();
 	void Update(double dt);
 
+	bool GetBuildMode();
 	void SetBuildMode(bool mode);
 	void SetMouseHeld(bool state);
 	//To Be Removed
