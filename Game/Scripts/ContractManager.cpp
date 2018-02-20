@@ -12,11 +12,11 @@ ContractManager::~ContractManager()
 
 Contract ContractManager::AddContract()
 {
-	//int numberOfResources = 7;
-	int generatedResID = 1; // (rand() % 2) + 1 ; // Rand value should be between 1 and active resource in resource list. (Currently: 2)
+	int numberOfResources = resourceManager->NumberOfActiveResources();
+	int generatedResID = resourceManager->RandomResources() + 1; 
 	int generatedContractID = (rand() % 640000) + 1;
 
-	Resources resource = resourceManager->FindResource(generatedResID);
+	Resources resource = resourceManager->FindResource(generatedResID); // Add a random resource to contract
 	Contract contract = Contract(resource, this);
 
 	if (this->contractIndex >= ResourceManager::sizeOfList) {

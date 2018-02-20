@@ -56,17 +56,25 @@ void ResourceManager::OnLoad()
 
 	Resources resource = AddResource(1, "Milk", "DAIRY", 1, 0, "Game/Assets/Textures/milk-16.png");
 	resource = AddResource(2, "Beef", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(3, "3", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(4, "4", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(5, "5", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
 
-
-	//FindResource(0);
+	FindResource(0);
 }
 
 int ResourceManager::NumberOfActiveResources()
 {
 	int count = 0;
-	for (int i = 1; i <= 7; i++) {
-		
-		cout << "Resource Number: " + count << endl;
-		return count++;
+	for (int i = 1; i <= this->itemIndex; i++) {
+		count++;
 	}
+	return count;
+}
+
+int ResourceManager::RandomResources()
+{
+	int numberOfResources = NumberOfActiveResources();
+	int generatedResourceID = (rand() % numberOfResources) + 1;
+	return generatedResourceID;
 }

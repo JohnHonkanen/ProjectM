@@ -20,7 +20,8 @@ public:
 
 	void OnLoad();
 
-	int NumberOfActiveResources();
+	int NumberOfActiveResources(); // Returns number of active contract added to resourceList.
+	int RandomResources(); // Generate Random Resource ID
 	static const int sizeOfList = 1280;
 
 private:
