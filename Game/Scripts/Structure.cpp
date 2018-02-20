@@ -116,8 +116,8 @@ void Structure::InsertItem(Resources res)
 	Takes a res object and places it in the destination building.
 	Erases the object from the origin building at a given index.
 */
-void Structure::SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res, int index)
+void Structure::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
 {
-	//destInv->PlaceItem(res);
-	//originInv->erase(index);
+	destInv->PlaceItem(res);
+	originInv->RemoveAtIdex(index);
 }

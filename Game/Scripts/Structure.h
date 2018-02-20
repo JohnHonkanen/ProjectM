@@ -1,3 +1,8 @@
+/*
+Structure class that maintains the base properties off all structures
+
+Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+*/
 #pragma once
 
 #include "components\Behaviour.h"
@@ -53,7 +58,7 @@ public:
 
 	void InsertItem(Resources res);
 	Inventory* GetInventory() { return inv.get(); }
-	void SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res, int index);
+	void SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
 
 	void OnLoad();

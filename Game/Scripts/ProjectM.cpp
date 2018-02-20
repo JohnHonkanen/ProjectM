@@ -15,11 +15,12 @@
 #include "Production.h"
 #include "hud\ContractHUD.h"
 #include "hud\InventoryHUD.h"
+#include "Resources.h"
 #include <iostream>
+#include "PlayerActions.h"
 
 using namespace std;
 
-#include "Warehouse.h"
 #include "Hub.h"
 int main(int argc, char *argv[])
 {
@@ -95,32 +96,29 @@ int main(int argc, char *argv[])
 
 	
 	
-	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50);
-	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51);
+	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50, "");
+	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51, "");
 
-	Resources res3 = Resources(3, "box ", "BigBox ", 5, 1);
-	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1);
-	Resources res5 = Resources(5, "box ", "BigBox ", 5, 1);
-	Resources res6 = Resources(6, "box ", "BigBox ", 5, 1);
-	Resources res7 = Resources(7, "box ", "BigBox ", 5, 1);
-	Resources res8 = Resources(8, "box ", "BigBox ", 5, 1);
-	Resources res9 = Resources(9, "box ", "BigBox ", 5, 1);
-	Resources res10 = Resources(10, "box ", "BigBox ", 5, 1);
+	Resources res3 = Resources(3, "box ", "BigBox ", 5, 1, "");
+	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1,"");
+	Resources res5 = Resources(5, "box ", "BigBox ", 5, 1, "");
+	Resources res6 = Resources(6, "box ", "BigBox ", 5, 1, "");
+	Resources res7 = Resources(7, "box ", "BigBox ", 5, 1, "");
+	Resources res8 = Resources(8, "box ", "BigBox ", 5, 1, "");
+	Resources res9 = Resources(9, "box ", "BigBox ", 5, 1, "");
+	Resources res10 = Resources(10, "box ", "BigBox ", 5, 1, "");
 
 	Warehouse* w = warehouse->GetComponent<Warehouse>();
 	Warehouse* w2 = warehouse->GetComponent<Warehouse>();
 	w->InsertItem(res1);
 	w2->InsertItem(res5);
-
+	PlayerActions* pla = buildingController->GetPlayerAction();
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	vector<Inventory*> iStorage;
-	iStorage.push_back(w->GetInventory());
-	iStorage.push_back(w2->GetInventory());
-	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas);
-	inv->SetInventory(iStorage);
+	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla);
+	//vector<Inventory*> iStorage;
 	engine.Run();
 	return 0;
 }

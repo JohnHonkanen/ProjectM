@@ -1,3 +1,8 @@
+/*
+InventoryHUDElement class that creates and processes HUD elements within
+the HUD space for strucuture inventories.
+Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
+*/
 #pragma once
 
 #include "hud\HUDWidget.h"
@@ -15,19 +20,20 @@ namespace Engine {
 class InventoryHUDElement : public EHUD::HUDWidget {
 
 public:
-
-	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, vector<class Inventory*> inv);
-
+	// Creates the Hud elements
+	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, vector<class Inventory*> inv, class PlayerActions* pla);
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
 
 private:
+	// Varibles declared and forward delclared
 	vector<class Inventory*> inv;
 	EHUD::TextWidget* title;
 	EHUD::TextWidget* text;
-
+	class PlayerActions* pla;
 	EHUD::HUDElement* inventoryHUD;
+	class InventoryPopulator* invP;
 
 };
 

@@ -100,6 +100,19 @@ void Inventory::PlaceItem(Resources res)
 		}
 }
 
+/*
+	Removes the entry at the position of the index submitted as a parameter.
+
+	E.g.
+	storage.erase(storage.begin() + 5);
+	Erases element in slot 6, so minus one is called
+	to keep it in line with the index supplied.
+*/
+	void Inventory::RemoveAtIdex(int index)
+	{
+		storage.erase(storage.begin() + (index-1));
+	}
+
 // Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
 // Call this method as it does so.
 

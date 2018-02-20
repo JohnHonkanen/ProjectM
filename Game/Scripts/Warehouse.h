@@ -1,6 +1,6 @@
 /*
 Warehouse class used to store and send/recieve resources
-Dev: Jack Smith (B000308927)
+Dev: Jack Smith (B00308927)
 */
 
 #include "components\Behaviour.h"

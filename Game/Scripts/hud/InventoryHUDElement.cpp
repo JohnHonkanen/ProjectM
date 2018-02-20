@@ -1,20 +1,34 @@
+/*
+InventoryHUDElement class that creates and processes HUD elements within 
+the HUD space for strucuture inventories.
+Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
+*/
 #include "InventoryHUDElement.h"
 #include "hud\widgets\TextWidget.h"
 #include "hud\widgets\HUDContainer.h"
 #include "../Inventory.h"
+#include "../PlayerActions.h"
+#include "../Structure.h"
+#include "../Warehouse.h"
+#include "../test/InventoryPopulator.h"
 
-
-InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<class Inventory*> inv)
+/*
+	Initialises the needed fields for the HudElements to funtion
+*/
+InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<Inventory*> inv, PlayerActions* pla)
 {
 	InventoryHUDElement *i = new InventoryHUDElement();
 	i->rect = rect;
 	i->inv = inv;
+	i->pla = pla;
 	element->AttachWidget(i);
 
 	return i;
 }
 
-
+/*
+	Initialises the HudElements for the inventory by creating the container and placing the elements within
+*/
 void InventoryHUDElement::Start()
 {
 	// Hud Title
@@ -27,12 +41,23 @@ void InventoryHUDElement::Start()
 
 void InventoryHUDElement::Update()
 {
+	
 }
 
+/*
+	Draws the widgets on the HUD, specifically the inventory's contents
+
+	@param - shader for the widget.
+*/
 void InventoryHUDElement::DrawWidget(unsigned int shader)
 {
-	for (int i = 0; i < inv.size(); i++)
+	if (pla->GetSelectedStructure() != nullptr)
 	{
-		text->text = inv[i]->GetAtStorageIndex(i);
+		if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure())!=nullptr)
+		{
+			text->text = pla->GetSelectedStructure()->ViewInventory();
+			invP->TestItem(pla);
+		}
 	}
+
 }

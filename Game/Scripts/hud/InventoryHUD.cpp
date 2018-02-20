@@ -1,3 +1,7 @@
+/*
+InventoryHUD class used at a HUD widget to display the inventories of buildings.
+Dev: Jack Smith (B00308927)
+*/
 #include "InventoryHUD.h"
 #include "core\GameObject.h"
 #include "core\GameEngine.h"
@@ -7,11 +11,16 @@
 #include "BuildingButton.h"
 #include "InventoryHUD.h"
 #include "InventoryHUDElement.h"
+#include "../PlayerActions.h"
+#include "../Warehouse.h"
 
-InventoryHUD * InventoryHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root)
+
+InventoryHUD * InventoryHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla)
 {
+	
 	InventoryHUD *ih = new InventoryHUD();
 	ih->root = root;
+	ih->pla = pla;
 	gameObject->AddComponent(ih);
 	return ih;
 }
@@ -28,7 +37,7 @@ void InventoryHUD::OnLoad()
 	wrapper->SetActive(false);
 	HUD::TextWidget::Create(wrapper, { 10 , 30, 100, 100 }, "Inventory List", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 	GameEngine::manager.inputManager.AddKey("OpenInventoryMenu", "e");
-	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, inventory);
+	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, inventory, pla);
 }
 
 void InventoryHUD::Start()
@@ -37,6 +46,14 @@ void InventoryHUD::Start()
 
 void InventoryHUD::Update()
 {
+	if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
+	{
+		wrapper->SetActive(true);
+	}
+	else
+	{
+		wrapper->SetActive(false);
+	}
 }
 
 void InventoryHUD::Input()
