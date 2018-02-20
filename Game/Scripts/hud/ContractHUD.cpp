@@ -44,11 +44,24 @@ void ContractHUD::Start()
 
 void ContractHUD::Update()
 {
-	if (!CHElement->IsActive()) {
+	if (!CHElement->IsActive() || !CHElement2->IsActive() || !CHElement3->IsActive()) {
 		// Set a new contract, activate CHelement
 		for (int i = 0; i <= contractManager->NumberOfActiveContract(); i++) {
-			CHElement->SetContract(contractManager->FindPersistentContract(i));
-			CHElement->SetAllActive(true);
+			if (!CHElement->IsActive()) {
+				contract = contractManager->FindPersistentContract(i);
+				CHElement->SetContract(contractManager->FindPersistentContract(i));
+				CHElement->SetAllActive(true);
+			}
+			else if (!CHElement2->IsActive()) {
+				contract2 = contractManager->FindPersistentContract(i);
+				CHElement2->SetContract(contractManager->FindPersistentContract(i));
+				CHElement2->SetAllActive(true);
+			}
+			else if (!CHElement3->IsActive()) {
+				contract3 = contractManager->FindPersistentContract(i);
+				CHElement3->SetContract(contractManager->FindPersistentContract(i));
+				CHElement3->SetAllActive(true);
+			}
 		}
 	}
 }
