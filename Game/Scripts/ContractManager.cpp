@@ -14,7 +14,7 @@ Contract ContractManager::AddContract()
 {
 	int numberOfResources = resourceManager->NumberOfActiveResources();
 	int generatedResID = resourceManager->RandomResources(); 
-	cout << generatedResID << endl;
+	//cout << generatedResID << endl;
 	int generatedContractID = (rand() % 640000) + 1;
 
 	Resources resource = resourceManager->FindResource(generatedResID); // Add a random resource to contract
@@ -69,7 +69,6 @@ int ContractManager::NumberOfActiveContract()
 		
 		 count++;
 	}
-	cout << count << endl;
 	return  count;
 }
 
