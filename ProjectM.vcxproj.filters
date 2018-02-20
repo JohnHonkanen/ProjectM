@@ -57,6 +57,21 @@
     <ClInclude Include="Game\Scripts\hud\BuildingButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ContractHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Hub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\PlayerActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Drone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp">
@@ -89,6 +104,12 @@
     <ClCompile Include="Game\Scripts\PlayerEconomy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\Contract.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\ContractManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -101,13 +122,25 @@
     <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\BuildingButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\hud\ButtonWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\BuildingButton.cpp">
+    <ClCompile Include="Game\Scripts\hud\ContractHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\Hub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerActions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,6 +152,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\PlayerEconomy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Contract.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\ContractManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

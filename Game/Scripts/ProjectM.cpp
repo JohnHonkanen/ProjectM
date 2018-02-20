@@ -10,10 +10,12 @@
 #include "BuildingController.h"
 #include "hud\BuildingHUD.h"
 #include "Production.h"
-
+#include "hud\ContractHUD.h"
+#include "Warehouse.h"
+#include "Hub.h"
 int main(int argc, char *argv[])
 {
-	GameEngine engine = GameEngine(true);
+	GameEngine engine = GameEngine(false);
 	engine.LoadSettings(string(engine.GetPath(GameEngine::Paths::SETTINGS) + "default-settings.xml").c_str());
 
 	engine.manager.inputManager.AddKey("build", "b");
@@ -46,7 +48,6 @@ int main(int argc, char *argv[])
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
 
-
 	//End of Temp Code
 
 
@@ -54,6 +55,14 @@ int main(int argc, char *argv[])
 	GameObject * terrain = manager->CreateGameObject("Terrain");
 	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 10, "terrainGridShader", true, vec3(0, 1, 0));
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
+
+	//HUB
+	GameObject *hubObject = manager->CreateGameObject("HUB");
+	MeshRenderer::Create(hubObject, "Game/Assets/Models/cube/cube.obj");
+	Hub *hub = Hub::Create(hubObject);
+	hubObject->transform->Scale(vec3(5.0f));
+	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
+	hubObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
 
 	//Temp Object to Test Building Manager
 	GameObject *structure = manager->CreateGameObject("Temp Structure");
@@ -66,7 +75,7 @@ int main(int argc, char *argv[])
 	Camera * c = Camera::Create(playerObject);
 	c->SetFarClippingPlane(1000.0f);
 	CameraController::Create(playerObject);
-	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager);
+	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager, hub);
 	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
 	//Temp Function
 	buildingController->AddTempObject(structure);
@@ -79,7 +88,7 @@ int main(int argc, char *argv[])
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
-
+	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 
 	engine.Run();
 	return 0;

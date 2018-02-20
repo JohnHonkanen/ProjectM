@@ -13,3 +13,20 @@ void GameManager::Copy(GameObject * copyObject)
 {
 	//Never needs to by copied
 }
+
+void GameManager::OnLoad()
+{
+	resourceManager.OnLoad();
+}
+
+void GameManager::Start()
+{
+	contractManager.SetResourceManager(&resourceManager);
+	contractManager.Start();
+}
+
+void GameManager::Update()
+{
+	resourceManager.Update();
+	contractManager.Update();
+}

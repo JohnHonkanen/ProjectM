@@ -7,13 +7,14 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock)
+Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
 {
 	this->itemID = itemID;
 	this->itemName = itemName;
 	this->sku = sku;
 	this->basePrice = basePrice;
 	this->itemStock = itemStock;
+	this->resourceIcon = resourceIcon;
 
 }
 
@@ -66,7 +67,7 @@ void Resources::ReduceItemAmount(int itemStock)
 /*Set Item Stock in marketplace*/
 void Resources::SetItemAmount(int itemStock)
 {
-	this->itemStock += itemStock;
+	this->itemStock = itemStock;
 }
 
 /*Increase Item price*/
@@ -82,7 +83,7 @@ void Resources::DecreaseItemPrice(float modifier)
 {
 	mood = modifier;
 
-	this->basePrice -= GetBasePrice() + mood;
+	this->basePrice -= mood;
 
 	if (this->basePrice < 0) {
 		SetItemPrice(1);
@@ -139,6 +140,16 @@ void Resources::update()
 			keyReleased = true;
 		}
 	}
+}
+
+string Resources::GetResourceIcon()
+{
+	return this->resourceIcon;
+}
+
+void Resources::SetResourceIcon(string resourceIcon)
+{
+	this->resourceIcon = resourceIcon;
 }
 
 

@@ -11,18 +11,22 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	Resources AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock);
+	Resources AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon);
 	Resources FindResource(int itemID);
 
 	static ResourceManager* Create(GameObject *gameObject);
 	void Copy(GameObject *copyObject);
 	void Update();
 
-	void Start();
+	void OnLoad();
 
+	int NumberOfActiveResources(); // Returns number of active contract added to resourceList.
+	int RandomResources(); // Generate Random Resource ID
+	static const int sizeOfList = 1280;
 
 private:
 	int itemIndex = 0;
-	Resources resourceList[64];
+	
+	Resources resourceList[sizeOfList];
 	Resources resources;
 };
