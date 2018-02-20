@@ -34,19 +34,22 @@ void ContractHUD::OnLoad()
 void ContractHUD::Start()
 {
 	contract = contractManager->FindPersistentContract(1);
+	contract2 = contractManager->FindPersistentContract(2);
+	contract3 = contractManager->FindPersistentContract(3);
+
 	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract);
-	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract);
-	CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract);
+	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract2);
+	CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract3);
 }
 
 void ContractHUD::Update()
 {
 	if (!CHElement->IsActive()) {
 		// Set a new contract, activate CHelement
-
-		//CHElement->SetContract();
-		CHElement->SetActive(true);
-
+		for (int i = 0; i <= contractManager->NumberOfActiveContract(); i++) {
+			CHElement->SetContract(contractManager->FindPersistentContract(i));
+			CHElement->SetAllActive(true);
+		}
 	}
 }
 

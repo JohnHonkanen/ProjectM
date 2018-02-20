@@ -71,9 +71,7 @@ void ContractHUDElement::Update()
 	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
 
 	if (contract->GetStatus() == 0) {
-		active = false;
-		contractHUD->SetActive(false);
-		resourceIcon->SetActive(false);
+		SetAllActive(false);
 	}
 }
 
@@ -88,5 +86,12 @@ void ContractHUDElement::DrawWidget(unsigned int shader)
 void ContractHUDElement::SetContract(Contract * contractToSet)
 {
 	contract = contractToSet;
+}
+
+void ContractHUDElement::SetAllActive(bool state)
+{
+	active = state;
+	contractHUD->SetActive(state);
+	resourceIcon->SetActive(state);
 }
 
