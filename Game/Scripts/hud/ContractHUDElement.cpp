@@ -17,6 +17,7 @@ ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDR
 
 void ContractHUDElement::Start()
 {
+
 	// Text
 	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 250, 150 }, "Game/Assets/Textures/black.jpg", true);
 	resourceIcon = EHUD::WHUDContainer::Create(this, { 163, 84, 14, 14 }, contract->GetResourceIcon(), true);
@@ -51,14 +52,41 @@ void ContractHUDElement::Start()
 
 void ContractHUDElement::Update()
 {
-	//text->text = contract->GetTime(); //<---- Update not implemented yet
+	if (!active) {
+		return;
+	}
+
+
+	// Contract Resource Name
+	resource->text = "Resource to Deliver:(   ) ", "Game/Assets/Fonts/MavenPro-Regular.ttf";
+	resourceName->text = contract->GetResource().GetName();
+
+	// Contract Status (Complete/!Complete)
+	contractStatus->text = "Status (Active/!Active): " + to_string(contract->GetStatus());
+
+	// Contract time left
+	text->text = "Time Left: " + to_string((int)contract->GetTime() / 1000) + "s";
+
+	// Contract amount to fulfill
+	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
+
+	if (contract->GetStatus() == 0) {
+		active = false;
+		contractHUD->SetActive(false);
+		resourceIcon->SetActive(false);
+	}
 }
 
 void ContractHUDElement::DrawWidget(unsigned int shader)
 {
-	text->text = "Time Left: " + to_string((int)contract->GetTime() / 1000) + "s";
-	contractStatus->text = "Status (Active/!Active): " + to_string(contract->GetStatus());
-	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
-	//resource->text = "Resource to Deliver : " + contract->GetResource().GetName();
+	if (!active) {
+		return;
+	}
+
+}
+
+void ContractHUDElement::SetContract(Contract * contractToSet)
+{
+	contract = contractToSet;
 }
 

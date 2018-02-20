@@ -25,28 +25,29 @@ void ContractHUD::Copy(GameObject * copyObject)
 void ContractHUD::OnLoad()
 {
 	// Create HUD elements based on contracts in the ContractManager
-	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 300, 200 }, "Game/Assets/Textures/Cblack.jpg", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 300, 550 }, "Game/Assets/Textures/blackG.jpg", true);
 	wrapper->SetActive(false);
-
-	
-
 
 	Engine::GameEngine::manager.inputManager.AddKey("toggleContractHUD", "c");
 }
 
 void ContractHUD::Start()
 {
-	Contract* contract = contractManager->FindPersistentContract(1);
+	contract = contractManager->FindPersistentContract(1);
 	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract);
-
-	/*Contract* contract = contractManager->FindPersistentContract(1);
-	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25 * i, 0, 0 }, contract);*/
+	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract);
+	CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract);
 }
 
 void ContractHUD::Update()
 {
-	//text->text = "word: " + to_string(count);
-	//count++;
+	if (!CHElement->IsActive()) {
+		// Set a new contract, activate CHelement
+
+		//CHElement->SetContract();
+		CHElement->SetActive(true);
+
+	}
 }
 
 void ContractHUD::Input()
@@ -57,21 +58,12 @@ void ContractHUD::Input()
 		if (keyReleased == true) {
 			keyReleased = false;
 			
+			
+
 			wrapper->SetActive(!wrapper->IsActive());
 
-			/*for (int i = 1; i < 2; i++) {
-				Contract* contract = contractManager->FindPersistentContract(1);
-				bool contractStatus = false;
-				if (contractManager->FindPersistentContract(1)->GetStatus() == true) {
-					CHElement = ContractHUDElement::Create(wrapper, { (float)25, (float)25, (float)0, (float)0 }, contract);
-				}
-				else {
-					break;
-				}
-			}*/
-			
-			contractManager->NumberOfActiveContract();
-				
+
+
 		} 
 	}
 	else {

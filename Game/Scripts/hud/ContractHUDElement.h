@@ -21,10 +21,11 @@ public:
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
+	void SetContract(Contract* contractToSet);
 
 private:
 	class Contract* contract;
-	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName;
+	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName, *reward, *contractIssueNumber, *contractID, *difficulty;
 	EHUD::HUDElement* contractHUD, *resourceIcon;
 
 };

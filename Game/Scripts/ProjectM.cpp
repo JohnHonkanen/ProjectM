@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-	GameEngine engine = GameEngine(true);
+	GameEngine engine = GameEngine(false);
 	engine.LoadSettings(string(engine.GetPath(GameEngine::Paths::SETTINGS) + "default-settings.xml").c_str());
 
 	engine.manager.inputManager.AddKey("build", "b");
