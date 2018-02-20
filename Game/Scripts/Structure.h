@@ -11,6 +11,14 @@
 using namespace std;
 using namespace glm;
 
+
+enum StructureType
+{
+	PRODUCTION,
+	WAREHOUSE,
+	FACTORY
+};
+
 class Structure : public Behaviour {
 protected:
 
@@ -22,6 +30,8 @@ protected:
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
 
+	int tileX, tileY;
+	StructureType structureType;
 public:
 	string name;
 	string type;
@@ -40,6 +50,8 @@ public:
 	int  GetRadiationOutput();		//
 	bool GetPlaced();				//
 	bool GetActive();				//
+	void GetTilePosition(int &x, int &y);
+	StructureType GetType();
 
 	void SetName(string change);
 	void SetHealth(int change);				//Changes buildings health
@@ -49,6 +61,7 @@ public:
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
 
+	void SetTilePosition(int x, int y);
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)
