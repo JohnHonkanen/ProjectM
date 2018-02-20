@@ -16,8 +16,10 @@ ResourceManager::~ResourceManager()
 Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon)
 {
 	this->resources = Resources(itemID, itemName, SKU, itemPrice, itemStock, resourceIcon);
-	this->resourceList[resources.GetItemID()] = resources;
+	
 	this->itemIndex = itemID;
+
+	this->resourceList[itemIndex] = this->resources;
 
 	return this->resourceList[itemIndex];
 }
@@ -25,9 +27,9 @@ Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, 
 /*Use to find resources*/
 Resources ResourceManager::FindResource(int itemID)
 {
-	this->resourceList[itemID] = resources;
-	//cout << "Item Name: " << resources.GetName() << " found!" << endl << endl;
-	return resources;
+	
+	cout << "Item Name: " << this->resourceList[itemID].GetName() << " found!" << endl << endl;
+	return this->resourceList[itemID];;
 }
 
 ResourceManager * ResourceManager::Create(GameObject * gameObject)
@@ -52,9 +54,27 @@ void ResourceManager::OnLoad()
 {
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
-	Resources resource = AddResource(1, "Milk", "DAIRY", 100, 0, "");
-	resource = AddResource(2, "Beef", "MEAT", 200, 0, "");
+	Resources resource = AddResource(1, "Milk", "DAIRY", 1, 0, "Game/Assets/Textures/milk-16.png");
+	resource = AddResource(2, "Beef", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(3, "3", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(4, "4", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(5, "5", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
 
-	FindResource(1);
-	FindResource(2);
+	FindResource(0);
+}
+
+int ResourceManager::NumberOfActiveResources()
+{
+	int count = 0;
+	for (int i = 1; i <= this->itemIndex; i++) {
+		count++;
+	}
+	return count;
+}
+
+int ResourceManager::RandomResources()
+{
+	int numberOfResources = NumberOfActiveResources();
+	int generatedResourceID = (rand() % numberOfResources) + 1;
+	return generatedResourceID;
 }

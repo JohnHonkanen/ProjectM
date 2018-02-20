@@ -53,6 +53,11 @@ Resources Contract::GetResource()
 	return this->resource;
 }
 
+string Contract::GetResourceIcon()
+{
+	return GetResource().GetResourceIcon();;
+}
+
 int Contract::GetAmount()
 {
 	return this->amount;
@@ -63,13 +68,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = (rand() % 100) + 150;
+		this->amount = (rand() % 10) + 15;
 	}
 	else if (tempDif == 2) {
-		this->amount = (rand() % 200) + 300;
+		this->amount = (rand() % 20) + 30;
 	}
 	else {
-		this->amount = (rand() % 600) + 900;
+		this->amount = (rand() % 60) + 90;
 	}
 }
 
@@ -102,7 +107,6 @@ int Contract::ReduceTime(int millisecond)
 		SetStatus(false);
 		IsComplete();
 	}
-
 	return this->time;
 }
 
@@ -120,8 +124,8 @@ int Contract::SetCurrent(int currentAmount)
 
 int Contract::IncreaseCurrent(int amountToIncrease)
 {
-	if (GetCurrent() > GetAmount()) {
-		return GetAmount();
+	if (GetCurrent() >= GetAmount()) {
+		return SetCurrent(GetAmount());
 	}
 	else {
 		this->current += amountToIncrease;
@@ -132,7 +136,7 @@ int Contract::IncreaseCurrent(int amountToIncrease)
 int Contract::DecreaseCurrent(int amountToDecrease)
 {
 	if (GetCurrent() <= 0) {
-		return 0;
+		return SetCurrent(0);
 	}
 	else {
 		this->current -= amountToDecrease;
