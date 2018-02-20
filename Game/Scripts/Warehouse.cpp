@@ -26,10 +26,10 @@ Warehouse::Warehouse(string buildingName, int hp, int pow, int eff, int rad, boo
 	isActive = active;
 }
 
-Warehouse * Warehouse::Create(GameObject * gameObject, string name, int hp, int pow, int eff, int rad, bool placed, bool active)
+Warehouse * Warehouse::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active)
 {
 	Warehouse *w = new Warehouse(name, hp, pow, eff, rad, placed, active);
-	gameObject->AddComponent(w);
+	w->structureType = WAREHOUSE;
 	return w;
 }
 
@@ -43,6 +43,7 @@ void Warehouse::Copy(GameObject *copyObject)
 	copy->radiationOutput = Warehouse::radiationOutput;
 	copy->isPlaced = Warehouse::isPlaced;
 	copy->isActive = Warehouse::isActive;
+	copy->structureType = WAREHOUSE;
 
 	copyObject->AddComponent(copy);
 
