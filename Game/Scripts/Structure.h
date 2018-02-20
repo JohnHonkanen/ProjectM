@@ -53,7 +53,7 @@ public:
 
 	void InsertItem(Resources res);
 	std::vector<Resources> GetInventory() { return inv->GetInventory(); }
-	void SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res);
+	void SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
 
 	void OnLoad();

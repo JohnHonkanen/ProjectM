@@ -109,18 +109,15 @@ Wrapper method that Inserts an item into the inventory of the Warehouse.
 void Structure::InsertItem(Resources res)
 {
 	inv->PlaceItem(res);
-	if (!inv->GetStorageFull())
-	{
-		inv->SendItem(res, inv->GetAtStorageIndex());
-	}
 }
 
 /*
 	Does the sending of an item from one building to another
-
-
+	Takes a res object and places it in the destination building.
+	Erases the object from the origin building at a given index.
 */
-void Structure::SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res)
+void Structure::SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res, int index)
 {
 	//destInv->PlaceItem(res);
+	//originInv->erase(index);
 }

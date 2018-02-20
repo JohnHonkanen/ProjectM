@@ -11,6 +11,7 @@ Dev: Jack Smith (B00308927)
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 #include <vector>
+#include <string>
 
 
 using namespace std;
@@ -36,12 +37,11 @@ public:
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
 	std::vector<Resources> GetInventory() { return storage; }
 	bool GetStorageFull() { return storageFull; }
-	int GetAtStorageIndex() { return atStorageIndex; }
+	string GetAtStorageIndex(int index);
 	int GetInventoryLevel() { return inventoryLevel; }
 	int SetInventoryLevel(int newLevel) { inventoryLevel = newLevel; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
-	void SendItem(Resources res, int i);
 	bool ContainsItem(Resources res);
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }

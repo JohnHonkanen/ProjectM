@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
+    <ClInclude Include="Game\Scripts\InventoryHUD.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
     <ClInclude Include="Game\Scripts\Structure.h" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
+    <ClCompile Include="Game\Scripts\InventoryHUD.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
     <ClCompile Include="Game\Scripts\Production.cpp" />
     <ClCompile Include="Game\Scripts\ProjectM.cpp" />

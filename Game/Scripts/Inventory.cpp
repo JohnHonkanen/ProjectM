@@ -100,15 +100,6 @@ void Inventory::PlaceItem(Resources res)
 		}
 }
 
-/*
-	Removes the item to be sent from the storage
-
-	@param - the resource to be sent
-*/
-void Inventory::SendItem(Resources res, int i)
-{	
-	storage.erase(storage.begin() + i);
-}
 // Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
 // Call this method as it does so.
 
@@ -134,6 +125,26 @@ bool Inventory::ContainsItem(Resources res)
 void Inventory::ChangeResourceQuantity(int change)
 {
 	//res->SetItemAmount(-change);
+}
+string Inventory::GetAtStorageIndex(int index)
+{
+	string contents;
+
+	if (storage.empty())
+	{
+		contents = "Inventory is empty.";
+	}
+	else
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			if (index == i)
+			{
+				contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+			}
+		}
+	}
+	return contents;
 }
 /*
 Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.
