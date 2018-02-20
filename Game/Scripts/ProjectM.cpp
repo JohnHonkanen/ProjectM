@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, true),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";

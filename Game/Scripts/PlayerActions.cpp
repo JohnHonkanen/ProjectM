@@ -17,6 +17,7 @@ void PlayerActions::Copy(GameObject * copyObject)
 
 void PlayerActions::Start()
 {
+	selectedTexture = "Game/Assets/Textures/building_selected.jpg";
 }
 
 void PlayerActions::Update(double dt)
@@ -37,7 +38,13 @@ void PlayerActions::Update(double dt)
 			Structure *structure = hub->GetStructure(coordinates.x, coordinates.y);
 			if (structure != nullptr)
 			{
-				printf("Selected a building: %s \n", structure->GetName().c_str());
+				if (selectedStructure != nullptr)
+				{
+					selectedStructure->gameObject->material->diffuseMap = buildingTexture;
+				}
+				buildingTexture = structure->gameObject->material->diffuseMap;
+				structure->gameObject->material->diffuseMap = selectedTexture;
+				selectedStructure = structure;
 			}
 		}
 	}

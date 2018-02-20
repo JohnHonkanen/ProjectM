@@ -1,6 +1,6 @@
 #pragma once
 #include "components\Behaviour.h"
-
+#include <string>
 class PlayerActions : public Behaviour
 {
 public:
@@ -10,6 +10,10 @@ public:
 	void Start();
 	void Update(double dt);
 private:
+	std::string selectedTexture;
+	std::string buildingTexture;
+
 	class BuildingController *buldingController;
 	class Hub *hub;
+	class Structure *selectedStructure;
 };
