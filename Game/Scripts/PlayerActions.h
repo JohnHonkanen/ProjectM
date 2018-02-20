@@ -9,6 +9,7 @@ public:
 
 	void Start();
 	void Update(double dt);
+	class Structure * GetSelectedStructure();
 private:
 	std::string selectedTexture;
 	std::string buildingTexture;
