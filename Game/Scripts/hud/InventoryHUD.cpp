@@ -15,10 +15,11 @@ Dev: Jack Smith (B00308927)
 #include "../Warehouse.h"
 
 
-InventoryHUD * InventoryHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla)
+InventoryHUD * InventoryHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
 {
 	
 	InventoryHUD *ih = new InventoryHUD();
+	ih->rManager = rManager;
 	ih->root = root;
 	ih->pla = pla;
 	gameObject->AddComponent(ih);
@@ -37,7 +38,7 @@ void InventoryHUD::OnLoad()
 	wrapper->SetActive(false);
 	HUD::TextWidget::Create(wrapper, { 10 , 30, 100, 100 }, "Inventory List", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 	GameEngine::manager.inputManager.AddKey("OpenInventoryMenu", "e");
-	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, inventory, pla);
+	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, inventory, pla, rManager);
 }
 
 void InventoryHUD::Start()
@@ -58,6 +59,7 @@ void InventoryHUD::Update()
 
 void InventoryHUD::Input()
 {
+
 	int openBuildMenu = GameEngine::manager.inputManager.GetKey("OpenInventoryMenu");
 
 	if (openBuildMenu == 1)

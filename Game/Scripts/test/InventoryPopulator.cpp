@@ -10,6 +10,8 @@ Dev: Jack Smith (B00308927)
 #include "core\GameEngine.h"
 #include "../ResourceManager.h"
 #include "../Resources.h"
+#include "../Structure.h"
+#include "../Warehouse.h"
 
 InventoryPopulator::InventoryPopulator()
 {
@@ -23,7 +25,10 @@ InventoryPopulator::InventoryPopulator(PlayerActions* pla, Resources* res)
 
 void InventoryPopulator::Onload()
 {
-	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
+}
+
+void InventoryPopulator::Start()
+{
 }
 
 /*
@@ -32,20 +37,20 @@ void InventoryPopulator::Onload()
 	DrawWidget method which runs at refresh rate and so updates
 	quite quickly.
 */
-void InventoryPopulator::TestItem(PlayerActions * pla)
+void InventoryPopulator::TestItem(PlayerActions * pla, ResourceManager* resourceManager)
 {
-	int placeRes1 = GameEngine::manager.inputManager.GetKey("1");
-
+	int placeRes1 = GameEngine::manager.inputManager.GetKey("PlaceRes1");
 	if (placeRes1 == 1)
 	{
 		if (!keyHeld)
 		{
 			keyHeld = true;
-			//pla->GetSelectedStructure()->PlaceItem(resourceManager->FindResource(RandomResources() + 1));// needs random resource
+			dynamic_cast<Warehouse*>(pla->GetSelectedStructure())->GetInventory()
+				->PlaceItem((resourceManager->FindResource(resourceManager->RandomResources())));// needs random resource
 		}
 	}
 	else {
-			keyHeld = false;
+		keyHeld = false;
 	}
 }
 

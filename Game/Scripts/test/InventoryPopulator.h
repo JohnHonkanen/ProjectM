@@ -15,7 +15,8 @@ public:
 	InventoryPopulator(class PlayerActions* pla, class Resources* res);
 	void Onload();
 	// Creates test items at runtime for warehouse inventories
-	void TestItem(PlayerActions * pla);
+	void Start();
+	void TestItem(PlayerActions * pla, class ResourceManager* resourceManager);
 	void Create();
 	void Copy(GameObject* gameObject);
 	void Update();

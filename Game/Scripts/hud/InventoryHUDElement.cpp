@@ -9,15 +9,27 @@ Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
 #include "../Inventory.h"
 #include "../PlayerActions.h"
 #include "../Structure.h"
-#include "../Warehouse.h"
 #include "../test/InventoryPopulator.h"
+#include "../Warehouse.h"
+
+InventoryHUDElement::InventoryHUDElement()
+{
+}
+
+InventoryHUDElement::~InventoryHUDElement()
+{
+	delete invP;
+	delete rManager;
+}
 
 /*
 	Initialises the needed fields for the HudElements to funtion
 */
-InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<Inventory*> inv, PlayerActions* pla)
+InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<Inventory*> inv, PlayerActions* pla, ResourceManager* rManager)
 {
 	InventoryHUDElement *i = new InventoryHUDElement();
+	
+	i->rManager = rManager;
 	i->rect = rect;
 	i->inv = inv;
 	i->pla = pla;
@@ -31,6 +43,8 @@ InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HU
 */
 void InventoryHUDElement::Start()
 {
+	invP = new InventoryPopulator();
+	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Hud Title
 	inventoryHUD = EHUD::WHUDContainer::Create(this, { 0, 20, 350, 150 }, "Game/Assets/Textures/black.jpg", true);
 	// Inventory contents
@@ -41,7 +55,6 @@ void InventoryHUDElement::Start()
 
 void InventoryHUDElement::Update()
 {
-	
 }
 
 /*
@@ -56,7 +69,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 		if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure())!=nullptr)
 		{
 			text->text = pla->GetSelectedStructure()->ViewInventory();
-			invP->TestItem(pla);
+			invP->TestItem(pla, rManager);
 		}
 	}
 

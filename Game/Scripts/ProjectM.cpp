@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
 	droneObject->transform->Scale(vec3(3));
 
-	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla);
+	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
 	engine.Run();
 	return 0;

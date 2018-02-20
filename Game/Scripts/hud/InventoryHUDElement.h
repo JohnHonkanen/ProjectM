@@ -7,6 +7,7 @@ Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
 
 #include "hud\HUDWidget.h"
 #include "hud\HUDRect.h"
+#include "../ResourceManager.h"
 #include <string>
 
 //Namespace Alias 
@@ -21,7 +22,9 @@ class InventoryHUDElement : public EHUD::HUDWidget {
 
 public:
 	// Creates the Hud elements
-	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, vector<class Inventory*> inv, class PlayerActions* pla);
+	InventoryHUDElement();
+	~InventoryHUDElement();
+	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, vector<class Inventory*> inv, class PlayerActions* pla, class ResourceManager* rManager);
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
@@ -34,6 +37,7 @@ private:
 	class PlayerActions* pla;
 	EHUD::HUDElement* inventoryHUD;
 	class InventoryPopulator* invP;
+	class ResourceManager* rManager;
 
 };
 

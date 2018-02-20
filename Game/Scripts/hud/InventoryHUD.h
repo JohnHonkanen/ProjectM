@@ -23,7 +23,7 @@ class InventoryHUD : public Behaviour
 {
 public:
 	static InventoryHUD * Create(GameObject *gameObject,
-		EHUD::HUDCanvas *root, class PlayerActions* pla);
+		EHUD::HUDCanvas *root, class PlayerActions* pla, class ResourceManager* rManager);
 
 	void Copy(GameObject *copyObject);
 	void OnLoad();
@@ -40,5 +40,6 @@ private:
 	class InventoryHUDElement* IHElement;
 	bool keyHeld = false;
 	vector<class Inventory*> inventory;
+	class ResourceManager* rManager;
 
 };
