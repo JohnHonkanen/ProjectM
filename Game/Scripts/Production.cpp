@@ -63,22 +63,21 @@ void Production::OnLoad()
 
 void Production::Update(double currentTime)
 {
-	clock.UpdateClock();
+	clock.UpdateClock();//updating clock time
 
-	if (clock.Alarm()) {
-		dt = currentTime;
-		if (GetActive() == true && inv->InventorySize() < 100) {
-//			setStorage(getStorage() + 1 * eff); 
-			//storage being used as a generalised term until proper building storage can be called
-			cout << storage; // testing
+	if (clock.Alarm()) {//check if alarm has gone off
+		
+		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
+			inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
+			cout << inv->DisplayContents();							// testing console
 		}
 		if (storage >= 50) {
-			//call warehouse storage update method from player
+			//inv->PlaceItem(res);									//send built up resource to a warehouse
 		}
 		clock.ResetClock();
 	}
 }
-
+//
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
