@@ -22,6 +22,7 @@
     <ClInclude Include="Game\Scripts\BuildingController.h" />
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
+    <ClInclude Include="Game\Scripts\Drone.h" />
     <ClInclude Include="Game\Scripts\GameManager.h" />
     <ClInclude Include="Game\Scripts\Hub.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />

@@ -19,10 +19,13 @@ public:
 	void SetMouseHeld(bool state);
 	//To Be Removed
 	void AddTempObject(GameObject *object);
+
+	class PlayerActions *GetPlayerAction();
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;
 private:
 	class Hub * hub;
+	class PlayerActions *playerAction;
 	BuildingManager * buildingManager;
 	GameObject * objectToBuild;
 	std::string structureName;

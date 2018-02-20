@@ -49,3 +49,8 @@ void PlayerActions::Update(double dt)
 		}
 	}
 }
+
+Structure * PlayerActions::GetSelectedStructure()
+{
+	return selectedStructure;
+}

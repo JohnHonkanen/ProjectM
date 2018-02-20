@@ -12,7 +12,7 @@ BuildingController * BuildingController::Create(GameObject * gameObject, Buildin
 	bc->buildingManager = buildingManager;
 	bc->hub = hub;
 
-	PlayerActions::Create(gameObject, bc, hub);
+	bc->playerAction = PlayerActions::Create(gameObject, bc, hub);
 	gameObject->AddComponent(bc);
 
 	return bc;
@@ -128,4 +128,9 @@ void BuildingController::SetMouseHeld(bool state)
 void BuildingController::AddTempObject(GameObject * object)
 {
 	objectToBuild = object;
+}
+
+PlayerActions * BuildingController::GetPlayerAction()
+{
+	return playerAction;
 }
