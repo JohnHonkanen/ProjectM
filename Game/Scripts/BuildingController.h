@@ -7,7 +7,7 @@ class BuildingController : public Behaviour
 {
 public:
 	~BuildingController();
-	static BuildingController* Create(GameObject * gameObject, BuildingManager * buildingManager);
+	static BuildingController* Create(GameObject * gameObject, BuildingManager * buildingManager, class Hub *hub);
 	void Copy(GameObject *copyObject);
 	void SetObjectToBuild(std::string structure);
 
@@ -21,6 +21,7 @@ public:
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;
 private:
+	class Hub * hub;
 	BuildingManager * buildingManager;
 	GameObject * objectToBuild;
 	std::string structureName;

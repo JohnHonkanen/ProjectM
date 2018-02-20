@@ -1,15 +1,15 @@
 #include "BuildingController.h"
 #include "core\GameEngine.h"
-
+#include "Hub.h"
 BuildingController::~BuildingController()
 {
 }
 
-BuildingController * BuildingController::Create(GameObject * gameObject, BuildingManager * buildingManager)
+BuildingController * BuildingController::Create(GameObject * gameObject, BuildingManager * buildingManager, Hub *hub)
 {
 	BuildingController *bc = new BuildingController();
 	bc->buildingManager = buildingManager;
-
+	bc->hub = hub;
 	gameObject->AddComponent(bc);
 
 	return bc;
@@ -55,6 +55,8 @@ void BuildingController::Update(double dt)
 
 		//Get our Snap-point
 		vec3 snapPoint = colHelper.GetMouseToTerrainSnap(vec2(mx, my));
+		vec2 coordinates = colHelper.GetMouseToTerrainCoordinates();
+
 		//Place our ghost object there
 		if (objectToBuild != nullptr)
 		{
@@ -70,6 +72,8 @@ void BuildingController::Update(double dt)
 				{
 					mouseHeld = true;
 					GameObject * structure = buildingManager->GetBuilding(structureName);
+					Structure *sComponent = structure->GetComponent<Structure>();
+					hub->AddStructureToNetwork(StructureType::PRODUCTION, sComponent, coordinates.x, coordinates.y);
 					structure->transform->SetPosition(snapPoint);
 					structure->transform->Scale(vec3(5.0f));
 					buildMode = false;
