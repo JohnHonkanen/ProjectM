@@ -34,6 +34,8 @@ public:
 
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
+	string GetResourceIcon(); // Get Resource icon
+	void SetResourceIcon(string resourceIcon); // Set a resource icon
 private:
 	int itemID, itemValue, itemQuality, itemStock;
 	int basePrice; // Standard price

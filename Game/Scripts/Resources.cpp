@@ -142,4 +142,14 @@ void Resources::update()
 	}
 }
 
+string Resources::GetResourceIcon()
+{
+	return this->resourceIcon;
+}
+
+void Resources::SetResourceIcon(string resourceIcon)
+{
+	this->resourceIcon = resourceIcon;
+}
+
 
