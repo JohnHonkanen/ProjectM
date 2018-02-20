@@ -22,6 +22,8 @@
 using namespace std;
 
 #include "Hub.h"
+#include "Drone.h"
+
 int main(int argc, char *argv[])
 {
 	GameEngine engine = GameEngine(false);
@@ -41,13 +43,13 @@ int main(int argc, char *argv[])
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, true),
-		"Game/Assets/Models/cube/cube.obj"
+		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false),
-		"Game/Assets/Models/cube/cube.obj"
+		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
@@ -62,15 +64,17 @@ int main(int argc, char *argv[])
 
 	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
-	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 10, "terrainGridShader", true, vec3(0, 1, 0));
+	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 1, "terrainGridShader", true, vec3(0, 1, 0));
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
 
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
-	MeshRenderer::Create(hubObject, "Game/Assets/Models/cube/cube.obj");
+	MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
 	Hub *hub = Hub::Create(hubObject);
-	hubObject->transform->Scale(vec3(5.0f));
+	hubObject->transform->Scale(vec3(3.0f));
+	hubObject->transform->Rotate(vec3(0,0,0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
+	hubObject->transform->Translate(vec3(0, 7, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
 
 	//Temp Object to Test Building Manager
@@ -117,6 +121,15 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+
+	//Drone Code
+	GameObject *droneObject = manager->CreateGameObject("drone");
+	MeshRenderer::Create(droneObject, "Game/Assets/Models/mobajuice/Drone.DAE");
+	Drone *drone = Drone::Create(droneObject);
+	drone->SetDestination(vec3(250, 0, 150));
+	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
+	droneObject->transform->Scale(vec3(3));
+
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla);
 	//vector<Inventory*> iStorage;
 	engine.Run();

@@ -23,6 +23,7 @@
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
     <ClInclude Include="Game\Scripts\Drone.h" />
+    <ClInclude Include="Game\Scripts\DroneProducer.h" />
     <ClInclude Include="Game\Scripts\GameManager.h" />
     <ClInclude Include="Game\Scripts\Hub.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />
@@ -45,6 +46,8 @@
     <ClCompile Include="Game\Scripts\BuildingController.cpp" />
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />
+    <ClCompile Include="Game\Scripts\Drone.cpp" />
+    <ClCompile Include="Game\Scripts\DroneProducer.cpp" />
     <ClCompile Include="Game\Scripts\GameManager.cpp" />
     <ClCompile Include="Game\Scripts\Hub.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUD.cpp" />

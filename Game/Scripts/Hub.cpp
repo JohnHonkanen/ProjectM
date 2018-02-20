@@ -1,6 +1,13 @@
 #include "Hub.h"
 #include "Structure.h"
 
+struct Slot
+{
+	StructureType type;
+	int x, y;
+	class Structure *structure;
+};
+
 Hub * Hub::Create(GameObject * gameObject)
 {
 	Hub *h = new Hub();

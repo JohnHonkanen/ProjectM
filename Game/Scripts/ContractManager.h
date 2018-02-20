@@ -23,7 +23,7 @@ public:
 private:
 	int contractIndex = 0;
 	
-	Contract contractList[ResourceManager::sizeOfList]; // List of contracts to be held, and chosen from. parameter of contracts to be generated using rand() WIP.
+	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
 	Engine::Utility::Clock clock;
 	bool keyReleased1 = true;

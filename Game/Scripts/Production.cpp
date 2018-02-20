@@ -34,6 +34,7 @@ Production * Production::Create(string name, string typ, int hp, int pow, int ef
 								int rad, bool placed, bool active)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active);
+	p->structureType = PRODUCTION;
 	return p;
 }
 
@@ -48,6 +49,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
+	copy->structureType = PRODUCTION;
 
 	copyObject->AddComponent(copy);
 }

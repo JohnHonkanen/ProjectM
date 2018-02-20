@@ -56,11 +56,11 @@ void ResourceManager::OnLoad()
 
 	Resources resource = AddResource(1, "Milk", "DAIRY", 1, 0, "Game/Assets/Textures/milk-16.png");
 	resource = AddResource(2, "Beef", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
-	resource = AddResource(3, "3", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
-	resource = AddResource(4, "4", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
-	resource = AddResource(5, "5", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(3, "Beef_3", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(4, "Beef_4", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
+	resource = AddResource(5, "Beef_5", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
 
-	FindResource(0);
+	//FindResource(0);
 }
 
 int ResourceManager::NumberOfActiveResources()

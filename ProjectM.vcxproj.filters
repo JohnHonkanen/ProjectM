@@ -29,32 +29,66 @@
     <ClCompile Include="Game\Scripts\test\InventoryPopulator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\Scripts\BuildingController.h" />
-    <ClInclude Include="Game\Scripts\BuildingManager.h" />
-    <ClInclude Include="Game\Scripts\CameraController.h" />
-    <ClInclude Include="Game\Scripts\Drone.h" />
-    <ClInclude Include="Game\Scripts\GameManager.h" />
-    <ClInclude Include="Game\Scripts\Hub.h" />
-    <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />
-    <ClInclude Include="Game\Scripts\hud\BuildingButton.h" />
-    <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
-    <ClInclude Include="Game\Scripts\hud\ButtonWidget.h" />
-    <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
-    <ClInclude Include="Game\Scripts\hud\InventoryHUD.h" />
-    <ClInclude Include="Game\Scripts\hud\InventoryHUDElement.h" />
-    <ClInclude Include="Game\Scripts\Inventory.h" />
-    <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
-    <ClInclude Include="Game\Scripts\PlayerActions.h" />
-    <ClInclude Include="Game\Scripts\Production.h" />
-    <ClInclude Include="Game\Scripts\Structure.h" />
-    <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
-    <ClInclude Include="Game\Scripts\Warehouse.h" />
-    <ClInclude Include="Game\Scripts\Contract.h" />
-    <ClInclude Include="Game\Scripts\ContractManager.h" />
-    <ClInclude Include="Game\Scripts\PlayerEconomy.h" />
-    <ClInclude Include="Game\Scripts\ResourceManager.h" />
-    <ClInclude Include="Game\Scripts\Resources.h" />
-    <ClInclude Include="Game\Scripts\test\InventoryPopulator.h" />
+    <ClInclude Include="Game\Scripts\BuildingManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\ObjectPlacer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Production.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Structure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Warehouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\BuildingController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\BuildingHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ButtonWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\BuildingButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ContractHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Hub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\PlayerActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Drone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\DroneProducer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\BuildingManager.cpp">
@@ -118,6 +152,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\Hub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\Drone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\DroneProducer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

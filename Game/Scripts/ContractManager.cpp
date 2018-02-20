@@ -13,7 +13,8 @@ ContractManager::~ContractManager()
 Contract ContractManager::AddContract()
 {
 	int numberOfResources = resourceManager->NumberOfActiveResources();
-	int generatedResID = resourceManager->RandomResources() + 1; 
+	int generatedResID = resourceManager->RandomResources(); 
+	//cout << generatedResID << endl;
 	int generatedContractID = (rand() % 640000) + 1;
 
 	Resources resource = resourceManager->FindResource(generatedResID); // Add a random resource to contract
@@ -64,10 +65,11 @@ Contract * ContractManager::FindPersistentContract(int contractID)
 int ContractManager::NumberOfActiveContract()
 {
 	int count = 0;
-	for (int i = 1; i <= this->contractIndex; i++) {
+	for (int i = 0; i < this->contractIndex; i++) {
 		
-		return count++;
+		 count++;
 	}
+	return  count;
 }
 
 
@@ -82,10 +84,10 @@ void ContractManager::Update()
 
 	if (clock.Alarm()) {
 
-		for (int i = 0; i <= NumberOfActiveContract(); i++) {
-			FindPersistentContract(i)->ReduceTime(1000);
-			clock.ResetClock();
+		for (int i = 0; i < NumberOfActiveContract(); i++) {
+			FindPersistentContract(i+1)->ReduceTime(1000);
 		}
+		clock.ResetClock();
 	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
@@ -140,5 +142,7 @@ void ContractManager::Start()
 	GameEngine::manager.inputManager.AddKey("Change Current", "j", "k");
 	clock.SetDelay(1000);
 	clock.StartClock();
+	AddContract();
+	AddContract();
 	AddContract();
 }

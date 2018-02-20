@@ -16,6 +16,14 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 using namespace std;
 using namespace glm;
 
+
+enum StructureType
+{
+	PRODUCTION,
+	WAREHOUSE,
+	FACTORY
+};
+
 class Structure : public Behaviour {
 protected:
 
@@ -30,6 +38,8 @@ protected:
 
 	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 
+	int tileX, tileY;
+	StructureType structureType;
 public:
 	
 
@@ -47,6 +57,8 @@ public:
 	int  GetRadiationOutput();		//
 	bool GetPlaced();				//
 	bool GetActive();				//
+	void GetTilePosition(int &x, int &y);
+	StructureType GetType();
 
 	void SetName(string change);
 	void SetHealth(int change);				//Changes buildings health
@@ -61,6 +73,7 @@ public:
 	void SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
 
+	void SetTilePosition(int x, int y);
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)
