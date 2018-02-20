@@ -19,6 +19,7 @@ void ContractHUDElement::Start()
 {
 	// Text
 	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 250, 150 }, "Game/Assets/Textures/black.jpg", true);
+	resourceIcon = EHUD::WHUDContainer::Create(this, { 163, 84, 14, 14 }, contract->GetResourceIcon(), true);
 
 	// Contract Issue Number
 	EHUD::TextWidget::Create(contractHUD, { 10, 16, 0, 0 }, "Contract Issue Number: " + to_string(contract->GetContractIndex()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
@@ -35,12 +36,14 @@ void ContractHUDElement::Start()
 	// Contract Reward
 	EHUD::TextWidget::Create(contractHUD, { 10, 80, 0, 0 }, "Reward: " + to_string(contract->GetPayment()) + " Gold", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
-	// Contract Time Left
-	EHUD::TextWidget::Create(contractHUD, { 10, 96, 0, 0 }, "Resource to Deliver: " + contract->GetResource().GetName(), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	// Contract Resource Name
+	resource = EHUD::TextWidget::Create(contractHUD, { 10, 96, 0, 0 }, "Resource to Deliver:(   ) ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	resourceName = EHUD::TextWidget::Create(contractHUD, { 184, 96, 0, 0 }, contract->GetResource().GetName(), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Contract Status (Complete/!Complete)
 	contractStatus = EHUD::TextWidget::Create(contractHUD, { 10, 112, 0, 0 }, "Status (Active/!Active): " + to_string(contract->GetStatus()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
+	// Contract time left
 	text = EHUD::TextWidget::Create(contractHUD, { 10, 128, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 	
 	StartChildWidgets();
@@ -56,4 +59,6 @@ void ContractHUDElement::DrawWidget(unsigned int shader)
 	text->text = "Time Left: " + to_string((int)contract->GetTime() / 1000) + "s";
 	contractStatus->text = "Status (Active/!Active): " + to_string(contract->GetStatus());
 	fulfill->text = "Amount to FulFill: " + to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
+	//resource->text = "Resource to Deliver : " + contract->GetResource().GetName();
 }
+

@@ -21,6 +21,7 @@ public:
 	void OnLoad();
 
 	static const int sizeOfList = 1280;
+
 private:
 	int itemIndex = 0;
 	

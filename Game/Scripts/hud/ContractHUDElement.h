@@ -24,7 +24,7 @@ public:
 
 private:
 	class Contract* contract;
-	EHUD::TextWidget* text,	*contractStatus, *fulfill;
-	EHUD::HUDElement* contractHUD;
+	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName;
+	EHUD::HUDElement* contractHUD, *resourceIcon;
 
 };

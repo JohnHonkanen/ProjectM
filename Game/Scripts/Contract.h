@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ResourceManager.h"
+#include <string>
 
 class ContractManager;
 class Contract{
@@ -14,6 +15,7 @@ public:
 	int GetPayment(); // Get payment amount player is to receive if contract is fulfilled.
 	void SetPayment(); // Set contract payment
 	Resources GetResource(); // Get resource in contract
+	string GetResourceIcon(); // Get resource icon in contract
 	int GetAmount(); // Get amount to fulfill on contract
 	void SetAmount(); // Set amount to fulfill on contract
 
