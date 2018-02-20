@@ -12,7 +12,8 @@ ContractManager::~ContractManager()
 
 Contract ContractManager::AddContract()
 {
-	int generatedResID = (rand() % 2) + 1; // Rand value should be between 1 and active resource in resource list. (Currently: 2)
+	//int numberOfResources = 7;
+	int generatedResID = 1; // (rand() % 2) + 1 ; // Rand value should be between 1 and active resource in resource list. (Currently: 2)
 	int generatedContractID = (rand() % 640000) + 1;
 
 	Resources resource = resourceManager->FindResource(generatedResID);
@@ -64,11 +65,9 @@ int ContractManager::NumberOfActiveContract()
 {
 	int count = 0;
 	for (int i = 1; i <= this->contractIndex; i++) {
-		count++;
+		
+		return count++;
 	}
-
-	cout << count << endl;
-	return count++;
 }
 
 
@@ -110,7 +109,6 @@ void ContractManager::Update()
 
 	// Change current amount
 
-	
 	if (changeCurrent == 1) {
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;

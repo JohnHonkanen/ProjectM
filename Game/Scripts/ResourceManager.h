@@ -20,6 +20,7 @@ public:
 
 	void OnLoad();
 
+	int NumberOfActiveResources();
 	static const int sizeOfList = 1280;
 
 private:
