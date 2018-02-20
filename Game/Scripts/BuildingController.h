@@ -7,20 +7,25 @@ class BuildingController : public Behaviour
 {
 public:
 	~BuildingController();
-	static BuildingController* Create(GameObject * gameObject, BuildingManager * buildingManager);
+	static BuildingController* Create(GameObject * gameObject, BuildingManager * buildingManager, class Hub *hub);
 	void Copy(GameObject *copyObject);
 	void SetObjectToBuild(std::string structure);
 
 	void Start();
 	void Update(double dt);
 
+	bool GetBuildMode();
 	void SetBuildMode(bool mode);
 	void SetMouseHeld(bool state);
 	//To Be Removed
 	void AddTempObject(GameObject *object);
+
+	class PlayerActions *GetPlayerAction();
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;
 private:
+	class Hub * hub;
+	class PlayerActions *playerAction;
 	BuildingManager * buildingManager;
 	GameObject * objectToBuild;
 	std::string structureName;

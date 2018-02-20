@@ -22,7 +22,9 @@
     <ClInclude Include="Game\Scripts\BuildingController.h" />
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
+    <ClInclude Include="Game\Scripts\Drone.h" />
     <ClInclude Include="Game\Scripts\GameManager.h" />
+    <ClInclude Include="Game\Scripts\Hub.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingButton.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
@@ -30,6 +32,7 @@
     <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
+    <ClInclude Include="Game\Scripts\PlayerActions.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
     <ClInclude Include="Game\Scripts\Structure.h" />
     <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
@@ -40,6 +43,7 @@
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />
     <ClCompile Include="Game\Scripts\GameManager.cpp" />
+    <ClCompile Include="Game\Scripts\Hub.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp" />
@@ -47,6 +51,7 @@
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
+    <ClCompile Include="Game\Scripts\PlayerActions.cpp" />
     <ClCompile Include="Game\Scripts\Production.cpp" />
     <ClCompile Include="Game\Scripts\ProjectM.cpp" />
     <ClCompile Include="Game\Scripts\Structure.cpp" />
