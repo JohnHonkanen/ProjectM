@@ -1,15 +1,18 @@
 #include "BuildingController.h"
 #include "core\GameEngine.h"
-
+#include "Hub.h"
+#include "PlayerActions.h"
 BuildingController::~BuildingController()
 {
 }
 
-BuildingController * BuildingController::Create(GameObject * gameObject, BuildingManager * buildingManager)
+BuildingController * BuildingController::Create(GameObject * gameObject, BuildingManager * buildingManager, Hub *hub)
 {
 	BuildingController *bc = new BuildingController();
 	bc->buildingManager = buildingManager;
+	bc->hub = hub;
 
+	PlayerActions::Create(gameObject, bc, hub);
 	gameObject->AddComponent(bc);
 
 	return bc;
@@ -55,6 +58,8 @@ void BuildingController::Update(double dt)
 
 		//Get our Snap-point
 		vec3 snapPoint = colHelper.GetMouseToTerrainSnap(vec2(mx, my));
+		vec2 coordinates = colHelper.GetMouseToTerrainCoordinates();
+
 		//Place our ghost object there
 		if (objectToBuild != nullptr)
 		{
@@ -68,11 +73,20 @@ void BuildingController::Update(double dt)
 			{
 				if (!mouseHeld)
 				{
-					mouseHeld = true;
-					GameObject * structure = buildingManager->GetBuilding(structureName);
-					structure->transform->SetPosition(snapPoint);
-					structure->transform->Scale(vec3(5.0f));
-					buildMode = false;
+					if (hub->GetStructure(coordinates.x, coordinates.y) == nullptr)
+					{
+						mouseHeld = true;
+						GameObject * structure = buildingManager->GetBuilding(structureName);
+						Structure *sComponent = structure->GetComponent<Structure>();
+						hub->AddStructureToNetwork(StructureType::PRODUCTION, sComponent, coordinates.x, coordinates.y);
+						structure->transform->SetPosition(snapPoint);
+						structure->transform->Scale(vec3(5.0f));
+						buildMode = false;
+					}
+					else {
+						printf("Slot Taken \n");
+					}
+					
 				}
 				
 				
@@ -84,9 +98,6 @@ void BuildingController::Update(double dt)
 			{
 				buildMode = false;
 			}
-
-			//Add it to the active hub
-			//easy peezy
 		}	
 	}
 	else
@@ -97,6 +108,11 @@ void BuildingController::Update(double dt)
 		}
 	}
 		
+}
+
+bool BuildingController::GetBuildMode()
+{
+	return buildMode;
 }
 
 void BuildingController::SetBuildMode(bool mode)
