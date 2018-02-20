@@ -32,10 +32,11 @@ private:
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
 
-	class ContractHUDElement* CHElement;
+	class ContractHUDElement* CHElement, *CHElement2, *CHElement3;
 	int count = 0;
 
 	class ContractManager* contractManager;
+	class Contract* contract, *contract2, *contract3;
 	bool keyReleased = true;
 
 };

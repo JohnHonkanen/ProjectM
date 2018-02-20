@@ -14,7 +14,7 @@ public:
 	Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon);
 	~Resources();
 	
-	string GetName();
+	string GetName(); // Get item name
 	string GetSKU(); // SKU = Stock-keeping Unit
 
 	int GetItemID(); // Get the item ID
