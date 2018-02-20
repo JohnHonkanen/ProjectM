@@ -52,8 +52,8 @@ void ResourceManager::OnLoad()
 {
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
-	Resources resource = AddResource(1, "Milk", "DAIRY", 100, 0, "");
-	resource = AddResource(2, "Beef", "MEAT", 200, 0, "Game/Assets/Textures/squareW.jpg");
+	Resources resource = AddResource(1, "Milk", "DAIRY", 1, 0, "Game/Assets/Textures/milk-16.png");
+	resource = AddResource(2, "Beef", "MEAT", 2, 0, "Game/Assets/Textures/steak-16.png");
 
 
 	FindResource(1);

@@ -68,13 +68,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = (rand() % 100) + 150;
+		this->amount = (rand() % 10) + 15;
 	}
 	else if (tempDif == 2) {
-		this->amount = (rand() % 200) + 300;
+		this->amount = (rand() % 20) + 30;
 	}
 	else {
-		this->amount = (rand() % 600) + 900;
+		this->amount = (rand() % 60) + 90;
 	}
 }
 
