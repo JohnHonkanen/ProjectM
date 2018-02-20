@@ -38,7 +38,8 @@ void BuildingController::SetObjectToBuild(std::string structure)
 	// Create our Object and insert it to the game Loop
 	structureName = structure;
 	objectToBuild = buildingManager->GetBuilding(structure);
-	objectToBuild->transform->Scale(vec3(5.0f));
+	objectToBuild->transform->Rotate(vec3(-90, 0, 0));
+	objectToBuild->transform->Scale(vec3(10.0f));
 	// Sets Wheter we want to display the object on the map or not
 	objectToBuild->enabled = true;
 	buildMode = true;
@@ -86,7 +87,8 @@ void BuildingController::Update(double dt)
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						hub->AddStructureToNetwork(sComponent->GetType(), sComponent, coordinates.x, coordinates.y);
 						structure->transform->SetPosition(snapPoint);
-						structure->transform->Scale(vec3(5.0f));
+						structure->transform->Rotate(vec3(-90,0,0));
+						structure->transform->Scale(vec3(10.0f));
 						buildMode = false;
 					}
 					else {

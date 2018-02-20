@@ -30,6 +30,7 @@ void DroneProducer::Update(double dt)
 	if (timer.Alarm())
 	{
 		timer.ResetClock();
+		timer.SetDelay(rand() % 3000 + 1000);
 		SpawnDrone();
 	}
 }

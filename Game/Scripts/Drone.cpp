@@ -2,6 +2,7 @@
 #include "core\GameObject.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\quaternion.hpp>
+#include "core\GameEngine.h"
 Drone * Drone::Create(GameObject * gameObject)
 {
 	Drone *d = new Drone();
