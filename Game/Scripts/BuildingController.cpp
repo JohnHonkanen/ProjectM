@@ -2,6 +2,7 @@
 #include "core\GameEngine.h"
 #include "Hub.h"
 #include "PlayerActions.h"
+#include "DroneProducer.h"
 BuildingController::~BuildingController()
 {
 }
@@ -76,9 +77,14 @@ void BuildingController::Update(double dt)
 					if (hub->GetStructure(coordinates.x, coordinates.y) == nullptr)
 					{
 						mouseHeld = true;
-						GameObject * structure = buildingManager->GetBuilding(structureName);
+						GameObject * structure = buildingManager->GetBuilding(structureName);						
 						Structure *sComponent = structure->GetComponent<Structure>();
-						hub->AddStructureToNetwork(StructureType::PRODUCTION, sComponent, coordinates.x, coordinates.y);
+						if (sComponent->GetType() == PRODUCTION)
+						{
+							DroneProducer::Create(structure, hub, sComponent);
+						}
+						sComponent->SetTilePosition(coordinates.x, coordinates.y);
+						hub->AddStructureToNetwork(sComponent->GetType(), sComponent, coordinates.x, coordinates.y);
 						structure->transform->SetPosition(snapPoint);
 						structure->transform->Scale(vec3(5.0f));
 						buildMode = false;

@@ -13,6 +13,8 @@
 #include "hud\ContractHUD.h"
 #include "Warehouse.h"
 #include "Hub.h"
+#include "Drone.h"
+
 int main(int argc, char *argv[])
 {
 	GameEngine engine = GameEngine(false);
@@ -43,7 +45,7 @@ int main(int argc, char *argv[])
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false),
+		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
@@ -89,6 +91,14 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+
+	//Drone Code
+	GameObject *droneObject = manager->CreateGameObject("drone");
+	MeshRenderer::Create(droneObject, "Game/Assets/Models/mobajuice/Drone.DAE");
+	Drone *drone = Drone::Create(droneObject);
+	drone->SetDestination(vec3(250, 0, 150));
+	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
+	droneObject->transform->Scale(vec3(3));
 
 	engine.Run();
 	return 0;

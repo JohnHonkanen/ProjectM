@@ -33,6 +33,12 @@ Structure::Structure(string building)
 {
 }
 
+void Structure::SetTilePosition(int x, int y)
+{
+	tileX = x;
+	tileY = y;
+}
+
 void Structure::OnLoad()
 {
 }
@@ -64,6 +70,17 @@ bool Structure::GetPlaced()
 bool Structure::GetActive()
 {
 	return isActive;
+}
+
+void Structure::GetTilePosition(int & x, int & y)
+{
+	x = tileX;
+	y = tileY;
+}
+
+StructureType Structure::GetType()
+{
+	return structureType;
 }
 
 void Structure::SetName(string change)
