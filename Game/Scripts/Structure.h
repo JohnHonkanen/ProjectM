@@ -52,7 +52,7 @@ public:
 	void SetActive(bool change);				//
 
 	void InsertItem(Resources res);
-	std::vector<Resources> GetInventory() { return inv->GetInventory(); }
+	Inventory* GetInventory() { return inv.get(); }
 	void SendItem(std::vector<Resources> originInv, std::vector<Resources> destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
 

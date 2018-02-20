@@ -44,7 +44,7 @@ string Inventory::DisplayContents()
 	{
 		for (int i = 0; i < storage.size(); i++)
 		{
-			contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+			contents += "Item: " + storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
 		}
 	}
 	return contents;
@@ -140,7 +140,7 @@ string Inventory::GetAtStorageIndex(int index)
 		{
 			if (index == i)
 			{
-				contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+				contents += "Item: " + storage[i].GetName() + ", Item Quantity: " + to_string(storage[i].GetItemAmount());
 			}
 		}
 	}

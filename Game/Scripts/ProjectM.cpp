@@ -1,4 +1,3 @@
-
 #include "MobaJuiceCore.h"
 #include "core\GameEngine.h"
 #include "hud\HUD.h"
@@ -15,6 +14,10 @@
 #include "hud\BuildingHUD.h"
 #include "Production.h"
 #include "hud\ContractHUD.h"
+#include "hud\InventoryHUD.h"
+#include <iostream>
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -46,7 +49,7 @@ int main(int argc, char *argv[])
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Warehouse", "Basic Factory", 10, 1, 1, 1, false, false),
+		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false),
 		"Game/Assets/Models/cube/cube.obj"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
@@ -81,7 +84,7 @@ int main(int argc, char *argv[])
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
-	}
+	
 	
 	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50);
 	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51);
@@ -94,33 +97,21 @@ int main(int argc, char *argv[])
 	Resources res8 = Resources(8, "box ", "BigBox ", 5, 1);
 	Resources res9 = Resources(9, "box ", "BigBox ", 5, 1);
 	Resources res10 = Resources(10, "box ", "BigBox ", 5, 1);
-	
-	GameObject *warehouse = manager->CreateGameObject("Warehouse");
-	Warehouse *w = Warehouse::Create(warehouse, "Warehouse", 10, 1, 1, 1, true, true);
 
-	cout << w->ViewInventory() << endl; // Printing when empty.
-
-	w->InsertItem(res1); // Inserting resources with the same ID who add into each other.
-	w->InsertItem(res2);
-
-	cout << w->ViewInventory() << endl; // Displaying added values.
-
-	w->InsertItem(res3);
-	w->InsertItem(res4);
-	w->InsertItem(res5);
-	w->InsertItem(res6);
-	w->InsertItem(res7);
-	w->InsertItem(res8);
-	w->InsertItem(res9);
-	w->InsertItem(res10); // Hits storage is full error.
-
-	cout << w->ViewInventory() << endl; // Displaying full inventory.
+	Warehouse* w = warehouse->GetComponent<Warehouse>();
+	Warehouse* w2 = warehouse->GetComponent<Warehouse>();
+	w->InsertItem(res1);
+	w2->InsertItem(res5);
 
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-
+	vector<Inventory*> iStorage;
+	iStorage.push_back(w->GetInventory());
+	iStorage.push_back(w2->GetInventory());
+	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas);
+	inv->SetInventory(iStorage);
 	engine.Run();
 	return 0;
 }
