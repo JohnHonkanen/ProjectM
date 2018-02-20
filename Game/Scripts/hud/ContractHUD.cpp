@@ -37,7 +37,10 @@ void ContractHUD::OnLoad()
 void ContractHUD::Start()
 {
 	Contract* contract = contractManager->FindPersistentContract(1);
-	CHElement = ContractHUDElement::Create(wrapper, { 25, 25, 0, 0 }, contract);
+	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract);
+
+	/*Contract* contract = contractManager->FindPersistentContract(1);
+	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25 * i, 0, 0 }, contract);*/
 }
 
 void ContractHUD::Update()
@@ -55,8 +58,19 @@ void ContractHUD::Input()
 			keyReleased = false;
 			
 			wrapper->SetActive(!wrapper->IsActive());
+
+			/*for (int i = 1; i < 2; i++) {
+				Contract* contract = contractManager->FindPersistentContract(1);
+				bool contractStatus = false;
+				if (contractManager->FindPersistentContract(1)->GetStatus() == true) {
+					CHElement = ContractHUDElement::Create(wrapper, { (float)25, (float)25, (float)0, (float)0 }, contract);
+				}
+				else {
+					break;
+				}
+			}*/
 			
-			//contractManager->CheckForActiveContract();
+			contractManager->NumberOfActiveContract();
 				
 		} 
 	}
