@@ -11,7 +11,8 @@
 #include "hud\BuildingHUD.h"
 #include "Production.h"
 #include "hud\ContractHUD.h"
-
+#include "Warehouse.h"
+#include "Hub.h"
 int main(int argc, char *argv[])
 {
 	GameEngine engine = GameEngine(true);
@@ -47,6 +48,12 @@ int main(int argc, char *argv[])
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
 
+	warehouse->GetComponent<Warehouse>()->GetPlaced();
+
+	//HUB
+	GameObject *hub = manager->CreateGameObject("HUB");
+	MeshRenderer::Create(hub, "Game/Assets/Models/cube/cube.obj");
+	Hub *hub = Hub::Create(hub);
 
 	//End of Temp Code
 
