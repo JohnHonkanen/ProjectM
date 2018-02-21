@@ -36,14 +36,11 @@ protected:
 	string name;
 	string type;
 
-	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
-
 	int tileX, tileY;
 	StructureType structureType;
 	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 public:
 	
-
 	Structure();
 	~Structure();
 	Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active);
