@@ -2,6 +2,7 @@
 #include "hud\widgets\TextWidget.h"
 #include "hud\widgets\HUDContainer.h"
 #include "../Contract.h"
+#include "InventoryHUDElement.h"
 
 
 ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, Contract* contract)

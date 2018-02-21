@@ -5,6 +5,7 @@ Dev: Greg Smith (B00308929)
 */
 
 #include "Production.h"
+#include "utility\Clock.h"
 
 using namespace std;
 

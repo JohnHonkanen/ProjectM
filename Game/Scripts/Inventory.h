@@ -11,6 +11,8 @@ Dev: Jack Smith (B00308927)
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 #include <vector>
+#include <string>
+
 
 using namespace std;
 
@@ -18,28 +20,33 @@ class Inventory : public Behaviour
 {
 
 private:
-
+	int INITIAL_STORAGE = 9;
 	std::vector<Resources> storage;
-	Resources *res;
-	const int INITIAL_STORAGE = 9;
 	bool storageFull = false;
-	int itemsStored = 0;
 	int inventoryLevel = 1;
+	int atStorageIndex;
 
 public:
 
 	Inventory();
 	~Inventory();
 
+	void Copy(GameObject *copyObject);
+
 	string DisplayContents();
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
-	int GetItemsStored() { return itemsStored; }
 	std::vector<Resources> GetInventory() { return storage; }
+	bool GetStorageFull() { return storageFull; }
+	string GetAtStorageIndex(int index);
+	int GetInventoryLevel() { return inventoryLevel; }
+	int SetInventoryLevel(int newLevel) { inventoryLevel = newLevel; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
+	void RemoveAtIdex(int index);
 	bool ContainsItem(Resources res);
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }
+	bool InventoryEmpty() { return storage.empty(); }
 
 	void Start();
 	void Update();
@@ -47,11 +54,9 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(storage), CEREAL_NVP(storageFull), CEREAL_NVP(itemsStored), CEREAL_NVP(inventoryLevel);
+		CEREAL_NVP(storage), CEREAL_NVP(storageFull), CEREAL_NVP(inventoryLevel);
 	}
 };
-
-using namespace Engine;
 
 #include <cereal/archives/xml.hpp>
 //Register Inventory as a derived class

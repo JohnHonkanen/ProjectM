@@ -1,3 +1,8 @@
+/*
+Structure class that maintains the base properties off all structures
+
+Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+*/
 #pragma once
 
 #include "components\Behaviour.h"
@@ -28,13 +33,16 @@ protected:
 	int radiationOutput;			//
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
+	string name;
+	string type;
+
+	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 
 	int tileX, tileY;
 	StructureType structureType;
 	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 public:
-	string name;
-	string type;
+	
 
 	Structure();
 	~Structure();
@@ -61,12 +69,17 @@ public:
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
 
+	void InsertItem(Resources res);
+	Inventory* GetInventory() { return inv.get(); }
+	void SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index);
+	string ViewInventory() { return inv->DisplayContents(); }
+
 	void SetTilePosition(int x, int y);
 	void OnLoad();
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(inv);
+		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(productionEfficiency), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced);
 	}
 };
 

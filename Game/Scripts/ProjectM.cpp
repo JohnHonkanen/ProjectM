@@ -1,17 +1,26 @@
-
 #include "MobaJuiceCore.h"
 #include "core\GameEngine.h"
 #include "hud\HUD.h"
 #include "hud\HUDCanvas.h"
 #include "hud\widgets\HUDContainer.h"
 #include "hud\widgets\TextWidget.h"
+#include "Structure.h"
+#include "Production.h"
+#include "Warehouse.h"
+#include "Inventory.h"
 #include "CameraController.h"
 #include "GameManager.h"
 #include "BuildingController.h"
 #include "hud\BuildingHUD.h"
 #include "Production.h"
 #include "hud\ContractHUD.h"
-#include "Warehouse.h"
+#include "hud\InventoryHUD.h"
+#include "Resources.h"
+#include <iostream>
+#include "PlayerActions.h"
+
+using namespace std;
+
 #include "Hub.h"
 #include "Drone.h"
 
@@ -89,6 +98,25 @@ int main(int argc, char *argv[])
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
+	
+	
+	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50, "");
+	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51, "");
+
+	Resources res3 = Resources(3, "box ", "BigBox ", 5, 1, "");
+	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1,"");
+	Resources res5 = Resources(5, "box ", "BigBox ", 5, 1, "");
+	Resources res6 = Resources(6, "box ", "BigBox ", 5, 1, "");
+	Resources res7 = Resources(7, "box ", "BigBox ", 5, 1, "");
+	Resources res8 = Resources(8, "box ", "BigBox ", 5, 1, "");
+	Resources res9 = Resources(9, "box ", "BigBox ", 5, 1, "");
+	Resources res10 = Resources(10, "box ", "BigBox ", 5, 1, "");
+
+	Warehouse* w = warehouse->GetComponent<Warehouse>();
+	Warehouse* w2 = warehouse->GetComponent<Warehouse>();
+	w->InsertItem(res1);
+	w2->InsertItem(res5);
+	PlayerActions* pla = buildingController->GetPlayerAction();
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
@@ -102,6 +130,8 @@ int main(int argc, char *argv[])
 	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
 	droneObject->transform->Scale(vec3(3));
 
+	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
+	//vector<Inventory*> iStorage;
 	engine.Run();
 	return 0;
 }

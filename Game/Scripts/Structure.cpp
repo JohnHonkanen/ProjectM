@@ -117,3 +117,24 @@ void Structure::SetActive(bool change)
 {
 	isActive = change;
 }
+
+/*
+Wrapper method that Inserts an item into the inventory of the Warehouse.
+
+@param - The resource to be inserted.
+*/
+void Structure::InsertItem(Resources res)
+{
+	inv->PlaceItem(res);
+}
+
+/*
+	Does the sending of an item from one building to another
+	Takes a res object and places it in the destination building.
+	Erases the object from the origin building at a given index.
+*/
+void Structure::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
+{
+	destInv->PlaceItem(res);
+	originInv->RemoveAtIdex(index);
+}

@@ -12,7 +12,19 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
-	delete[] res;
+}
+
+void Inventory::Copy(GameObject * copyObject)
+{
+
+		Inventory * copy = new Inventory();
+		copy->INITIAL_STORAGE = Inventory::INITIAL_STORAGE;
+		copy->storage = Inventory::storage;
+		copy->storageFull = Inventory::storageFull;
+		copy->inventoryLevel = Inventory::inventoryLevel;
+
+		copyObject->AddComponent(copy);
+
 }
 
 /*
@@ -24,11 +36,17 @@ string Inventory::DisplayContents()
 {
 	string contents;
 
-	for (int i = 0; i < storage.size(); i++)
+	if (storage.empty())
 	{
-		contents += "Item name : " + storage[i].GetName() + "Item Quantity : " + to_string(storage[i].GetItemAmount()) + "\n";
+		contents = "Inventory is empty.";
 	}
-
+	else
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			contents += "Item: " + storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
+		}
+	}
 	return contents;
 }
 
@@ -37,35 +55,64 @@ string Inventory::DisplayContents()
 	Any excess resource is sent to the back of the vector. - Does not handle event where all warehouses are full.
 
 	@param res - A resource to be placed in the vector (inside the inventory)
-
-	@returns - true if a succesful placement is made, false if not.
 */
 void Inventory::PlaceItem(Resources res)
 {
-	for (int i = 0; i < storage.size(); i++)
-	{
 		if (storage.size() < (INITIAL_STORAGE * inventoryLevel))
 		{
-			if (storage[i].GetItemID() == res.GetItemID())
+			if (storage.empty())
 			{
-				if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))
-				{
-					storage[i].SetItemAmount(100);
-					res.SetItemAmount((storage[i].GetItemAmount() + res.GetItemAmount()) - 100);
-					storage.push_back(res);
-				}
-				else
-				{
-					storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
-				}
+				storage.push_back(res);
 			}
 			else
 			{
-				storage.push_back(res);
-			}	
+				storageFull = false;
+				for (int i = 0; i < storage.size(); i++)
+				{
+					if (storage[i].GetItemID() == res.GetItemID())
+					{
+						if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))
+						{
+							res.SetItemAmount((storage[i].GetItemAmount() + res.GetItemAmount()) - 100);
+							storage[i].SetItemAmount(100);
+							storage.push_back(res);
+							atStorageIndex = i;
+							break;
+						}
+						else
+						{
+							storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
+						}
+					}
+					else
+					{
+						storage.push_back(res);
+						atStorageIndex = i;
+						break;
+					}
+				}
+			}
 		}
-	}
+		else
+		{
+			storageFull = true;
+			cout << "Storage is full" << endl;
+		}
 }
+
+/*
+	Removes the entry at the position of the index submitted as a parameter.
+
+	E.g.
+	storage.erase(storage.begin() + 5);
+	Erases element in slot 6, so minus one is called
+	to keep it in line with the index supplied.
+*/
+	void Inventory::RemoveAtIdex(int index)
+	{
+		storage.erase(storage.begin() + (index-1));
+	}
+
 // Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
 // Call this method as it does so.
 
@@ -91,6 +138,26 @@ bool Inventory::ContainsItem(Resources res)
 void Inventory::ChangeResourceQuantity(int change)
 {
 	//res->SetItemAmount(-change);
+}
+string Inventory::GetAtStorageIndex(int index)
+{
+	string contents;
+
+	if (storage.empty())
+	{
+		contents = "Inventory is empty.";
+	}
+	else
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			if (index == i)
+			{
+				contents += "Item: " + storage[i].GetName() + ", Item Quantity: " + to_string(storage[i].GetItemAmount());
+			}
+		}
+	}
+	return contents;
 }
 /*
 Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.

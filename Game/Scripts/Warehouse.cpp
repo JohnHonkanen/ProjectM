@@ -8,7 +8,6 @@ Dev: Jack Smith (B00308927)
 using namespace std;
 
 Warehouse::Warehouse() {
-	delete[] inv;
 }
 
 Warehouse::~Warehouse()
@@ -63,3 +62,5 @@ void Warehouse::Update(int change)
 {
 	inv->SetInventorySize(change);
 }
+
+
