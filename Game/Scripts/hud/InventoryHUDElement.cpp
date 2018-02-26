@@ -19,7 +19,6 @@ InventoryHUDElement::InventoryHUDElement()
 InventoryHUDElement::~InventoryHUDElement()
 {
 	delete invP;
-	delete rManager;
 }
 
 /*
