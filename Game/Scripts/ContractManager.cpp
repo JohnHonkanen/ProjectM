@@ -40,7 +40,7 @@ Contract ContractManager::AddContract()
 
 	this->contractQueue.push_back(&this->contractList[contractIndex]);
 
-	cout << "New Contract added! : "  << contractQueue.back()->GetContractIndex() << endl;
+	//cout << "New Contract added! : "  << contractQueue.back()->GetContractIndex() << endl;
 	return this->contractList[contractIndex];
 }
 
@@ -122,7 +122,7 @@ void ContractManager::Update()
 		if (keyReleased1 == true) {
 			AddContract();
 			
-			cout << "Contract Added!" << endl;
+			//cout << "Contract Added!" << endl;
 			keyReleased1 = false;
 			}
 	}

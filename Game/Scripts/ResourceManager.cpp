@@ -28,7 +28,7 @@ Resources ResourceManager::AddResource(int itemID, string itemName, string SKU, 
 Resources ResourceManager::FindResource(int itemID)
 {
 	
-	cout << "Item Name: " << this->resourceList[itemID].GetName() << " found!" << endl << endl;
+	//cout << "Item Name: " << this->resourceList[itemID].GetName() << " found!" << endl << endl;
 	return this->resourceList[itemID];;
 }
 
