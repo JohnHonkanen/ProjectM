@@ -5,6 +5,7 @@
 #include "../ContractManager.h"
 #include "hud\widgets\TextWidget.h"
 #include "ContractHUDElement.h"
+#include <iterator>
 
 ContractHUD * ContractHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, ContractManager * contractManager)
 {
@@ -44,25 +45,38 @@ void ContractHUD::Start()
 
 void ContractHUD::Update()
 {
-	if (!CHElement->IsActive() || !CHElement2->IsActive() || !CHElement3->IsActive()) {
-		// Set a new contract, activate CHelement
-		for (int i = 0; i < contractManager->NumberOfActiveContract(); i++) {
-			int j = 3;
-			if (!CHElement->IsActive()) {
-				contract = contractManager->FindPersistentContract(j);
-				CHElement->SetContract(contractManager->FindPersistentContract(j));
-				CHElement->SetAllActive(true);
-			}
-			else if (!CHElement2->IsActive()) {
-				contract2 = contractManager->FindPersistentContract(j);
-				CHElement2->SetContract(contractManager->FindPersistentContract(j));
-				CHElement2->SetAllActive(true);
-			}
-			else if (!CHElement3->IsActive()) {
-				contract3 = contractManager->FindPersistentContract(j);
-				CHElement3->SetContract(contractManager->FindPersistentContract(j));
-				CHElement3->SetAllActive(true);
-			}
+	auto contractList = contractManager->GetList();
+
+	for (Contract* c : contractList) {
+
+		ContractHUDElement* cHUD = nullptr;
+
+		// Determines the slot of the contract HUD and index.
+		// 1 = top, 2 = middle, 0 = bottom
+		int index = c->GetContractIndex() % 3;
+		cout << index << endl;
+
+		switch (index) {
+		case 1:
+			cHUD = CHElement;
+			break;
+
+		case 2:
+			cHUD = CHElement2;
+			break;
+
+		case 0:
+			cHUD = CHElement3;
+			break;
+
+		default:
+			break;
+
+		}
+
+		if (cHUD != nullptr && !cHUD->IsActive()) {
+			cHUD->SetContract(c);
+			cHUD->SetAllActive(true);
 		}
 	}
 }

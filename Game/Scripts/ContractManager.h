@@ -16,12 +16,14 @@ public:
 	Contract FindContract(int contractID);
 	Contract* FindPersistentContract(int contractID);
 	Contract* FindContractQueueFront();
+	Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetResourceManager(ResourceManager* resourceManager);
 	void Update();
 	void Start();
 
+	list <Contract*> GetList() const;
 private:
 	int contractIndex = 0;
 	

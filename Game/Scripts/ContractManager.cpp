@@ -56,7 +56,12 @@ Contract * ContractManager::FindPersistentContract(int contractID)
 
 Contract * ContractManager::FindContractQueueFront()
 {
-	return &this->contractQueue.front();
+	return this->contractQueue.front();
+}
+
+Contract * ContractManager::FindContractQueueBack()
+{
+	return  this->contractQueue.back();;
 }
 
 int ContractManager::NumberOfActiveContract()
@@ -164,4 +169,9 @@ void ContractManager::Start()
 	AddContract();
 	AddContract();
 	AddContract();
+}
+
+list<Contract*> ContractManager::GetList() const
+{
+	return contractQueue;
 }
