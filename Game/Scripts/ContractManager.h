@@ -15,6 +15,7 @@ public:
 	Contract AddContract();
 	Contract FindContract(int contractID);
 	Contract* FindPersistentContract(int contractID);
+	Contract* FindContractQueueFront();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetResourceManager(ResourceManager* resourceManager);
