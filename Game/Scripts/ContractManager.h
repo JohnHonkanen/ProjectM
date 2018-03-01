@@ -4,6 +4,7 @@
 #include "PlayerEconomy.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
+#include <queue>
 
 class ContractManager {
 public:
@@ -30,4 +31,6 @@ private:
 	bool keyReleased2 = true;
 	bool active, complete;
 	bool statusCheck = true;
+
+	queue <Contract> contractQueue; // Creates an empty queue of contractQueue 
 };
