@@ -79,13 +79,12 @@ void ContractManager::Update()
 
 		for (int i = 0; i <= NumberOfActiveContract(); i++) {
 
-				// Reduce contract time if greater than 0
-				if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
-					FindPersistentContract(i + 1)->ReduceTime(1000);
-				}
+			// Reduce contract time if greater than 0
+			if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
+				FindPersistentContract(i + 1)->ReduceTime(1000);
 			}
 		}
-
+		
 		// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
 		if (this->contractQueue.front().GetStatus() == false) {
 			this->contractQueue.pop();
@@ -95,11 +94,12 @@ void ContractManager::Update()
 		// Set contract status to iscomplete if timer reaches 0 
 		if (this->contractQueue.front().GetTime() <= 0) {
 			this->contractQueue.front().IsComplete();
-			
-		}
 
+		}
 		clock.ResetClock();
 	}
+
+	
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
 	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");

@@ -47,6 +47,7 @@ void ContractHUD::Update()
 	if (!CHElement->IsActive() || !CHElement2->IsActive() || !CHElement3->IsActive()) {
 		// Set a new contract, activate CHelement
 		for (int i = 0; i < contractManager->NumberOfActiveContract(); i++) {
+			//int j = 3;
 			if (!CHElement->IsActive()) {
 				contract = contractManager->FindPersistentContract(i);
 				CHElement->SetContract(contractManager->FindPersistentContract(i));
