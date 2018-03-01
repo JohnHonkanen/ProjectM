@@ -39,6 +39,8 @@ Contract ContractManager::AddContract()
 	this->contractList[contractIndex] = contract;
 
 	this->contractQueue.push(this->contractList[contractIndex]);
+
+	cout << "New Contract added! : "  << contractQueue.back().GetContractIndex() << endl;
 	return this->contractList[contractIndex];
 }
 
@@ -56,16 +58,11 @@ int ContractManager::NumberOfActiveContract()
 {
 
 	if (!this->contractQueue.empty()) {
-		if (this->contractQueue.front().IsComplete() == true) {
-			std::cout << "To Pop: " << this->contractQueue.front().GetContractID() << std::endl;
-			this->contractQueue.pop();
-			std::cout << "Pop success: " << this->contractQueue.front().GetContractID() << std::endl;
-		}
-		else {
-			return this->contractQueue.size();
-		}
+		return this->contractQueue.size();
 	}
-	AddContract();
+	else {
+		AddContract();
+	}
 }
 
 
@@ -80,12 +77,27 @@ void ContractManager::Update()
 
 	if (clock.Alarm()) {
 
-		for (int i = 0; i < NumberOfActiveContract(); i++) {
-			FindPersistentContract(i+1)->ReduceTime(1000);
+		for (int i = 0; i <= NumberOfActiveContract(); i++) {
 
-			
-
+				// Reduce contract time if greater than 0
+				if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
+					FindPersistentContract(i + 1)->ReduceTime(1000);
+				}
+			}
 		}
+
+		// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
+		if (this->contractQueue.front().GetStatus() == false) {
+			this->contractQueue.pop();
+			AddContract();
+		}
+
+		// Set contract status to iscomplete if timer reaches 0 
+		if (this->contractQueue.front().GetTime() <= 0) {
+			this->contractQueue.front().IsComplete();
+			
+		}
+
 		clock.ResetClock();
 	}
 

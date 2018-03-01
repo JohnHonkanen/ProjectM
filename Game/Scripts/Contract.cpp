@@ -80,17 +80,20 @@ void Contract::SetAmount()
 
 void Contract::SetTime(int timer)
 {
-	tempDif = GetDifficulty();
 
-	if (tempDif == 1) {
-		this->time = (rand() % 1000) + timer;
-	}
-	else if (tempDif == 2) {
-		this->time = (rand() % 2000) + timer;
-	}
-	else {
-		this->time = (rand() % 6000) + timer;
-	}
+	this->time = timer;
+
+	//tempDif = GetDifficulty();
+
+	//if (tempDif == 1) {
+	//	this->time = (rand() % 1000) + timer;
+	//}
+	//else if (tempDif == 2) {
+	//	this->time = (rand() % 2000) + timer;
+	//}
+	//else {
+	//	this->time = (rand() % 6000) + timer;
+	//}
 }
 
 int Contract::GetTime()
@@ -178,8 +181,8 @@ bool Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	SetStatus(false);
+	cout << "Contract: " <<  GetContractIndex() << " completed!" << endl << endl;
 	return this->complete;
-	cout << "Contract completed!" << endl << endl;
 }
 
 bool Contract::InitComplete(bool completeStatus)
