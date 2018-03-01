@@ -5,7 +5,6 @@
 #include "../ContractManager.h"
 #include "hud\widgets\TextWidget.h"
 #include "ContractHUDElement.h"
-#include <iterator>
 
 ContractHUD * ContractHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, ContractManager * contractManager)
 {
@@ -46,6 +45,7 @@ void ContractHUD::Start()
 void ContractHUD::Update()
 {
 	auto contractList = contractManager->GetList();
+	//int i = 0;
 
 	for (Contract* c : contractList) {
 
@@ -54,7 +54,6 @@ void ContractHUD::Update()
 		// Determines the slot of the contract HUD and index.
 		// 1 = top, 2 = middle, 0 = bottom
 		int index = c->GetContractIndex() % 3;
-		cout << index << endl;
 
 		switch (index) {
 		case 1:
@@ -71,13 +70,14 @@ void ContractHUD::Update()
 
 		default:
 			break;
-
 		}
 
-		if (cHUD != nullptr && !cHUD->IsActive()) {
+		if (cHUD != nullptr && !cHUD->IsActive()) 
+		{
 			cHUD->SetContract(c);
 			cHUD->SetAllActive(true);
 		}
+		//i++;
 	}
 }
 

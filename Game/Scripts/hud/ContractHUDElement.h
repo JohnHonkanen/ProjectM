@@ -23,6 +23,7 @@ public:
 	void DrawWidget(unsigned int shader);
 	void SetContract(Contract* contractToSet);
 	void SetAllActive(bool state);
+	class Contract* GetContract();
 
 private:
 	class Contract* contract;

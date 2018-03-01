@@ -81,19 +81,19 @@ void Contract::SetAmount()
 void Contract::SetTime(int timer)
 {
 
-	this->time = timer;
+	//this->time = timer;
 
-	//tempDif = GetDifficulty();
+	tempDif = GetDifficulty();
 
-	//if (tempDif == 1) {
-	//	this->time = (rand() % 1000) + timer;
-	//}
-	//else if (tempDif == 2) {
-	//	this->time = (rand() % 2000) + timer;
-	//}
-	//else {
-	//	this->time = (rand() % 6000) + timer;
-	//}
+	if (tempDif == 1) {
+		this->time = (rand() % 5000) + timer;
+	}
+	else if (tempDif == 2) {
+		this->time = (rand() % 10000) + timer;
+	}
+	else {
+		this->time = (rand() % 40000) + timer;
+	}
 }
 
 int Contract::GetTime()
