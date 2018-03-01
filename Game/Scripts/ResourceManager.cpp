@@ -56,7 +56,7 @@ void ResourceManager::OnLoad()
 
 	Resources resource = AddResource(1, "Milk", "DAIRY", 1, 0, "Game/Assets/Textures/milk-16.png");
 	resource = AddResource(2, "Beef", "MEAT", 5, 0, "Game/Assets/Textures/steak-16.png");
-	resource = AddResource(3, "Eggs", "EGGS", 1, 0, "Game/Assets/Textures/egg-16.png");
+	resource = AddResource(3, "Eggs", "EGGS", 1, 0, "Game/Assets/Textures/egg-16.jpg");
 	resource = AddResource(4, "Chicken", "MEAT", 3, 0, "Game/Assets/Textures/chicken-16.png");
 	resource = AddResource(5, "Water", "FLUID", 15, 0, "Game/Assets/Textures/water-16.png");
 

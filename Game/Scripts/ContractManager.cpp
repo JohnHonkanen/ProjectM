@@ -55,7 +55,17 @@ Contract * ContractManager::FindPersistentContract(int contractID)
 int ContractManager::NumberOfActiveContract()
 {
 
-	return this->contractQueue.size();
+	if (!this->contractQueue.empty()) {
+		if (this->contractQueue.front().IsComplete() == true) {
+			std::cout << "To Pop: " << this->contractQueue.front().GetContractID() << std::endl;
+			this->contractQueue.pop();
+			std::cout << "Pop success: " << this->contractQueue.front().GetContractID() << std::endl;
+		}
+		else {
+			return this->contractQueue.size();
+		}
+	}
+	AddContract();
 }
 
 
@@ -72,6 +82,9 @@ void ContractManager::Update()
 
 		for (int i = 0; i < NumberOfActiveContract(); i++) {
 			FindPersistentContract(i+1)->ReduceTime(1000);
+
+			
+
 		}
 		clock.ResetClock();
 	}
