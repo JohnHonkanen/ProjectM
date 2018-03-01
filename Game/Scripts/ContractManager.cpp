@@ -30,7 +30,7 @@ Contract ContractManager::AddContract()
 	contract.SetContractID(generatedContractID);
 	contract.SetDifficulty();
 	contract.SetPayment();
-	contract.SetTime(18000);
+	contract.SetTime(10000);
 	contract.SetAmount();
 	contract.SetContractIndex(contractIndex);
 	contract.SetStatus(true);
@@ -38,9 +38,9 @@ Contract ContractManager::AddContract()
 
 	this->contractList[contractIndex] = contract;
 
-	this->contractQueue.push(this->contractList[contractIndex]);
+	this->contractQueue.push_back(&this->contractList[contractIndex]);
 
-	cout << "New Contract added! : "  << contractQueue.back().GetContractIndex() << endl;
+	cout << "New Contract added! : "  << contractQueue.back()->GetContractIndex() << endl;
 	return this->contractList[contractIndex];
 }
 
@@ -76,30 +76,32 @@ void ContractManager::Update()
 	clock.UpdateClock();
 
 	if (clock.Alarm()) {
-
-		for (int i = 0; i <= NumberOfActiveContract(); i++) {
-
-			// Reduce contract time if greater than 0
-			if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
-				FindPersistentContract(i + 1)->ReduceTime(1000);
+		for (Contract* c : this->contractQueue) {
+			if (c->GetTime() > 0 && c->GetStatus() == true) {
+				c->ReduceTime(1000);
 			}
 		}
-		
-		// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
-		if (this->contractQueue.front().GetStatus() == false) {
-			this->contractQueue.pop();
-			AddContract();
-		}
 
-		// Set contract status to iscomplete if timer reaches 0 
-		if (this->contractQueue.front().GetTime() <= 0) {
-			this->contractQueue.front().IsComplete();
+		//for (int i = 0; i <= NumberOfActiveContract(); i++) {
 
-		}
+		//	// Reduce contract time if greater than 0
+		//	if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
+		//		FindPersistentContract(i + 1)->ReduceTime(1000);
+		//	}
+		//}
 		clock.ResetClock();
 	}
-
 	
+	// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
+	if (this->contractQueue.front()->GetStatus() == false) {
+		AddContract();
+		this->contractQueue.pop_front();
+	}
+
+	// Set contract status to iscomplete if timer reaches 0 
+	if (this->contractQueue.front()->GetTime() <= 0) {
+		this->contractQueue.front()->IsComplete();
+	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
 	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");

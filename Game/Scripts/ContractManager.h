@@ -4,7 +4,7 @@
 #include "PlayerEconomy.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
-#include <queue>
+#include <list>
 
 class ContractManager {
 public:
@@ -32,5 +32,5 @@ private:
 	bool active, complete;
 	bool statusCheck = true;
 
-	queue <Contract> contractQueue; // Creates an empty queue of contractQueue 
+	list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
 };
