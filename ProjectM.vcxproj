@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Scripts\Billboard.h" />
     <ClInclude Include="Game\Scripts\BuildingController.h" />
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Game\Scripts\Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Scripts\Billboard.cpp" />
     <ClCompile Include="Game\Scripts\BuildingController.cpp" />
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />

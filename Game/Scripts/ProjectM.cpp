@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
 
 	GameObjectManager *manager = scene->GetGameObjectManager();
 
+	//billboard shader
+	GameEngine::manager.shaderManager.CreateShader("billboard", "Game/Shaders/billboard.vert", "Game/Shaders/billboard.frag");
 	//Game Manager
 	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
 	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc

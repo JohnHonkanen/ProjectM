@@ -85,6 +85,9 @@
     <ClCompile Include="Game\Scripts\Warehouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\Billboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -166,6 +169,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\Warehouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Billboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
