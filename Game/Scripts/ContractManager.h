@@ -4,6 +4,7 @@
 #include "PlayerEconomy.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
+#include <list>
 
 class ContractManager {
 public:
@@ -14,12 +15,15 @@ public:
 	Contract AddContract();
 	Contract FindContract(int contractID);
 	Contract* FindPersistentContract(int contractID);
+	Contract* FindContractQueueFront();
+	Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetResourceManager(ResourceManager* resourceManager);
 	void Update();
 	void Start();
 
+	list <Contract*> GetList() const;
 private:
 	int contractIndex = 0;
 	
@@ -30,4 +34,6 @@ private:
 	bool keyReleased2 = true;
 	bool active, complete;
 	bool statusCheck = true;
+
+	list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
 };

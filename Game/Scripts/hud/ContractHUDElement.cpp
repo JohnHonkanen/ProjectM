@@ -108,3 +108,8 @@ void ContractHUDElement::SetAllActive(bool state)
 	resourceIcon->SetActive(state);
 }
 
+Contract * ContractHUDElement::GetContract()
+{
+	return contract;
+}
+

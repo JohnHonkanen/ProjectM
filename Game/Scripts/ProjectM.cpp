@@ -84,10 +84,15 @@ int main(int argc, char *argv[])
 	structure->transform->SetScale(vec3(5.0f));
 
 	//Player
+	GameObject *focusPoint = manager->CreateGameObject("Camera Focus Point");
+	MeshRenderer::Create(focusPoint, "Game/Assets/Models/cube/cube.obj");
+	focusPoint->transform->SetScale(vec3(3.0f));
 	GameObject *playerObject = manager->CreateGameObject("Player");
+
+	focusPoint->transform->AddChildren(playerObject->transform.get());
 	Camera * c = Camera::Create(playerObject);
 	c->SetFarClippingPlane(1000.0f);
-	CameraController::Create(playerObject);
+	CameraController::Create(playerObject, focusPoint->transform.get());
 	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager, hub);
 	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
 												 //Temp Function
