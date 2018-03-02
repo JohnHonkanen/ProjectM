@@ -11,8 +11,24 @@
 unsigned int Billboard::VAO = 0;	// static field is initialised
 unsigned int Billboard::VBO = 0;	// static field is initialised
 
+Billboard * Billboard::Create(GameObject * gameobject, std::string texture)
+{
+	Billboard * bb = new Billboard();
+	bb->texture = texture;
+
+	gameobject->AddComponent(bb);
+
+	return bb;
+}
+
+void Billboard::Copy(GameObject * copyObject)
+{
+	//To Be filled
+}
+
 void Billboard::OnLoad()
 {
+	quad.SetupQuad();
 }
 
 void Billboard::Start()

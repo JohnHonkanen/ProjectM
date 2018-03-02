@@ -10,6 +10,8 @@ namespace Engine {
 class Billboard : public Behaviour
 {
 public:
+	static Billboard * Create(GameObject* gameobject, std::string texture);
+	void Copy(GameObject *copyObject);
 	void OnLoad();
 	void Start();
 	void Update(double dt);

@@ -18,6 +18,7 @@
 #include "Resources.h"
 #include <iostream>
 #include "PlayerActions.h"
+#include "Billboard.h"
 
 using namespace std;
 
@@ -36,8 +37,6 @@ int main(int argc, char *argv[])
 
 	GameObjectManager *manager = scene->GetGameObjectManager();
 
-	//billboard shader
-	GameEngine::manager.shaderManager.CreateShader("billboard", "Game/Shaders/billboard.vert", "Game/Shaders/billboard.frag");
 	//Game Manager
 	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
 	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
@@ -76,7 +75,7 @@ int main(int argc, char *argv[])
 	hubObject->transform->Scale(vec3(3.0f));
 	hubObject->transform->Rotate(vec3(0,0,0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
-	hubObject->transform->Translate(vec3(0, 7, 0));
+	hubObject->transform->Translate(vec3(100, 7, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
 
 	//Temp Object to Test Building Manager
@@ -139,6 +138,12 @@ int main(int argc, char *argv[])
 
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
+
+	//BillBord Test
+	GameObject *billboardObj = manager->CreateGameObject("billboard");
+	Billboard::Create(billboardObj, "Game/Assets/Textures/building_placeholder.jpg");
+	billboardObj->transform->Translate(vec3(0, 20, 0));
+	billboardObj->transform->Scale(vec3(5));
 	engine.Run();
 	return 0;
 }
