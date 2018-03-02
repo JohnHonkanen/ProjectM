@@ -23,7 +23,7 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	int producing;
+	int producing = 1;
 	Engine::Utility::Clock clock;
 	void StoreItem(Resources res);
 

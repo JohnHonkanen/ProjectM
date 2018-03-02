@@ -51,6 +51,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
 	copy->structureType = PRODUCTION;
+	copy->resourceManager = resourceManager;
 
 	copyObject->AddComponent(copy);
 }
