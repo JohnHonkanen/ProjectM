@@ -145,7 +145,7 @@ string Inventory::GetAtStorageIndex(int index)
 
 	if (storage.empty())
 	{
-		contents = "Inventory is empty.";
+		contents = "";
 	}
 	else
 	{
@@ -153,7 +153,7 @@ string Inventory::GetAtStorageIndex(int index)
 		{
 			if (index == i)
 			{
-				contents += "Item: " + storage[i].GetName() + ", Item Quantity: " + to_string(storage[i].GetItemAmount());
+				contents += storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount());
 			}
 		}
 	}

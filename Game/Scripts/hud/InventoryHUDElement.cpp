@@ -42,6 +42,12 @@ InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HU
 */
 void InventoryHUDElement::Start()
 {
+	/*int invLimit=0;
+	if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
+	{
+		invLimit = pla->GetSelectedStructure()->GetInventory()->InventorySize();
+	}*/
+	text.resize(9);
 	invP = new InventoryPopulator();
 	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Hud Title
@@ -50,13 +56,34 @@ void InventoryHUDElement::Start()
 	// Inventory contents
 	EHUD::TextWidget::Create(inventoryHUD, { 10, 20, 0, 0 }, "Inventory contents:", 
 		"Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-	if (text.empty())
+	float y = 40.0;
+	float x = 10.0;
+	int index = 0;
+	for(int i =0; i<text.size(); i++)
 	{
-		text.push_back(EHUD::TextWidget::Create(inventoryHUD, { 10, 40, 0, 0 }, " ", 
+		if(index>=3 && index < 6)
+		{
+			x = 120.0;
+			if(index == 3)
+			{
+				y = 40.0;
+			}
+		}
+		else if(index>=6)
+		{
+			
+			x = 240.0;
+			if (index == 6)
+			{
+				y = 40.0;
+			}
+		}
+		text[i] = (EHUD::TextWidget::Create(inventoryHUD, { x, y, 0, 0 }, "",
 			"Game/Assets/Fonts/MavenPro-Regular.ttf",
-			16, 1, vec3(1, 1, 1)));
+			12, 1, vec3(1, 1, 1)));
+		y += 15.0;
+		index++;
 	}
-
 		StartChildWidgets();
 }
 
@@ -67,14 +94,7 @@ void InventoryHUDElement::Update()
 	{
 		if (!keyHeld)
 		{
-			int size = text.size();
-			float y = 60.0;
-			for (auto i = 0; i < size; i++)
-			{
-				text.push_back(EHUD::TextWidget::Create(inventoryHUD, { 10, y, 0, 0 }, " ",
-					"Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1)));
-				y += 20.0;
-			}
+			keyHeld = true;
 		}
 	}
 	else {
@@ -93,9 +113,13 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 	{
 		if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure())!=nullptr)
 		{
-			for (auto i = 0; i < text.size(); i++)
+			for (int i = 0; i < text.size(); i++)
 			{
-				text[i]->text = pla->GetSelectedStructure()->ViewInventoryAt(i);
+				std::string hudText = pla->GetSelectedStructure()->ViewInventoryAt(i);
+				if(!hudText.empty())
+				{
+					text[i]->text = hudText;
+				}
 			}
 			invP->TestItem(pla, rManager);
 		}

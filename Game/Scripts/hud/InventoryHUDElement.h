@@ -40,5 +40,6 @@ private:
 	class InventoryPopulator* invP;
 	class ResourceManager* rManager;
 	bool keyHeld;
+	int index=0;
 };
 
