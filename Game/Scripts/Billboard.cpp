@@ -54,6 +54,14 @@ void Billboard::Draw()
 	glUniformMatrix4fv(glGetUniformLocation(shader->program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(shader->program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(shader->program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniform3f(glGetUniformLocation(shader->program, "cameraRight_worldspace"), view[0][0], view[1][0], view[2][0]);
+	glUniform3f(glGetUniformLocation(shader->program, "cameraUp_worldspace"), view[0][1], view[1][1], view[2][1]);
+
+	glm::vec3 pos = transform->GetPosition();
+	glUniform3f(glGetUniformLocation(shader->program, "billboardPos"), pos.x ,pos.y, pos.z); // The billboard will be just above the cube
+	glUniform2f(glGetUniformLocation(shader->program, "billboardSize"), 10.0f, 10.0f);     // and 1m*12cm, because it matches its 256*32 resolution =)
+
+
 
 	if (!texture.empty()) {
 		glActiveTexture(GL_TEXTURE0);
@@ -66,49 +74,7 @@ void Billboard::Draw()
 
 void Billboard::CalculateModelMatrix()
 {
-	vec3 lookAt, billboardToCamProj, billboardToCam, upAux;
-	mat4 modelView;
-	float angleCosine;
-
-	vec3 camaraPos = camera->transform->GetPosition();
-	vec3 billBoardPos = transform->GetPosition();
-
-	billboardToCamProj = camaraPos - billBoardPos;
-	billboardToCamProj.y = 0;
-
-	//Original LookAt
-	lookAt = vec3(0,0,1);
-
-	billboardToCamProj = normalize(billboardToCamProj);
-
-	upAux = cross(lookAt, billboardToCamProj);
-
-	angleCosine = (lookAt.x * billboardToCamProj.x) + (lookAt.y * billboardToCamProj.y) + (lookAt.z * billboardToCamProj.z);
-
-	mat4 rotation = mat4(1);
-	if ((angleCosine < 0.99990) && (angleCosine > -0.9999))
-	{
-		//Rotate
-		rotation = glm::rotate(rotation, (float)(angleCosine * 180 / 3.14), upAux);
-	}
-
-	billboardToCam = camaraPos - billBoardPos;
-
-	angleCosine = (billboardToCam.x * billboardToCamProj.x) + (billboardToCam.y * billboardToCamProj.y) + (billboardToCam.z * billboardToCamProj.z);
-
-	if ((angleCosine < 0.99990) && (angleCosine > -0.9999))
-	{
-		if (billboardToCam.x < 0)
-		{
-			rotation = glm::rotate(rotation, (float)(angleCosine * 180 / 3.14), vec3(1,0,0));
-		}
-		else 
-		{
-			rotation = glm::rotate(rotation, (float)(angleCosine * 180 / 3.14), vec3(-1, 0, 0));
-		}
-	}
-
-	transform->SetQuaternion(quat(rotation));
+	
 	
 }
 
