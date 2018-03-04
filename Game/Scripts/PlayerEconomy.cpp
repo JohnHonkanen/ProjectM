@@ -39,7 +39,7 @@ int PlayerEconomy::GetGBAmount(int GBAmount)
 Resources PlayerEconomy::GetResouce()
 {
 	
-	return this->resource = resourceManager->FindResource(0);;
+	return this->resource;
 }
 
 string PlayerEconomy::GetGBIcon()
