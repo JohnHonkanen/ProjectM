@@ -2,11 +2,11 @@
 
 #include "hud\HUDWidget.h"
 #include "hud\HUDRect.h"
-#include "PlayerEconHUD.h"
+
 #include <string>
 
 // Namespace Alias
-
+class PlayerEconHUD;
 namespace EHUD = Engine::HUD;
 namespace Engine {
 	namespace HUD {
