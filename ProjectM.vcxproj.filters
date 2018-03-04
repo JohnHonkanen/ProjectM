@@ -89,6 +89,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp" />
+    <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -176,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\BuildingSpawnAnim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\BuildingProductionAnims.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

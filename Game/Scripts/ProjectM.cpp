@@ -20,6 +20,7 @@
 #include "PlayerActions.h"
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
+#include "BuildingProductionAnims.h"
 
 using namespace std;
 
@@ -73,6 +74,7 @@ int main(int argc, char *argv[])
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
 	BuildinggSpawnAnim::Create(hubObject);
+	BuildingProductionAnims::Create(hubObject);
 
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));

@@ -24,10 +24,12 @@ Billboard * Billboard::Create(GameObject * gameobject, std::string texture)
 void Billboard::Copy(GameObject * copyObject)
 {
 	//To Be filled
+	Create(copyObject, texture);
 }
 
 void Billboard::OnLoad()
 {
+	alpha = 1;
 	quad.SetupQuad();
 }
 
@@ -58,8 +60,10 @@ void Billboard::Draw()
 	glUniform3f(glGetUniformLocation(shader->program, "cameraUp_worldspace"), view[0][1], view[1][1], view[2][1]);
 
 	glm::vec3 pos = transform->GetPosition();
-	glUniform3f(glGetUniformLocation(shader->program, "billboardPos"), pos.x ,pos.y, pos.z); // The billboard will be just above the cube
-	glUniform2f(glGetUniformLocation(shader->program, "billboardSize"), 10.0f, 10.0f);     // and 1m*12cm, because it matches its 256*32 resolution =)
+	glm::vec3 scale = transform->GetScale();
+	glUniform3f(glGetUniformLocation(shader->program, "billboardPos"), pos.x ,pos.y, pos.z);
+	glUniform2f(glGetUniformLocation(shader->program, "billboardSize"), scale.x, scale.y);
+	glUniform1f(glGetUniformLocation(shader->program, "alpha"), alpha);
 
 
 

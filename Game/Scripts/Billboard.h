@@ -18,6 +18,8 @@ public:
 	void Draw();
 
 	static unsigned int VAO, VBO;
+
+	float alpha;
 private:
 	std::string texture;
 	void CalculateModelMatrix();
