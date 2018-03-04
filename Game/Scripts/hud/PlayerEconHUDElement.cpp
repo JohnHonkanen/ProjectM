@@ -25,12 +25,14 @@ void PlayerEconHUDElement::Start()
 
 	// Player gold amount
 	playerGold = EHUD::TextWidget::Create(playerEconHUD, { 10, 16, 0, 0 }, "Player Gold Amount: " + to_string(playerEconomy->GetGBAmount(100)), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	
+	text = EHUD::TextWidget::Create(playerEconHUD, { 10, 128, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 	StartChildWidgets();
 }
 
 void PlayerEconHUDElement::Update()
 {
-	playerGold = EHUD::TextWidget::Create(playerEconHUD {10, 15, 0, 0}, "Player Gold Amount: " + to_string(playerEconomy.GetGBAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	playerGold->text = "Player Gold Amount: " + to_string(playerEconomy->GetGBAmount(100));
 }
 
 void PlayerEconHUDElement::DrawWidget(unsigned int shader)
