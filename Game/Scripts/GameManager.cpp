@@ -24,10 +24,14 @@ void GameManager::Start()
 {
 	contractManager.SetResourceManager(&resourceManager);
 	contractManager.Start();
+
+	playerEconManager.SetResourceManager(&resourceManager);
+	playerEconManager.Start();
 }
 
 void GameManager::Update()
 {
 	resourceManager.Update();
 	contractManager.Update();
+	playerEconManager.Update();
 }

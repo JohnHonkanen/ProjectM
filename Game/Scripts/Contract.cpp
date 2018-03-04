@@ -55,7 +55,7 @@ Resources Contract::GetResource()
 
 string Contract::GetResourceIcon()
 {
-	return GetResource().GetResourceIcon();;
+	return GetResource().GetResourceIcon();
 }
 
 int Contract::GetAmount()
