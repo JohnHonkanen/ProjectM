@@ -31,7 +31,7 @@ public:
 private:
 	/*HUD Elements*/
 	EHUD::HUDCanvas* root;
-	EHUD::HUDElement* element;
+	EHUD::HUDElement* wrapper;
 
 	class PlayerEconHUD* PEElement;
 	class PlayerEconManager* playerEconManager;

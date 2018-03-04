@@ -61,6 +61,7 @@
     <ClCompile Include="Game\Scripts\hud\InventoryHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h" />
+    <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
     <ClCompile Include="Game\Scripts\PlayerActions.cpp" />
