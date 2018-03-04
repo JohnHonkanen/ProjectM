@@ -28,6 +28,6 @@ public:
 
 private:
 	class PlayerEconomy* playerEconomy;
-	EHUD::TextWidget* text;
+	EHUD::TextWidget* text, *playerGold;
 	EHUD::HUDElement* playerEconHUD, *resourceIcon;
 };

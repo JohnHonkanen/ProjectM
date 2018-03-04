@@ -4,6 +4,7 @@
 #include "hud\widgets\HUDContainer.h"
 #include "hud\widgets\TextWidget.h"
 #include "PlayerEconHUDElement.h"
+#include "../PlayerEconManager.h"
 
 
 PlayerEconHUD * PlayerEconHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, PlayerEconManager * playerEconManager)
@@ -33,8 +34,8 @@ void PlayerEconHUD::OnLoad()
 
 void PlayerEconHUD::Start()
 {
-	//playerEcon = playerEconManager.FindEconomy();
-	PEElement = PlayerEconHUDElement::Create(wrapper, { 25, 25, 0, 0 }, playerEcon);
+	playerEconomy = playerEconManager->FindPlayerEcon();
+	//PEElement = PlayerEconHUDElement::Create(wrapper, { 25, 25, 0, 0 }, playerEconomy);
 }
 
 void PlayerEconHUD::Update()

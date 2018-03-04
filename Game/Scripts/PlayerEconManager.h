@@ -7,6 +7,10 @@ class PlayerEconManager {
 public:
 	PlayerEconManager();
 	~PlayerEconManager();
+
+	PlayerEconomy* FindPlayerEcon(); // Finds the player economy
+
 private:
 
+	PlayerEconomy* playerEconomy;
 };

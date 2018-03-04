@@ -1,7 +1,6 @@
 #pragma once 
 
 #include "components\Behaviour.h"
-#include "../PlayerEconManager.h"
 #include <vector>
 
 
@@ -36,7 +35,7 @@ private:
 	class PlayerEconHUDElement* PEElement;
 
 	class PlayerEconManager* playerEconManager;
-	class PlayerEconomy* playerEcon;
+	class PlayerEconomy* playerEconomy;
 	
 	bool keyReleased;
 };

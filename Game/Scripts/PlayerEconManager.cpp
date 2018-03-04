@@ -7,3 +7,8 @@ PlayerEconManager::PlayerEconManager()
 PlayerEconManager::~PlayerEconManager()
 {
 }
+
+PlayerEconomy * PlayerEconManager::FindPlayerEcon()
+{
+	return this->playerEconomy;
+}
