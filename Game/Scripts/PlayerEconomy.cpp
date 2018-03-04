@@ -4,6 +4,12 @@ PlayerEconomy::PlayerEconomy()
 {
 }
 
+PlayerEconomy::PlayerEconomy(Resources resource, PlayerEconManager* playerEconManager)
+{
+	this->resource = resource;
+	this->playerEconManager = playerEconManager;
+}
+
 PlayerEconomy::~PlayerEconomy()
 {
 }
@@ -28,11 +34,21 @@ int PlayerEconomy::GetGBAmount(int GBAmount)
 	return this->goldBars = GBAmount;
 }
 
+Resources PlayerEconomy::GetResouce()
+{
+	return this->resource;
+}
+
+string PlayerEconomy::GetGBIcon()
+{
+	return GetResouce().GetResourceIcon();
+}
+
 void PlayerEconomy::Init()
 {
 	PlayerEconomy playerEconomy = PlayerEconomy();
 	
-	cout << "Gold Bars: " << resource->GetItemID() << endl;
+	cout << "Gold Bars: " << resource.GetItemID() << endl;
 	playerEconomy.GiveGoldBars(1000);
-	cout << "GB Amount: " << GetGBAmount(resource->GetItemAmount()) << endl << endl;
+	cout << "GB Amount: " << GetGBAmount(resource.GetItemAmount()) << endl << endl;
 }

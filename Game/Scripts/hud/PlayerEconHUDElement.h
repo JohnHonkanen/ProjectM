@@ -21,10 +21,11 @@ class PlayerEconHUDElement : public EHUD::HUDWidget{
 	void Update();
 	void DrawWidget(unsigned int shader);
 	
+	void SetPlayerEcon(PlayerEconomy* economyToSet);
 	class PlayerEconomy* GetPlayerEcon();
 
 private:
 	class PlayerEconomy* playerEconomy;
 	EHUD::TextWidget* text;
-	EHUD::HUDElement playerEconHUD;
+	EHUD::HUDElement* playerEconHUD, *resourceIcon;
 };

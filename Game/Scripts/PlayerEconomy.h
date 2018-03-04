@@ -1,13 +1,16 @@
 #pragma once
 
 #include "ResourceManager.h"
-#include "ContractManager.h"
+#include "PlayerEconManager.h"
+
+#include <string>
 
 using namespace std;
 
 class PlayerEconomy {
 public:
 	PlayerEconomy();
+	PlayerEconomy(Resources resource, PlayerEconManager* playerEconManager);
 	~PlayerEconomy();
 	
 	void GiveGoldBars(int amountToGive);
@@ -15,10 +18,13 @@ public:
 	void RemoveGoldBars(int goldBars);
 	int GetGBAmount(int GBAmount);
 
+	Resources PlayerEconomy::GetResouce();
+	string GetGBIcon(); // Get the gold bar icon
+
 	void Init();
 private:
 	int goldBars;
 
-	Resources* resource;
-	Contract* contract;
+	Resources resource;
+	PlayerEconManager* playerEconManager;
 };

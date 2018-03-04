@@ -5,7 +5,8 @@
 
 class PlayerEconManager {
 public:
-
+	PlayerEconManager();
+	~PlayerEconManager();
 private:
 
 };
