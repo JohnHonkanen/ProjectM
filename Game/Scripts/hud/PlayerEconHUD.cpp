@@ -34,7 +34,7 @@ void PlayerEconHUD::OnLoad()
 
 void PlayerEconHUD::Start()
 {
-	playerEconomy = playerEconManager->FindPlayerEcon();
+	//playerEconomy = playerEconManager->FindPlayerEcon();
 	//PEElement = PlayerEconHUDElement::Create(wrapper, { 25, 25, 0, 0 }, playerEconomy);
 }
 

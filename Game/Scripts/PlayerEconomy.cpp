@@ -9,6 +9,7 @@ PlayerEconomy::PlayerEconomy(Resources resource, PlayerEconManager* playerEconMa
 {
 	this->resource = resource;
 	this->playerEconManager = playerEconManager;
+
 }
 
 PlayerEconomy::~PlayerEconomy()
@@ -37,12 +38,13 @@ int PlayerEconomy::GetGBAmount(int GBAmount)
 
 Resources PlayerEconomy::GetResouce()
 {
-	return this->resource;
+	
+	return this->resource = resourceManager->FindResource(0);;
 }
 
 string PlayerEconomy::GetGBIcon()
 {
-	return GetResouce().GetResourceIcon();
+	return this->resource.GetResourceIcon();
 }
 
 void PlayerEconomy::Init()

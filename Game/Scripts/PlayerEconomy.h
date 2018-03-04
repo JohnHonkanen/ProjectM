@@ -12,6 +12,7 @@ public:
 	PlayerEconomy(Resources resource, PlayerEconManager* playerEconManager);
 	~PlayerEconomy();
 	
+
 	void GiveGoldBars(int amountToGive);
 	void AddGoldBars(int goldBars);
 	void RemoveGoldBars(int goldBars);
@@ -25,5 +26,6 @@ private:
 	int goldBars;
 
 	Resources resource;
+	ResourceManager* resourceManager;;
 	PlayerEconManager* playerEconManager;
 };
