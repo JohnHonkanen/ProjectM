@@ -33,12 +33,13 @@ void PlayerEconHUD::OnLoad()
 
 void PlayerEconHUD::Start()
 {
-
+	//playerEcon = playerEconManager.FindEconomy();
+	PEElement = PlayerEconHUDElement::Create(wrapper, { 25, 25, 0, 0 }, playerEcon);
 }
 
 void PlayerEconHUD::Update()
 {
-
+	
 }
 
 void PlayerEconHUD::Input()

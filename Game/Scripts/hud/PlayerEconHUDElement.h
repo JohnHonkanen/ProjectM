@@ -16,6 +16,7 @@ namespace Engine {
 
 class PlayerEconHUDElement : public EHUD::HUDWidget{
 
+public:
 	static PlayerEconHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class PlayerEconomy* playerEconomy);
 
 	void Start();

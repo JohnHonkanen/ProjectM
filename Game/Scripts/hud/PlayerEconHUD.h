@@ -34,6 +34,9 @@ private:
 	EHUD::HUDElement* wrapper;
 
 	class PlayerEconHUDElement* PEElement;
+
 	class PlayerEconManager* playerEconManager;
+	class PlayerEconomy* playerEcon;
+	
 	bool keyReleased;
 };
