@@ -1,4 +1,5 @@
 #include "PlayerEconomy.h"
+#include "PlayerEconManager.h"
 
 PlayerEconomy::PlayerEconomy()
 {

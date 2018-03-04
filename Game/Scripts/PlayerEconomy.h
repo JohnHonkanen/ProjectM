@@ -1,12 +1,11 @@
 #pragma once
-
 #include "ResourceManager.h"
-#include "PlayerEconManager.h"
 
 #include <string>
 
 using namespace std;
 
+class PlayerEconManager;
 class PlayerEconomy {
 public:
 	PlayerEconomy();

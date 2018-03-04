@@ -4,6 +4,7 @@
 #include "../PlayerEconomy.h"
 #include "InventoryHUDElement.h"
 
+
 PlayerEconHUDElement * PlayerEconHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, PlayerEconomy * playerEconomy)
 {
 	PlayerEconHUDElement *p = new PlayerEconHUDElement;

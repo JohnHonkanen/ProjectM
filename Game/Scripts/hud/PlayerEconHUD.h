@@ -33,7 +33,7 @@ private:
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
 
-	class PlayerEconHUD* PEElement;
+	class PlayerEconHUDElement* PEElement;
 	class PlayerEconManager* playerEconManager;
 	bool keyReleased;
 };
