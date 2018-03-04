@@ -19,5 +19,6 @@ public:
 private:
 	int goldBars;
 
-	Resources resource;
+	Resources* resource;
+	Contract* contract;
 };

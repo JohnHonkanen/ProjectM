@@ -10,7 +10,7 @@ PlayerEconomy::~PlayerEconomy()
 
 void PlayerEconomy::GiveGoldBars(int amountToGive)
 {
-	this->resource.SetItemAmount(amountToGive);
+	//this->resource.SetItemAmount(amountToGive);
 }
 
 void PlayerEconomy::AddGoldBars(int goldBars)
@@ -31,10 +31,8 @@ int PlayerEconomy::GetGBAmount(int GBAmount)
 void PlayerEconomy::Init()
 {
 	PlayerEconomy playerEconomy = PlayerEconomy();
-	ResourceManager resourceManager = ResourceManager();
-	this->resource = resourceManager.AddResource(0, "Gold Bars", "GOLD", 1, 0, ""); 
 	
-	cout << "Gold Bars: " << resource.GetItemID() << endl;
+	cout << "Gold Bars: " << resource->GetItemID() << endl;
 	playerEconomy.GiveGoldBars(1000);
-	cout << "GB Amount: " << GetGBAmount(resource.GetItemAmount()) << endl << endl;
+	cout << "GB Amount: " << GetGBAmount(resource->GetItemAmount()) << endl << endl;
 }
