@@ -75,8 +75,10 @@ int main(int argc, char *argv[])
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
+	//Temp Anim Showcase
 	BuildinggSpawnAnim::Create(hubObject);
-	BuildingProductionAnims::Create(hubObject);
+	BuildingProductionAnims * bpa = BuildingProductionAnims::Create(hubObject);
+	bpa->SetTextureToDisplay("Game/Assets/Textures/chicken-16_t.png");
 
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));
@@ -148,11 +150,6 @@ int main(int argc, char *argv[])
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
 
-	//BillBord Test
-	GameObject *billboardObj = manager->CreateGameObject("billboard");
-	Billboard::Create(billboardObj, "Game/Assets/Textures/building_placeholder.jpg");
-	billboardObj->transform->Translate(vec3(0, 20, 0));
-	billboardObj->transform->Scale(vec3(5));
 	engine.Run();
 	return 0;
 }
