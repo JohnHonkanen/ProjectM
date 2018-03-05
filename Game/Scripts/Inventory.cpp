@@ -58,7 +58,9 @@ string Inventory::DisplayContents()
 */
 void Inventory::PlaceItem(Resources res)
 {
-		if (storage.size() < (INITIAL_STORAGE * inventoryLevel))
+	int storageLimit = (INITIAL_STORAGE * inventoryLevel);
+	// If the storage hasn't reached it's limit.
+		if (storage.size() < storageLimit)
 		{
 			if (storage.empty())
 			{
@@ -89,6 +91,29 @@ void Inventory::PlaceItem(Resources res)
 						storage.push_back(res);
 						atStorageIndex = i;
 						break;
+					}
+				}
+			}
+		}// If the storage has reached it's limit it must be allowed to fill.
+		else if(storage.size() == storageLimit)
+		{
+			for (int i = 0; i < storage.size(); i++)
+			{
+				if (storage[i].GetItemID() == res.GetItemID())// if it is the correct item id
+				{
+					if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))// if the amount of resource exceeds 100
+					{
+						int waste = (storage[i].GetItemAmount() + res.GetItemAmount()) - 100;
+						storage[i].SetItemAmount(100);
+						atStorageIndex = i;
+						cout << waste << " Items being wasted.";
+						break;
+						// if the amount exceeds 100 , set the storage in position i to 100 and print the waste
+					}
+					else
+					{
+						storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
+						// if it does not exceed 100, add it onto the existing entry.
 					}
 				}
 			}
@@ -174,6 +199,18 @@ bool Inventory::CheckItem(string itemType)
 	*/
 	return result;
 }
+
+/*
+Does the sending of an item from one building to another
+Takes a res object from the origin building and places it in the destination building.
+Erases the object from the origin building at a given index.
+*/
+void Inventory::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
+{
+	destInv->PlaceItem(res);
+	originInv->RemoveAtIndex(index);
+}
+
 
 void Inventory::Start()
 {
