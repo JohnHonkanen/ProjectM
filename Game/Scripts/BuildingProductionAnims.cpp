@@ -9,7 +9,6 @@ BuildingProductionAnims::~BuildingProductionAnims()
 BuildingProductionAnims * BuildingProductionAnims::Create(GameObject * gameobject)
 {
 	BuildingProductionAnims * bpa = new BuildingProductionAnims();
-	
 	gameobject->AddComponent(bpa);
 
 	return bpa;
@@ -17,41 +16,57 @@ BuildingProductionAnims * BuildingProductionAnims::Create(GameObject * gameobjec
 
 void BuildingProductionAnims::Copy(GameObject * copyObject)
 {
+	BuildingProductionAnims * bpa = Create(copyObject);
 }
 
 void BuildingProductionAnims::OnLoad()
 {
 	//Set up prefab
 	prefab = new GameObject("billboard_spawn");
-	Billboard::Create(prefab, "Game/Assets/Textures/chicken-16.png");
+	Billboard::Create(prefab, texture);
 
 	billboard = prefab->Instantiate();
 	billboard->transform->Scale(vec3(1));
+
+	billboard->GetComponent<Billboard>()->alpha = 0;
 }
 
 void BuildingProductionAnims::Start()
 {
 	spawnLocation = gameObject->transform.get();
-	timer.SetDelay(1000);
-	timer.StartClock();
 }
 
 void BuildingProductionAnims::Update(double dt)
 {
-	timer.UpdateClock();
-	Billboard *billboardComponent = billboard->GetComponent<Billboard>();
-	if (timer.Alarm())
+	//Nothing to display
+	if (texture.empty())
 	{
-		billboard->transform->SetPosition(spawnLocation->GetPosition() + vec3(0,10,0));
-		timer.ResetClock();
-		billboardComponent->alpha = 1;
+		return;
 	}
-	else {
+
+	Billboard *billboardComponent = billboard->GetComponent<Billboard>();
+
+
+	if (billboardComponent->alpha > 0)
+	{
 		billboardComponent->alpha -= dt / 1000;
-		billboard->transform->Translate(vec3(0, 25* dt/1000, 0));
+		billboard->transform->Translate(vec3(0, 25 * dt / 1000, 0));
 	}
+		
+}
+
+void BuildingProductionAnims::SetTextureToDisplay(std::string texture)
+{
+	this->texture = texture;
+	Billboard *billboardComponent = billboard->GetComponent<Billboard>();
+
+	billboardComponent->SetTexture(texture);
+
 }
 
 void BuildingProductionAnims::Spawn()
 {
+	Billboard *billboardComponent = billboard->GetComponent<Billboard>();
+	billboard->transform->SetPosition(spawnLocation->GetPosition() + vec3(0, 10, 0));
+	billboardComponent->alpha = 1;
 }

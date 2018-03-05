@@ -1,6 +1,5 @@
 #pragma once
 #include "components\Behaviour.h"
-#include "utility\Clock.h"
 
 class BuildingProductionAnims : public Behaviour
 {
@@ -11,10 +10,14 @@ public:
 	void OnLoad();
 	void Start();
 	void Update(double dt);
-private:
+
+	void SetTextureToDisplay(std::string texture);
 	void Spawn();
+private:
+	
 	Transform * spawnLocation;
 	GameObject * billboard;
 	GameObject * prefab;
-	Engine::Utility::Clock timer;
+
+	std::string texture;
 };
