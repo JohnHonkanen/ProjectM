@@ -127,14 +127,3 @@ void Structure::InsertItem(Resources res)
 {
 	inv->PlaceItem(res);
 }
-
-/*
-	Does the sending of an item from one building to another
-	Takes a res object from the origin building and places it in the destination building.
-	Erases the object from the origin building at a given index.
-*/
-void Structure::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
-{
-	destInv->PlaceItem(res);
-	originInv->RemoveAtIndex(index);
-}
