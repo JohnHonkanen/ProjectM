@@ -20,7 +20,7 @@ class PlayerEconHUD :public Behaviour {
 public:
 	static PlayerEconHUD* Create(GameObject* gameObject, EHUD::HUDCanvas* root, class PlayerEconManager* playerEconManager);
 
-	void Copy(GameObject* gameObject);
+	void Copy(GameObject* copyObject);
 	void OnLoad();
 	void Start();
 	void Update();

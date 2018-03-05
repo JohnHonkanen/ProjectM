@@ -19,6 +19,7 @@
 #include <iostream>
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
+#include "hud\PlayerEconHUD.cpp"
 
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
@@ -105,12 +106,9 @@ int main(int argc, char *argv[])
 												 //Temp Function
 	buildingController->AddTempObject(structure);
 
-
 	//Add HUD
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
-
-
 
 	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50, "");
 	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51, "");
@@ -133,7 +131,7 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");
