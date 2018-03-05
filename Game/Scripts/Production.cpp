@@ -79,6 +79,8 @@ void Production::Update(double currentTime)
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
+			auto destinationInv = hub->FindNearest(StructureType::WAREHOUSE, tileX, tileY)->GetInventory();
+			inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);
 		}
 		clock.ResetClock();
 	}
