@@ -18,6 +18,8 @@
 #include "Resources.h"
 #include <iostream>
 #include "PlayerActions.h"
+#include "hud\PlayerEconHUD.h"
+
 
 using namespace std;
 
@@ -126,6 +128,7 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");

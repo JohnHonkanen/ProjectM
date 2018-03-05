@@ -3,6 +3,7 @@
 #include "BuildingManager.h"
 #include "ResourceManager.h"
 #include "ContractManager.h"
+#include "PlayerEconManager.h"
 
 class GameManager : public Behaviour
 {
@@ -18,7 +19,7 @@ public:
 	BuildingManager buildingManager;
 	ResourceManager resourceManager;
 	ContractManager contractManager;
-
+	PlayerEconManager playerEconManager;
 
 	
 };
