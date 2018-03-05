@@ -75,10 +75,6 @@ int main(int argc, char *argv[])
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
-	//Temp Anim Showcase
-	BuildinggSpawnAnim::Create(hubObject);
-	BuildingProductionAnims * bpa = BuildingProductionAnims::Create(hubObject);
-	bpa->SetTextureToDisplay("Game/Assets/Textures/chicken-16_t.png");
 
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));
