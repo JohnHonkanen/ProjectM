@@ -13,6 +13,8 @@ public:
 	/** Used to set the register event bool (registerEnter, registerExit and registerMouseDown)*/
 	virtual void EventRegistration();
 
+	virtual void Update(double dt);
+
 protected:
 	/** Pointer Enter Bounds Event Implementation */
 	virtual void OnPointerEnterImplementation(EventData data);
@@ -27,4 +29,27 @@ protected:
 	virtual void OnPointerExitAnimation();
 	/** Pointer Click Event Animation */
 	virtual void OnPointerMouseDownAnimation();
+
+	void SetOriginalDimensions(float x, float y);
+
+private:
+
+	void Grow(double dt);
+	void Shrink(double dt);
+	void Stable();
+
+	enum ANIM_STATE
+	{
+		STABLE,
+		GROW,
+		SHRINK,
+	};
+	struct Rect {
+		float sizeX, sizeY;
+	};
+	ANIM_STATE state;
+	Rect originalRect;
+
+	float increasedSize = 50;
+	float decreaseSize = 10;
 };

@@ -5,6 +5,7 @@ BuildingListButton * BuildingListButton::Create(HUDElement * element, EHUD::HUDR
 	BuildingListButton *blb = new BuildingListButton();
 	blb->rect = rect;
 	blb->baseTexture = baseTexture;
+	blb->SetOriginalDimensions(rect.width, rect.height);
 
 	element->AttachWidget(blb);
 	return blb;

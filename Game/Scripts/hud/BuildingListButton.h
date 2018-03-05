@@ -1,9 +1,8 @@
 #pragma once
-#include "BooblyButton.h"
+#include "AnimatedButton.h"
 
-class BuildingListButton : public BooblyButton
+class BuildingListButton : public AnimatedButton
 {
 public:
 	static BuildingListButton * Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture);
-
 };
