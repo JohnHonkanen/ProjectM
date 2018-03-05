@@ -52,7 +52,6 @@ void Production::Copy(GameObject * copyObject)
 	copy->isActive = Production::isActive;
 	copy->structureType = PRODUCTION;
 	copy->resourceManager = resourceManager;
-
 	copyObject->AddComponent(copy);
 }
 
@@ -71,11 +70,13 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		
-		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
+		//int inventoryLimit = inv->GetResourceAtIndex(0).GetItemAmount();	//Finds out volume of resource in inventory slot
+		if (GetActive() == true && producing < 0) {	// if building is active and slot is not full compared to previous obtained value
 			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
+			if(temp.GetItemAmount()<100){
 			temp.IncreaseItemAmount(1+GetProductionEfficiency());			//sets value of item created
-			StoreItem(temp);												//passes temp resource to place item wrapper for inventory
+			inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
+			}
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
@@ -91,10 +92,11 @@ void Production::StoreItem(Resources res) {
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
-void Production::SetProduction(string type, int eff, bool act)
+void Production::SetProduction(string type)
 {
 	if (type == "Dome") {
 		producing = 1;
+		
 	}
 	/*else if (type == "factory") {
 		producing = 

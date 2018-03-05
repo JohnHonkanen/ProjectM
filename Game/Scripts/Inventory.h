@@ -36,6 +36,7 @@ public:
 	string DisplayContents();
 	void SetInventorySize(int change) { INITIAL_STORAGE * (inventoryLevel+change); }
 	std::vector<Resources> GetInventory() { return storage; }
+	Resources GetResourceAtIndex(int index) { return storage[index]; }
 	bool GetStorageFull() { return storageFull; }
 	string GetAtStorageIndex(int index);
 	int GetInventoryLevel() { return inventoryLevel; }
@@ -47,6 +48,7 @@ public:
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }
 	bool InventoryEmpty() { return storage.empty(); }
+
 
 	void Start();
 	void Update();

@@ -100,6 +100,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\PlayerEconManager.cpp" />
+    <ClCompile Include="Game\Scripts\hud\ProductionHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -196,6 +199,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\PlayerEconManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\ProductionHUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
