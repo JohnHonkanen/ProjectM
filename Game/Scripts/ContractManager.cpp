@@ -113,6 +113,13 @@ void ContractManager::Update()
 		this->contractQueue.front()->IsComplete();
 	}
 
+	if (this->contractQueue.front()->GetCurrent() >= this->contractQueue.front()->GetAmount()) {
+		//cout << "boop!" << endl;
+		
+		this->contractQueue.front()->IsComplete();
+
+	}
+
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
 	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");
 
@@ -138,7 +145,8 @@ void ContractManager::Update()
 	if (changeCurrent == 1) {
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;
-			FindPersistentContract(1)->IncreaseCurrent(5);
+			this->contractQueue.front()->IncreaseCurrent(5);
+			//FindPersistentContract(1)->IncreaseCurrent(5);
 		}
 	}
 	else {
@@ -150,7 +158,8 @@ void ContractManager::Update()
 	if (changeCurrent == -1) { 
 		if (keyReleased2 == true) { // if key k is pressed (Decrease)
 			keyReleased2 = false;
-			FindPersistentContract(1)->DecreaseCurrent(5);
+			this->contractQueue.front()->DecreaseCurrent(5);
+			//FindPersistentContract(1)->DecreaseCurrent(5);
 		}
 	}
 	else {
