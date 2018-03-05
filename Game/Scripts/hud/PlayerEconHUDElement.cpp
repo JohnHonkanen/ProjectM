@@ -2,8 +2,6 @@
 #include "hud\widgets\TextWidget.h"
 #include "hud\widgets\HUDContainer.h"
 #include "../PlayerEconomy.h"
-#include "InventoryHUDElement.h"
-#include "PlayerEconHUD.h"
 
 PlayerEconHUDElement * PlayerEconHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, PlayerEconomy * playerEconomy)
 {

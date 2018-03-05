@@ -1,7 +1,8 @@
 #pragma once
-#include "PlayerEconomy.h"
+
 #include "ContractManager.h"
 #include "ResourceManager.h"
+#include "PlayerEconomy.h"
 
 class PlayerEconManager {
 public:
@@ -12,13 +13,15 @@ public:
 	PlayerEconomy* FindPlayerEcon(); // Finds the player economy
 
 	void SetResourceManager(ResourceManager* resourceManager);
+	
+	void OnLoad();
 	void Update();
 	void Start();
+
 
 private:
 
 	PlayerEconomy economyList[3]; // List of economies
-	PlayerEconomy* playerEconomy;
 	ResourceManager* resourceManager;
 
 };

@@ -18,7 +18,7 @@ PlayerEconHUD * PlayerEconHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *
 	return playerEconHUD;
 }
 
-void PlayerEconHUD::Copy(GameObject * gameObject)
+void PlayerEconHUD::Copy(GameObject * copyObject)
 {
 	// Does nothing
 }
