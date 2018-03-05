@@ -1,7 +1,7 @@
 /*
 Production Class - Used for maintaing any building type that produces resources.
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Dev: Greg Smith (B00308929)
 */
 
 #pragma once
@@ -13,27 +13,36 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"
 #include "Inventory.h"
+#include "Resources.h"
+#include "ResourceManager.h"
+#include "utility\Clock.h"`
+
 
 using namespace std;
 using namespace glm;
 
 class Production : public Structure {
 private:
-	int dt, storage;
+	int producing = 1;
+	Engine::Utility::Clock clock;
+	void StoreItem(Resources res);
+
+	ResourceManager * resourceManager;
 public:
 
 	Production();
 	~Production();
-	Production(string name, string type ,int hp, int pow, int eff, int radOut, bool placed, bool active);
-	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active);
+	Production(string name, string type ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
+	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
 
 	void Copy(GameObject *copyObject);
 
+	void Start();
 	void OnLoad();
 	void Update(double currentTime);
-	void Draw(GameObject *obj, string name);
 
-	void setProduction(string type, int eff, bool act);
+	void SetProduction(string type, int eff, bool act);
+	int GetProduction() { return producing; }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 
@@ -45,7 +54,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(storage), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+		ar(CEREAL_NVP(name), CEREAL_NVP(type), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
 	}
 };
 

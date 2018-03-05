@@ -1,7 +1,7 @@
 /*
 Structure class that maintains the base properties off all structures
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Devs: Greg Smith (B00308929)
 */
 
 #include "Structure.h"
@@ -130,11 +130,11 @@ void Structure::InsertItem(Resources res)
 
 /*
 	Does the sending of an item from one building to another
-	Takes a res object and places it in the destination building.
+	Takes a res object from the origin building and places it in the destination building.
 	Erases the object from the origin building at a given index.
 */
 void Structure::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
 {
 	destInv->PlaceItem(res);
-	originInv->RemoveAtIdex(index);
+	originInv->RemoveAtIndex(index);
 }

@@ -8,6 +8,7 @@ Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 #include "Warehouse.h"
 #include "core\GameEngine.h"
 #include "components\MeshRenderer.h"
+#include "GameManager.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -25,13 +26,19 @@ void BuildingManager::Start()
 
 	//Basic Factory
 	CreateNewBuilding(
-		Production::Create("Factory 1","Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Factory 1","Factory", 10, 1, 1, 1, false, false, resourceManager),
+		"AssetPath"
+	);
+
+	//Basic Factory
+	CreateNewBuilding(
+		Production::Create("Dome 1", "Dome", 10, 1, 1, 1, false, false, resourceManager),
 		"AssetPath"
 	);
 
 	//Radiation Factory
 	CreateNewBuilding(
-		Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false),
+		Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false, resourceManager),
 		"AssetPath"
 	);
 
@@ -75,4 +82,9 @@ void BuildingManager::SearchWarehouses(map<string, unique_ptr<GameObject>> build
 			// Pass the resource to the warehouse.	
 		}
 	}
+}
+
+void BuildingManager::SetResourceManager(ResourceManager * resourceManager)
+{
+	this->resourceManager = resourceManager;
 }

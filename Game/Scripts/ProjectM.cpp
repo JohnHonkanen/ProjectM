@@ -20,6 +20,9 @@
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
 
+#include "Billboard.h"
+#include "BuildingSpawnAnim.h"
+#include "BuildingProductionAnims.h"
 
 using namespace std;
 
@@ -40,17 +43,17 @@ int main(int argc, char *argv[])
 
 	//Game Manager
 	GameObject *gameManagerObject = manager->CreateGameObject("Game Manager");
-	GameManager* gameManager =  GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
+	GameManager* gameManager = GameManager::Create(gameManagerObject); //Handles rules of the game. Boundaries etc
 
-	//Temp Code to make Structures
+																	   //Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, true),
+		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, true, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false),
+		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
@@ -71,13 +74,17 @@ int main(int argc, char *argv[])
 
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
-	MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
+	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
+	BuildinggSpawnAnim::Create(hubObject);
+	BuildingProductionAnims::Create(hubObject);
+
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));
-	hubObject->transform->Rotate(vec3(0,0,0));
+	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
-	hubObject->transform->Translate(vec3(0, 7, 0));
+	hubObject->transform->Translate(vec3(100, 15, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
+	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
 
 	//Temp Object to Test Building Manager
 	GameObject *structure = manager->CreateGameObject("Temp Structure");
@@ -97,7 +104,7 @@ int main(int argc, char *argv[])
 	CameraController::Create(playerObject, focusPoint->transform.get());
 	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager, hub);
 	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
-	//Temp Function
+												 //Temp Function
 	buildingController->AddTempObject(structure);
 
 
@@ -105,13 +112,13 @@ int main(int argc, char *argv[])
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
-	
-	
+
+
 	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50, "");
 	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51, "");
 
 	Resources res3 = Resources(3, "box ", "BigBox ", 5, 1, "");
-	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1,"");
+	Resources res4 = Resources(4, "box ", "BigBox ", 5, 1, "");
 	Resources res5 = Resources(5, "box ", "BigBox ", 5, 1, "");
 	Resources res6 = Resources(6, "box ", "BigBox ", 5, 1, "");
 	Resources res7 = Resources(7, "box ", "BigBox ", 5, 1, "");
@@ -128,7 +135,7 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");
@@ -140,6 +147,12 @@ int main(int argc, char *argv[])
 
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
+
+	//BillBord Test
+	GameObject *billboardObj = manager->CreateGameObject("billboard");
+	Billboard::Create(billboardObj, "Game/Assets/Textures/building_placeholder.jpg");
+	billboardObj->transform->Translate(vec3(0, 20, 0));
+	billboardObj->transform->Scale(vec3(5));
 	engine.Run();
 	return 0;
 }

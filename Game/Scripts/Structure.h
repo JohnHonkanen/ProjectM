@@ -36,13 +36,11 @@ protected:
 	string name;
 	string type;
 
-	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
-
 	int tileX, tileY;
 	StructureType structureType;
+	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
 public:
 	
-
 	Structure();
 	~Structure();
 	Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active);
@@ -72,6 +70,7 @@ public:
 	Inventory* GetInventory() { return inv.get(); }
 	void SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
+	string ViewInventoryAt(int index) { return inv->GetAtStorageIndex(index); }
 
 	void SetTilePosition(int x, int y);
 	void OnLoad();

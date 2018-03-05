@@ -1,7 +1,7 @@
 /*
 Production Class - Used for maintaing any building type that produces resources.
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Dev: Greg Smith (B00308929)
 */
 
 #include "Production.h"
@@ -18,7 +18,7 @@ Production::~Production()
 }
 
 Production::Production(string buildingName, string typ, int hp, int pow, int eff, 
-						int radOut, bool placed, bool active)
+						int radOut, bool placed, bool active, ResourceManager * resourceMan)
 {
 	name = buildingName;
 	type = typ;
@@ -28,12 +28,13 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 	radiationOutput = radOut;
 	isPlaced = placed;
 	isActive = active;
+	resourceManager = resourceMan;
 }
 
 Production * Production::Create(string name, string typ, int hp, int pow, int eff, 
-								int rad, bool placed, bool active)
+								int rad, bool placed, bool active, ResourceManager * resourceMan)
 {
-	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active);
+	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active, resourceMan);
 	p->structureType = PRODUCTION;
 	return p;
 }
@@ -50,8 +51,15 @@ void Production::Copy(GameObject * copyObject)
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
 	copy->structureType = PRODUCTION;
+	copy->resourceManager = resourceManager;
 
 	copyObject->AddComponent(copy);
+}
+
+void Production::Start()
+{
+	clock.SetDelay(1000);
+	clock.StartClock();
 }
 
 void Production::OnLoad()
@@ -60,45 +68,35 @@ void Production::OnLoad()
 
 void Production::Update(double currentTime)
 {
-	//time_t t = time(0);   // get time now
-	//struct tm * currentTime = localtime(&t);
+	clock.UpdateClock();//updating clock time
 
-	if ((dt - currentTime) >= 300) {
-		dt = currentTime;
-		if (GetActive() == true && inv->InventorySize() < 100) {
-//			setStorage(getStorage() + 1 * eff); 
-			//storage being used as a generalised term until proper building storage can be called
-			cout << storage; // testing
+	if (clock.Alarm()) {//check if alarm has gone off
+		
+		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
+			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
+			temp.IncreaseItemAmount(1+GetProductionEfficiency());			//sets value of item created
+			StoreItem(temp);												//passes temp resource to place item wrapper for inventory
 		}
-		if (storage >= 50) {
-			//call warehouse storage update method from player
+		if (inv->InventorySize() >= 50) {
+			//inv->PlaceItem(res);									//send built up resource to a warehouse
 		}
+		clock.ResetClock();
 	}
 }
 
+void Production::StoreItem(Resources res) {
+	inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
+	cout << inv->DisplayContents();							// testing console
+}
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
-void Production::setProduction(string type, int eff, bool act)
+void Production::SetProduction(string type, int eff, bool act)
 {
-	/*if (type == "dome") {
-		domeProduction(eff, act);
-	
-	else if (type == "factory") {
-		factoryProduction(eff, act);
+	if (type == "Dome") {
+		producing = 1;
+	}
+	/*else if (type == "factory") {
+		producing = 
 	}*/
 }
-
-
-//void Production::setStorage(int change) //Defunct method
-//{
-//	/*
-//	storage = += change;
-//	*/
-//}
-
-/*to draw building note
-MeshRenderer::Create(gameobject, assetpath);
-if you want to scale up and down
-use the gameobject.transform.scale, translate, rotate
-*/
