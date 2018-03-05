@@ -19,11 +19,12 @@ PlayerEconomy PlayerEconManager::AddEconomy()
 	return this->economyList[0];
 }
 
-PlayerEconomy * PlayerEconManager::FindPlayerEcon()
+PlayerEconomy* PlayerEconManager::FindPlayerEcon()
 {
 	
 	return &this->economyList[0];
 }
+
 
 void PlayerEconManager::SetResourceManager(ResourceManager * resourceManager)
 {

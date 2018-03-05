@@ -23,7 +23,8 @@ void PlayerEconomy::GiveGoldBars(int amountToGive)
 
 void PlayerEconomy::AddGoldBars(int goldBars)
 {
-	this->goldBars += goldBars;
+	//int currentGB = GetGBAmount();
+	
 }
 
 void PlayerEconomy::RemoveGoldBars(int goldBars)
@@ -31,9 +32,14 @@ void PlayerEconomy::RemoveGoldBars(int goldBars)
 	this->goldBars -= goldBars;
 }
 
-int PlayerEconomy::GetGBAmount(int GBAmount)
+int PlayerEconomy::SetGBAmount(int GBAmount)
 {
 	return this->goldBars = GBAmount;
+}
+
+int PlayerEconomy::GetGBAmount()
+{
+	return this->goldBars;
 }
 
 Resources PlayerEconomy::GetResouce()
@@ -45,13 +51,4 @@ Resources PlayerEconomy::GetResouce()
 string PlayerEconomy::GetGBIcon()
 {
 	return this->resource.GetResourceIcon();
-}
-
-void PlayerEconomy::Init()
-{
-	PlayerEconomy playerEconomy = PlayerEconomy();
-	
-	cout << "Gold Bars: " << resource.GetItemID() << endl;
-	playerEconomy.GiveGoldBars(1000);
-	cout << "GB Amount: " << GetGBAmount(resource.GetItemAmount()) << endl << endl;
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ContractManager.h"
 #include "ResourceManager.h"
 #include "PlayerEconomy.h"
 
@@ -11,7 +10,6 @@ public:
 
 	PlayerEconomy AddEconomy();
 	PlayerEconomy* FindPlayerEcon(); // Finds the player economy
-
 	void SetResourceManager(ResourceManager* resourceManager);
 	
 	void OnLoad();

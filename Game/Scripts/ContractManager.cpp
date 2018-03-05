@@ -91,14 +91,6 @@ void ContractManager::Update()
 				c->ReduceTime(1000);
 			}
 		}
-
-		//for (int i = 0; i <= NumberOfActiveContract(); i++) {
-
-		//	// Reduce contract time if greater than 0
-		//	if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
-		//		FindPersistentContract(i + 1)->ReduceTime(1000);
-		//	}
-		//}
 		clock.ResetClock();
 	}
 	
@@ -113,11 +105,13 @@ void ContractManager::Update()
 		this->contractQueue.front()->IsComplete();
 	}
 
+	// Complete contract when resource requirement is fulfilled.
 	if (this->contractQueue.front()->GetCurrent() >= this->contractQueue.front()->GetAmount()) {
-		//cout << "boop!" << endl;
 		
-		this->contractQueue.front()->IsComplete();
+		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon();
+		pEcon->AddGoldBars(contractQueue.front()->GetPayment());
 
+		this->contractQueue.front()->IsComplete();
 	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
