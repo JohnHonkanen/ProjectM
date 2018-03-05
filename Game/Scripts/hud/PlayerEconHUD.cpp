@@ -2,9 +2,9 @@
 #include "core\GameObject.h"
 #include "hud\HUDCanvas.h"
 #include "hud\widgets\HUDContainer.h"
+#include "../PlayerEconManager.h"
 #include "hud\widgets\TextWidget.h"
 #include "PlayerEconHUDElement.h"
-#include "../PlayerEconManager.h"
 
 
 PlayerEconHUD * PlayerEconHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, PlayerEconManager * playerEconManager)
