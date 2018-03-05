@@ -71,12 +71,13 @@ void Production::Update(double currentTime)
 
 	if (clock.Alarm()) {//check if alarm has gone off
 		//int inventoryLimit = inv->GetResourceAtIndex(0).GetItemAmount();	//Finds out volume of resource in inventory slot
-		if (GetActive() == true && producing < 0) {	// if building is active and slot is not full compared to previous obtained value
+		if (GetActive() == true && producing > 0) {	// if building is active and slot is not full compared to previous obtained value
 			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
 			if(temp.GetItemAmount()<100){
-			temp.IncreaseItemAmount(1+GetProductionEfficiency());			//sets value of item created
+			temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
 			inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
 			}
+			//cout << inv->DisplayContents() << endl;
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
