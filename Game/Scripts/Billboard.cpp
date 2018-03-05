@@ -76,6 +76,11 @@ void Billboard::Draw()
 	quad.Draw();
 }
 
+void Billboard::SetTexture(std::string texture)
+{
+	this->texture = texture;
+}
+
 void Billboard::CalculateModelMatrix()
 {
 	
