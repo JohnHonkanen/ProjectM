@@ -18,7 +18,7 @@ public:
 	void RemoveGoldBars(int goldBars);
 	int GetGBAmount(int GBAmount);
 
-	Resources PlayerEconomy::GetResouce();
+	Resources GetResouce();
 	string GetGBIcon(); // Get the gold bar icon
 
 	void Init();

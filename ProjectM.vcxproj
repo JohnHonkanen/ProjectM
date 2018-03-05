@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Scripts\Billboard.h" />
     <ClInclude Include="Game\Scripts\BuildingController.h" />
     <ClInclude Include="Game\Scripts\BuildingManager.h" />
+    <ClInclude Include="Game\Scripts\BuildingProductionAnims.h" />
+    <ClInclude Include="Game\Scripts\BuildingSpawnAnim.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
     <ClInclude Include="Game\Scripts\Drone.h" />
     <ClInclude Include="Game\Scripts\DroneProducer.h" />
@@ -45,8 +48,11 @@
     <ClInclude Include="Game\Scripts\Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Scripts\Billboard.cpp" />
     <ClCompile Include="Game\Scripts\BuildingController.cpp" />
     <ClCompile Include="Game\Scripts\BuildingManager.cpp" />
+    <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp" />
+    <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />
     <ClCompile Include="Game\Scripts\Drone.cpp" />
     <ClCompile Include="Game\Scripts\DroneProducer.cpp" />

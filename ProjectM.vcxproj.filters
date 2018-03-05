@@ -85,6 +85,11 @@
     <ClCompile Include="Game\Scripts\Warehouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\Billboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp" />
+    <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -176,6 +181,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\Warehouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\Billboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\BuildingSpawnAnim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\BuildingProductionAnims.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUDElement.h">
