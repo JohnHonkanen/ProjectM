@@ -70,6 +70,7 @@ public:
 	Inventory* GetInventory() { return inv.get(); }
 	void SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index);
 	string ViewInventory() { return inv->DisplayContents(); }
+	string ViewInventoryAt(int index) { return inv->GetAtStorageIndex(index); }
 
 	void SetTilePosition(int x, int y);
 	void OnLoad();

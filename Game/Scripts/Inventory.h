@@ -42,7 +42,7 @@ public:
 	int SetInventoryLevel(int newLevel) { inventoryLevel = newLevel; }
 	bool CheckItem(string itemType);
 	void PlaceItem(Resources res);
-	void RemoveAtIdex(int index);
+	void RemoveAtIndex(int index);
 	bool ContainsItem(Resources res);
 	void ChangeResourceQuantity(int change);
 	int InventorySize() { return storage.size(); }
