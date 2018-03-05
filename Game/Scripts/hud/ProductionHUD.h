@@ -25,12 +25,16 @@ public:
 									class Production *production);
 	void Copy(GameObject* gameObject);
 	void OnLoad();
+	void Start();
 	void Update();
+	void Input();
+
 
 private:
 	class PlayerActions* pla;
 	EHUD::HUDCanvas * root;
 	EHUD::HUDElement * wrapper;
 
+	class ProductionHUDElement* PHElement;
 	class Production *production;
 };
