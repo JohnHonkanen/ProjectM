@@ -23,6 +23,7 @@
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
 #include "BuildingProductionAnims.h"
+#include "hud\MainHUD.h"
 
 using namespace std;
 
@@ -134,6 +135,7 @@ int main(int argc, char *argv[])
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	MainHUD::Create(hudController, canvas);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");

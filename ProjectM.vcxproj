@@ -36,6 +36,7 @@
     <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUD.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUDElement.h" />
+    <ClInclude Include="Game\Scripts\hud\MainHUD.h" />
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUDElement.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
@@ -65,6 +66,7 @@
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUDElement.cpp" />
+    <ClCompile Include="Game\Scripts\hud\MainHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp" />
