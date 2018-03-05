@@ -20,6 +20,7 @@
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
 #include "hud\PlayerEconHUD.cpp"
+#include "hud\ProductionHUD.h"
 
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
@@ -132,6 +133,7 @@ int main(int argc, char *argv[])
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	ProductionHUD::Create(hudController, canvas, pla);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");

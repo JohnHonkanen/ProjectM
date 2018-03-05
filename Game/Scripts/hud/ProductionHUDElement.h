@@ -17,18 +17,20 @@ class ProductionHUDElement : public EHUD::HUDWidget {
 public:
 	ProductionHUDElement();
 	~ProductionHUDElement();
-	static ProductionHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class PlayerActions* pla);
+	static ProductionHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class Production *prod);
 	void Start();
+	void OnLoad();
 	void Update();
 	void DrawWidget(unsigned int shader);
 	void Input();
-
+	void SetProduction(class Production *prod);
 
 private:
 	EHUD::TextWidget* title;
+	EHUD::TextWidget* Level;
+	EHUD::TextWidget* Producing;
+
 	vector<EHUD::TextWidget*> text;
-	class PlayerActions* pla;
+	class Production * prod;
 	EHUD::HUDElement* productionHUD;
-
-
 };

@@ -11,11 +11,11 @@ Dev: Greg Smith (B00308929)
 #include "BuildingButton.h"
 #include "../PlayerActions.h"
 #include "../Production.h"
+#include "ProductionHUDElement.h"
 
-ProductionHUD * ProductionHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions *pla, Production *production) {
+ProductionHUD * ProductionHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions *pla) {
 
 	ProductionHUD *ph = new ProductionHUD();
-	ph->production = production;
 	ph->root = root;
 	ph->pla = pla;
 	gameObject->AddComponent(ph);
@@ -26,19 +26,22 @@ void ProductionHUD::Copy(GameObject* gameObject) {
 }
 void ProductionHUD::OnLoad()
 {
-		wrapper = EHUD::WHUDContainer::Create(root, { 100,100,50,50 }, "Game/Assets/Textures/cBlack.jpg", true);
+		wrapper = EHUD::WHUDContainer::Create(root, { 600,100,300,400 }, "Game/Assets/Textures/cBlack.jpg", true);
 		wrapper->SetActive(true); //For testing purposes, set to false when key selection added
 		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
-		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, pla );
+		HUD::TextWidget::Create(wrapper, { 10,40,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
+		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr);
 }
 
 void ProductionHUD::Start()
 {
+	StartChildWidget();
 }
 
 void ProductionHUD::Update()
 {
-	if (pla->GetSelectedStructure() != nullptr) {
+	if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Production*>(pla->GetSelectedStructure()) != nullptr) {
+		PHElement->SetProduction(dynamic_cast<Production*>(pla->GetSelectedStructure()));
 		wrapper->SetActive(true);
 	}
 	else {
