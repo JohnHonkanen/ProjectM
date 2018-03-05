@@ -115,11 +115,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 		{
 			for (int i = 0; i < text.size(); i++)
 			{
-				std::string hudText = pla->GetSelectedStructure()->ViewInventoryAt(i);
-				if(!hudText.empty())
-				{
-					text[i]->text = hudText;
-				}
+				text[i]->text = pla->GetSelectedStructure()->ViewInventoryAt(i);
 			}
 			invP->TestItem(pla, rManager);
 		}

@@ -108,7 +108,7 @@ void Inventory::PlaceItem(Resources res)
 	Erases element in slot 6, so minus one is called
 	to keep it in line with the index supplied.
 */
-	void Inventory::RemoveAtIdex(int index)
+	void Inventory::RemoveAtIndex(int index)
 	{
 		storage.erase(storage.begin() + (index-1));
 	}
