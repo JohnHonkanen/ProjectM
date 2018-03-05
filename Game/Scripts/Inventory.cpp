@@ -108,7 +108,7 @@ void Inventory::PlaceItem(Resources res)
 	Erases element in slot 6, so minus one is called
 	to keep it in line with the index supplied.
 */
-	void Inventory::RemoveAtIdex(int index)
+	void Inventory::RemoveAtIndex(int index)
 	{
 		storage.erase(storage.begin() + (index-1));
 	}
@@ -145,7 +145,7 @@ string Inventory::GetAtStorageIndex(int index)
 
 	if (storage.empty())
 	{
-		contents = "Inventory is empty.";
+		contents = "";
 	}
 	else
 	{
@@ -153,7 +153,7 @@ string Inventory::GetAtStorageIndex(int index)
 		{
 			if (index == i)
 			{
-				contents += "Item: " + storage[i].GetName() + ", Item Quantity: " + to_string(storage[i].GetItemAmount());
+				contents += storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount());
 			}
 		}
 	}
