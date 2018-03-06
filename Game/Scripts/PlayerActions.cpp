@@ -43,7 +43,7 @@ void PlayerActions::Update(double dt)
 					selectedStructure->gameObject->material->diffuseMap = buildingTexture;
 				}
 				buildingTexture = structure->gameObject->material->diffuseMap;
-				structure->gameObject->material->diffuseMap = selectedTexture;
+				//structure->gameObject->material->diffuseMap = selectedTexture;
 				selectedStructure = structure;
 			}
 		}
