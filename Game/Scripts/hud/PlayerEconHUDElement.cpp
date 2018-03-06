@@ -19,10 +19,11 @@ void PlayerEconHUDElement::Start()
 
 	// Text
 	playerEconHUD = EHUD::WHUDContainer::Create(this, { 0,0, 225, 24 }, "Game/Assets/Textures/black.jpg", true);
-	resourceIcon = EHUD::WHUDContainer::Create(this, { 200, 5, 14, 14 }, playerEconomy->GetGBIcon(), true);
+	resourceIcon = EHUD::WHUDContainer::Create(this, { 65, 5, 14, 14 }, playerEconomy->GetGBIcon(), true);
 
 	// Player gold amount
-	playerGold = EHUD::TextWidget::Create(playerEconHUD, { 10, 16, 0, 0 }, "Player Gold Amount: " + to_string(playerEconomy->GetGBAmount(100)), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	playerEconomy->SetGBAmount(0);
+	playerGold = EHUD::TextWidget::Create(playerEconHUD, { 10, 16, 0, 0 }, "Player      Amount: " + to_string(playerEconomy->GetGBAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 	
 	text = EHUD::TextWidget::Create(playerEconHUD, { 10, 128, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 	StartChildWidgets();
@@ -30,7 +31,7 @@ void PlayerEconHUDElement::Start()
 
 void PlayerEconHUDElement::Update()
 {
-	playerGold->text = "Player Gold Amount: " + to_string(playerEconomy->GetGBAmount(100));
+	playerGold->text = "Player      Amount : " + to_string(playerEconomy->GetGBAmount());
 }
 
 void PlayerEconHUDElement::DrawWidget(unsigned int shader)

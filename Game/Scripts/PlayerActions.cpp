@@ -22,16 +22,16 @@ void PlayerActions::Start()
 
 void PlayerActions::Update(double dt)
 {
+	int mx, my; //Mouse Position
+	GameEngine::manager.inputManager.GetMousePos(mx, my);
+
+	//Get our Snap-point
+	vec3 snapPoint = buldingController->colHelper.GetMouseToTerrainSnap(vec2(mx, my));
+	vec2 coordinates = buldingController->colHelper.GetMouseToTerrainCoordinates();
+
 	//Player is not building objects
 	if (!buldingController->GetBuildMode())
 	{
-		int mx, my; //Mouse Position
-		GameEngine::manager.inputManager.GetMousePos(mx, my);
-
-		//Get our Snap-point
-		vec3 snapPoint = buldingController->colHelper.GetMouseToTerrainSnap(vec2(mx, my));
-		vec2 coordinates = buldingController->colHelper.GetMouseToTerrainCoordinates();
-
 		if (GameEngine::manager.inputManager.GetKey("mouse0"))
 		{
 			//Selected a building
@@ -47,6 +47,16 @@ void PlayerActions::Update(double dt)
 				selectedStructure = structure;
 			}
 		}
+	}
+	//Deselect Buildings
+	if (GameEngine::manager.inputManager.GetKey("mouse1"))
+	{
+		if (selectedStructure != nullptr)
+		{
+			selectedStructure->gameObject->material->diffuseMap = buildingTexture;
+		}
+
+		selectedStructure = nullptr;
 	}
 }
 

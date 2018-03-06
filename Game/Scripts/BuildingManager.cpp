@@ -12,6 +12,8 @@ Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "BuildingProductionAnims.h"
+
 using namespace std;
 
 BuildingManager::BuildingManager()
@@ -57,6 +59,9 @@ GameObject* BuildingManager::CreateNewBuilding(Structure * cStructure, string as
 		//Create the structure
 		GameObject *structure = new GameObject(cStructure->GetName());
 		structure->AddComponent(cStructure); //Component Structure
+		if (cStructure->GetType()==DOME || cStructure->GetType() == FACTORY) {
+			BuildingProductionAnims::Create(structure);
+		}
 		MeshRenderer::Create(structure, asset);
 		buildingList[cStructure->GetName()] =  unique_ptr<GameObject>(structure);
 	}

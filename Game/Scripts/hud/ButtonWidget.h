@@ -41,6 +41,7 @@ public:
 protected:
 	std::string activeTexture;
 	std::string baseTexture, mouseEnterTexture, mouseDownTexture;
+	std::string icon;
 	bool registerEnter, registerExit, registerMouseDown;
 
 };

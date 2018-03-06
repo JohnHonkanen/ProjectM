@@ -88,8 +88,6 @@
     <ClCompile Include="Game\Scripts\Billboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp" />
-    <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -99,6 +97,24 @@
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerEconManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\AnimatedButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\MainHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerEconManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\PlayerEconManager.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionHUD.cpp">
       <Filter>Source Files</Filter>
@@ -106,8 +122,19 @@
     <ClCompile Include="Game\Scripts\hud\ProductionHUDElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\ProductionButton.cpp" />
-    <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\ProductionButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\BuildingListGroupElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\BuildingSelectorButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -216,6 +243,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\ProductionSetterButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\MainHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\AnimatedButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\BuildingListGroupElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\BuildingSelectorButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\WidgetToggleButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -33,8 +33,8 @@ public:
 
 	Production();
 	~Production();
-	Production(string name, StructureType typ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
-	static Production * Create(string name, StructureType typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
+	Production(string name, StructureType typ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
+	static Production * Create(string name, StructureType typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
 
 	void Copy(GameObject *copyObject);
 

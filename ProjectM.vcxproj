@@ -29,6 +29,9 @@
     <ClInclude Include="Game\Scripts\DroneProducer.h" />
     <ClInclude Include="Game\Scripts\GameManager.h" />
     <ClInclude Include="Game\Scripts\Hub.h" />
+    <ClInclude Include="Game\Scripts\hud\AnimatedButton.h" />
+    <ClInclude Include="Game\Scripts\hud\BuildingListGroupElement.h" />
+    <ClInclude Include="Game\Scripts\hud\BuildingSelectorButton.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingButton.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
@@ -36,11 +39,13 @@
     <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUD.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUDElement.h" />
+    <ClInclude Include="Game\Scripts\hud\MainHUD.h" />
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionButton.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionHUD.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionSetterButton.h" />
+    <ClInclude Include="Game\Scripts\hud\WidgetToggleButton.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\PlayerActions.h" />
@@ -62,6 +67,9 @@
     <ClCompile Include="Game\Scripts\DroneProducer.cpp" />
     <ClCompile Include="Game\Scripts\GameManager.cpp" />
     <ClCompile Include="Game\Scripts\Hub.cpp" />
+    <ClCompile Include="Game\Scripts\hud\AnimatedButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\BuildingListGroupElement.cpp" />
+    <ClCompile Include="Game\Scripts\hud\BuildingSelectorButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp" />
@@ -69,6 +77,7 @@
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUDElement.cpp" />
+    <ClCompile Include="Game\Scripts\hud\MainHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp" />
@@ -76,6 +85,7 @@
     <ClCompile Include="Game\Scripts\hud\ProductionHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
     <ClCompile Include="Game\Scripts\PlayerActions.cpp" />

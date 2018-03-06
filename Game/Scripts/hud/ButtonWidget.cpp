@@ -31,17 +31,38 @@ void ButtonWidget::RegisterToEvents()
 {
 	if (registerEnter)
 	{
-		IPointerEnter::RegisterToEvents(&rect);
+		if (!useWorldRect)
+		{
+			IPointerEnter::RegisterToEvents(&rect);
+		}
+		else {
+			IPointerEnter::RegisterToEvents(&worldRect);
+		}
+		
 	}
 
 	if (registerExit)
 	{
-		IPointerExit::RegisterToEvents(&rect);
+		if (!useWorldRect)
+		{
+			IPointerExit::RegisterToEvents(&rect);
+		}
+		else {
+			IPointerExit::RegisterToEvents(&worldRect);
+		}
+		
 	}
 
 	if (registerMouseDown)
 	{
-		IPointerMouseDown::RegisterToEvents(&rect);
+		if (!useWorldRect)
+		{
+			IPointerMouseDown::RegisterToEvents(&rect);
+		}
+		else {
+			IPointerMouseDown::RegisterToEvents(&worldRect);
+		}
+		
 	}
 	
 }

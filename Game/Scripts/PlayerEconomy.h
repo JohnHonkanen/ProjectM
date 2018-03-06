@@ -1,5 +1,6 @@
 #pragma once
 #include "ResourceManager.h"
+#include "Inventory.h"
 
 #include <string>
 
@@ -9,23 +10,29 @@ class PlayerEconManager;
 class PlayerEconomy {
 public:
 	PlayerEconomy();
-	PlayerEconomy(Resources resource, PlayerEconManager* playerEconManager);
+	PlayerEconomy(ResourceManager* resourceManager, PlayerEconManager* playerEconManager);
 	~PlayerEconomy();
 	
+	void GiveGoldBars(int amountToGive); // Give gold bars. <--- Deactivated
+	void AddGoldBars(int goldBars); // Add gold bars
+	void RemoveGoldBars(int goldBars); // Remove gold bars
+	int GetGBAmount(); // Get gold bar amount
+	void SetGBAmount(int GBAmount); // Set Gold Bar amount
 
-	void GiveGoldBars(int amountToGive);
-	void AddGoldBars(int goldBars);
-	void RemoveGoldBars(int goldBars);
-	int GetGBAmount(int GBAmount);
+	void SetPlayerEconIndex(int indexToSet); // Set pecon index 
+	int GetPlayerEconIndex(); // Gets index of pecon
 
-	Resources GetResouce();
+	Resources GetResouce(); // Gets resource
 	string GetGBIcon(); // Get the gold bar icon
 
-	void Init();
-private:
-	int goldBars;
+	void StoreGold(Resources resourceToStore); // Store gold in inventory : WIP
 
+	std::string name;
+private:
+	int index = 0;
 	Resources resource;
-	ResourceManager* resourceManager;;
+	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
+	Inventory inventory;
+
 };

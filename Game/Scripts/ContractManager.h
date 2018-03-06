@@ -1,7 +1,7 @@
 #pragma once
 #include "Contract.h"
 #include "ResourceManager.h"
-#include "PlayerEconomy.h"
+#include "PlayerEconManager.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
 #include <list>
@@ -19,7 +19,8 @@ public:
 	Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
-	void SetResourceManager(ResourceManager* resourceManager);
+	void SetManager(ResourceManager* resourceManager);
+	void SetManager(PlayerEconManager* playerEconManager);
 	void Update();
 	void Start();
 
@@ -29,6 +30,7 @@ private:
 	
 	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
+	PlayerEconManager* playerEconManager;
 	Engine::Utility::Clock clock;
 	bool keyReleased1 = true;
 	bool keyReleased2 = true;

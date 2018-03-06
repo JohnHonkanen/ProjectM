@@ -76,10 +76,16 @@ int ContractManager::NumberOfActiveContract()
 }
 
 
-void ContractManager::SetResourceManager(ResourceManager* resourceManager)
+void ContractManager::SetManager(ResourceManager* resourceManager)
 {
 	this->resourceManager = resourceManager;
 }
+
+void ContractManager::SetManager(PlayerEconManager * playerEconManager)
+{
+	this->playerEconManager = playerEconManager;
+}
+
 
 void ContractManager::Update()
 {
@@ -91,14 +97,6 @@ void ContractManager::Update()
 				c->ReduceTime(1000);
 			}
 		}
-
-		//for (int i = 0; i <= NumberOfActiveContract(); i++) {
-
-		//	// Reduce contract time if greater than 0
-		//	if (FindPersistentContract(i + 1)->GetTime() > 0 && FindPersistentContract(i+1)->GetStatus() == true) {
-		//		FindPersistentContract(i + 1)->ReduceTime(1000);
-		//	}
-		//}
 		clock.ResetClock();
 	}
 	
@@ -110,6 +108,15 @@ void ContractManager::Update()
 
 	// Set contract status to iscomplete if timer reaches 0 
 	if (this->contractQueue.front()->GetTime() <= 0) {
+		this->contractQueue.front()->IsComplete();
+	}
+
+	// Complete contract when resource requirement is fulfilled.
+	if (this->contractQueue.front()->GetCurrent() >= this->contractQueue.front()->GetAmount()) {
+		
+		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon();
+		pEcon->AddGoldBars(contractQueue.front()->GetPayment());
+
 		this->contractQueue.front()->IsComplete();
 	}
 
@@ -138,7 +145,7 @@ void ContractManager::Update()
 	if (changeCurrent == 1) {
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;
-			FindPersistentContract(1)->IncreaseCurrent(5);
+			this->contractQueue.front()->IncreaseCurrent(5);
 		}
 	}
 	else {
@@ -150,7 +157,7 @@ void ContractManager::Update()
 	if (changeCurrent == -1) { 
 		if (keyReleased2 == true) { // if key k is pressed (Decrease)
 			keyReleased2 = false;
-			FindPersistentContract(1)->DecreaseCurrent(5);
+			this->contractQueue.front()->DecreaseCurrent(5);
 		}
 	}
 	else {
