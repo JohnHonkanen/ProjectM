@@ -9,6 +9,7 @@ namespace EHUD = Engine::HUD;
 namespace Engine {
 	namespace HUD {
 		class TextWidget;
+		class WHUDContainer;
 	}
 }
 
@@ -28,6 +29,7 @@ public:
 private:
 	class Contract* contract;
 	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName, *reward, *contractIssueNumber, *contractID, *difficulty;
-	EHUD::HUDElement* contractHUD, *resourceIcon;
+	EHUD::HUDElement* contractHUD;
+	EHUD::WHUDContainer* resourceIcon;
 
 };
