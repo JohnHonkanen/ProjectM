@@ -51,7 +51,7 @@ void InventoryHUDElement::Start()
 	invP = new InventoryPopulator();
 	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Hud Title
-	inventoryHUD = EHUD::WHUDContainer::Create(this, { 0, 20, 350, 150 }, 
+	inventoryHUD = EHUD::WHUDContainer::Create(this, { 0, 20, 390, 75 }, 
 		"Game/Assets/Textures/black.jpg", true);
 	// Inventory contents
 	EHUD::TextWidget::Create(inventoryHUD, { 10, 20, 0, 0 }, "Inventory contents:", 
@@ -63,7 +63,7 @@ void InventoryHUDElement::Start()
 	{
 		if(index>=3 && index < 6)
 		{
-			x = 120.0;
+			x = 135.0;
 			if(index == 3)
 			{
 				y = 40.0;
@@ -72,7 +72,7 @@ void InventoryHUDElement::Start()
 		else if(index>=6)
 		{
 			
-			x = 240.0;
+			x = 255.0;
 			if (index == 6)
 			{
 				y = 40.0;

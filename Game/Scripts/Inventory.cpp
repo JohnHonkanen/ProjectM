@@ -43,7 +43,7 @@ string Inventory::DisplayInventory()
 	{
 		for (int i = 0; i < storage.size(); i++)
 		{
-			contents += "Item: " + storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
+			contents += "Item: " + storage[i].GetName()  +", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
 		}
 	}
 	return contents;

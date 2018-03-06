@@ -34,7 +34,7 @@ void InventoryHUD::Copy(GameObject * copyObject)
 void InventoryHUD::OnLoad()
 {
 	//Create our HUD elements based on buildings in Building Manager
-	wrapper = EHUD::WHUDContainer::Create(root, { 120, 500, 400, 200 }, "Game/Assets/Textures/Cblack.jpg", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 250, 550, 425, 135 }, "Game/Assets/Textures/Cblack.jpg", true);
 	wrapper->SetActive(false);
 	HUD::TextWidget::Create(wrapper, { 10 , 30, 100, 100 }, "Inventory List", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 	GameEngine::manager.inputManager.AddKey("OpenInventoryMenu", "e");
