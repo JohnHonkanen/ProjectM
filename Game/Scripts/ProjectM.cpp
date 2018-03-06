@@ -19,6 +19,8 @@
 #include <iostream>
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
+#include "hud\PlayerEconHUD.cpp"
+#include "hud\ProductionHUD.h"
 
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
@@ -47,13 +49,13 @@ int main(int argc, char *argv[])
 
 																	   //Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Dome", "Basic Factory", 10, 1, 1, 1, false, true, &gameManager->resourceManager),
+		Production::Create("Dome", DOME, 10, 1, 1, 1, false, true, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Factory", "Basic Factory", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
+		Production::Create("Factory", FACTORY, 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
@@ -75,8 +77,6 @@ int main(int argc, char *argv[])
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
-	BuildinggSpawnAnim::Create(hubObject);
-	BuildingProductionAnims::Create(hubObject);
 
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));
@@ -107,12 +107,9 @@ int main(int argc, char *argv[])
 												 //Temp Function
 	buildingController->AddTempObject(structure);
 
-
 	//Add HUD
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
-
-
 
 	Resources res1 = Resources(1, "1stMeat ", "Meat ", 5, 50, "");
 	Resources res2 = Resources(1, "2ndMeat ", "Meat ", 5, 51, "");
@@ -135,7 +132,8 @@ int main(int argc, char *argv[])
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	ProductionHUD::Create(hudController, canvas, pla);
 
 	//Drone Code
 	GameObject *droneObject = manager->CreateGameObject("drone");
@@ -148,11 +146,6 @@ int main(int argc, char *argv[])
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
 
-	//BillBord Test
-	GameObject *billboardObj = manager->CreateGameObject("billboard");
-	Billboard::Create(billboardObj, "Game/Assets/Textures/building_placeholder.jpg");
-	billboardObj->transform->Translate(vec3(0, 20, 0));
-	billboardObj->transform->Scale(vec3(5));
 	engine.Run();
 	return 0;
 }

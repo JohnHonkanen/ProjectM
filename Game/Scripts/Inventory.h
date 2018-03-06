@@ -77,6 +77,7 @@ public:
 	//Sets a resource already with in the storage vector to a specified amount. Requires the position in the vector
 	void SetResourceQuantityAtIndex(int index, int newAmount);
 
+
 	void Start();
 	void Update();
 	void OnLoad();

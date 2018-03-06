@@ -21,7 +21,8 @@ enum StructureType
 {
 	PRODUCTION,
 	WAREHOUSE,
-	FACTORY
+	FACTORY, 
+	DOME
 };
 
 class Structure : public Behaviour {

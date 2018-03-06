@@ -17,6 +17,8 @@ public:
 	void Update(double dt);
 	void Draw();
 
+	void SetTexture(std::string texture);
+
 	static unsigned int VAO, VBO;
 
 	float alpha;
