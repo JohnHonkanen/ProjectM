@@ -78,11 +78,21 @@ void Production::Update(double currentTime)
 			inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
 			}
 			cout << inv->DisplayInventory() << endl;
+<<<<<<< Updated upstream
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
 			auto destinationInv = hub->FindNearest(StructureType::WAREHOUSE, tileX, tileY)->GetInventory();
 			inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);
+=======
+			if (inv->GetResourceQuantityAtIndex(0) >= 50) {
+				int x, y;
+				this->GetTilePosition(x,y);
+				Structure *nearest = hub->FindNearest(StructureType::WAREHOUSE, tileX, tileY);
+				Inventory *destinationInv = nearest->GetInventory();
+				inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);									//send built up resource to a warehouse
+			}
+>>>>>>> Stashed changes
 		}
 		clock.ResetClock();
 	}
