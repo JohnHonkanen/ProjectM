@@ -20,6 +20,7 @@ public:
 
 	static ContractHUD* Create(GameObject* gameObject, EHUD::HUDCanvas* root, class ContractManager* contractManager);
 
+	EHUD::HUDElement* GetWrapper();
 	void Copy(GameObject *copyObject);
 	void OnLoad();
 	void Start();

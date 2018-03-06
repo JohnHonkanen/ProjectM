@@ -5,12 +5,14 @@
 #include "hud\widgets\TextWidget.h"
 #include "WidgetToggleButton.h"
 #include "BuildingListGroupElement.h"
+#include "ContractHUD.h"
 
-MainHUD * MainHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, BuildingController * buildingController)
+MainHUD * MainHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, BuildingController * buildingController, ContractHUD* contractHUD)
 {
 	MainHUD * mh = new MainHUD();
 	mh->root = root;
 	mh->buildingController = buildingController;
+	mh->contractHUD = contractHUD;
 
 	gameObject->AddComponent(mh);
 
@@ -31,4 +33,7 @@ void MainHUD::OnLoad()
 		);
 	
 
+	WidgetToggleButton::Create(wrapper, { 105 ,567 , 60,60 }, "Game/Assets/Textures/contract_button.png",
+		contractHUD->GetWrapper()
+	);
 }
