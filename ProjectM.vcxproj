@@ -30,7 +30,6 @@
     <ClInclude Include="Game\Scripts\GameManager.h" />
     <ClInclude Include="Game\Scripts\Hub.h" />
     <ClInclude Include="Game\Scripts\hud\AnimatedButton.h" />
-    <ClInclude Include="Game\Scripts\hud\BuildingListButton.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingListGroupElement.h" />
     <ClInclude Include="Game\Scripts\hud\BuildingSelectorButton.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUD.h" />
@@ -69,7 +68,6 @@
     <ClCompile Include="Game\Scripts\GameManager.cpp" />
     <ClCompile Include="Game\Scripts\Hub.cpp" />
     <ClCompile Include="Game\Scripts\hud\AnimatedButton.cpp" />
-    <ClCompile Include="Game\Scripts\hud\BuildingListButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingListGroupElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\BuildingSelectorButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUD.cpp" />

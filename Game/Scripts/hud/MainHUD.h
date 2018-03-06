@@ -1,7 +1,7 @@
 #pragma once
 #include "components\Behaviour.h"
 #include <vector>
-
+#include "../BuildingController.h"
 namespace Engine
 {
 	namespace HUD
@@ -17,7 +17,7 @@ namespace EHUD = Engine::HUD;
 class MainHUD : public Behaviour
 {
 public:
-	static MainHUD * Create(GameObject *gameObject, EHUD::HUDCanvas *root);
+	static MainHUD * Create(GameObject *gameObject, EHUD::HUDCanvas *root, BuildingController * buildingController);
 	void Copy(GameObject *copyObject);
 
 	void OnLoad();
@@ -28,4 +28,6 @@ private:
 	EHUD::HUDCanvas * root;
 	EHUD::HUDElement* wrapper;
 	/**/
+
+	BuildingController * buildingController;
 };

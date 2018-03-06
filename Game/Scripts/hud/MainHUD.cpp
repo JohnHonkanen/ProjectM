@@ -5,10 +5,12 @@
 #include "hud\widgets\TextWidget.h"
 #include "WidgetToggleButton.h"
 #include "BuildingListGroupElement.h"
-MainHUD * MainHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root)
+
+MainHUD * MainHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, BuildingController * buildingController)
 {
 	MainHUD * mh = new MainHUD();
 	mh->root = root;
+	mh->buildingController = buildingController;
 
 	gameObject->AddComponent(mh);
 
@@ -24,8 +26,8 @@ void MainHUD::OnLoad()
 {
 	wrapper = EHUD::WHUDContainer::Create(root, { 0 , 0, 1280, 720 }, "Game/Assets/Textures/size_test.png", true);
 
-	WidgetToggleButton::Create(wrapper, {35,500 , 60,60}, "Game/Assets/Textures/circle.png",
-		BuildingListGroup::Create(wrapper, { 105, 460, 0, 0 })
+	WidgetToggleButton::Create(wrapper, {35,500 , 60,60}, "Game/Assets/Textures/building_list_icon.png",
+		BuildingListGroup::Create(wrapper, { 0, 0, 0, 0 }, buildingController)
 		);
 	
 

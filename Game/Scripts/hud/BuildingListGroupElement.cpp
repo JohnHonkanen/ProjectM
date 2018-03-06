@@ -1,10 +1,12 @@
 #include "BuildingListGroupElement.h"
 #include "BuildingSelectorButton.h"
-BuildingListGroup * BuildingListGroup::Create(HUDElement * element, EHUD::HUDRect rect)
+#include "../BuildingController.h"
+BuildingListGroup * BuildingListGroup::Create(HUDElement * element, EHUD::HUDRect rect, BuildingController * buildingController)
 {
 	BuildingListGroup * blg = new BuildingListGroup();
 	blg->rect = rect;
 	blg->parent = element;
+	blg->buildingController = buildingController;
 	element->AttachWidget(blg);
 
 	return blg;
@@ -12,13 +14,15 @@ BuildingListGroup * BuildingListGroup::Create(HUDElement * element, EHUD::HUDRec
 
 void BuildingListGroup::Start()
 {
-	BuildingSelectorButton::Create(this, { 0,0, 60,60}, "Game/Assets/Textures/circle.png");
-	BuildingSelectorButton::Create(this, { 70,0, 60,60 }, "Game/Assets/Textures/circle.png");
-	BuildingSelectorButton::Create(this, { 140,0, 60,60 }, "Game/Assets/Textures/circle.png");
+
+	buttons.push_back(BuildingSelectorButton::Create(parent, { 90,460, 60,60}, "Game/Assets/Textures/dome_icon.png", buildingController, "Dome"));
+	buttons.push_back(BuildingSelectorButton::Create(parent, { 160,460, 60,60 }, "Game/Assets/Textures/factory_icon.png", buildingController, "Factory"));
+	buttons.push_back(BuildingSelectorButton::Create(parent, { 230,460, 60,60 }, "Game/Assets/Textures/warehouse_icon.png", buildingController, "Warehouse"));
 }
 
 void BuildingListGroup::Update()
 {
+	ToggleButtons();
 }
 
 void BuildingListGroup::DrawWidget(unsigned int shader)
@@ -28,4 +32,12 @@ void BuildingListGroup::DrawWidget(unsigned int shader)
 void BuildingListGroup::AddButtons(AnimatedButton * button)
 {
 	buttons.push_back(button);
+}
+
+void BuildingListGroup::ToggleButtons()
+{
+	for (HUDElement *e : buttons)
+	{
+		e->SetActive(IsActive());
+	}
 }

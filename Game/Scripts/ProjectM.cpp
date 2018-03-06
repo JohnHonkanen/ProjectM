@@ -131,9 +131,8 @@ int main(int argc, char *argv[])
 	PlayerActions* pla = buildingController->GetPlayerAction();
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
-	BuildingHUD::Create(hudController, canvas, &gameManager->buildingManager, buildingController);
 	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	MainHUD::Create(hudController, canvas);
+	MainHUD::Create(hudController, canvas, buildingController);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
 

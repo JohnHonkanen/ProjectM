@@ -7,6 +7,7 @@ WidgetToggleButton * WidgetToggleButton::Create(HUDElement * element, EHUD::HUDR
 	wtb->baseTexture = baseTexture;
 	wtb->SetOriginalDimensions(rect.width, rect.height);
 	wtb->group = group;
+	group->SetActive(false);
 
 	element->AttachWidget(wtb);
 	return wtb;
