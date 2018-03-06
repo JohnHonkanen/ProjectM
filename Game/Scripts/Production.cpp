@@ -17,11 +17,11 @@ Production::~Production()
 {
 }
 
-Production::Production(string buildingName, string typ, int hp, int pow, int eff, 
+Production::Production(string buildingName, StructureType typ, int hp, int pow, int eff,
 						int radOut, bool placed, bool active, ResourceManager * resourceMan)
 {
 	name = buildingName;
-	type = typ;
+	structureType = typ;
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
@@ -31,11 +31,10 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 	resourceManager = resourceMan;
 }
 
-Production * Production::Create(string name, string typ, int hp, int pow, int eff, 
+Production * Production::Create(string name, StructureType typ, int hp, int pow, int eff, 
 								int rad, bool placed, bool active, ResourceManager * resourceMan)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active, resourceMan);
-	p->structureType = PRODUCTION;
 	return p;
 }
 
@@ -50,7 +49,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
-	copy->structureType = PRODUCTION;
+	copy->structureType = structureType;
 	copy->resourceManager = resourceManager;
 	copyObject->AddComponent(copy);
 }
@@ -94,13 +93,7 @@ void Production::StoreItem(Resources res) {
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
-void Production::SetProduction(string type)
+void Production::SetProduction(int type)
 {
-	if (type == "Dome") {
-		producing = 1;
-		
-	}
-	/*else if (type == "factory") {
-		producing = 
-	}*/
+		producing = type;
 }

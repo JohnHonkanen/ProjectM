@@ -32,5 +32,6 @@ private:
 
 	vector<EHUD::TextWidget*> text;
 	class Production * prod;
+	class ProductionButton * pButton;
 	EHUD::HUDElement* productionHUD;
 };

@@ -23,7 +23,7 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	int producing = 1;
+	int producing;
 	Engine::Utility::Clock clock;
 	void StoreItem(Resources res);
 
@@ -32,8 +32,8 @@ public:
 
 	Production();
 	~Production();
-	Production(string name, string type ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
-	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
+	Production(string name, StructureType typ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
+	static Production * Create(string name, StructureType typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
 
 	void Copy(GameObject *copyObject);
 
@@ -41,7 +41,7 @@ public:
 	void OnLoad();
 	void Update(double currentTime);
 
-	void SetProduction(string type);
+	void SetProduction(int type);
 	int GetProduction() { return producing; }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);

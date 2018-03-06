@@ -12,6 +12,8 @@ Dev: Greg Smith (B00308929)
 #include "../PlayerActions.h"
 #include "../Production.h"
 #include "ProductionHUDElement.h"
+#include "ProductionButton.h"
+
 
 ProductionHUD * ProductionHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions *pla) {
 
@@ -31,11 +33,11 @@ void ProductionHUD::OnLoad()
 		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 		HUD::TextWidget::Create(wrapper, { 10,40,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr);
+
 }
 
 void ProductionHUD::Start()
 {
-	StartChildWidget();
 }
 
 void ProductionHUD::Update()

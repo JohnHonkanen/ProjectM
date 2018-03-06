@@ -1,5 +1,7 @@
 #include "ProductionButton.h"
 #include "hud\widgets\HUDContainer.h"
+#include "..\Production.h"
+#include "ProductionSetterButton.h"
 
 
 void ProductionButton::OnPointerEnter(EventData data)
@@ -12,12 +14,18 @@ void ProductionButton::OnPointerExit(EventData data)
 
 void ProductionButton::OnPointerMouseDown(EventData data)
 {
-	cout << "hi" << endl;
 	if (data.mouseButton0 == 1) {
 		container->SetActive(true);
+		ConfigureResources();
+		for (ProductionSetterButton* button : resourceList) {
+			button->SetActive(true);
+		}
 	}
 	if (data.mouseButton1 == 1) {
 		container->SetActive(false);
+		for (ProductionSetterButton* button : resourceList) {
+			button->SetActive(false);
+		}
 	}
 }
 
@@ -30,11 +38,43 @@ void ProductionButton::EventRegistration()
 
 void ProductionButton::Start()
 {
-	container = EHUD::WHUDContainer::Create(root, { 310,0,300,200 }, "Game/Assets/Textures/cBlack.jpg", true);
+
+	StartChildWidgets();
+	activeTexture = baseTexture;
+
+	EventRegistration();
+	RegisterToEvents();
+
+	container = EHUD::WHUDContainer::Create(root, { 310,0,250,200 }, "Game/Assets/Textures/cBlack.jpg", true);
 	container->SetActive(false);
+	resourceList.push_back(ProductionSetterButton::Create(root, { 320,10,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, 1));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 380,10,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, 2));
+	//resourceList.push_back(ProductionSetterButton::Create(root, { 440,10,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr,3));
+	//resourceList.push_back(ProductionSetterButton::Create(root, { 500,10,50,50 }, "Game/Assets/Textures/chicken-16.png", nullptr, 4));
+	//resourceList.push_back(ProductionSetterButton::Create(root, { 320,70,50,50 }, "Game/Assets/Textures/water-16.png", nullptr, 5));
+	for (ProductionSetterButton* button : resourceList) {
+		button->SetActive(false);
+	}
 }
 
-ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture)
+void ProductionButton::Input()
+{
+}
+
+void ProductionButton::Update()
+{
+
+}
+
+void ProductionButton::SetProduction(Production * production)
+{
+	this->production = production;
+	for (ProductionSetterButton* button : resourceList) {
+		button->SetProduction(production);
+	}
+}
+
+ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, Production *production)
 {
 	ProductionButton * button = new ProductionButton();
 	button->rect = rect;
@@ -42,7 +82,31 @@ ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect 
 	//button->mouseEnterTexture = mouseOverTexture;
 	//button->mouseDownTexture = mouseDownTexture;
 	button->root = element;
+	button->production = production;
 	element->AttachWidget(button);
 
 	return button;
+}
+
+void ProductionButton::ConfigureResources()
+{
+	switch (production->GetType())
+	{
+	case StructureType::DOME:
+		resourceList[0]->SetResource(1);
+		resourceList[0]->SetIcon("Game/Assets/Textures/milk-16.png");
+		resourceList[1]->SetResource(2);
+		resourceList[1]->SetIcon("Game/Assets/Textures/steak-16.png");
+
+		break;
+	case StructureType::FACTORY:
+		resourceList[0]->SetResource(3);
+		resourceList[0]->SetIcon("Game/Assets/Textures/egg-16.png");
+		resourceList[1]->SetResource(4);
+		resourceList[1]->SetIcon("Game/Assets/Textures/chicken-16.png");
+
+		break;
+	default:
+		break;
+	}
 }
