@@ -121,8 +121,12 @@
     <ClCompile Include="Game\Scripts\hud\ProductionHUDElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\ProductionButton.cpp" />
-    <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\ProductionButton.cpp" >
+		<Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp" >
+		<Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">

@@ -57,12 +57,12 @@ void AnimatedButton::OnPointerMouseDownImplementation(EventData data)
 
 void AnimatedButton::OnPointerEnterAnimation()
 {
-	state = GROW;
+	//state = GROW;
 }
 
 void AnimatedButton::OnPointerExitAnimation()
 {
-	state = SHRINK;
+	//state = SHRINK;
 }
 
 void AnimatedButton::OnPointerMouseDownAnimation()
