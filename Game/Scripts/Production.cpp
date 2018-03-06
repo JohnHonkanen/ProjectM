@@ -88,7 +88,7 @@ void Production::Update(double currentTime)
 
 void Production::StoreItem(Resources res) {
 	inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
-	cout << inv->DisplayContents();							// testing console
+	cout << inv->DisplayInventory();							// testing console
 }
 
 //this method will be used when declaring what item a building is producing
