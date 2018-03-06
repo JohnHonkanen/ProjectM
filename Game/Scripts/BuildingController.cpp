@@ -80,7 +80,7 @@ void BuildingController::Update(double dt)
 						mouseHeld = true;
 						GameObject * structure = buildingManager->GetBuilding(structureName);						
 						Structure *sComponent = structure->GetComponent<Structure>();
-						if (sComponent->GetType() == PRODUCTION)
+						if (sComponent->GetType() == FACTORY || sComponent->GetType() == DOME)
 						{
 							DroneProducer::Create(structure, hub, sComponent);
 						}
