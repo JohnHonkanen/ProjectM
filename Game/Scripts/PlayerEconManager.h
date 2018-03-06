@@ -2,6 +2,7 @@
 
 #include "ResourceManager.h"
 #include "PlayerEconomy.h"
+#include "ContractManager.h"
 
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
@@ -14,7 +15,6 @@ public:
 	PlayerEconomy AddEconomy();
 	PlayerEconomy* FindPlayerEcon(); // Finds the player economy
 	void SetResourceManager(ResourceManager* resourceManager);
-	
 
 	static PlayerEconManager* Create(GameObject *gameObject);
 	void Copy(GameObject *copyObject);
@@ -26,8 +26,9 @@ public:
 
 private:
 	
-	PlayerEconomy economyList[3]; // List of economies
+	PlayerEconomy economyList[1]; // List of economies
 	ResourceManager* resourceManager;
 	PlayerEconomy playerEconomy;
+	ContractManager* contractManager;
 
 };

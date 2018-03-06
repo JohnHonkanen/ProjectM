@@ -13,12 +13,14 @@ public:
 	PlayerEconomy(ResourceManager* resourceManager, PlayerEconManager* playerEconManager);
 	~PlayerEconomy();
 	
-
 	void GiveGoldBars(int amountToGive);
 	void AddGoldBars(int goldBars);
 	void RemoveGoldBars(int goldBars);
 	int GetGBAmount();
 	void SetGBAmount(int GBAmount);
+
+	void SetPlayerEconIndex(int indexToSet);
+	int GetPlayerEconIndex();
 
 	Resources GetResouce();
 	string GetGBIcon(); // Get the gold bar icon
@@ -27,6 +29,7 @@ public:
 
 	std::string name;
 private:
+	int index = 0;
 	Resources resource;
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;

@@ -19,7 +19,8 @@ public:
 	Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
-	void SetResourceManager(ResourceManager* resourceManager);
+	void SetManager(ResourceManager* resourceManager);
+	void SetManager(PlayerEconManager* playerEconManager);
 	void Update();
 	void Start();
 

@@ -11,11 +11,14 @@ PlayerEconManager::~PlayerEconManager()
 PlayerEconomy PlayerEconManager::AddEconomy()
 {
 	PlayerEconomy playerEconomy = PlayerEconomy(resourceManager, this);
+	Resources resource = resourceManager->FindResource(0); // Add gold as a resource to player economy
 
+	playerEconomy.SetPlayerEconIndex(0);
 	playerEconomy.name = "pEcon";
-	this->economyList[0] = playerEconomy;
 
-	return this->economyList[0];
+	this->economyList[playerEconomy.GetPlayerEconIndex()] = playerEconomy;
+
+	return this->economyList[playerEconomy.GetPlayerEconIndex()];
 }
 
 PlayerEconomy* PlayerEconManager::FindPlayerEcon()
@@ -49,7 +52,8 @@ void PlayerEconManager::OnLoad()
 
 void PlayerEconManager::Update()
 {
-	this->economyList[0] = playerEconomy;
+	
+
 }
 
 void PlayerEconManager::Start()

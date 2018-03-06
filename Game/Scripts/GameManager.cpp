@@ -24,7 +24,8 @@ void GameManager::OnLoad()
 
 void GameManager::Start()
 {
-	contractManager.SetResourceManager(&resourceManager);
+	contractManager.SetManager(&resourceManager);
+	contractManager.SetManager(&playerEconManager);
 	contractManager.Start();
 
 	playerEconManager.SetResourceManager(&resourceManager);

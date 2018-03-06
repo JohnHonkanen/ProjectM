@@ -76,10 +76,16 @@ int ContractManager::NumberOfActiveContract()
 }
 
 
-void ContractManager::SetResourceManager(ResourceManager* resourceManager)
+void ContractManager::SetManager(ResourceManager* resourceManager)
 {
 	this->resourceManager = resourceManager;
 }
+
+void ContractManager::SetManager(PlayerEconManager * playerEconManager)
+{
+	this->playerEconManager = playerEconManager;
+}
+
 
 void ContractManager::Update()
 {

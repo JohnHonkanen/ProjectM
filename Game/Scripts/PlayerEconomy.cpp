@@ -38,6 +38,16 @@ void PlayerEconomy::SetGBAmount(int GBAmount)
 	this->resource.SetItemAmount(GBAmount);
 }
 
+void PlayerEconomy::SetPlayerEconIndex(int indexToSet)
+{
+	this->index = indexToSet;
+}
+
+int PlayerEconomy::GetPlayerEconIndex()
+{
+	return this->index;
+}
+
 int PlayerEconomy::GetGBAmount()
 {
 	return this->resource.GetItemAmount();
