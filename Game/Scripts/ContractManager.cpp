@@ -140,7 +140,6 @@ void ContractManager::Update()
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;
 			this->contractQueue.front()->IncreaseCurrent(5);
-			//FindPersistentContract(1)->IncreaseCurrent(5);
 		}
 	}
 	else {
@@ -153,7 +152,6 @@ void ContractManager::Update()
 		if (keyReleased2 == true) { // if key k is pressed (Decrease)
 			keyReleased2 = false;
 			this->contractQueue.front()->DecreaseCurrent(5);
-			//FindPersistentContract(1)->DecreaseCurrent(5);
 		}
 	}
 	else {

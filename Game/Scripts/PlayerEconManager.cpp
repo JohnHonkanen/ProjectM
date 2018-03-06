@@ -10,10 +10,9 @@ PlayerEconManager::~PlayerEconManager()
 
 PlayerEconomy PlayerEconManager::AddEconomy()
 {
-	Resources resource = resourceManager->FindResource(0);
-	PlayerEconomy playerEconomy = PlayerEconomy(resource, this);
+	PlayerEconomy playerEconomy = PlayerEconomy(resourceManager, this);
 
-	cout << "Economy resource name: " << resource.GetName() << endl;
+	playerEconomy.name = "pEcon";
 	this->economyList[0] = playerEconomy;
 
 	return this->economyList[0];

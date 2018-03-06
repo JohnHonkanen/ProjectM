@@ -5,11 +5,10 @@ PlayerEconomy::PlayerEconomy()
 {
 }
 
-PlayerEconomy::PlayerEconomy(Resources resource, PlayerEconManager* playerEconManager)
+PlayerEconomy::PlayerEconomy(ResourceManager* resourceManager, PlayerEconManager* playerEconManager)
 {
-	this->resource = resource;
+	this->resource = resourceManager->FindResource(0);
 	this->playerEconManager = playerEconManager;
-
 }
 
 PlayerEconomy::~PlayerEconomy()
@@ -23,32 +22,38 @@ void PlayerEconomy::GiveGoldBars(int amountToGive)
 
 void PlayerEconomy::AddGoldBars(int goldBars)
 {
-	//int currentGB = GetGBAmount();
-	
+	this->resource.IncreaseItemAmount(goldBars);
+	StoreGold(this->resource);
 }
 
 void PlayerEconomy::RemoveGoldBars(int goldBars)
 {
-	this->goldBars -= goldBars;
+	int temp = this->resource.GetItemAmount();
+	temp -= goldBars;
+	this->resource.ReduceItemAmount(temp);
 }
 
-int PlayerEconomy::SetGBAmount(int GBAmount)
+void PlayerEconomy::SetGBAmount(int GBAmount)
 {
-	return this->goldBars = GBAmount;
+	this->resource.SetItemAmount(GBAmount);
 }
 
 int PlayerEconomy::GetGBAmount()
 {
-	return this->goldBars;
+	return this->resource.GetItemAmount();
 }
 
 Resources PlayerEconomy::GetResouce()
 {
-	
 	return this->resource;
 }
 
 string PlayerEconomy::GetGBIcon()
 {
 	return this->resource.GetResourceIcon();
+}
+
+void PlayerEconomy::StoreGold(Resources resourceToStore)
+{
+	inventory.PlaceItem(resourceToStore);
 }
