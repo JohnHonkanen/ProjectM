@@ -15,7 +15,8 @@ Dev: Greg Smith (B00308929)
 #include "Inventory.h"
 #include "Resources.h"
 #include "ResourceManager.h"
-#include "utility\Clock.h"`
+#include "utility\Clock.h"
+#include "Hub.h"
 
 
 using namespace std;
@@ -23,17 +24,17 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	int producing = 1;
+	int producing;
 	Engine::Utility::Clock clock;
 	void StoreItem(Resources res);
-
+	class Hub * hub;
 	ResourceManager * resourceManager;
 public:
 
 	Production();
 	~Production();
-	Production(string name, string type ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
-	static Production * Create(string name, string typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
+	Production(string name, StructureType typ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan);
+	static Production * Create(string name, StructureType typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan);
 
 	void Copy(GameObject *copyObject);
 
@@ -41,7 +42,7 @@ public:
 	void OnLoad();
 	void Update(double currentTime);
 
-	void SetProduction(string type, int eff, bool act);
+	void SetProduction(int type);
 	int GetProduction() { return producing; }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
@@ -54,7 +55,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		ar(CEREAL_NVP(name), CEREAL_NVP(type), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive));
+		ar(CEREAL_NVP(name), CEREAL_NVP(type), CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive), CEREAL_NVP(producing));
 	}
 };
 

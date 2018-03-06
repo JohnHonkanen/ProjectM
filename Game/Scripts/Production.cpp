@@ -6,6 +6,7 @@ Dev: Greg Smith (B00308929)
 
 #include "Production.h"
 #include "utility\Clock.h"
+#include "Hub.h"
 
 using namespace std;
 
@@ -17,11 +18,11 @@ Production::~Production()
 {
 }
 
-Production::Production(string buildingName, string typ, int hp, int pow, int eff, 
+Production::Production(string buildingName, StructureType typ, int hp, int pow, int eff,
 						int radOut, bool placed, bool active, ResourceManager * resourceMan)
 {
 	name = buildingName;
-	type = typ;
+	structureType = typ;
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
@@ -31,11 +32,10 @@ Production::Production(string buildingName, string typ, int hp, int pow, int eff
 	resourceManager = resourceMan;
 }
 
-Production * Production::Create(string name, string typ, int hp, int pow, int eff, 
+Production * Production::Create(string name, StructureType typ, int hp, int pow, int eff, 
 								int rad, bool placed, bool active, ResourceManager * resourceMan)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, rad, placed, active, resourceMan);
-	p->structureType = PRODUCTION;
 	return p;
 }
 
@@ -50,16 +50,16 @@ void Production::Copy(GameObject * copyObject)
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
-	copy->structureType = PRODUCTION;
+	copy->structureType = structureType;
 	copy->resourceManager = resourceManager;
-
 	copyObject->AddComponent(copy);
 }
 
 void Production::Start()
 {
-	clock.SetDelay(1000);
-	clock.StartClock();
+	inv->SetInitialStorage(1);
+	clock.SetDelay(1000);		//sets alarm
+	clock.StartClock();			//starts clock
 }
 
 void Production::OnLoad()
@@ -71,14 +71,27 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		
-		if (GetActive() == true && inv->InventorySize() < 100) {	// if building is active and slot is not full
+		Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
+
+		//int inventoryLimit = inv->GetResourceAtIndex(0).GetItemAmount();	//Finds out volume of resource in inventory slot
+		if(GetActive() == true && producing > 0 && inv->GetInventory().empty()) {
 			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
-			temp.IncreaseItemAmount(1+GetProductionEfficiency());			//sets value of item created
-			StoreItem(temp);												//passes temp resource to place item wrapper for inventory
+			temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
+			inv->PlaceItem(temp);
 		}
-		if (inv->InventorySize() >= 50) {
-			//inv->PlaceItem(res);									//send built up resource to a warehouse
+		else if (GetActive() == true && producing > 0) {	// if building is active and slot is not full compared to previous obtained value
+			if (inv->GetResourceQuantityAtIndex(0) < 100) {
+				temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
+				inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
+			}
+			cout << inv->DisplayInventory() << endl;
+			if (inv->GetResourceQuantityAtIndex(0) >= 50) {
+				int x, y;
+				this->GetTilePosition(x,y);
+				Structure *nearest = hub->FindNearest(StructureType::WAREHOUSE, x, y);
+				auto destinationInv = *nearest->GetInventory();
+				//inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);									//send built up resource to a warehouse
+			}
 		}
 		clock.ResetClock();
 	}
@@ -86,17 +99,12 @@ void Production::Update(double currentTime)
 
 void Production::StoreItem(Resources res) {
 	inv->PlaceItem(res);									//add x amount of a resource to the local inventory slot
-	cout << inv->DisplayContents();							// testing console
+	cout << inv->DisplayInventory();							// testing console
 }
 
 //this method will be used when declaring what item a building is producing
 //and limiting it to the correct items
-void Production::SetProduction(string type, int eff, bool act)
+void Production::SetProduction(int type)
 {
-	if (type == "Dome") {
-		producing = 1;
-	}
-	/*else if (type == "factory") {
-		producing = 
-	}*/
+		producing = type;
 }

@@ -21,7 +21,8 @@ enum StructureType
 {
 	PRODUCTION,
 	WAREHOUSE,
-	FACTORY
+	FACTORY, 
+	DOME
 };
 
 class Structure : public Behaviour {
@@ -68,7 +69,7 @@ public:
 
 	void InsertItem(Resources res);
 	Inventory* GetInventory() { return inv.get(); }
-	string ViewInventory() { return inv->DisplayContents(); }
+	string ViewInventory() { return inv->DisplayInventory(); }
 	string ViewInventoryAt(int index) { return inv->GetAtStorageIndex(index); }
 
 	void SetTilePosition(int x, int y);
