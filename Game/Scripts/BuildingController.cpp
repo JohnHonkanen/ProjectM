@@ -39,7 +39,19 @@ void BuildingController::SetObjectToBuild(std::string structure)
 	structureName = structure;
 	objectToBuild = buildingManager->GetBuilding(structure);
 	objectToBuild->transform->Rotate(vec3(-90, 0, 0));
-	objectToBuild->transform->Scale(vec3(10.0f));
+	if (structure == "Dome")
+	{
+		
+		objectToBuild->transform->Scale(vec3(10.0f));
+	}
+	else if (structure == "Factory")
+	{
+		objectToBuild->transform->Scale(vec3(10.0f));
+	}
+	else {
+		objectToBuild->transform->Scale(vec3(0.5f));
+	}
+
 	// Sets Wheter we want to display the object on the map or not
 	objectToBuild->enabled = true;
 	buildMode = true;
@@ -87,8 +99,24 @@ void BuildingController::Update(double dt)
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						hub->AddStructureToNetwork(sComponent->GetType(), sComponent, coordinates.x, coordinates.y);
 						structure->transform->SetPosition(snapPoint);
+						structure->transform->Translate(vec3(0, -2, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
-						structure->transform->Scale(vec3(10.0f));
+						objectToBuild->transform->Rotate(vec3(-90, 0, 0));
+						switch (sComponent->GetType())
+						{
+						case DOME:
+							structure->transform->Scale(vec3(10.0f));
+							break;
+						case FACTORY:
+							structure->transform->Scale(vec3(10.0f));
+							break;
+						case WAREHOUSE:
+							structure->transform->Scale(vec3(0.5f));
+							break;
+						default:
+							break;
+						}
+
 						buildMode = false;
 					}
 					else {

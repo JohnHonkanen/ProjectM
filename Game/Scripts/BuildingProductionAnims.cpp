@@ -47,10 +47,15 @@ void BuildingProductionAnims::Update(double dt)
 	Billboard *billboardComponent = billboard->GetComponent<Billboard>();
 
 
-	if (billboardComponent->alpha > 0)
+	if (billboardComponent->alpha >= 0)
 	{
 		billboardComponent->alpha -= dt / 1000;
 		billboard->transform->Translate(vec3(0, 25 * dt / 1000, 0));
+	}
+
+	if (billboardComponent->alpha <= 0)
+	{
+		billboard->transform->SetPosition(vec3(0, -10, 0));
 	}
 		
 }
