@@ -77,7 +77,7 @@ void Production::Update(double currentTime)
 			temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
 			inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
 			}
-			cout << inv->DisplayContents() << endl;
+			cout << inv->DisplayInventory() << endl;
 		}
 		if (inv->InventorySize() >= 50) {
 			//inv->PlaceItem(res);									//send built up resource to a warehouse
