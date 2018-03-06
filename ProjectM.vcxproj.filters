@@ -112,6 +112,10 @@
     <ClCompile Include="Game\Scripts\hud\MainHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerEconManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\PlayerEconManager.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -4,7 +4,6 @@
 #include "../Contract.h"
 #include "InventoryHUDElement.h"
 
-
 ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, Contract* contract)
 {
 	ContractHUDElement *c = new ContractHUDElement();
@@ -46,7 +45,6 @@ void ContractHUDElement::Start()
 	contractStatus = EHUD::TextWidget::Create(contractHUD, { 10, 112, 0, 0 }, "Status (Active/!Active): " + to_string(contract->GetStatus()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	text = EHUD::TextWidget::Create(contractHUD, { 10, 128, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-	
 	StartChildWidgets();
 }
 
@@ -76,6 +74,9 @@ void ContractHUDElement::Update()
 	resource->text = "Resource to Deliver:(   ) ", "Game/Assets/Fonts/MavenPro-Regular.ttf";
 	resourceName->text = contract->GetResource().GetName();
 
+	// Contract Resource Icon
+	resourceIcon->ChangeImage(contract->GetResourceIcon());
+	
 	// Contract Status (Complete/!Complete)
 	contractStatus->text = "Status (Active/!Active): " + to_string(contract->GetStatus());
 

@@ -37,7 +37,8 @@ public:
 	string GetResourceIcon(); // Get Resource icon
 	void SetResourceIcon(string resourceIcon); // Set a resource icon
 private:
-	int itemID, itemValue, itemQuality, itemStock;
+	int itemID, itemValue, itemQuality;
+	int itemStock = 0;
 	int basePrice; // Standard price
 	float mood; // The modifier
 	float baseModifier = 5.0;
