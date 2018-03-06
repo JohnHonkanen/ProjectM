@@ -27,7 +27,7 @@ private:
 	int producing;
 	Engine::Utility::Clock clock;
 	void StoreItem(Resources res);
-	Hub * hub;
+	class Hub * hub;
 	ResourceManager * resourceManager;
 public:
 

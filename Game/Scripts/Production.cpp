@@ -6,6 +6,7 @@ Dev: Greg Smith (B00308929)
 
 #include "Production.h"
 #include "utility\Clock.h"
+#include "Hub.h"
 
 using namespace std;
 
@@ -70,19 +71,27 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
+		Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
+
 		//int inventoryLimit = inv->GetResourceAtIndex(0).GetItemAmount();	//Finds out volume of resource in inventory slot
-		if (GetActive() == true && producing > 0) {	// if building is active and slot is not full compared to previous obtained value
+		if(GetActive() == true && producing > 0 && inv->GetInventory().empty()) {
 			Resources temp = resourceManager->FindResource(GetProduction());//temp resource object for quantity change
-			if(temp.GetItemAmount()<100){
 			temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
-			inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
+			inv->PlaceItem(temp);
+		}
+		else if (GetActive() == true && producing > 0) {	// if building is active and slot is not full compared to previous obtained value
+			if (inv->GetResourceQuantityAtIndex(0) < 100) {
+				temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
+				inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
 			}
 			cout << inv->DisplayInventory() << endl;
-		}
-		if (inv->InventorySize() >= 50) {
-			//inv->PlaceItem(res);									//send built up resource to a warehouse
-			auto destinationInv = hub->FindNearest(StructureType::WAREHOUSE, tileX, tileY)->GetInventory();
-			inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);
+			if (inv->GetResourceQuantityAtIndex(0) >= 50) {
+				int x, y;
+				this->GetTilePosition(x,y);
+				Structure *nearest = hub->FindNearest(StructureType::WAREHOUSE, x, y);
+				auto destinationInv = *nearest->GetInventory();
+				//inv->SendItem(inv.get(), destinationInv, inv->GetResourceAtIndex(0), 0);									//send built up resource to a warehouse
+			}
 		}
 		clock.ResetClock();
 	}

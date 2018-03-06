@@ -3,7 +3,6 @@ Inventory class used as a component of all Stuctures. Gives them the capacity to
 Dev: Jack Smith (B00308927)
 */
 
-
 #include "Inventory.h"
 
 Inventory::Inventory()
@@ -211,6 +210,7 @@ int Inventory::GetResourceQuantityAtIndex(int index)
 {
 	return storage[index].GetItemAmount();
 }
+
 void Inventory::SetResourceQuantityAtIndex(int index, int newAmount)
 {
 	storage[index].SetItemAmount(newAmount);
