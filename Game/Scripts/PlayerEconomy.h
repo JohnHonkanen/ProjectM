@@ -13,7 +13,7 @@ public:
 	PlayerEconomy(ResourceManager* resourceManager, PlayerEconManager* playerEconManager);
 	~PlayerEconomy();
 	
-	void GiveGoldBars(int amountToGive); // Give gold bars.
+	void GiveGoldBars(int amountToGive); // Give gold bars. <--- Deactivated
 	void AddGoldBars(int goldBars); // Add gold bars
 	void RemoveGoldBars(int goldBars); // Remove gold bars
 	int GetGBAmount(); // Get gold bar amount

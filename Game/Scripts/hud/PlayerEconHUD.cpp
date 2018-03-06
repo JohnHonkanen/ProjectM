@@ -26,7 +26,7 @@ void PlayerEconHUD::Copy(GameObject * copyObject)
 void PlayerEconHUD::OnLoad()
 {
 	// Create HUD element for player economy
-	wrapper = EHUD::WHUDContainer::Create(root, {1030, 0, 250, 40}, "Game/Assets/Textures/pink.jpg", true);
+	wrapper = EHUD::WHUDContainer::Create(root, {1030, 0, 250, 40}, "Game/Assets/Textures/blackG.jpg", true);
 	wrapper->SetActive(true);
 
 	Engine::GameEngine::manager.inputManager.AddKey("togglePlayerEcon", "u");
