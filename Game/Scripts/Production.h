@@ -44,6 +44,7 @@ public:
 
 	void SetProduction(int type);
 	int GetProduction() { return producing; }
+	string GetProductionName();
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

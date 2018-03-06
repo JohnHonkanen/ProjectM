@@ -27,8 +27,8 @@ public:
 
 private:
 	EHUD::TextWidget* title;
-	EHUD::TextWidget* Level;
-	EHUD::TextWidget* Producing;
+	EHUD::TextWidget* level;
+	EHUD::TextWidget* producing;
 
 	vector<EHUD::TextWidget*> text;
 	class Production * prod;

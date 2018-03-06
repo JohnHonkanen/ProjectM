@@ -11,9 +11,9 @@ void ProductionSetterButton::OnPointerExit(EventData data)
 
 void ProductionSetterButton::OnPointerMouseDown(EventData data)
 {
-	/*if (!active || production==nullptr) {
+	if (!active || production==nullptr) {
 		return;
-	}*/
+	}
 	if (data.mouseButton0 == 1) {
 		production->SetProduction(resource);
 	}

@@ -121,3 +121,9 @@ void Production::SetProduction(int type)
 	//}
 		producing = type;
 }
+//Returns the name of the current item set for production
+string Production::GetProductionName()
+{	
+	string production = resourceManager->FindResource(GetProduction()).GetName();
+	return production;
+}
