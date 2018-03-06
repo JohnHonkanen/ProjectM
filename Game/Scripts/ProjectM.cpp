@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
 	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 1, "terrainGridShader", true, vec3(0, 1, 0));
-	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/ground.jpg", "terrainShader");
+	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/terrain2.jpg", "terrainShader");
 
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
@@ -128,8 +128,8 @@ int main(int argc, char *argv[])
 	PlayerActions* pla = buildingController->GetPlayerAction();
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
-	ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
-	MainHUD::Create(hudController, canvas, buildingController);
+	ContractHUD* contractHUD = ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
 

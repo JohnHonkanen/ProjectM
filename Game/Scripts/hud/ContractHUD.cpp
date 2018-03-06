@@ -17,6 +17,11 @@ ContractHUD * ContractHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * roo
 	return contractHUD;
 }
 
+EHUD::HUDElement * ContractHUD::GetWrapper()
+{
+	return wrapper;
+}
+
 void ContractHUD::Copy(GameObject * copyObject)
 {
 	//Does nothing
