@@ -24,27 +24,27 @@ BuildingManager::~BuildingManager()
 void BuildingManager::Start()
 {
 
-	//Basic Factory
-	CreateNewBuilding(
-		Production::Create("Factory 1","Factory", 10, 1, 1, 1, false, false, resourceManager),
-		"AssetPath"
-	);
+	////Basic Factory
+	//CreateNewBuilding(
+	//	Production::Create("Factory 1","Factory", 10, 1, 1, 1, false, false, resourceManager),
+	//	"AssetPath"
+	//);
 
-	//Basic Factory
-	CreateNewBuilding(
-		Production::Create("Dome 1", "Dome", 10, 1, 1, 1, false, false, resourceManager),
-		"AssetPath"
-	);
+	////Basic Factory
+	//CreateNewBuilding(
+	//	Production::Create("Dome 1", DOME, 10, 1, 1, 1, false, false, resourceManager),
+	//	"AssetPath"
+	//);
 
-	//Radiation Factory
-	CreateNewBuilding(
-		Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false, resourceManager),
-		"AssetPath"
-	);
+	////Radiation Factory
+	//CreateNewBuilding(
+	//	Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false, resourceManager),
+	//	"AssetPath"
+	//);
 
-	GameObject * object = GetBuilding("Radiation Factory");
-	object->transform->SetPosition(vec3(100,0,10));
-	object->transform->Scale(vec3(1.0));
+	//GameObject * object = GetBuilding("Radiation Factory");
+	//object->transform->SetPosition(vec3(100,0,10));
+	//object->transform->Scale(vec3(1.0));
 
 }
 

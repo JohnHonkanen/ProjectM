@@ -2,7 +2,6 @@
 
 #include "hud\HUDWidget.h"
 #include "hud\HUDRect.h"
-
 #include <string>
 
 // Namespace Alias

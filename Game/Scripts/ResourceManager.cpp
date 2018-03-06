@@ -29,7 +29,7 @@ Resources ResourceManager::FindResource(int itemID)
 {
 	
 	//cout << "Item Name: " << this->resourceList[itemID].GetName() << " found!" << endl << endl;
-	return this->resourceList[itemID];;
+	return this->resourceList[itemID];
 }
 
 ResourceManager * ResourceManager::Create(GameObject * gameObject)

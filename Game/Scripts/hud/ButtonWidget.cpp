@@ -14,6 +14,10 @@ void ButtonWidget::Update()
 {
 }
 
+void ButtonWidget::Input()
+{
+}
+
 void ButtonWidget::DrawWidget(unsigned int shader)
 {
 	if (activeTexture != "") {

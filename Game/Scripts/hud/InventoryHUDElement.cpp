@@ -122,3 +122,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 	}
 
 }
+
+void InventoryHUDElement::Input()
+{
+}

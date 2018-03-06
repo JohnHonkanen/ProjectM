@@ -29,6 +29,7 @@ public:
 
 	virtual void Start();
 	virtual void Update();
+	virtual void Input();
 	virtual void DrawWidget(unsigned int shader);
 
 	void RegisterToEvents();
