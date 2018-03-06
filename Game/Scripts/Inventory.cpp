@@ -31,7 +31,7 @@ void Inventory::Copy(GameObject * copyObject)
 
 	@returns - A string of the Inventory's contents
 */
-string Inventory::DisplayContents()
+string Inventory::DisplayInventory()
 {
 	string contents;
 
@@ -48,7 +48,60 @@ string Inventory::DisplayContents()
 	}
 	return contents;
 }
+string Inventory::GetAtStorageIndex(int index)
+{
+	string contents;
 
+	if (storage.empty())
+	{
+		contents = "";
+	}
+	else
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			if (index == i)
+			{
+				contents += storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount());
+			}
+		}
+	}
+	return contents;
+}
+/*
+Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.
+
+@param - itemType - The type of resource to be sent to the Warehouse
+
+@returns true if the itemType is acceptable to the Warehouse, false if not.
+*/
+bool Inventory::CheckItem(string itemType)
+{
+	bool result = false;
+	/*
+	Checks the item type against a list of acceptable item types.
+	*/
+	return result;
+}
+/*
+Checks the Inventory to see if the resource type is already contained in the inventory
+
+@param res - The resource to be checked for
+
+@return - true if the resource is present, false if not.
+*/
+bool Inventory::ContainsItem(Resources res)
+{
+	bool result = false;
+	for (int i = 0; i < storage.size(); i++)
+	{
+		if (storage[i].GetItemID() == res.GetItemID())
+		{
+			result = true;
+		}
+	}
+	return result;
+}
 /*
 	Checks the inventory for the resource that is passed in, if it finds it it is placed onto the existing stack
 	Any excess resource is sent to the back of the vector. - Does not handle event where all warehouses are full.
@@ -129,85 +182,37 @@ void Inventory::PlaceItem(Resources res)
 
 	E.g.
 	storage.erase(storage.begin() + 5);
-	Erases element in slot 6, so minus one is called
-	to keep it in line with the index supplied.
+	Erases element in slot 5, 
+
+	storage.erase(storage.begin + 0);
+	Erases element in the first slot
+	etc.
 */
 	void Inventory::RemoveAtIndex(int index)
 	{
-		storage.erase(storage.begin() + (index-1));
+		storage.erase(storage.begin() + (index));
 	}
-
-// Will need to call this method on all the individual warehouses, another method can traverse through the warehouses 
-// Call this method as it does so.
-
 /*
-	Checks the Inventory to see if the resource type is already contained in the inventory
-
-	@param res - The resource to be checked for
-
-	@return - true if the resource is present, false if not.
-*/
-bool Inventory::ContainsItem(Resources res)
-{
-	bool result = false;
-	for (int i = 0; i < storage.size(); i++)
-	{
-		if (storage[i].GetItemID() == res.GetItemID())
-		{
-			result = true;
-		}
-	}
-	return result;
-}
-void Inventory::ChangeResourceQuantity(int change)
-{
-	//res->SetItemAmount(-change);
-}
-string Inventory::GetAtStorageIndex(int index)
-{
-	string contents;
-
-	if (storage.empty())
-	{
-		contents = "";
-	}
-	else
-	{
-		for (int i = 0; i < storage.size(); i++)
-		{
-			if (index == i)
-			{
-				contents += storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount());
-			}
-		}
-	}
-	return contents;
-}
-/*
-Checks the warehouse storage against the item to see if it has space for the item and whether it can store the item type.
-
-@param - itemType - The type of resource to be sent to the Warehouse
-
-@returns true if the itemType is acceptable to the Warehouse, false if not.
-*/
-bool Inventory::CheckItem(string itemType)
-{
-	bool result = false;
-	/*
-	Checks the item type against a list of acceptable item types.
+	Does the sending of an item from one building to another
+	Takes a res object from the origin building and places it in the destination building.
+	Erases the object from the origin building at a given index.
 	*/
-	return result;
-}
-
-/*
-Does the sending of an item from one building to another
-Takes a res object from the origin building and places it in the destination building.
-Erases the object from the origin building at a given index.
-*/
 void Inventory::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
+	{
+		destInv->PlaceItem(res);
+		originInv->RemoveAtIndex(index);
+	}
+void Inventory::SetResourceQuantity(int newAmount)
 {
-	destInv->PlaceItem(res);
-	originInv->RemoveAtIndex(index);
+	r->SetItemAmount(newAmount);
+}
+int Inventory::GetResourceQuantityAtIndex(int index)
+{
+	return storage[index].GetItemAmount();
+}
+void Inventory::SetResourceQuantityAtIndex(int index, int newAmount)
+{
+	storage[index].SetItemAmount(newAmount);
 }
 
 

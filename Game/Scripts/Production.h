@@ -15,7 +15,8 @@ Dev: Greg Smith (B00308929)
 #include "Inventory.h"
 #include "Resources.h"
 #include "ResourceManager.h"
-#include "utility\Clock.h"`
+#include "utility\Clock.h"
+#include "Hub.h"
 
 
 using namespace std;
@@ -26,7 +27,7 @@ private:
 	int producing;
 	Engine::Utility::Clock clock;
 	void StoreItem(Resources res);
-
+	Hub * hub;
 	ResourceManager * resourceManager;
 	class Hub * hub;
 public:

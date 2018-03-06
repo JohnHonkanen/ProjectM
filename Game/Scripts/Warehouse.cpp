@@ -13,7 +13,10 @@ Warehouse::Warehouse() {
 Warehouse::~Warehouse()
 {
 }
-
+/*
+ * When a warehouse is asked for an item it will loop through it's storage and find the item. This 
+ * will give it the index it needs and it will recieve the inventory from the building requesting an item.
+ */
 Warehouse::Warehouse(string buildingName, int hp, int pow, int eff, int rad, bool placed, bool active)
 {
 	name = buildingName;
