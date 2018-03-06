@@ -15,6 +15,10 @@ BuildingSelectorButton * BuildingSelectorButton::Create(HUDElement * element, EH
 
 void BuildingSelectorButton::OnPointerMouseDownImplementation(EventData data)
 {
+	if (!active)
+	{
+		return;
+	}
 	buildingController->SetObjectToBuild(structure);
 	buildingController->SetMouseHeld(true);
 }
