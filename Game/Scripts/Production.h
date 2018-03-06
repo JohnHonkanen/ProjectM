@@ -28,6 +28,7 @@ private:
 	void StoreItem(Resources res);
 
 	ResourceManager * resourceManager;
+	class Hub * hub;
 public:
 
 	Production();
