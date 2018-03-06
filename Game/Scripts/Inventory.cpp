@@ -210,6 +210,7 @@ int Inventory::GetResourceQuantityAtIndex(int index)
 {
 	return storage[index].GetItemAmount();
 }
+
 void Inventory::SetResourceQuantityAtIndex(int index, int newAmount)
 {
 	storage[index].SetItemAmount(newAmount);
