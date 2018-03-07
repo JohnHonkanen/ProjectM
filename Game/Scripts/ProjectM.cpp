@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 	hubObject->transform->Scale(vec3(3.0f));
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
-	hubObject->transform->Translate(vec3(100, 15, 0));
-	hubObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
+	hubObject->transform->Translate(vec3(100, 8, 0));
+	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
 
 	//Temp Code to make Structures
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 		Production::Create("Dome", DOME, 10, 1, 1, 1, false, true, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
-	dome->material->diffuseMap = "Game/Assets/Textures/sand.png";
+	dome->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Factory", FACTORY, 10, 1, 1, 1, false, false, &gameManager->resourceManager, hub),
@@ -80,9 +80,9 @@ int main(int argc, char *argv[])
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
 		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false),
-		"Game/Assets/Models/cube/cube.obj"
+		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
-	warehouse->material->diffuseMap = "Game/Assets/Textures/ground.jpg";
+	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	//Temp Object to Test Building Manager
 	GameObject *structure = manager->CreateGameObject("Temp Structure");
