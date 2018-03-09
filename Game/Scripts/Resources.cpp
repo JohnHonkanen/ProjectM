@@ -7,9 +7,9 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
 {
-	this->itemID = itemID;
+	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
 	this->sku = sku;
 	this->basePrice = basePrice;

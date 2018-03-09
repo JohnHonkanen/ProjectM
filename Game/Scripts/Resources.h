@@ -7,11 +7,29 @@
 using namespace std;
 
 
+enum class ResourceName {
+	Gold,
+	SpaceCow_Beef,
+	SpaceCow_Milk,
+	SpaceCow_Cheese, // Recipe: Use SpaceCow_Milk to produce
+	Sheep_Wool, // Factory Only
+	Sheep_Meat, // Factory Only
+	Chicken_Egg,
+	Chicken_Meat, // Factory Only
+	Kittain, // Dome only (Pets)
+	Steel_Cotton, // Building material
+	Mandrake,
+	Grape,
+	Wine,
+	Unilateralis,
+	Electronic_Component // Recipe: Use Unilateralis to produce in factory
+};
+
 class Resources
 {
 public:
 	Resources();
-	Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon);
 	~Resources();
 	
 	string GetName(); // Get item name
@@ -49,4 +67,6 @@ private:
 	bool keyReleased = true;
 
 };
+
+using Resource = Resources;
 

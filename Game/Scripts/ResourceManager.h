@@ -11,7 +11,7 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	Resources AddResource(int itemID, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon);
+	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon);
 	Resources FindResource(int itemID);
 
 	static ResourceManager* Create(GameObject *gameObject);
