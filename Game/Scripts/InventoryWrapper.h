@@ -9,6 +9,6 @@ private:
 public:
 	v2::Inventory inventory;
 	
-	static InventoryWrapper * Create(GameObject* gameObject, unsigned int inventorySize = 9);
+	static InventoryWrapper * Create(GameObject* gameObject, ResourceManager* rm, unsigned int inventorySize = 9);
 	void Copy(GameObject* gameObject);
 };

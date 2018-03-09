@@ -60,6 +60,15 @@ namespace v2 {
 		}
 	}
 
+	bool Inventory::AddItem(ResourceName resource, int & amount)
+	{
+		if (rm == nullptr)
+		{
+			cout << "ResourceManager not set. - Use alternative AddItem method or set ResourceManager." << endl;
+		}
+		return AddItem(rm->Find(resource), amount);
+	}
+
 	void Inventory::Add(int slot, int &amount)
 	{
 		int amountToAdd;
@@ -194,6 +203,11 @@ namespace v2 {
 
 		}
 		return (amount == 0);
+	}
+
+	void Inventory::SetResourceManager(ResourceManager * rm)
+	{
+		this->rm = rm;
 	}
 
 	void Inventory::AddFilter(ResourceName resource)

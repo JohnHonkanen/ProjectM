@@ -13,6 +13,7 @@ Dev: Jack Smith (B00308927)
 #include <vector>
 #include <string>
 #include "Resources.h"
+#include "ResourceManager.h"
 
 
 using namespace std;
@@ -38,6 +39,8 @@ namespace v2 {
 		// Amount is the amount you want to add to a building but if you try to add to many items it is returned as the remainder.
 		bool AddItem(Resources *res, int &amount);
 
+		bool AddItem(ResourceName resource, int &amount);
+
 		// Checks if the building's storage is full
 		// Available space is the space left in the storage for the resource specified. i.e. Depends on stackSize.
 		bool CheckStorageFull(Resources *res, int &availableSpace);
@@ -55,6 +58,10 @@ namespace v2 {
 
 		// Returns READ ONLY inventory to be read for HUD for example.
 		std::vector<Slot> &GetInventory() const { return std::vector <Slot>(storage.begin(),storage.end()); }
+
+		ResourceManager * GetResourceManager() { return rm; }
+
+		void SetResourceManager(ResourceManager * rm);
 
 		void AddFilter(ResourceName resource);
 
@@ -77,6 +84,7 @@ namespace v2 {
 		std::vector<ResourceName> filter;
 
 		FILTERMODE mode = BLACKLIST;
+		ResourceManager * rm = nullptr;
 	};
 }
 
