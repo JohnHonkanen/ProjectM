@@ -54,6 +54,8 @@ public:
 
 	string GetResourceIcon(); // Get Resource icon
 	void SetResourceIcon(string resourceIcon); // Set a resource icon
+
+	ResourceName GetResouceID();
 private:
 	int itemID, itemValue, itemQuality;
 	int itemStock = 0;
@@ -62,6 +64,7 @@ private:
 	float baseModifier = 5.0;
 	string itemName, sku, resourceIcon;
 
+	ResourceName resourceName;
 	bool purchase = false;
 	bool sold = false;
 	bool keyReleased = true;
