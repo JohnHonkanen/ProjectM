@@ -31,6 +31,8 @@ void PlayerEconHUD::OnLoad()
 	wrapper->SetActive(true);
 
 	Engine::GameEngine::manager.inputManager.AddKey("togglePlayerEcon", "u");
+
+
 }
 
 void PlayerEconHUD::Start()

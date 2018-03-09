@@ -17,7 +17,7 @@ Resources ResourceManager::AddResource(ResourceName resName, string itemName, st
 {
 	this->resources = Resources(resName, itemName, SKU, itemPrice, itemStock, resourceIcon);
 	
-	this->itemIndex = (int)resName;
+	this->itemIndex = static_cast<int>(resName);
 
 	this->resourceList[itemIndex] = this->resources;
 
@@ -25,12 +25,23 @@ Resources ResourceManager::AddResource(ResourceName resName, string itemName, st
 }
 
 /*Use to find resources*/
-Resources ResourceManager::FindResource(int itemID)
+Resources ResourceManager::FindResource(ResourceName resourceName)
 {
-	
-	//cout << "Item Name: " << this->resourceList[itemID].GetName() << " found!" << endl << endl;
-	return this->resourceList[itemID];
+
+	return this->resourceList[static_cast<int>(resourceName)];
 }
+
+Resources ResourceManager::FindResource(int resourceName)
+{
+
+	return FindResource(static_cast<ResourceName>(resourceName));
+}
+
+Resources * ResourceManager::Find(ResourceName resourceName)
+{
+	return &this->resourceList[static_cast<int>(resourceName)];
+}
+
 
 ResourceManager * ResourceManager::Create(GameObject * gameObject)
 {

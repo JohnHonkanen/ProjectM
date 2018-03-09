@@ -12,7 +12,20 @@ public:
 	~ResourceManager();
 
 	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon);
-	Resources FindResource(int itemID);
+
+	/*!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!*/
+	Resources FindResource(ResourceName resourceName);
+
+	/*!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!
+	!!! Stop using: Depricated !!!*/
+	Resources FindResource(int resourceName);
+
+	Resources* Find(ResourceName resourceName);
 
 	static ResourceManager* Create(GameObject *gameObject);
 	void Copy(GameObject *copyObject);
