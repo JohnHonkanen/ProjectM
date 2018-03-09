@@ -26,6 +26,8 @@
 #include "BuildingSpawnAnim.h"
 #include "BuildingProductionAnims.h"
 #include "hud\MainHUD.h"
+#include "InventoryWrapper.h"
+#include "Resources.h"
 
 using namespace std;
 
@@ -55,6 +57,9 @@ int main(int argc, char *argv[])
 
 	//HUB
 	GameObject *hubObject = manager->CreateGameObject("HUB");
+	InventoryWrapper * iw = InventoryWrapper::Create(hubObject);
+	iw->inventory.AddFilter(ResourceName::Gold);
+	iw->inventory.SetMode(Inventory::WHITELIST);
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
 
 	Hub *hub = Hub::Create(hubObject);

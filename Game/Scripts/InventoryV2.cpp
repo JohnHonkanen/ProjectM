@@ -27,6 +27,10 @@ Inventory::~Inventory()
 
 bool Inventory::AddItem(Resources *res, int &amount)
 {
+	if (!ValidateResource(static_cast<ResourceName>(res->GetItemID())))
+	{
+		return false;
+	}
 	int spaceAvailable;
 	if (CheckStorageFull(res, spaceAvailable))
 	{
@@ -190,6 +194,42 @@ bool Inventory::Send(Inventory * dest, Resources * res, int &amount)
 		
 	}
 	return (amount == 0);
+}
+
+void Inventory::AddFilter(ResourceName resource)
+{
+	filter.push_back(resource);
+}
+
+void Inventory::SetMode(FILTERMODE mode)
+{
+	this->mode = mode;
+}
+
+bool Inventory::ValidateResource(ResourceName name)
+{
+	if (filter.empty())
+	{
+		return true;
+	}
+	
+	for (auto f : filter)
+	{
+		if (f == name)
+		{
+			switch (mode)
+			{
+			case Inventory::BLACKLIST:
+				return false;
+				break;
+			case Inventory::WHITELIST:
+				return true;
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 void Inventory::Copy(GameObject * copyObject)

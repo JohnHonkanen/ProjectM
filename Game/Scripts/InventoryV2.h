@@ -22,6 +22,8 @@ using namespace std;
 class Inventory : public Behaviour
 {
 public:
+
+	enum FILTERMODE {BLACKLIST, WHITELIST};
 	struct Slot
 	{
 		Resources *resource;
@@ -54,6 +56,12 @@ public:
 	// Returns READ ONLY inventory to be read for HUD for example.
 	const std::vector<Slot const*> &GetInventory() const { return std::vector <Slot const*>(storage.begin(),storage.end()); }
 
+	void AddFilter(ResourceName resource);
+
+	void SetMode(FILTERMODE mode);
+
+	bool ValidateResource(ResourceName name);
+
 	void Copy(GameObject *copyObject);
 
 	template<class Archive>
@@ -66,6 +74,9 @@ private:
 	std::vector<Slot> storage;
 	void Add(Resources *res, int slot, int &amount);
 	void Add(int slot, int &amount);
+	std::vector<ResourceName> filter;
+
+	FILTERMODE mode = BLACKLIST;
 };
 
 #include <cereal/archives/xml.hpp>
