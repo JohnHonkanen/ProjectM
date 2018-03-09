@@ -25,8 +25,6 @@ public:
 	Resources GetResouce(); // Gets resource
 	string GetGBIcon(); // Get the gold bar icon
 
-	void StoreGold(Resources resourceToStore); // Store gold in inventory : WIP
-
 	std::string name;
 private:
 	int index = 0;

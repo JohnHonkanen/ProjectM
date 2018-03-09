@@ -42,6 +42,8 @@ Resources ResourceManager::FindResource(int resourceName)
 
 Resources * ResourceManager::Find(ResourceName resourceName)
 {
+	string nem = this->resourceList[static_cast<int>(resourceName)].GetName();
+	cout << "name: " << nem << endl;
 	return &this->resourceList[static_cast<int>(resourceName)];
 }
 
@@ -59,9 +61,7 @@ void ResourceManager::Copy(GameObject * copyObject)
 
 void ResourceManager::Update()
 {
-	this->resourceList[0] = resources;
 	resources.update();
-
 }
 
 void ResourceManager::OnLoad()

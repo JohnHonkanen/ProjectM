@@ -58,3 +58,8 @@ void PlayerEconManager::Start()
 {
 	AddEconomy();
 }
+
+void PlayerEconManager::SetHUBInventory(v2::Inventory * HUBInventory)
+{
+	this->HUBInventory = HUBInventory;
+}

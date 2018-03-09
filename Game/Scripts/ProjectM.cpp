@@ -58,9 +58,10 @@ int main(int argc, char *argv[])
 	int amount = 0;
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 	InventoryWrapper * iw = InventoryWrapper::Create(hubObject, &gameManager->resourceManager);
+	gameManager->playerEconManager.SetHUBInventory(&iw->inventory);
 	iw->inventory.AddFilter(ResourceName::Gold);
 	iw->inventory.SetMode(v2::Inventory::WHITELIST);
-	iw->inventory.AddItem(ResourceName::Gold, amount=100);
+
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
 
 	Hub *hub = Hub::Create(hubObject);

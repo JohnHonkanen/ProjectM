@@ -23,8 +23,14 @@ void PlayerEconomy::GiveGoldBars(int amountToGive)
 
 void PlayerEconomy::AddGoldBars(int goldBars)
 {
+	int amount = 0;
 	this->resource.IncreaseItemAmount(goldBars);
-	StoreGold(this->resource);
+	playerEconManager->HUBInventory->AddItem(ResourceName::Gold, goldBars);
+	cout << "Amount: " << playerEconManager->HUBInventory->Contains(resourceManager->Find(ResourceName::Gold)) << endl;
+	playerEconManager->HUBInventory->CheckStorageFull(resourceManager->Find(ResourceName::Gold), amount);
+	cout << amount << endl;
+	/*this->resource.IncreaseItemAmount(goldBars);
+	StoreGold(this->resource);*/
 }
 
 void PlayerEconomy::RemoveGoldBars(int goldBars)
@@ -62,9 +68,4 @@ Resources PlayerEconomy::GetResouce()
 string PlayerEconomy::GetGBIcon()
 {
 	return this->resource.GetResourceIcon();
-}
-
-void PlayerEconomy::StoreGold(Resources resourceToStore)
-{
-	inventory.PlaceItem(resourceToStore);
 }
