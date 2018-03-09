@@ -8,7 +8,6 @@ PlayerEconomy::PlayerEconomy()
 PlayerEconomy::PlayerEconomy(ResourceManager* resourceManager, PlayerEconManager* playerEconManager)
 {
 	this->resourceManager = resourceManager;
-	//this->resource = resourceManager->FindResource(0);
 	this->playerEconManager = playerEconManager;
 }
 
