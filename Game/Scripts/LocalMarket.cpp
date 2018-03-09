@@ -4,9 +4,9 @@ LocalMarket::LocalMarket()
 {
 }
 
-LocalMarket::LocalMarket(ResourceManager * resourceManager)
+LocalMarket::LocalMarket(MarketName marketName)
 {
-	this->resourceManager = resourceManager;
+	this->marketID = static_cast<int>(marketName);
 }
 
 LocalMarket::~LocalMarket()
@@ -22,19 +22,26 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 {
 	int current = GetCurrentPrice(resourceName);
 
-	int newPrice = current + GetModifier();
+	int newPrice = current + GetModifier(resourceName);
 
 	resourceManager->Find(resourceName)->SetBasePrice(newPrice);
 }
 
 
-int LocalMarket::GetModifier()
+int LocalMarket::GetModifier(ResourceName resourceName)
 {
-	return 0;
+	return resourceManager->Find(resourceName)->GetDemand();
 }
 
-void LocalMarket::SetModifier()
+void LocalMarket::SetModifier(ResourceName resourceName)
 {
+	// WIP: Add conditional statement:  If purchase, then increase modifier else, decrease.
+
+	int currentDemand = GetModifier(resourceName);
+
+	int newDemand = currentDemand + modifier;
+
+	resourceManager->Find(resourceName)->SetDemand(newDemand);
 }
 
 void LocalMarket::OnLoad()
@@ -43,16 +50,10 @@ void LocalMarket::OnLoad()
 
 void LocalMarket::Start()
 {
-	clock.SetDelay(5000);
-	clock.StartClock();
+
 }
 
 void LocalMarket::Update()
 {
-	clock.UpdateClock();
 
-	if (clock.Alarm()) {
-
-	} 
-	clock.ResetClock();
 }

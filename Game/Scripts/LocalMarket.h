@@ -1,19 +1,22 @@
 #pragma once
 #include "ResourceManager.h"
-#include "core\GameObject.h"
-#include "utility\Clock.h"
+
+enum class MarketName {
+	local,
+	galactic
+};
 
 class LocalMarket {
 public:
 	LocalMarket();
-	LocalMarket(ResourceManager* resourceManager);
+	LocalMarket(MarketName marketName);
 	~LocalMarket();
 
 	int GetCurrentPrice(ResourceName resourceName);
-	void SetNewCurrentPrice(ResourceName resourceName;
+	void SetNewCurrentPrice(ResourceName resourceName);
 
-	int GetModifier();
-	void SetModifier();
+	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
+	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
 
 	void OnLoad();
 	void Start();
@@ -21,7 +24,7 @@ public:
 
 
 private:
-	Engine::Utility::Clock clock;
+	int marketID;
 	ResourceManager* resourceManager;
 
 	int modifier = 1;
