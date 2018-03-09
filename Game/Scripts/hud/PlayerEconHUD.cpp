@@ -2,6 +2,7 @@
 #include "core\GameObject.h"
 #include "hud\HUDCanvas.h"
 #include "hud\widgets\HUDContainer.h"
+#include "../PlayerEconomy.h"
 #include "../PlayerEconManager.h"
 #include "hud\widgets\TextWidget.h"
 #include "PlayerEconHUDElement.h"
@@ -34,6 +35,7 @@ void PlayerEconHUD::OnLoad()
 
 void PlayerEconHUD::Start()
 {
+	
 	playerEconomy = playerEconManager->FindPlayerEcon();
 	PEElement = PlayerEconHUDElement::Create(wrapper, { 5, 8, 0, 0 }, playerEconomy);
 }

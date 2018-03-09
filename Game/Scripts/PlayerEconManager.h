@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "PlayerEconomy.h"
 #include "ContractManager.h"
+#include "InventoryV2.h"
 
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
@@ -23,7 +24,8 @@ public:
 	void Update();
 	void Start();
 
-
+	void SetHUBInventory(v2::Inventory* HUBInventory);
+	v2::Inventory* HUBInventory;
 private:
 	
 	PlayerEconomy economyList[1]; // List of economies
@@ -31,4 +33,5 @@ private:
 	PlayerEconomy playerEconomy;
 	ContractManager* contractManager;
 
+	
 };

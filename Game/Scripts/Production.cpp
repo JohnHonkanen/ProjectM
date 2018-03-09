@@ -88,7 +88,7 @@ void Production::Update(double currentTime)
 		}
 		else if (GetActive() == true && producing > 0) {	// if building is active and slot is not full compared to previous obtained value
 			if (inv->GetResourceQuantityAtIndex(0) < 100) {
-				temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/10);			//sets value of item created
+				temp.IncreaseItemAmount(/*1+GetProductionEfficiency()*/50);			//sets value of item created
 				inv->PlaceItem(temp);											//passes temp resource to place item wrapper for inventory
 			}
 			cout << inv->DisplayInventory() << endl;

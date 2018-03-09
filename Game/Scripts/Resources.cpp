@@ -7,15 +7,16 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(int itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit)
 {
-	this->itemID = itemID;
+	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
 	this->sku = sku;
 	this->basePrice = basePrice;
 	this->itemStock = itemStock;
 	this->resourceIcon = resourceIcon;
-
+	this->resourceName = itemID;
+	this->stackLimit = stackLimit;
 }
 
 Resources::~Resources()
@@ -35,7 +36,7 @@ string Resources::GetSKU()
 }
 
 /*Retrieve the Resource ID*/
-int Resources::GetItemID()
+int Resources::GetItemID() const
 {
 	return this->itemID;
 }
@@ -110,6 +111,16 @@ void Resources::SetItemID(int itemID)
 	this->itemID = itemID;
 }
 
+void Resources::SetStackLimit(int stackLimit)
+{
+	this->stackLimit = stackLimit;
+}
+
+int Resources::GetStackLimit() const
+{
+	return this->stackLimit;
+}
+
 void Resources::update()
 {
 	int IOKey = GameEngine::manager.inputManager.GetKey("IO");
@@ -150,6 +161,11 @@ string Resources::GetResourceIcon()
 void Resources::SetResourceIcon(string resourceIcon)
 {
 	this->resourceIcon = resourceIcon;
+}
+
+ResourceName Resources::GetResouceID()
+{
+	return this->resourceName;
 }
 
 

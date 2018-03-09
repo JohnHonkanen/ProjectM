@@ -16,13 +16,13 @@ Inventory::~Inventory()
 void Inventory::Copy(GameObject * copyObject)
 {
 
-		Inventory * copy = new Inventory();
-		copy->INITIAL_STORAGE = Inventory::INITIAL_STORAGE;
-		copy->storage = Inventory::storage;
-		copy->storageFull = Inventory::storageFull;
-		copy->inventoryLevel = Inventory::inventoryLevel;
+	Inventory * copy = new Inventory();
+	copy->INITIAL_STORAGE = Inventory::INITIAL_STORAGE;
+	copy->storage = Inventory::storage;
+	copy->storageFull = Inventory::storageFull;
+	copy->inventoryLevel = Inventory::inventoryLevel;
 
-		copyObject->AddComponent(copy);
+	copyObject->AddComponent(copy);
 
 }
 
@@ -43,7 +43,7 @@ string Inventory::DisplayInventory()
 	{
 		for (int i = 0; i < storage.size(); i++)
 		{
-			contents += "Item: " + storage[i].GetName()  +", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
+			contents += "Item: " + storage[i].GetName() + ", Quantity: " + to_string(storage[i].GetItemAmount()) + "\n";
 		}
 	}
 	return contents;
@@ -112,69 +112,90 @@ void Inventory::PlaceItem(Resources res)
 {
 	int storageLimit = (INITIAL_STORAGE * inventoryLevel);
 	// If the storage hasn't reached it's limit.
-		if (storage.size() < storageLimit)
+	if (storage.size() < storageLimit)
+	{
+		if (storage.empty())
 		{
-			if (storage.empty())
+			storage.push_back(res);
+		}
+		else
+		{
+			storageFull = false;
+			for (int i = 0; i < storage.size(); i++)
 			{
-				storage.push_back(res);
-			}
-			else
-			{
-				storageFull = false;
-				for (int i = 0; i < storage.size(); i++)
+				if (storage[i].GetItemID() == res.GetItemID() && storage[i].GetItemAmount() < 100)
 				{
-					if (storage[i].GetItemID() == res.GetItemID())
+					if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))
 					{
-						if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))
-						{
-							res.SetItemAmount((storage[i].GetItemAmount() + res.GetItemAmount()) - 100);
-							storage[i].SetItemAmount(100);
-							storage.push_back(res);
-							atStorageIndex = i;
-							break;
-						}
-						else
-						{
-							storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
-						}
-					}
-					else
-					{
+						res.SetItemAmount((storage[i].GetItemAmount() + res.GetItemAmount()) - 100);
+						storage[i].SetItemAmount(100);
 						storage.push_back(res);
 						atStorageIndex = i;
 						break;
 					}
-				}
-			}
-		}// If the storage has reached it's limit it must be allowed to fill.
-		else if(storage.size() == storageLimit)
-		{
-			for (int i = 0; i < storage.size(); i++)
-			{
-				if (storage[i].GetItemID() == res.GetItemID())// if it is the correct item id
-				{
-					if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))// if the amount of resource exceeds 100
-					{
-						int waste = (storage[i].GetItemAmount() + res.GetItemAmount()) - 100;
-						storage[i].SetItemAmount(100);
-						atStorageIndex = i;
-						cout << waste << " Items being wasted.";
-						break;
-						// if the amount exceeds 100 , set the storage in position i to 100 and print the waste
-					}
 					else
 					{
 						storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
-						// if it does not exceed 100, add it onto the existing entry.
+						break;
 					}
 				}
+				// Ensures every slot has been checked and is filled to capacity then places a new item into the vector.
+				else if (storage[i].GetItemID() == res.GetItemID() && i == (storage.size()-1) && storage[i].GetItemAmount() == 100)
+				{
+					storage.push_back(res);
+					break;
+				}
+				else  if(storage[i].GetItemID() != res.GetItemID())
+				{
+					storage.push_back(res);
+					break;
+				}
+			}
+			
+		}
+	}// If the storage has reached it's limit it must be allowed to fill.
+	else if (storage.size() == storageLimit)
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			int waste;
+			if (storage[i].GetItemID() == res.GetItemID() && storage[i].GetItemAmount() < 100)// if it is the correct item id
+			{
+				if ((storage[i].GetItemAmount() + res.GetItemAmount() > 100))// if the amount of resource exceeds 100
+				{
+					// The remainder
+					waste = (storage[i].GetItemAmount() + res.GetItemAmount()) - 100;
+					//Sets the slot to full
+					storage[i].SetItemAmount(100);
+					cout << waste << " Items being wasted." << endl;
+					break;
+					// if the amount exceeds 100 , print the waste
+				}
+				else
+				{
+					storage[i].SetItemAmount(storage[i].GetItemAmount() + res.GetItemAmount());
+					break;
+					// if it does not exceed 100, add it onto the existing entry.
+				}
+			}
+			// if the inventory is totally full
+			else if (storage[i].GetItemID() == res.GetItemID() &&  i == (storage.size() - 1) && storage[i].GetItemAmount() == 100)
+			{
+				waste = res.GetItemAmount();
+				cout << "Inventory Totally full, no space for any items." << " Wasting " << waste << " Items." << endl;
+				storageFull = true;
+				break;
+			}
+			else  if (storage[i].GetItemID() != res.GetItemID())
+			{
+				waste = res.GetItemAmount();
+				cout << "No space for new Items." << " Wasting " << waste << " Items." << endl;
+				storageFull = true;
+				break;
+
 			}
 		}
-		else
-		{
-			storageFull = true;
-			cout << "Storage is full" << endl;
-		}
+	}
 }
 
 /*
@@ -182,26 +203,26 @@ void Inventory::PlaceItem(Resources res)
 
 	E.g.
 	storage.erase(storage.begin() + 5);
-	Erases element in slot 5, 
+	Erases element in slot 5,
 
 	storage.erase(storage.begin + 0);
 	Erases element in the first slot
 	etc.
 */
-	void Inventory::RemoveAtIndex(int index)
-	{
-		storage.erase(storage.begin() + (index));
-	}
+void Inventory::RemoveAtIndex(int index)
+{
+	storage.erase(storage.begin() + (index));
+}
 /*
 	Does the sending of an item from one building to another
 	Takes a res object from the origin building and places it in the destination building.
 	Erases the object from the origin building at a given index.
 	*/
 void Inventory::SendItem(Inventory* originInv, Inventory* destInv, Resources res, int index)
-	{
-		destInv->PlaceItem(res);
-		originInv->RemoveAtIndex(index);
-	}
+{
+	destInv->PlaceItem(res);
+	originInv->RemoveAtIndex(index);
+}
 void Inventory::SetResourceQuantity(int newAmount)
 {
 	r->SetItemAmount(newAmount);

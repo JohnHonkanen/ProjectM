@@ -16,9 +16,10 @@ namespace Engine {
 
 namespace EHUD = Engine::HUD;
 
-class PlayerEconHUD :public Behaviour {
+class PlayerEconHUD : public Behaviour {
 public:
 	static PlayerEconHUD* Create(GameObject* gameObject, EHUD::HUDCanvas* root, class PlayerEconManager* playerEconManager);
+	//static PlayerEconHUD* Create(GameObject* gameObject, EHUD::HUDCanvas* root);
 
 	void Copy(GameObject* copyObject);
 	void OnLoad();

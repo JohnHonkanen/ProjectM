@@ -4,6 +4,7 @@
 #include "hud\HUDRect.h"
 #include <string>
 
+
 // Namespace Alias
 class PlayerEconHUD;
 namespace EHUD = Engine::HUD;
@@ -17,6 +18,7 @@ class PlayerEconHUDElement : public EHUD::HUDWidget{
 
 public:
 	static PlayerEconHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class PlayerEconomy* playerEconomy);
+	//static PlayerEconHUDElement* Create(HUDElement* element, EHUD::HUDRect rect);
 
 	void Start();
 	void Update();

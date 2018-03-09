@@ -4,6 +4,7 @@ Dev: Jack Smith (B00308927)
 */
 #pragma once
 #include "components\Behaviour.h"
+#include "../Inventory.h"
 #include <vector>
 //Forward Declaration
 namespace Engine
@@ -30,7 +31,7 @@ public:
 	void Start();
 	void Update();
 	void Input();
-	void SetInventory(vector<class Inventory*> inventory) { this->inventory = inventory; };
+	void SetInventory(vector<class ::Inventory*> inventory) { this->inventory = inventory; };
 private:
 	/**HUD elements */
 	class PlayerActions* pla;
@@ -39,7 +40,7 @@ private:
 	/**/
 	class InventoryHUDElement* IHElement;
 	bool keyHeld = false;
-	vector<class Inventory*> inventory;
+	vector<class ::Inventory*> inventory;
 	class ResourceManager* rManager;
 
 };
