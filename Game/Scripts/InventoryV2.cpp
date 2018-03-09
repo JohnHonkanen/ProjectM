@@ -72,7 +72,7 @@ namespace v2 {
 	void Inventory::Add(int slot, int &amount)
 	{
 		int amountToAdd;
-		int stackLimit = 100;
+		int stackLimit = storage[slot].resource->GetStackLimit();
 		if (amount > stackLimit)
 		{
 			amountToAdd = stackLimit;
@@ -89,7 +89,7 @@ namespace v2 {
 	void Inventory::Add(Resources * res, int slot, int & amount)
 	{
 		int amountToAdd;
-		int stackLimit = 100;
+		int stackLimit = res->GetStackLimit();
 		if (amount > stackLimit)
 		{
 			amountToAdd = stackLimit;
@@ -106,7 +106,7 @@ namespace v2 {
 	bool Inventory::CheckStorageFull(Resources * res, int & availableSpace)
 	{
 		availableSpace = 0;
-		int stackLimit = 100;
+		int stackLimit = res->GetStackLimit();
 		for (Slot slot : storage)
 		{
 			if (slot.resource == nullptr)
@@ -177,7 +177,7 @@ namespace v2 {
 	{
 		if (amount > Contains(res))
 		{
-			cout << "Not enough in inventory to send that much jeez" << endl;
+			cout << "Not enough inventory slot" << endl;
 			return false;
 		}
 		else

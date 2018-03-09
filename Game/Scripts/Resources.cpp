@@ -7,7 +7,7 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -16,7 +16,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->itemStock = itemStock;
 	this->resourceIcon = resourceIcon;
 	this->resourceName = itemID;
-
+	this->stackLimit = stackLimit;
 }
 
 Resources::~Resources()
@@ -36,7 +36,7 @@ string Resources::GetSKU()
 }
 
 /*Retrieve the Resource ID*/
-int Resources::GetItemID()
+int Resources::GetItemID() const
 {
 	return this->itemID;
 }
@@ -109,6 +109,16 @@ void Resources::SetItemSKU(string itemSKU)
 void Resources::SetItemID(int itemID)
 {
 	this->itemID = itemID;
+}
+
+void Resources::SetStackLimit(int stackLimit)
+{
+	this->stackLimit = stackLimit;
+}
+
+int Resources::GetStackLimit() const
+{
+	return this->stackLimit;
 }
 
 void Resources::update()
