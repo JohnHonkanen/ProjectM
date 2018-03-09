@@ -3,6 +3,7 @@
 #include "Resources.h"
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
+#include <list>
 
 class ResourceManager : public Behaviour
 {
@@ -37,9 +38,13 @@ public:
 	int RandomResources(); // Generate Random Resource ID
 	static const int sizeOfList = 1280;
 
+	list <Resource> GetList() const;
 private:
 	int itemIndex = 0;
 	
 	Resources resourceList[sizeOfList];
 	Resources resources;
+
+	list <Resource*> resourceQueue;
+
 };

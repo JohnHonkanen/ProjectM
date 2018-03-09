@@ -7,7 +7,7 @@
 using namespace std;
 
 
-enum ResourceName : unsigned char {
+enum class ResourceName : unsigned char {
 	Gold,
 	SpaceCow_Beef,
 	SpaceCow_Milk,

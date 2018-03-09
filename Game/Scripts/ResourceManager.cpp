@@ -21,6 +21,9 @@ Resources ResourceManager::AddResource(ResourceName resName, string itemName, st
 
 	this->resourceList[itemIndex] = this->resources;
 
+	this->resourceQueue.push_back(&this->resourceList[itemIndex]);
+
+	
 	return this->resourceList[itemIndex];
 }
 
@@ -80,6 +83,10 @@ void ResourceManager::OnLoad()
 	resource = AddResource(ResourceName::Wine, "Wine", "FLUID", 15, 0, "");
 	resource = AddResource(ResourceName::Unilateralis, "Unilateralis", "FUNGI", 3, 0, "");
 	resource = AddResource(ResourceName::Electronic_Component, "Electronic Component", "MATERIAL", 15, 0, "");
+
+	for (auto i : resourceQueue) {
+		cout << i->GetName() << endl;
+	}
 }
 
 int ResourceManager::NumberOfActiveResources()
