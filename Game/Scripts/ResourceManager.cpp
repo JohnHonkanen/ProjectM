@@ -104,3 +104,8 @@ int ResourceManager::RandomResources()
 	int generatedResourceID = (rand() % numberOfResources) + 1;
 	return generatedResourceID;
 }
+
+list<Resource*> ResourceManager::GetList() const
+{
+	return resourceQueue;
+}

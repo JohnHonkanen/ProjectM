@@ -38,7 +38,7 @@ public:
 	int RandomResources(); // Generate Random Resource ID
 	static const int sizeOfList = 1280;
 
-	list <Resource> GetList() const;
+	list <Resource*> GetList() const;
 private:
 	int itemIndex = 0;
 	
