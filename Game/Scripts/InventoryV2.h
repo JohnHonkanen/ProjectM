@@ -57,7 +57,7 @@ namespace v2 {
 		bool Send(Inventory * dest, Resources * res, int &amount);
 
 		// Returns READ ONLY inventory to be read for HUD for example.
-		std::vector<Slot> &GetInventory() const { return std::vector <Slot>(storage.begin(),storage.end()); }
+		std::vector<Slot> GetInventory() const { return std::vector<Slot>(storage.begin(),storage.end()); }
 
 		ResourceManager * GetResourceManager() { return rm; }
 
