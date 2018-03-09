@@ -88,12 +88,6 @@
     <ClCompile Include="Game\Scripts\Billboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -135,6 +129,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\InventoryV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

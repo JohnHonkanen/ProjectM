@@ -42,7 +42,7 @@ Resources * ResourceManager::Find(ResourceName resourceName)
 	return &this->resourceList[static_cast<int>(resourceName)];
 }
 
-
+	
 ResourceManager * ResourceManager::Create(GameObject * gameObject)
 {
 	ResourceManager *r = new ResourceManager();

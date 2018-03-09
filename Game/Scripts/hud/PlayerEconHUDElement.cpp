@@ -5,7 +5,7 @@
 
 PlayerEconHUDElement * PlayerEconHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, PlayerEconomy * playerEconomy)
 {
-	PlayerEconHUDElement *p = new PlayerEconHUDElement;
+	PlayerEconHUDElement *p = new PlayerEconHUDElement();
 	p->rect = rect;
 	p->playerEconomy = playerEconomy;
 
@@ -16,7 +16,7 @@ PlayerEconHUDElement * PlayerEconHUDElement::Create(HUDElement * element, EHUD::
 
 void PlayerEconHUDElement::Start()
 {
-
+	
 	// Text
 	playerEconHUD = EHUD::WHUDContainer::Create(this, { 0,0, 225, 24 }, "Game/Assets/Textures/black.jpg", true);
 	resourceIcon = EHUD::WHUDContainer::Create(this, { 65, 5, 14, 14 }, playerEconomy->GetGBIcon(), true);
