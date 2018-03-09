@@ -7,7 +7,7 @@ Resources::Resources()
 {
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -17,6 +17,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->resourceIcon = resourceIcon;
 	this->resourceName = itemID;
 	this->stackLimit = stackLimit;
+	this->demand = demand;
 }
 
 Resources::~Resources()
@@ -51,6 +52,11 @@ int Resources::GetItemAmount()
 int Resources::GetBasePrice()
 {
 	return this->basePrice;
+}
+
+void Resources::SetBasePrice(int basePrice)
+{
+	this->basePrice = basePrice;
 }
 
 /*Increment Item Stock in marketplace*/
@@ -119,6 +125,16 @@ void Resources::SetStackLimit(int stackLimit)
 int Resources::GetStackLimit() const
 {
 	return this->stackLimit;
+}
+
+void Resources::SetDemand(int demand)
+{
+	this->demand = demand;
+}
+
+int Resources::GetDemand()
+{
+	return this->demand;
 }
 
 void Resources::update()

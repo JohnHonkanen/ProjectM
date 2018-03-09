@@ -9,6 +9,12 @@ public:
 	LocalMarket(ResourceManager* resourceManager);
 	~LocalMarket();
 
+	int GetCurrentPrice(ResourceName resourceName);
+	void SetNewCurrentPrice(ResourceName resourceName;
+
+	int GetModifier();
+	void SetModifier();
+
 	void OnLoad();
 	void Start();
 	void Update();
@@ -17,4 +23,6 @@ public:
 private:
 	Engine::Utility::Clock clock;
 	ResourceManager* resourceManager;
+
+	int modifier = 1;
 };

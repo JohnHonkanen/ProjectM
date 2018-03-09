@@ -29,7 +29,7 @@ class Resources
 {
 public:
 	Resources();
-	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand);
 	~Resources();
 	
 	string GetName(); // Get item name
@@ -37,7 +37,9 @@ public:
 
 	int GetItemID() const; // Get the item ID
 	int GetItemAmount(); // Get amount of item in stock
+
 	int GetBasePrice(); // Get current base price of items
+	void SetBasePrice(); // Set current base price of items
 
 	void IncreaseItemAmount(int itemStock); // Increase the amount of item in stock
 	void ReduceItemAmount(int itemStock); // Decrease the amount of item in stock
@@ -53,6 +55,9 @@ public:
 	void SetStackLimit(int stackLimit); // Set the stack limit
 	int GetStackLimit() const; // Get Stack limit
 
+	void SetDemand(int demand); // Set resource demand
+	int GetDemand(); // Get resource demand
+
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
 	string GetResourceIcon(); // Get Resource icon
@@ -60,7 +65,7 @@ public:
 
 	ResourceName GetResouceID();
 private:
-	int itemID, itemValue, itemQuality, stackLimit;
+	int itemID, itemValue, itemQuality, stackLimit, demand;
 	int itemStock = 0;
 	int basePrice; // Standard price
 	float mood; // The modifier
