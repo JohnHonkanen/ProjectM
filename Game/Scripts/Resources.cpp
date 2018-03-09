@@ -15,6 +15,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->basePrice = basePrice;
 	this->itemStock = itemStock;
 	this->resourceIcon = resourceIcon;
+	this->resourceName = itemID;
 
 }
 
@@ -150,6 +151,11 @@ string Resources::GetResourceIcon()
 void Resources::SetResourceIcon(string resourceIcon)
 {
 	this->resourceIcon = resourceIcon;
+}
+
+ResourceName Resources::GetResouceID()
+{
+	return this->resourceName;
 }
 
 

@@ -19,7 +19,6 @@
 #include <iostream>
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
-#include "hud\PlayerEconHUD.cpp"
 #include "hud\ProductionHUD.h"
 
 #include "Billboard.h"
