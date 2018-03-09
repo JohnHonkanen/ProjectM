@@ -42,8 +42,6 @@ Resources ResourceManager::FindResource(int resourceName)
 
 Resources * ResourceManager::Find(ResourceName resourceName)
 {
-	string nem = this->resourceList[static_cast<int>(resourceName)].GetName();
-	cout << "name: " << nem << endl;
 	return &this->resourceList[static_cast<int>(resourceName)];
 }
 

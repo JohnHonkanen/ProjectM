@@ -1,6 +1,5 @@
 #pragma once
 #include "ResourceManager.h"
-#include "Inventory.h"
 
 #include <string>
 
@@ -31,6 +30,4 @@ private:
 	Resources resource;
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
-	Inventory inventory;
-
 };
