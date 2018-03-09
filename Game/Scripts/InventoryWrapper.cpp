@@ -11,5 +11,5 @@ InventoryWrapper * InventoryWrapper::Create(GameObject* gameObject, unsigned int
 
 void InventoryWrapper::Copy(GameObject * gameObject)
 {
-	Create(gameObject, inventory.GetInventory().size());
+	/*Create(gameObject, inventory.GetInventory().size());*/
 }
