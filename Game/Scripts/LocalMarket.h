@@ -2,8 +2,8 @@
 #include "ResourceManager.h"
 
 enum class MarketName {
-	local,
-	galactic
+	Local,
+	Galactic
 };
 
 class LocalMarket {

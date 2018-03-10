@@ -10,9 +10,9 @@ MarketManager::~MarketManager()
 {
 }
 
-LocalMarket MarketManager::AddMarket(ResourceManager* resourceManager, MarketName marketName)
+LocalMarket MarketManager::AddMarket(MarketName marketName)
 {
-	this->localMarket = LocalMarket(resourceManager, marketName);
+	this->localMarket = LocalMarket(marketName);
 	this->marketID = static_cast<int>(marketName);
 
 	this->marketList[marketID] = this->localMarket;
@@ -40,7 +40,8 @@ void MarketManager::Copy(GameObject * copyObject)
 
 void MarketManager::OnLoad()
 {
-	AddMarket();
+	AddMarket(MarketName::Local);
+	AddMarket(MarketName::Galactic);
 }
 
 void MarketManager::Start()
