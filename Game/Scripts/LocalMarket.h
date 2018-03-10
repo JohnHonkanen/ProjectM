@@ -29,3 +29,5 @@ private:
 
 	int modifier = 1;
 };
+
+using Market = LocalMarket;
