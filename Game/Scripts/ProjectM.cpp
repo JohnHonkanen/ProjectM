@@ -128,13 +128,32 @@ int main(int argc, char *argv[])
 
 	//Directional Light
 	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
-	Light::Create(dirLightObj, DIRECTIONAL_LIGHT);
-	Light::Create(dirLightObj, POINT_LIGHT);
-	dirLightObj->transform->SetPosition(vec3(5));
+	Light * dirLight =Light::Create(dirLightObj, DIRECTIONAL_LIGHT);
+	LightProperties dirProp = {
+		DIRECTIONAL_LIGHT,
+		vec3(0.2f, 0.2f, 0.5f),
+		vec3(0.2f, 0.2f, 0.5f),
+		vec3(0.05f),
+
+		1.0f, 0.1f, 3.0f
+	};
+
+	dirLight->SetLightProperties(dirProp);
+
+	dirLightObj->transform->SetPosition(vec3(0,10,5));
 
 	GameObject *p1 = manager->CreateGameObject("p1");
-	Light::Create(p1, POINT_LIGHT);
-	p1->transform->SetPosition(vec3(-50));
+	Light * pointLight = Light::Create(p1, POINT_LIGHT);
+	LightProperties pointProp = {
+		POINT_LIGHT,
+		vec3(1.0f),
+		vec3(1.0f),
+		vec3(0.15f),
+
+		1.0f, 0.07f, 0.017f
+	};
+	pointLight->SetLightProperties(pointProp);
+	p1->transform->SetPosition(vec3(0,10,-50));
 
 
 
