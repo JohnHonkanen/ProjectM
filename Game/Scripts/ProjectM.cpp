@@ -27,6 +27,7 @@
 #include "hud\MainHUD.h"
 #include "InventoryWrapper.h"
 #include "Resources.h"
+#include "components\Light.h"
 
 using namespace std;
 
@@ -61,7 +62,10 @@ int main(int argc, char *argv[])
 	iw->inventory.AddFilter(ResourceName::Gold);
 	iw->inventory.SetMode(v2::Inventory::WHITELIST);
 	iw->inventory.AddItem(ResourceName::Gold, amount=100);
-	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE");
+	iw->inventory.CheckStorageFull(gameManager->resourceManager.Find(ResourceName::Gold), amount);
+	cout << "contains: " << iw->inventory.Contains(gameManager->resourceManager.Find(ResourceName::Gold)) << endl;
+
+	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
 
 	Hub *hub = Hub::Create(hubObject);
 	hubObject->transform->Scale(vec3(3.0f));
@@ -90,15 +94,9 @@ int main(int argc, char *argv[])
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
-	//Temp Object to Test Building Manager
-	GameObject *structure = manager->CreateGameObject("Temp Structure");
-	MeshRenderer::Create(structure, "Game/Assets/Models/cube/cube.obj");
-	TextureSetter::Create(structure, "Game/Assets/Textures/sand.png");
-	structure->transform->SetScale(vec3(5.0f));
-
 	//Player
 	GameObject *focusPoint = manager->CreateGameObject("Camera Focus Point");
-	MeshRenderer::Create(focusPoint, "Game/Assets/Models/cube/cube.obj");
+	//MeshRenderer::Create(focusPoint, "Game/Assets/Models/cube/cube.obj");
 	focusPoint->transform->SetScale(vec3(3.0f));
 	GameObject *playerObject = manager->CreateGameObject("Player");
 
@@ -109,7 +107,6 @@ int main(int argc, char *argv[])
 	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager, hub);
 	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
 												 //Temp Function
-	buildingController->AddTempObject(structure);
 
 	//Add HUD
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
@@ -125,17 +122,21 @@ int main(int argc, char *argv[])
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
-
-	//Drone Code
-	GameObject *droneObject = manager->CreateGameObject("drone");
-	MeshRenderer::Create(droneObject, "Game/Assets/Models/mobajuice/Drone.DAE");
-	Drone *drone = Drone::Create(droneObject);
-	drone->SetDestination(vec3(250, 0, 150));
-	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
-	droneObject->transform->Scale(vec3(3));
 	
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
+
+	//Directional Light
+	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
+	Light::Create(dirLightObj, DIRECTIONAL_LIGHT);
+	Light::Create(dirLightObj, POINT_LIGHT);
+	dirLightObj->transform->SetPosition(vec3(5));
+
+	GameObject *p1 = manager->CreateGameObject("p1");
+	Light::Create(p1, POINT_LIGHT);
+	p1->transform->SetPosition(vec3(-50));
+
+
 
 	engine.Run();
 	return 0;
