@@ -36,25 +36,23 @@ namespace v2 {
 		~Inventory();
 
 		// Adds an item to a building
-		// Amount is the amount you want to add to a building but if you try to add to many items it is returned as the remainder.
-		bool AddItem(Resources *res, int &amount);
-
-		bool AddItem(ResourceName resource, int &amount);
-
-		// Checks if the building's storage is full
-		// Available space is the space left in the storage for the resource specified. i.e. Depends on stackSize.
-		bool CheckStorageFull(Resources *res, int &availableSpace);
-
-		// Checks if the resources is in a building
-		int Contains(Resources *res);
+		int AddItem(ResourceName resource, int amount);
 
 		// Used to remove items from buildings
 		// Amount is the number of items you wish to remove from a building if you try to remove too many it returns the reminder that couldn't be removed.
-		bool Remove(Resources *res, int &amount);
+		int Remove(ResourceName res, int amount);
 
 		// Used to send items from one building to another
 		// Amount is the number of items you wish to send, comes back as the remainder of unsent items.
-		bool Send(Inventory * dest, Resources * res, int &amount);
+		int Send(Inventory * dest, ResourceName res, int amount);
+
+		// Checks if the building's storage is full
+		// Available space is the space left in the storage for the resource specified. i.e. Depends on stackSize.
+		int CheckStorageFull(ResourceName res);
+
+		// Checks if the resources is in a building
+		int Contains(ResourceName res);
+
 
 		// Returns READ ONLY inventory to be read for HUD for example.
 		std::vector<Slot> &GetInventory() const { return std::vector <Slot>(storage.begin(),storage.end()); }
@@ -81,6 +79,24 @@ namespace v2 {
 		std::vector<Slot> storage;
 		void Add(Resources *res, int slot, int &amount);
 		void Add(int slot, int &amount);
+
+		//Deprecated, use method that doesn't require reference to amount.
+		bool DAddItem(Resources *res, int &amount);
+
+		// Deprecated, use newer method.
+		bool DAddItem(ResourceName resource, int &amount);
+
+		// Deprecated
+		bool DRemove(Resources *res, int &amount);
+
+		// Deprecated
+		bool DSend(Inventory * dest, Resource * res, int &amount);
+
+		// Deprecated
+		bool DCheckStorageFull(Resources * res, int &availableSpace);
+
+		//Deprecated
+		int DContains(Resources *res);
 		std::vector<ResourceName> filter;
 
 		FILTERMODE mode = BLACKLIST;

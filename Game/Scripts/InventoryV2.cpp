@@ -25,14 +25,16 @@ namespace v2 {
 	{
 	}
 
-	bool Inventory::AddItem(Resources *res, int &amount)
+
+
+	bool Inventory::DAddItem(Resources *res, int &amount)
 	{
 		if (!ValidateResource(res->GetResouceID()))
 		{
 			return false;
 		}
 		int spaceAvailable;
-		if (CheckStorageFull(res, spaceAvailable))
+		if (DCheckStorageFull(res, spaceAvailable))
 		{
 			return false;// Can't place any items
 		}
@@ -60,13 +62,31 @@ namespace v2 {
 		}
 	}
 
-	bool Inventory::AddItem(ResourceName resource, int & amount)
+	bool Inventory::DAddItem(ResourceName resource, int &amount)
 	{
 		if (rm == nullptr)
 		{
 			cout << "ResourceManager not set. - Use alternative AddItem method or set ResourceManager." << endl;
 		}
-		return AddItem(rm->Find(resource), amount);
+		return DAddItem(rm->Find(resource), amount);
+	}
+
+	int Inventory::Remove(ResourceName res, int amount)
+	{
+		DRemove(rm->Find(res), amount);
+		return amount;
+	}
+
+	int Inventory::Send(Inventory * dest, ResourceName res, int amount)
+	{
+		DSend(dest, rm->Find(res), amount);
+		return amount;
+	}
+
+	int Inventory::AddItem(ResourceName resource, int amount)
+	{
+		DAddItem(resource, amount);
+		return amount;
 	}
 
 	void Inventory::Add(int slot, int &amount)
@@ -103,7 +123,7 @@ namespace v2 {
 		storage[slot] = { res, amountToAdd };
 	}
 
-	bool Inventory::CheckStorageFull(Resources * res, int & availableSpace)
+	bool Inventory::DCheckStorageFull(Resources * res, int &availableSpace)
 	{
 		availableSpace = 0;
 		int stackLimit = 100;
@@ -121,7 +141,14 @@ namespace v2 {
 		return !(availableSpace > 0);
 	}
 
-	int Inventory::Contains(Resources * res)
+	int Inventory::CheckStorageFull(ResourceName res)
+	{
+		int availableSpace = 0;
+		DCheckStorageFull(rm->Find(res), availableSpace);
+		return availableSpace;
+	}
+
+	int Inventory::DContains(Resources * res)
 	{
 		int amount = 0;
 		for (Slot slot : storage)
@@ -138,8 +165,14 @@ namespace v2 {
 		return amount;
 	}
 
-	bool Inventory::Remove(Resources * res, int &amount)
+	int Inventory::Contains(ResourceName res)
 	{
+		return DContains(rm->Find(res));
+	}
+
+	bool Inventory::DRemove(Resources * res, int &amount)
+	{
+
 		for (Slot &slot : storage)
 		{
 			if (slot.resource == nullptr)
@@ -173,9 +206,9 @@ namespace v2 {
 		return !(amount > 0);
 	}
 
-	bool Inventory::Send(Inventory * dest, Resources * res, int &amount)
+	bool Inventory::DSend(Inventory * dest, Resource * res, int &amount)
 	{
-		if (amount > Contains(res))
+		if (amount > DContains(res))
 		{
 			cout << "Not enough in inventory to send that much jeez" << endl;
 			return false;
@@ -183,7 +216,7 @@ namespace v2 {
 		else
 		{
 			int availableSpace;
-			if (!dest->CheckStorageFull(res, availableSpace))
+			if (!dest->DCheckStorageFull(res, availableSpace))
 			{
 				int amountToSend;
 				if (amount > availableSpace)
@@ -197,8 +230,8 @@ namespace v2 {
 					amount = 0;
 				}
 				int amountToRemove = amountToSend;
-				dest->AddItem(res, amountToSend);
-				Remove(res, amountToRemove);
+				dest->DAddItem(res, amountToSend);
+				DRemove(res, amountToRemove);
 			}
 
 		}
