@@ -7,11 +7,12 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
-#include "Inventory.h"
+#include "InventoryV2.h"
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include <vector>
 #include <cstring>
+
 
 using namespace std;
 using namespace glm;
@@ -30,8 +31,10 @@ protected:
 
 	int health;						//Buildings remaining health
 	int powerUsage;					//Set to 0 until power is added to game
-	int productionEfficiency;		//
+	int productionEfficiency;		//Level of building, will be adjustable using buttons, limited between 1 and 10
 	int radiationOutput;			//
+	int initialUpkeep;
+	int upkeep;
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
 	string name;
@@ -39,41 +42,39 @@ protected:
 
 	int tileX, tileY;
 	StructureType structureType;
-	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
+	v2::Inventory inventory;
 public:
 	
 	Structure();
 	~Structure();
-	Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active);
+	Structure(string building, string typ, int hp, int pow, int eff,int up, int radOut, bool placed, bool active);
 	Structure(string building);
 
 	void Copy(GameObject *copyObject) {};
+	void OnLoad();
 
 	string GetName() { return name; }
 	int  GetHealth();				//Returns building health
 	int  GetPowerusage();			//Returns power usage
 	int  GetProductionEfficiency();	//
 	int  GetRadiationOutput();		//
+	int GetUpkeep() { return upkeep; } // returns the buildings gold upkeep
 	bool GetPlaced();				//
 	bool GetActive();				//
 	void GetTilePosition(int &x, int &y);
 	StructureType GetType();
+	v2::Inventory& GetInventory();
 
 	void SetName(string change);
 	void SetHealth(int change);				//Changes buildings health
 	void setPowerUsage(int change);			//Changes building power usage
 	void SetProductionEfficiency(int change);	//Changes buildings
 	void SetRadiationOutput(int change);		//
+	bool SetUpkeep(int change);					//Used when adjusting the buildings upkeep when using prod ui
 	void SetPlaced(bool change);				//
 	void SetActive(bool change);				//
-
-	void InsertItem(Resources res);
-	Inventory* GetInventory() { return inv.get(); }
-	string ViewInventory() { return inv->DisplayInventory(); }
-	string ViewInventoryAt(int index) { return inv->GetAtStorageIndex(index); }
-
 	void SetTilePosition(int x, int y);
-	void OnLoad();
+
 	template<class Archive>
 	void serialize(Archive & ar)
 	{

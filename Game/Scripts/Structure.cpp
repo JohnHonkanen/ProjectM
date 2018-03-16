@@ -16,7 +16,7 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building, string typ, int hp, int pow, int eff, int radOut, bool placed, bool active)
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int up, int radOut, bool placed, bool active)
 {
 	
 	name = building;
@@ -24,6 +24,8 @@ Structure::Structure(string building, string typ, int hp, int pow, int eff, int 
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
+	initialUpkeep = up;
+	upkeep = up;
 	radiationOutput = radOut;
 	isPlaced = placed;
 	isActive = active;
@@ -83,6 +85,11 @@ StructureType Structure::GetType()
 	return structureType;
 }
 
+v2::Inventory& Structure::GetInventory()
+{
+	return inventory;
+}
+
 void Structure::SetName(string change)
 {
 	name = change;
@@ -100,12 +107,31 @@ void Structure::setPowerUsage(int change)
 
 void Structure::SetProductionEfficiency(int change)
 {
-	productionEfficiency *= change;
+	if (productionEfficiency < 10 && productionEfficiency > 1) {
+		productionEfficiency += change;
+		
+		bool temp = SetUpkeep(change);
+		if (!temp) {
+			productionEfficiency -= change;
+		}
+		else{
+			SetRadiationOutput(change);
+		}
+	}
 }
 
 void Structure::SetRadiationOutput(int change)
 {
-	radiationOutput *= change;
+	if (radiationOutput > 1) {
+		radiationOutput += change;
+	}
+}
+
+bool Structure::SetUpkeep(int change)
+{
+	if (upkeep < 10 && upkeep > 1) {
+		upkeep += change * initialUpkeep;
+	}
 }
 
 void Structure::SetPlaced(bool change)
@@ -116,14 +142,4 @@ void Structure::SetPlaced(bool change)
 void Structure::SetActive(bool change)
 {
 	isActive = change;
-}
-
-/*
-Wrapper method that Inserts an item into the inventory of the Warehouse.
-
-@param - The resource to be inserted.
-*/
-void Structure::InsertItem(Resources res)
-{
-	inv->PlaceItem(res);
 }

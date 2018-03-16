@@ -5,6 +5,7 @@ Dev: Greg Smith (B00308929)
 */
 
 #pragma once
+#include "BuildingProductionAnims.h"
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
 #include <cereal\cereal.hpp>
@@ -24,17 +25,19 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	int producing;
+	ResourceName producing;
 	Engine::Utility::Clock clock;
-	void StoreItem(Resources res);
 	Hub * hub;
 	ResourceManager * resourceManager;
+	bool isProducing = false;
+	BuildingProductionAnims* billboard;
+
 public:
 
 	Production();
 	~Production();
-	Production(string name, StructureType typ,int hp, int pow, int eff, int radOut, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
-	static Production * Create(string name, StructureType typ, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
+	Production(string name, StructureType typ,int hp, int pow, int eff, int up, int radOut, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
+	static Production * Create(string name, StructureType typ, int hp, int pow, int eff,int up , int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
 
 	void Copy(GameObject *copyObject);
 
@@ -42,9 +45,8 @@ public:
 	void OnLoad();
 	void Update(double currentTime);
 
-	void SetProduction(int type);
-	int GetProduction() { return producing; }
-	string GetProductionName();
+	void SetProduction(ResourceName type);
+	ResourceName GetProduction() { return producing; }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 
