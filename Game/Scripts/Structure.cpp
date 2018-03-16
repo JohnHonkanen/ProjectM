@@ -16,7 +16,7 @@ Structure::~Structure()
 {
 }
 
-Structure::Structure(string building, string typ, int hp, int pow, int eff, int up, int radOut, bool placed, bool active)
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int up, int cost, int radOut, bool placed, bool active)
 {
 	
 	name = building;
@@ -24,6 +24,7 @@ Structure::Structure(string building, string typ, int hp, int pow, int eff, int 
 	health = hp;
 	powerUsage = pow;
 	productionEfficiency = eff;
+	this->cost = cost;
 	initialUpkeep = up;
 	upkeep = up;
 	radiationOutput = radOut;

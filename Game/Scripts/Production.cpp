@@ -33,11 +33,12 @@ Production::Production(string buildingName, StructureType typ, int hp, int pow, 
 	this->hub = hub;
 }
 
-Production * Production::Create(string name, StructureType typ, int hp, int pow, int eff, int up,
+Production * Production::Create(string name, StructureType typ, int hp, int pow, int eff, int up, int cost,
 								int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, up, rad, placed, active, resourceMan, hub);
 	p->inventory = v2::Inventory(1);
+	p->cost = cost;
 	return p;
 }
 
@@ -50,6 +51,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->powerUsage = Production::powerUsage;
 	copy->productionEfficiency = Production::productionEfficiency;
 	copy->upkeep = Production::upkeep;
+	copy->cost = cost;
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
@@ -77,11 +79,12 @@ void Production::Update(double currentTime)
 	if (clock.Alarm()) {//check if alarm has gone off
 		
 		if (isProducing) {
-			int availableSpace = 0;
+			int availableSpace = inventory.CheckStorageFull(producing);
 			
-			if (!inventory.CheckStorageFull(resourceManager->Find(producing),availableSpace)) {
-				int amount = 10;
-				inventory.AddItem(producing, amount);
+			if (availableSpace > 0) {
+				Resources* r = resourceManager->Find(producing);
+				int productionAmount = floor((r->GetStackLimit()*0.05)*productionEfficiency);
+				inventory.AddItem(producing, productionAmount);
 				billboard->Spawn();
 			}
 		}
@@ -96,3 +99,10 @@ void Production::SetProduction(ResourceName type)
 		producing = type;
 		billboard->SetTextureToDisplay(resourceManager->Find(producing)->GetResourceIcon());
 }
+
+void Production::SetActive(bool change)
+{
+	isActive = change;
+	isProducing = change;
+}
+ 

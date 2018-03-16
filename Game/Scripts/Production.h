@@ -37,7 +37,7 @@ public:
 	Production();
 	~Production();
 	Production(string name, StructureType typ,int hp, int pow, int eff, int up, int radOut, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
-	static Production * Create(string name, StructureType typ, int hp, int pow, int eff,int up , int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
+	static Production * Create(string name, StructureType typ, int hp, int pow, int eff,int up, int cost, int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub);
 
 	void Copy(GameObject *copyObject);
 
@@ -46,7 +46,10 @@ public:
 	void Update(double currentTime);
 
 	void SetProduction(ResourceName type);
+	void SetActive(bool change);
 	ResourceName GetProduction() { return producing; }
+
+	Resources* GetResource() { return resourceManager->Find(producing); }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

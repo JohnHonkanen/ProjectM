@@ -34,6 +34,7 @@ protected:
 	int productionEfficiency;		//Level of building, will be adjustable using buttons, limited between 1 and 10
 	int radiationOutput;			//
 	int initialUpkeep;
+	int cost;
 	int upkeep;
 	bool isPlaced;					//
 	bool isActive;					//Turn on or off building
@@ -47,7 +48,7 @@ public:
 	
 	Structure();
 	~Structure();
-	Structure(string building, string typ, int hp, int pow, int eff,int up, int radOut, bool placed, bool active);
+	Structure(string building, string typ, int hp, int pow, int eff,int up, int cost, int radOut, bool placed, bool active);
 	Structure(string building);
 
 	void Copy(GameObject *copyObject) {};
@@ -59,6 +60,7 @@ public:
 	int  GetProductionEfficiency();	//
 	int  GetRadiationOutput();		//
 	int GetUpkeep() { return upkeep; } // returns the buildings gold upkeep
+	int GetCost() { return cost; }
 	bool GetPlaced();				//
 	bool GetActive();				//
 	void GetTilePosition(int &x, int &y);
@@ -72,7 +74,7 @@ public:
 	void SetRadiationOutput(int change);		//
 	bool SetUpkeep(int change);					//Used when adjusting the buildings upkeep when using prod ui
 	void SetPlaced(bool change);				//
-	void SetActive(bool change);				//
+	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
 
 	template<class Archive>

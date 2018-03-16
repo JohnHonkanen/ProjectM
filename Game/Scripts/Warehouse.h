@@ -5,7 +5,6 @@ Dev: Jack Smith (B00308927)
 
 #include "components\Behaviour.h"
 #include "core/GameObject.h"
-#include "Inventory.h"
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"

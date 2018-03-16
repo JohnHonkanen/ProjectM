@@ -24,7 +24,7 @@ InventoryHUDElement::~InventoryHUDElement()
 /*
 	Initialises the needed fields for the HudElements to funtion
 */
-InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<Inventory*> inv, PlayerActions* pla, ResourceManager* rManager)
+InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<::Inventory*> inv, PlayerActions* pla, ResourceManager* rManager)
 {
 	InventoryHUDElement *i = new InventoryHUDElement();
 	

@@ -45,7 +45,7 @@ void ProductionHUDElement::Update()
 	if (prod != nullptr) {
 		title->text = "Building: " + prod->GetName();
 		level->text = "Level: " + to_string(prod->GetProductionEfficiency());
-		producing->text = "Output: " + prod->GetProductionName();
+		producing->text = "Output: " + prod->GetResource()->GetName();
 	}
 }
 
