@@ -38,7 +38,7 @@ void InventoryHUD::OnLoad()
 	wrapper->SetActive(false);
 	HUD::TextWidget::Create(wrapper, { 10 , 30, 100, 100 }, "Inventory List", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 	GameEngine::manager.inputManager.AddKey("OpenInventoryMenu", "e");
-	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, inventory, pla, rManager);
+	IHElement = InventoryHUDElement::Create(wrapper, { 25, 25, 0, 0 }, pla, rManager);
 }
 
 void InventoryHUD::Start()

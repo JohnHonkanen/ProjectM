@@ -6,10 +6,8 @@ Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
 #include "InventoryHUDElement.h"
 #include "hud\widgets\TextWidget.h"
 #include "hud\widgets\HUDContainer.h"
-#include "../Inventory.h"
 #include "../PlayerActions.h"
 #include "../Structure.h"
-#include "../test/InventoryPopulator.h"
 #include "../Warehouse.h"
 
 InventoryHUDElement::InventoryHUDElement()
@@ -18,19 +16,17 @@ InventoryHUDElement::InventoryHUDElement()
 
 InventoryHUDElement::~InventoryHUDElement()
 {
-	delete invP;
 }
 
 /*
 	Initialises the needed fields for the HudElements to funtion
 */
-InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, vector<::Inventory*> inv, PlayerActions* pla, ResourceManager* rManager)
+InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, PlayerActions* pla, ResourceManager* rManager)
 {
 	InventoryHUDElement *i = new InventoryHUDElement();
 	
 	i->rManager = rManager;
 	i->rect = rect;
-	i->inv = inv;
 	i->pla = pla;
 	element->AttachWidget(i);
 
@@ -42,13 +38,7 @@ InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HU
 */
 void InventoryHUDElement::Start()
 {
-	/*int invLimit=0;
-	if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
-	{
-		invLimit = pla->GetSelectedStructure()->GetInventory()->InventorySize();
-	}*/
-	text.resize(9);
-	invP = new InventoryPopulator();
+	slots.resize(9);
 	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Hud Title
 	inventoryHUD = EHUD::WHUDContainer::Create(this, { 0, 20, 390, 75 }, 
@@ -59,7 +49,18 @@ void InventoryHUDElement::Start()
 	float y = 40.0;
 	float x = 10.0;
 	int index = 0;
-	for(int i =0; i<text.size(); i++)
+
+	for (int x = 0; x < 3; x++)
+	{
+
+		for (int y = 0; y < 3; y++)
+		{
+			slots[x + y] = HUDInventorySlot::Create(this, { float(60 * x),float(60 * y), 50, 50}, "Game/Assets/Texture/building_hud.jpg");
+			
+		}
+	}
+
+	/*for(int i =0; i < slots.size(); i++)
 	{
 		if(index>=3 && index < 6)
 		{
@@ -77,13 +78,13 @@ void InventoryHUDElement::Start()
 			{
 				y = 40.0;
 			}
-		}
-		text[i] = (EHUD::TextWidget::Create(inventoryHUD, { x, y, 0, 0 }, "",
+		}*/
+	/*	text[i] = (EHUD::TextWidget::Create(inventoryHUD, { x, y, 0, 0 }, "",
 			"Game/Assets/Fonts/MavenPro-Regular.ttf",
 			12, 1, vec3(1, 1, 1)));
 		y += 15.0;
 		index++;
-	}
+	}*/
 		StartChildWidgets();
 }
 
@@ -111,13 +112,30 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 {
 	if (pla->GetSelectedStructure() != nullptr)
 	{
-		if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure())!=nullptr)
+		Warehouse * warehouse = dynamic_cast<Warehouse*>(pla->GetSelectedStructure());
+
+		if (warehouse != nullptr)
 		{
-			for (int i = 0; i < text.size(); i++)
+			v2::Inventory& inv = warehouse->GetInventory();
+			if (inv.CheckStorageFull(ResourceName::Chicken_Egg) > 0)// Test add chicken to prove work
 			{
-				text[i]->text = pla->GetSelectedStructure()->ViewInventoryAt(i);
+				inv.AddItem(ResourceName::Chicken_Egg, 100);
+				inv.AddItem(ResourceName::Chicken_Meat, 100);
 			}
-			invP->TestItem(pla, rManager);
+			for (int i = 0; i < slots.size(); i++)
+			{
+				v2::Inventory::Slot slot = inv.At(i);
+				if (slot.resource != nullptr)
+				{
+					string icon = slot.resource->GetResourceIcon();
+					slots[i]->SetIcon(slot.resource->GetResourceIcon());
+					slots[i]->SetQuantity(slot.quantity);
+				}
+				else
+				{
+					// Need to change slot image to default image.
+				}
+			}
 		}
 	}
 
