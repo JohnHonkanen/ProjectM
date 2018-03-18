@@ -52,8 +52,9 @@ int main(int argc, char *argv[])
 
 	//Terrain
 	GameObject * terrain = manager->CreateGameObject("Terrain");
-	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 150, 150, 0.003, 1, "terrainGridShader", true, vec3(0, 1, 0));
-	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/terrain2.jpg", "terrainShader");
+	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 300, 300, 0.003, 1, "terrainGridShader", true, vec3(0, 1, 0));
+	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/sand.png", "terrainShader");
+	terrain->transform->Translate(vec3(-1000, 0, 0));
 
 	//HUB
 	int amount = 0;
@@ -102,7 +103,8 @@ int main(int argc, char *argv[])
 
 	focusPoint->transform->AddChildren(playerObject->transform.get());
 	Camera * c = Camera::Create(playerObject);
-	c->SetFarClippingPlane(1000.0f);
+	c->SetFarClippingPlane(500.0f);
+	c->SetFOV(60);
 	CameraController::Create(playerObject, focusPoint->transform.get());
 	BuildingController *buildingController = BuildingController::Create(playerObject, &gameManager->buildingManager, hub);
 	buildingController->colHelper.SetGrid(grid); // Set the grid we want to register with
@@ -128,11 +130,12 @@ int main(int argc, char *argv[])
 
 	//Directional Light
 	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
+	MeshRenderer::Create(dirLightObj, "Game/Assets/Models/cube/cube.obj", DEFERRED);
 	Light * dirLight =Light::Create(dirLightObj, DIRECTIONAL_LIGHT);
 	LightProperties dirProp = {
 		DIRECTIONAL_LIGHT,
-		vec3(0.2f, 0.2f, 0.5f),
-		vec3(0.2f, 0.2f, 0.5f),
+		vec3(0.5f),
+		vec3(0.5f),
 		vec3(0.05f),
 
 		1.0f, 0.1f, 3.0f
@@ -140,7 +143,8 @@ int main(int argc, char *argv[])
 
 	dirLight->SetLightProperties(dirProp);
 
-	dirLightObj->transform->SetPosition(vec3(0,10,5));
+	dirLightObj->transform->SetPosition(vec3(10000000, 10000000,1000000));
+	dirLightObj->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
 
 	GameObject *p1 = manager->CreateGameObject("p1");
 	Light * pointLight = Light::Create(p1, POINT_LIGHT);
@@ -153,10 +157,15 @@ int main(int argc, char *argv[])
 		1.0f, 0.07f, 0.017f
 	};
 	pointLight->SetLightProperties(pointProp);
-	p1->transform->SetPosition(vec3(0,10,-50));
+	p1->transform->SetPosition(vec3(-23,5,1));
 
-
-
+	//Boxes for shadow testing
+	GameObject *box = manager->CreateGameObject("box111");
+	MeshRenderer::Create(box, "Game/Assets/Models/cube/cube.obj", DEFERRED);
+	box->transform->Scale(vec3(5.0f));
+	box->transform->Translate(vec3(0, 5, 0));
+	box->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	box->material->normalMap = "Game/Assets/Textures/cube_normalss.jpg";
 	engine.Run();
 	return 0;
 }
