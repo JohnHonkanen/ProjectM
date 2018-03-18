@@ -269,6 +269,10 @@
     <ClInclude Include="Game\Scripts\InventoryWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scripts\LocalMarket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

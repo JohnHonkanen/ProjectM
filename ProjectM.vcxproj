@@ -50,6 +50,7 @@
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\InventoryV2.h" />
     <ClInclude Include="Game\Scripts\InventoryWrapper.h" />
+    <ClInclude Include="Game\Scripts\LocalMarket.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
     <ClInclude Include="Game\Scripts\PlayerActions.h" />
     <ClInclude Include="Game\Scripts\PlayerEconManager.h" />
