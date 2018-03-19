@@ -6,6 +6,7 @@ Dev: Jack Smith (B00308927)
 #include "components\Behaviour.h"
 #include "../Inventory.h"
 #include <vector>
+#include "../Inventory.h"
 //Forward Declaration
 namespace Engine
 {

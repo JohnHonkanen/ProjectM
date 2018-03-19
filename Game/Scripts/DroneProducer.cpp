@@ -37,6 +37,7 @@ void DroneProducer::Update(double dt)
 
 void DroneProducer::SpawnDrone()
 {
+	return;
 	int x, y;
 	structure->GetTilePosition(x, y);
 	Structure *nearest = hub->FindNearest(StructureType::WAREHOUSE, x, y);
