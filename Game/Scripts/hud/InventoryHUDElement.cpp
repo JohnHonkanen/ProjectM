@@ -40,51 +40,14 @@ void InventoryHUDElement::Start()
 {
 	slots.resize(9);
 	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
-	// Hud Title
-	inventoryHUD = EHUD::WHUDContainer::Create(this, { 0, 20, 390, 75 }, 
-		"Game/Assets/Textures/black.jpg", true);
 	// Inventory contents
-	EHUD::TextWidget::Create(inventoryHUD, { 10, 20, 0, 0 }, "Inventory contents:", 
-		"Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-	float y = 40.0;
-	float x = 10.0;
-	int index = 0;
-
 	for (int x = 0; x < 3; x++)
 	{
-
 		for (int y = 0; y < 3; y++)
 		{
-			slots[x + y] = HUDInventorySlot::Create(this, { float(60 * x),float(60 * y), 50, 50}, "Game/Assets/Texture/building_hud.jpg");
-			
+			slots[x + y] = HUDInventorySlot::Create(this, { float(55 * x),float(55 * y), 50,50}, "Game/Assets/Texture/building_hud.jpg");
 		}
 	}
-
-	/*for(int i =0; i < slots.size(); i++)
-	{
-		if(index>=3 && index < 6)
-		{
-			x = 135.0;
-			if(index == 3)
-			{
-				y = 40.0;
-			}
-		}
-		else if(index>=6)
-		{
-			
-			x = 255.0;
-			if (index == 6)
-			{
-				y = 40.0;
-			}
-		}*/
-	/*	text[i] = (EHUD::TextWidget::Create(inventoryHUD, { x, y, 0, 0 }, "",
-			"Game/Assets/Fonts/MavenPro-Regular.ttf",
-			12, 1, vec3(1, 1, 1)));
-		y += 15.0;
-		index++;
-	}*/
 		StartChildWidgets();
 }
 
@@ -117,11 +80,6 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 		if (warehouse != nullptr)
 		{
 			v2::Inventory& inv = warehouse->GetInventory();
-			if (inv.CheckStorageFull(ResourceName::Chicken_Egg) > 0)// Test add chicken to prove work
-			{
-				inv.AddItem(ResourceName::Chicken_Egg, 100);
-				inv.AddItem(ResourceName::Chicken_Meat, 100);
-			}
 			for (int i = 0; i < slots.size(); i++)
 			{
 				v2::Inventory::Slot slot = inv.At(i);
@@ -133,7 +91,9 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				}
 				else
 				{
+					// slots[i]->SetIcon(slot.resource->GetResourceIcon());
 					// Need to change slot image to default image.
+					// Need default icon.
 				}
 			}
 		}
