@@ -63,9 +63,9 @@ int main(int argc, char *argv[])
 	gameManager->playerEconManager.SetHUBInventory(&iw->inventory);
 	iw->inventory.AddFilter(ResourceName::Gold);
 	iw->inventory.SetMode(v2::Inventory::WHITELIST);
-	iw->inventory.AddItem(ResourceName::Gold, amount=100);
-	iw->inventory.CheckStorageFull(gameManager->resourceManager.Find(ResourceName::Gold), amount);
-	cout << "contains: " << iw->inventory.Contains(gameManager->resourceManager.Find(ResourceName::Gold)) << endl;
+	iw->inventory.AddItem(ResourceName::Gold, 100);
+	iw->inventory.CheckStorageFull(ResourceName::Gold);
+	cout << "contains: " << iw->inventory.Contains(ResourceName::Gold) << endl;
 
 	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
 
