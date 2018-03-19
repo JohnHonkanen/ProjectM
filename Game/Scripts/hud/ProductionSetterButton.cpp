@@ -16,6 +16,7 @@ void ProductionSetterButton::OnPointerMouseDown(EventData data)
 	}
 	if (data.mouseButton0 == 1) {
 		production->SetProduction(resource);
+		production->SetActive(true);
 	}
 	cout << "testing button" << endl;
 }

@@ -42,6 +42,11 @@ void Structure::SetTilePosition(int x, int y)
 	tileY = y;
 }
 
+void Structure::TaskCompleted()
+{
+	task = v1::TaskSystem::Task();
+}
+
 void Structure::OnLoad()
 {
 }
