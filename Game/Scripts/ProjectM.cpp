@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Dome", DOME, 10, 1, 1, 1, false, true, &gameManager->resourceManager, hub),
-		"Game/Assets/Models/mobajuice/Dome.DAE"
+		"Game/Assets/Models/mobajuice/dome_test.DAE"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
