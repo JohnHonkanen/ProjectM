@@ -17,14 +17,14 @@ using namespace glm;
 
 class Warehouse : public Structure {
 private:
-
+	ResourceManager *rm;
 
 public:
 	
 	Warehouse(); 
 	~Warehouse();
 	Warehouse(string name, int hp, int pow, int eff, int radOut, bool placed, bool active);
-	static Warehouse * Create(string name,  int hp, int pow, int eff, int rad, bool placed, bool active);
+	static Warehouse * Create(string name,  int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * rm);
 	
 	void Copy(GameObject *copyObject);
 
@@ -37,7 +37,7 @@ public:
 	template<class Archive>
 	void serialize(Archive & ar)
 	{
-		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive), CEREAL_NVP(inv);
+		CEREAL_NVP(health), CEREAL_NVP(powerUsage), CEREAL_NVP(radiationOutput), CEREAL_NVP(isPlaced), CEREAL_NVP(isActive) /*Inventory has no serialize mechanism atm*/;
 	}
 };
 

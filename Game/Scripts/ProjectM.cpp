@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
-		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false),
+		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";

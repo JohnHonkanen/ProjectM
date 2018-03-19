@@ -140,7 +140,7 @@ namespace v2 {
 		}
 		return !(availableSpace > 0);
 	}
-
+	// Need another one to check if whole storage is full
 	int Inventory::CheckStorageFull(ResourceName res)
 	{
 		int availableSpace = 0;

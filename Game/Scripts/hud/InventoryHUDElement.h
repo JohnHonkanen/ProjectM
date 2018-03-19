@@ -8,6 +8,7 @@ Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
 #include "hud\HUDWidget.h"
 #include "hud\HUDRect.h"
 #include "../ResourceManager.h"
+#include "HUDInventorySlot.h"
 #include <string>
 
 //Namespace Alias 
@@ -15,6 +16,7 @@ namespace EHUD = Engine::HUD;
 namespace Engine {
 	namespace HUD {
 		class TextWidget;
+		class WHUDContainer;
 	}
 }
 
@@ -24,7 +26,7 @@ public:
 	// Creates the Hud elements
 	InventoryHUDElement();
 	~InventoryHUDElement();
-	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, vector<class Inventory*> inv, class PlayerActions* pla, class ResourceManager* rManager);
+	static InventoryHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class PlayerActions* pla, class ResourceManager* rManager);
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
@@ -32,7 +34,6 @@ public:
 	void Input();
 private:
 	// Varibles declared and forward delclared
-	vector<class Inventory*> inv;
 	EHUD::TextWidget* title;
 	vector<EHUD::TextWidget*> text;
 	class PlayerActions* pla;
@@ -41,5 +42,6 @@ private:
 	class ResourceManager* rManager;
 	bool keyHeld;
 	int index=0;
+	vector<HUDInventorySlot*> slots;
 };
 
