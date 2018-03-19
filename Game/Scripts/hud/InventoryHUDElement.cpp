@@ -91,8 +91,9 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				}
 				else
 				{
-					//slots[i]->SetIcon(slot.resource->GetResourceIcon());
+					// slots[i]->SetIcon(slot.resource->GetResourceIcon());
 					// Need to change slot image to default image.
+					// Need default icon.
 				}
 			}
 		}

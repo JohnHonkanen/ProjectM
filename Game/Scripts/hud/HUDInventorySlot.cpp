@@ -17,8 +17,8 @@ void HUDInventorySlot::Start()
 {
 	iconWrapper = EHUD::WHUDContainer::Create(this, { 0,0,50,50 }, bgImage, false);
 	icon = EHUD::WHUDContainer::Create(iconWrapper, { 5,5,40,40 }, "", false);
-	quantityText = EHUD::TextWidget::Create(iconWrapper, { 5, 30, 0, 0 }, "",
-		"Game/Assets/Fonts/MavenPro-Regular.ttf", 12, 1, vec3(1, 1, 1));
+	quantityText = EHUD::TextWidget::Create(iconWrapper, { 7.5, 40, 0, 0 }, "",
+		"Game/Assets/Fonts/MavenPro-Regular.ttf", 12, 1, vec3(0, 0, 0));
 }
 
 void HUDInventorySlot::DrawWidget(unsigned int shader)
