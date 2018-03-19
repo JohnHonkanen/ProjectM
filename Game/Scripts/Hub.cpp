@@ -1,5 +1,10 @@
 #include "Hub.h"
 #include "Structure.h"
+#include "task_system\TaskManager.h"
+#include "components\MeshRenderer.h"
+#include "InventoryWrapper.h"
+#include "GameManager.h"
+#include <queue>
 
 struct Slot
 {
@@ -8,10 +13,20 @@ struct Slot
 	class Structure *structure;
 };
 
-Hub * Hub::Create(GameObject * gameObject)
+Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 {
 	Hub *h = new Hub();
 	gameObject->AddComponent(h);
+
+	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
+
+	//Create Inventory Wrapper and Get Inventory
+	h->inventory = &InventoryWrapper::Create(gameObject, &gameManager->resourceManager)->inventory;
+	h->inventory->AddFilter(ResourceName::Gold);
+	h->inventory->SetMode(v2::Inventory::WHITELIST);
+	gameManager->playerEconManager.SetHUBInventory(h->inventory);
+
+	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
 	return h;
 
@@ -80,8 +95,79 @@ Structure * Hub::FindNearest(StructureType type, int x, int y)
 
 	return s;
 }
+struct PQueue
+{
+	int dist;
+	int i;
+};
+
+struct PQComparator
+{
+	bool operator()(const PQueue &t1, const PQueue &t2) const
+	{
+		return t1.dist > t2.dist;
+	}
+};
+Structure * Hub::FindNearestToDeposit(StructureType type, int x, int y, ResourceName resource)
+{
+	int distance = 1000000000;
+	Structure * s = nullptr;
+
+	std::priority_queue<PQueue, vector<PQueue>, PQComparator> queue;
+	for (int i = 0; i < networkList.size(); i++)
+	{
+		//Not the type we are looking for
+		if (networkList[i].type != type)
+		{
+			continue;
+		}
+
+		int dx, dy;
+		dx = (networkList[i].x - x);
+		dy = abs(networkList[i].y - y);
+		int dist = (dx*dx) + (dy*dy);
+
+		queue.push({ dist, i });
+
+	}
+
+	bool find = false;
+
+	if (queue.empty())
+	{
+		return nullptr;
+	}
+	while (!find)
+	{
+		int i = queue.top().i;
+		s = networkList[i].structure;
+		if (s->GetInventory().CheckStorageFull(resource) != 0)
+		{
+			return s;
+		}
+
+		queue.pop();
+
+		if (queue.empty())
+		{
+			return nullptr;
+		}
+	}
+
+	return nullptr;
+}
 
 void Hub::Copy(GameObject * copyObject)
 {
 	//TO Be Filled in
+}
+
+v2::Inventory * Hub::GetInventory() const
+{
+	return inventory;
+}
+
+v1::TaskSystem::TaskManager * Hub::GetTaskManager() const
+{
+	return taskManager;
 }

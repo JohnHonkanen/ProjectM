@@ -125,7 +125,6 @@
     <ClCompile Include="Game\Scripts\hud\BuildingSelectorButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +132,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\InventoryWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\TaskManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\Task.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\DroneController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\Inventory.cpp">
@@ -272,7 +283,18 @@
     <ClInclude Include="Game\Scripts\LocalMarket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h" />
+    <ClInclude Include="Game\Scripts\task_system\Task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\TaskManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\DroneController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Game\Scripts\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>

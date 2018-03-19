@@ -12,6 +12,7 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 #include <cereal\types\polymorphic.hpp>
 #include <vector>
 #include <cstring>
+#include "task_system\Task.h"
 
 
 using namespace std;
@@ -44,6 +45,8 @@ protected:
 	int tileX, tileY;
 	StructureType structureType;
 	v2::Inventory inventory;
+
+	v1::TaskSystem::Task task;
 public:
 	
 	Structure();
@@ -76,6 +79,7 @@ public:
 	void SetPlaced(bool change);				//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
+	void TaskCompleted();
 
 	template<class Archive>
 	void serialize(Archive & ar)

@@ -91,6 +91,5 @@ public:
 #include <cereal/archives/xml.hpp>
 //Register Inventory as a derived class
 CEREAL_REGISTER_TYPE(::Inventory);
-
 //Bind it to the Behaviour
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Behaviour, ::Inventory);
