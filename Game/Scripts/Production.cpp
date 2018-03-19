@@ -38,6 +38,7 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 {
 	Production *p = new Production(name, typ, hp, pow, eff, up, rad, placed, active, resourceMan, hub);
 	p->inventory = v2::Inventory(1);
+	p->inventory.SetResourceManager(resourceMan);
 	p->cost = cost;
 	return p;
 }
@@ -58,6 +59,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->structureType = structureType;
 	copy->resourceManager = resourceManager;
 	copy->hub = hub;
+	copy->inventory.SetResourceManager(resourceManager);
 	copyObject->AddComponent(copy);
 }
 
