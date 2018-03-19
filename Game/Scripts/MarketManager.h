@@ -1,9 +1,14 @@
 #pragma once
 #include "LocalMarket.h"
+#include "ResourceManager.h"
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
 #include <list>
+#include <vector>
+
+#define LOCAL 0
+#define GALACTIC 1
 
 class MarketManager : public Behaviour {
 public:
@@ -11,7 +16,7 @@ public:
 	~MarketManager();
 
 	LocalMarket AddMarket(MarketName marketname);
-	LocalMarket* Find();
+	LocalMarket Find(MarketName marketName);
 
 	static MarketManager* Create(GameObject* gameObject);
 
@@ -21,12 +26,10 @@ public:
 	void Start();
 	void Update();
 	
-	list <LocalMarket*> GetList() const;
+	vector <LocalMarket*> GetList() const;
 private:
-	LocalMarket localMarket;
-	LocalMarket marketList[2]; // Number of markets
 	ResourceManager* resourceManager;
-	list <LocalMarket*> marketQueue;
+	vector <LocalMarket> marketQueue;
 	Engine::Utility::Clock clock;
 
 	int marketID;

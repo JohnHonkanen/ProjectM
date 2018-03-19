@@ -5,6 +5,7 @@ using namespace Engine;
 
 Resources::Resources()
 {
+	this->resourceName = ResourceName::Null_Resource;
 }
 
 Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand)
@@ -18,6 +19,19 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->resourceName = itemID;
 	this->stackLimit = stackLimit;
 	this->demand = demand;
+}
+
+Resources::Resources(const Resources & copyRes)
+{
+	this->itemID = copyRes.itemID;
+	this->itemName = copyRes.itemName;
+	this->sku = copyRes.sku;
+	this->basePrice = copyRes.basePrice;
+	this->itemStock = copyRes.itemStock;
+	this->resourceIcon = copyRes.resourceIcon;
+	this->resourceName = copyRes.resourceName;
+	this->stackLimit = copyRes.stackLimit;
+	this->demand = copyRes.demand;
 }
 
 Resources::~Resources()

@@ -12,18 +12,30 @@ MarketManager::~MarketManager()
 
 LocalMarket MarketManager::AddMarket(MarketName marketName)
 {
-	this->localMarket = LocalMarket(marketName);
-	this->marketID = static_cast<int>(marketName);
+	LocalMarket localMarket = LocalMarket(marketName, resourceManager);
 
-	this->marketList[marketID] = this->localMarket;
-	this->marketQueue.push_back(&this->marketList[marketID]);
+	// Check if market exists
 
-	return marketList[marketID];
+	if (Find(marketName).GetMarketID() == MarketName::Null_Market) {
+		this->marketQueue.push_back(localMarket);
+	}
+
+	return localMarket;
 }
 
-LocalMarket * MarketManager::Find()
+LocalMarket MarketManager::Find(MarketName marketName)
 {
-	return nullptr;
+	bool found = false;
+	for (auto availableMarket : marketQueue) {
+		if (availableMarket.GetMarketID() == marketName) {
+			found = true;
+			return availableMarket;
+		}
+	}
+	if (!found) {
+		cout << "Market not found" << endl;
+		return LocalMarket();
+	}
 }
 
 MarketManager * MarketManager::Create(GameObject *gameObject)
@@ -45,28 +57,33 @@ void MarketManager::Copy(GameObject * copyObject)
 
 void MarketManager::OnLoad()
 {
-	AddMarket(MarketName::Local);
-	AddMarket(MarketName::Galactic);
+
 }
 
 void MarketManager::Start()
 {
 	clock.SetDelay(5000);
 	clock.StartClock();
+
+	AddMarket(MarketName::Local);
+	marketQueue[LOCAL].Start();
+	AddMarket(MarketName::Galactic);
+	marketQueue[GALACTIC].Start();
 }
 
 void MarketManager::Update()
 {
 	clock.UpdateClock();
-
+	marketQueue[LOCAL].SetNewCurrentPrice(ResourceName::Chicken_Egg);
 	if (clock.Alarm()) {
-		cout << "boop!" << endl;
+		
+		
 		clock.ResetClock();
 	}
 	
 }
 
-list<LocalMarket*> MarketManager::GetList() const
+vector<LocalMarket*> MarketManager::GetList() const
 {
-	return list<LocalMarket*>();
+	return vector<LocalMarket*>();
 }

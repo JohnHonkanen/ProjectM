@@ -31,6 +31,7 @@ class Resources
 public:
 	Resources();
 	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand);
+	Resources(const Resources &copyRes);
 	~Resources();
 	
 	string GetName(); // Get item name

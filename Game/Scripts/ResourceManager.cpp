@@ -66,7 +66,8 @@ void ResourceManager::OnLoad()
 {
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
-	Resources resource = AddResource(ResourceName::Gold, "Gold", "GOLD", 1, 0, "Game/Assets/Textures/gold-16.png", 1000, 1);
+	Resources resource = AddResource(ResourceName::Null_Resource, "Null_Resource", "NULL", 1, 0, "", 0, 1);
+	resource = AddResource(ResourceName::Gold, "Gold", "GOLD", 1, 0, "Game/Assets/Textures/gold-16.png", 1000, 1);
 	resource = AddResource(ResourceName::SpaceCow_Beef, "SpaceCow Beef", "MEAT", 1, 0, "Game/Assets/Textures/steak-16.png", 1000, 1);
 	resource = AddResource(ResourceName::SpaceCow_Milk, "SpaceCow Milk", "DAIRY", 5, 0, "Game/Assets/Textures/milk-16.png", 1000, 1);
 	resource = AddResource(ResourceName::SpaceCow_Cheese, "SpaceCow Cheese", "DAIRY", 1, 0, "", 1000, 1);
@@ -85,6 +86,8 @@ void ResourceManager::OnLoad()
 	//for (auto i : resourceQueue) {
 	//	cout << i->GetName() << endl;
 	//}
+
+	cout << Find(ResourceName::Chicken_Egg)->GetName() << endl;
 }
 
 int ResourceManager::NumberOfActiveResources()
