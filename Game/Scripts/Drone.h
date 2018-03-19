@@ -1,6 +1,7 @@
 #pragma once
 #include "components\Behaviour.h"
 #include <glm\glm.hpp>
+#include "InventoryV2.h"
 class Drone : public Behaviour
 {
 public:
@@ -11,6 +12,7 @@ public:
 	void Update(double dt);
 
 	void SetDestination(vec3 destination);
+	v2::Inventory &GetInventory();
 private:
 	float speed;
 	float verticalSpeed;
@@ -19,5 +21,7 @@ private:
 	float minY;
 	bool reachedDestination;
 	bool liftOff;
+
+	v2::Inventory inventory;
 
 };

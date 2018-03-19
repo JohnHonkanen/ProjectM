@@ -77,3 +77,8 @@ void Drone::SetDestination(vec3 destination)
 {
 	Drone::destination = destination;
 }
+
+v2::Inventory & Drone::GetInventory()
+{
+	return inventory;
+}
