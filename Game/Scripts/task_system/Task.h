@@ -3,7 +3,8 @@
 enum class TASK_TYPE {
 	SEND,
 	REQUEST,
-	SENT_TO
+	SENT_TO,
+	NONE,
 };
 
 namespace v1
@@ -15,6 +16,8 @@ namespace v1
 		class Task
 		{
 		public:
+			Task();
+			Task(TYPE t);
 			Task(TYPE t, uint p);
 			Task(const Task& task); //copy ctor
 
@@ -23,6 +26,8 @@ namespace v1
 			uint GetUID() const;
 
 			uint GetPriority() const;
+
+			TYPE GetType() const;
 			//Operator Overloads for priority Queue
 			bool operator< (Task const& other) { return priority < other.priority; };
 			bool operator> (Task const& other) { return priority > other.priority; };

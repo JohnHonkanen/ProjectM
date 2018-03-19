@@ -2,6 +2,8 @@
 #include "components\Behaviour.h"
 #include <glm\glm.hpp>
 #include "InventoryV2.h"
+#include "task_system\drones\DroneController.h"
+
 class Drone : public Behaviour
 {
 public:
@@ -23,5 +25,6 @@ private:
 	bool liftOff;
 
 	v2::Inventory inventory;
+	v1::TaskSystem::DroneController controller;
 
 };

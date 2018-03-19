@@ -19,7 +19,20 @@ namespace v1
 			return priority;
 		}
 
-		Task::Task(TYPE t, uint p) : 
+		TYPE Task::GetType() const
+		{
+			return type;
+		}
+
+		Task::Task(): type(TASK_TYPE::NONE)
+		{
+		}
+
+		Task::Task(TYPE t) : type(t)
+		{
+		}
+
+		Task::Task(TYPE t, uint p) :
 			type(t), priority(p)
 		{
 
