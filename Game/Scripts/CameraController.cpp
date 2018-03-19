@@ -61,11 +61,15 @@ void CameraController::Update(double dt)
 	mat4 view = lookAt(transform->GetPosition(), focusPoint->GetPosition(), vec3(0,1,0));
 	camera->SetViewMatrix(view);
 
+	vec3 calcFront = focusPoint->GetPosition() - transform->GetPosition();
+	calcFront = normalize(calcFront);
+	camera->SetFront(calcFront);
+
 	vec3 focusPointRot = focusPoint->GetRotation();
 	float theta = radians(focusPointRot.y);
 
-	float offsetX = -100 * sin(theta);
-	float offsetZ = -100 * cos(theta);
+	float offsetX = -50 * sin(theta);
+	float offsetZ = -50 * cos(theta);
 
 	transform->SetPosition(vec3(offsetX, distance, offsetZ));
 
