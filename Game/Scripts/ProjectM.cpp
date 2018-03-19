@@ -154,6 +154,9 @@ int main(int argc, char *argv[])
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
 
+	GameObject * droneObj = manager->CreateGameObject("Drone");
+	Drone::Create(droneObj);
+
 	//Boxes for shadow testing
 	GameObject *box = manager->CreateGameObject("box111");
 	MeshRenderer::Create(box, "Game/Assets/Models/cube/cube.obj", DEFERRED);

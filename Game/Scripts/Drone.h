@@ -7,6 +7,7 @@
 class Drone : public Behaviour
 {
 public:
+	Drone();
 	static Drone *Create(GameObject *gameObject);
 	void Copy(GameObject *copyObject);
 
@@ -15,6 +16,7 @@ public:
 
 	void SetDestination(vec3 destination);
 	v2::Inventory &GetInventory();
+	v1::TaskSystem::DroneController const &GetController();
 private:
 	float speed;
 	float verticalSpeed;

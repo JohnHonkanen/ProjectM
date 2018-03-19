@@ -3,10 +3,19 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\quaternion.hpp>
 #include "core\GameEngine.h"
+#include "components\MeshRenderer.h"
+Drone::Drone() : controller(this)
+{
+}
+
 Drone * Drone::Create(GameObject * gameObject)
 {
 	Drone *d = new Drone();
 	gameObject->AddComponent(d);
+	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Drone.DAE");
+	gameObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
+	gameObject->transform->Scale(vec3(1.5));
+	gameObject->transform->SetPosition(vec3(0));
 
 	return d;
 }
@@ -40,4 +49,9 @@ void Drone::SetDestination(vec3 destination)
 v2::Inventory & Drone::GetInventory()
 {
 	return inventory;
+}
+
+v1::TaskSystem::DroneController const & Drone::GetController()
+{
+	return controller;
 }
