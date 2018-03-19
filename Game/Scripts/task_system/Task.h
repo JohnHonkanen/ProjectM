@@ -1,29 +1,32 @@
 #pragma once
 
+enum class TASK_TYPE {
+	SEND,
+	REQUEST,
+	SENT_TO
+};
+
 namespace v1
 {
 	namespace TaskSystem
 	{
 		using uint = unsigned int;
+		using TYPE = TASK_TYPE;
 		class Task
 		{
 		public:
-			enum TYPE {
-				SEND,
-				REQUEST,
-				SENT_TO
-			};
-
-			static Task * Create(TYPE type, uint priority);
+			Task(TYPE t, uint p);
+			Task(const Task& task); //copy ctor
 
 			//Sets/Get a ID for the task
 			void SetUID(uint uniqueID);
-			uint GetUID();
+			uint GetUID() const;
+
+			uint GetPriority() const;
 			//Operator Overloads for priority Queue
 			bool operator< (Task const& other) { return priority < other.priority; };
 			bool operator> (Task const& other) { return priority > other.priority; };
 		private:
-			Task(TYPE t, uint p);
 
 			TYPE type;
 			uint priority;

@@ -1,5 +1,9 @@
 #include "Hub.h"
 #include "Structure.h"
+#include "task_system\TaskManager.h"
+#include "components\MeshRenderer.h"
+#include "InventoryWrapper.h"
+#include "GameManager.h"
 
 struct Slot
 {
@@ -8,10 +12,20 @@ struct Slot
 	class Structure *structure;
 };
 
-Hub * Hub::Create(GameObject * gameObject)
+Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 {
 	Hub *h = new Hub();
 	gameObject->AddComponent(h);
+
+	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
+
+	//Create Inventory Wrapper and Get Inventory
+	h->inventory = &InventoryWrapper::Create(gameObject, &gameManager->resourceManager)->inventory;
+	h->inventory->AddFilter(ResourceName::Gold);
+	h->inventory->SetMode(v2::Inventory::WHITELIST);
+	gameManager->playerEconManager.SetHUBInventory(h->inventory);
+
+	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
 	return h;
 
@@ -84,4 +98,14 @@ Structure * Hub::FindNearest(StructureType type, int x, int y)
 void Hub::Copy(GameObject * copyObject)
 {
 	//TO Be Filled in
+}
+
+v2::Inventory * Hub::GetInventory() const
+{
+	return inventory;
+}
+
+v1::TaskSystem::TaskManager * Hub::GetTaskManager() const
+{
+	return taskManager;
 }

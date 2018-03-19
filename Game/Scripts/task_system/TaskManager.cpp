@@ -16,20 +16,25 @@ namespace v1
 		{
 		}
 
-		void v1::TaskSystem::TaskManager::AddTask(Task::TYPE type, int priority)
+		void v1::TaskSystem::TaskManager::AddTask(TASK_TYPE type, int priority)
 		{
 			id_allocator++;
 
 			/** Creates our Task and add it to the queue*/
-			Task *t = Task::Create(type, priority);
-			t->SetUID(id_allocator);
+			Task t(type, priority);
+			t.SetUID(id_allocator);
 
-			queue.push(std::unique_ptr<Task>(t));
+			queue.push(t);
 		}
 
-		Task * TaskManager::Top()
+		Task TaskManager::Top() const
 		{
-			return queue.top().get();
+			return queue.top();
+		}
+
+		void TaskManager::Pop()
+		{
+			queue.pop();
 		}
 
 	}

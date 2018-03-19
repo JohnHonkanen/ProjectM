@@ -29,6 +29,8 @@
 #include "Resources.h"
 #include "components\Light.h"
 
+#include "task_system\TaskManager.h"
+
 using namespace std;
 
 #include "Hub.h"
@@ -59,23 +61,15 @@ int main(int argc, char *argv[])
 	//HUB
 	int amount = 0;
 	GameObject *hubObject = manager->CreateGameObject("HUB");
-	InventoryWrapper * iw = InventoryWrapper::Create(hubObject, &gameManager->resourceManager);
-	gameManager->playerEconManager.SetHUBInventory(&iw->inventory);
-	iw->inventory.AddFilter(ResourceName::Gold);
-	iw->inventory.SetMode(v2::Inventory::WHITELIST);
-	iw->inventory.AddItem(ResourceName::Gold, amount=100);
-	iw->inventory.CheckStorageFull(gameManager->resourceManager.Find(ResourceName::Gold), amount);
-	cout << "contains: " << iw->inventory.Contains(gameManager->resourceManager.Find(ResourceName::Gold)) << endl;
 
-	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
-
-	Hub *hub = Hub::Create(hubObject);
+	Hub *hub = Hub::Create(hubObject, gameManager);
 	hubObject->transform->Scale(vec3(3.0f));
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
 	hubObject->transform->Translate(vec3(100, 8, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	//end of Hub Setup
 
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(

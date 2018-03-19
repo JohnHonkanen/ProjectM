@@ -1,14 +1,20 @@
 #pragma once
 #include "components\Behaviour.h"
 #include <queue>
-#include <memory>
-
+#include <vector>
 #include "Task.h"
 namespace v1
 {
 	namespace TaskSystem
 	{
-		using TaskQueue = std::priority_queue<std::unique_ptr<Task>>;
+		struct TaskComparator
+		{
+			bool operator()(const Task &t1, const Task &t2) const
+			{
+				return t1.GetPriority() < t2.GetPriority();
+			}
+		};
+		using TaskQueue = std::priority_queue<Task, vector<Task>, TaskComparator>;
 
 		class TaskManager : public Behaviour
 		{
@@ -16,9 +22,10 @@ namespace v1
 			static TaskManager * Create(GameObject * gameObject);
 			void Copy(GameObject * object);
 			//Adds a Task to the task queue
-			void AddTask(Task::TYPE type, int priority);
+			void AddTask(TASK_TYPE type, int priority);
 
-			Task * Top();
+			Task Top() const;
+			void Pop();
 		private:
 			 TaskQueue queue;
 
