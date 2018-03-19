@@ -28,10 +28,13 @@ Warehouse::Warehouse(string buildingName, int hp, int pow, int eff, int rad, boo
 	isActive = active;
 }
 
-Warehouse * Warehouse::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active)
+Warehouse * Warehouse::Create(string name, int hp, int pow, int eff, int rad, bool placed, bool active, ResourceManager * rm)
 {
 	Warehouse *w = new Warehouse(name, hp, pow, eff, rad, placed, active);
 	w->structureType = WAREHOUSE;
+	w->inventory = Inventory(9);
+	w->inventory.SetResourceManager(rm);
+	w->rm = rm;
 	return w;
 }
 
@@ -46,6 +49,9 @@ void Warehouse::Copy(GameObject *copyObject)
 	copy->isPlaced = Warehouse::isPlaced;
 	copy->isActive = Warehouse::isActive;
 	copy->structureType = WAREHOUSE;
+	copy->inventory = Inventory(9);
+	copy->inventory.SetResourceManager(rm);
+	copy->rm = rm;
 
 	copyObject->AddComponent(copy);
 
@@ -59,11 +65,5 @@ void Warehouse::Update()
 {
 }
 
-
-
-void Warehouse::Update(int change)
-{
-	inv->SetInventorySize(change);
-}
 
 

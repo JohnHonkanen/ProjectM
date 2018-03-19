@@ -53,6 +53,7 @@ namespace v2 {
 		// Checks if the resources is in a building
 		int Contains(ResourceName res);
 
+		Slot & At(int index) { return storage[index]; }
 
 		// Returns READ ONLY inventory to be read for HUD for example.
 		std::vector<Slot> GetInventory() const { return std::vector<Slot>(storage.begin(),storage.end()); }

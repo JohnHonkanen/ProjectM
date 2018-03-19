@@ -133,6 +133,7 @@ bool Structure::SetUpkeep(int change)
 	if (upkeep < 10 && upkeep > 1) {
 		upkeep += change * initialUpkeep;
 	}
+	return true;
 }
 
 void Structure::SetPlaced(bool change)
