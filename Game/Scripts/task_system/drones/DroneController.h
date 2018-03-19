@@ -1,18 +1,24 @@
 #pragma once
 #include "../Task.h"
 #include <glm\glm.hpp>
+#include "utility\Clock.h"
+#include "core\GameObject.h"
 class Drone;
+class Hub;
 namespace v1 {
 	namespace TaskSystem {
 
 		class DroneController
 		{
 		public:
-			DroneController(class Drone *drone);
+			DroneController(Drone *drone, Hub * hub);
+			void Start();
 			void Update(double dt);
 			bool AssignTask(Task t);
 			void ForceTask(Task t);
+
 		private:
+			Hub * hub;
 			enum State
 			{
 				IDLE,
@@ -36,8 +42,8 @@ namespace v1 {
 			void ActiveBehaviour(double dt);
 			void RechargeBehaviour(double dt);
 
-			void CollectionRoutine();
-			void DeliverRoutine();
+			void CollectionRoutine(double dt);
+			void DeliverRoutine(double dt);
 
 			State state;
 			IdleBob idleBob;
@@ -57,6 +63,14 @@ namespace v1 {
 			ACTIVE_STATE activeState;
 			float baseSpeed = 20.0f;
 			float speedMod = 1.0f;
+			bool forceIdle = false;
+
+			float collectionRate = 3.0f;
+			bool collecting = false;
+			Engine::Utility::Clock clock;
+
+			Engine::GameObject box;
+			Engine::GameObject * boxObj;
 		};
 	}
 }

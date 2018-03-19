@@ -45,16 +45,4 @@ void DroneProducer::SpawnDrone()
 	if (nearest == nullptr)
 		return;
 
-	//Drone Code
-	GameObject *droneObject = new GameObject("drone");
-	MeshRenderer::Create(droneObject, "Game/Assets/Models/mobajuice/Drone.DAE");
-	Drone *drone = Drone::Create(droneObject);
-	drone->SetDestination(nearest->transform->GetPosition());
-	droneObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
-	droneObject->transform->Scale(vec3(1.5));
-	droneObject->transform->SetPosition(transform->GetPosition());
-
-	droneObject->Instantiate();
-
-	delete droneObject;
 }

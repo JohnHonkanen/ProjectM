@@ -1,16 +1,28 @@
 #include "DroneController.h"
 #include "../../Drone.h"
 #include <glm\gtx\compatibility.hpp>
+#include <glm\gtc\quaternion.hpp>
 #include "../../Structure.h"
+#include "../../Hub.h"
+#include "../TaskManager.h"
+#include "components\MeshRenderer.h"
 namespace v1{
 	namespace TaskSystem
 	{
-		DroneController::DroneController(Drone *drone): drone(drone), elevationLevel(30.0f),
-			idleBob({IdleBob::NONE, 2, 2, 5 }), state(IDLE), activeState(ACTIVE_IDLE)
+		DroneController::DroneController(Drone *drone, Hub * hub): drone(drone), elevationLevel(30.0f),
+			idleBob({IdleBob::NONE, 2, 2, 5 }), state(IDLE), activeState(ACTIVE_IDLE), hub(hub)
 		{
+			clock.SetDelay(collectionRate * 1000);
+			clock.StartClock();
+		}
+		void DroneController::Start()
+		{
+			MeshRenderer::Create(&box, "Game/Assets/Models/cube/cube.obj");
+			box.material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
 		}
 		void DroneController::Update(double dt)
 		{
+			clock.UpdateClock();
 			ApplyDroneBehaviour(dt);
 		}
 		bool DroneController::AssignTask(Task t)
@@ -33,7 +45,7 @@ namespace v1{
 
 		void DroneController::ApplyDroneBehaviour(double dt)
 		{
-			if (task.GetType() != TASK_TYPE::NONE)
+			if (task.GetType() != TASK_TYPE::NONE && !forceIdle)
 			{
 				state = ACTIVE;
 			}
@@ -55,6 +67,12 @@ namespace v1{
 		}
 		void DroneController::IdleBehaviour(double dt)
 		{
+			auto taskManager = hub->GetTaskManager();
+
+			if (taskManager->HasTask())
+			{
+				task = taskManager->Pop();
+			}
 			vec3 position = drone->transform->GetPosition();
 			float upperBounds = elevationLevel + idleBob.upperElevation;
 			float lowerBounds = elevationLevel - idleBob.lowerElevation;
@@ -102,13 +120,20 @@ namespace v1{
 		{
 			vec3 position = drone->transform->GetPosition();
 
-			if (position.y < elevationLevel)
+			if (activeState != DELIVER)
 			{
-				activeState = RISE;
+				if (position.y < elevationLevel)
+				{
+					activeState = RISE;
+				}
+				else {
+					if (activeState != COLLECT)
+					{
+						activeState = MOVE;
+					}
+				}
 			}
-			else {
-				activeState = MOVE;
-			}
+			
 
 			//Rotate to face dir
 			vec3 toPos = position;
@@ -116,12 +141,13 @@ namespace v1{
 			{
 			case TASK_TYPE::COLLECT:
 				toPos = task.From()->gameObject->transform->GetPosition();
+				toPos.y = elevationLevel;
 				break;
 			default:
 				break;
 			}
 
-			if (distance(position, toPos) < 0.5f)
+			if (activeState == MOVE && distance(position, toPos) < 0.5f && activeState != COLLECT && activeState != DELIVER)
 			{
 				activeState = PARK;
 			}
@@ -129,11 +155,20 @@ namespace v1{
 			float angle = atan2(dir.x, dir.z) + radians(90.0f);
 			glm::quat curRot = drone->transform->GetQuaternion();
 			glm::quat rot = quat(0, 1 * sin(angle / 2), 0, cos(angle / 2));
+
+			vec3 rotE = eulerAngles(rot);
 			quat inter_rot = lerp(curRot, rot, 0.1f);
 			drone->transform->SetQuaternion(inter_rot);
+
 			
 
 			vec3 pos;
+
+			if (forceIdle)
+			{
+				activeState = DELIVER;
+			}
+
 			switch (activeState)
 			{
 			case RISE:
@@ -144,14 +179,13 @@ namespace v1{
 				drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
 				break;
 			case PARK:
-				drone->transform->SetPosition(toPos);
 				activeState = COLLECT;
 				break;
 			case COLLECT:
-				CollectionRoutine();
+				CollectionRoutine(dt);
 				break;
 			case DELIVER:
-				DeliverRoutine();
+				DeliverRoutine(dt);
 				break;
 			default:
 				break;
@@ -161,11 +195,120 @@ namespace v1{
 		void DroneController::RechargeBehaviour(double dt)
 		{
 		}
-		void DroneController::CollectionRoutine()
+		void DroneController::CollectionRoutine(double dt)
 		{
+			if (collecting == false)
+			{
+				collecting = true;
+				clock.ResetClock();
+			}
+
+			if (clock.Alarm())
+			{
+				if (boxObj == nullptr)
+				{
+					boxObj = box.Instantiate();
+				}
+
+				boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, elevationLevel, 0));
+				if (task.GetType() == TASK_TYPE::COLLECT)
+				{
+					Inventory * fromInventory = &task.From()->GetInventory();
+					ResourceName resource = task.GetResource();
+					int amount = 200;
+					int left = drone->GetInventory().AddItem(resource, amount);
+					int toRemove = amount - left;
+					fromInventory->Remove(resource, toRemove);
+
+					if (fromInventory->Contains(resource) == 0 || drone->GetInventory().CheckStorageFull(resource) == 0)
+					{
+						activeState = DELIVER;
+						collecting = false;
+					}
+				}
+
+				clock.ResetClock();
+			}
+			
+			if (boxObj != nullptr)
+			{
+
+				boxObj->transform->Translate(vec3(0, 10, 0) * float(dt / 1000.0f));
+			}
 		}
-		void DroneController::DeliverRoutine()
+		void DroneController::DeliverRoutine(double dt)
 		{
+			if (task.GetType() == TASK_TYPE::COLLECT)
+			{
+				int x, y;
+				task.From()->GetTilePosition(x,y);
+				Structure * nearestWarehouse = hub->FindNearestToDeposit(WAREHOUSE, x, y, task.GetResource());
+
+				if (nearestWarehouse == nullptr)
+				{
+					IdleBehaviour(dt);
+					forceIdle = true;
+					return;
+				}
+
+				forceIdle = false;
+
+				vec3 position = drone->transform->GetPosition();
+				vec3 to = nearestWarehouse->transform->GetPosition();
+				to.y = elevationLevel;
+
+				if (distance(position, to) < 0.5f)
+				{
+					if (collecting == false)
+					{
+						collecting = true;
+						clock.ResetClock();
+					}
+
+
+					if (drone->GetInventory().At(0).quantity == 0)
+					{
+						state = IDLE;
+						activeState = ACTIVE_IDLE;
+						task.From()->TaskCompleted();
+						task = Task();
+						boxObj->transform->SetPosition(vec3(0, -10, 0));
+
+					}
+					else {
+
+						if (clock.Alarm())
+						{
+							Inventory * wI = &nearestWarehouse->GetInventory();
+							drone->GetInventory().Send(wI, task.GetResource(), 200);
+							boxObj->transform->SetPosition(drone->transform->GetPosition());
+							clock.ResetClock();
+						}
+
+						if (boxObj != nullptr)
+						{
+
+							boxObj->transform->Translate(vec3(0, -10, 0) * float(dt / 1000.0f));
+						}
+					}
+					
+					
+				}
+				else {
+					vec3 dir = normalize(to - position);
+					float angle = atan2(dir.x, dir.z) + radians(90.0f);
+					glm::quat curRot = drone->transform->GetQuaternion();
+					glm::quat rot = quat(0, 1 * sin(angle / 2), 0, cos(angle / 2));
+
+					vec3 rotE = eulerAngles(rot);
+					quat inter_rot = lerp(curRot, rot, 0.1f);
+					//drone->transform->SetQuaternion(inter_rot);
+
+					drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
+				}
+
+				
+			}
 		}
 	}
 }

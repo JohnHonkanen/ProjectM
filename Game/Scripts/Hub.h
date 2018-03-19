@@ -14,6 +14,7 @@ public:
 	void AddStructureToNetwork(enum StructureType type, class Structure* structure, int x, int y);
 	class Structure* GetStructure(int x, int y);
 	class Structure* FindNearest(enum StructureType type, int x, int y);
+	class Structure* FindNearestToDeposit(enum StructureType type, int x, int y, ResourceName resource);
 
 	void Copy(GameObject *copyObject);
 

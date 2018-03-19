@@ -26,6 +26,11 @@ namespace v1
 			queue.push(task);
 		}
 
+		bool TaskManager::HasTask()
+		{
+			return !queue.empty();
+		}
+
 		Task TaskManager::Top() const
 		{
 			return queue.top();

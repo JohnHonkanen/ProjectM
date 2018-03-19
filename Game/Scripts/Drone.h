@@ -3,12 +3,13 @@
 #include <glm\glm.hpp>
 #include "InventoryV2.h"
 #include "task_system\drones\DroneController.h"
+#include "ResourceManager.h"
 
 class Drone : public Behaviour
 {
 public:
-	Drone();
-	static Drone *Create(GameObject *gameObject);
+	Drone(class Hub *hub);
+	static Drone *Create(GameObject *gameObject, class Hub *hub, ResourceManager * resourceManager);
 	void Copy(GameObject *copyObject);
 
 	void Start();
@@ -28,5 +29,7 @@ private:
 
 	v2::Inventory inventory;
 	v1::TaskSystem::DroneController controller;
+	class Hub *hub;
+	ResourceManager * resourceManager;
 
 };

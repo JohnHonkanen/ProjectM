@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 	p1->transform->SetPosition(vec3(-23,5,1));
 
 	GameObject * droneObj = manager->CreateGameObject("Drone");
-	Drone::Create(droneObj);
+	Drone::Create(droneObj, hub, &gameManager->resourceManager);
 
 	//Boxes for shadow testing
 	GameObject *box = manager->CreateGameObject("box111");
@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
 	box->transform->Scale(vec3(5.0f));
 	box->transform->Translate(vec3(0, 5, 0));
 	box->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
-	box->material->normalMap = "Game/Assets/Textures/cube_normalss.jpg";
+
 	engine.Run();
 	return 0;
 }

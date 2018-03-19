@@ -23,7 +23,7 @@ namespace v1
 			void Copy(GameObject * object);
 			//Adds a Task to the task queue
 			void AddTask(Task task, int priority);
-
+			bool HasTask();
 			Task Top() const;
 			Task Pop();
 		private:

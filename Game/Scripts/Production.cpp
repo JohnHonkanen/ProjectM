@@ -65,7 +65,7 @@ void Production::Copy(GameObject * copyObject)
 
 void Production::Start()
 {
-	clock.SetDelay(1000);		//sets alarm
+	clock.SetDelay(5000);		//sets alarm
 	clock.StartClock();			//starts clock
 	billboard = gameObject->GetComponent<BuildingProductionAnims>();
 }
@@ -85,11 +85,21 @@ void Production::Update(double currentTime)
 			
 			if (availableSpace > 0) {
 				Resources* r = resourceManager->Find(producing);
-				int productionAmount = floor((r->GetStackLimit()*0.05)*productionEfficiency);
+				int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
 				inventory.AddItem(producing, productionAmount);
 				billboard->Spawn();
 			}
 		}
+
+		if (task.GetType() == TASK_TYPE::NONE)
+		{
+			if (inventory.At(0).quantity > 0)
+			{
+				task = v1::TaskSystem::Task(TASK_TYPE::COLLECT,5, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
+				hub->GetTaskManager()->AddTask(task, 5);
+			}
+		}
+		
 		clock.ResetClock();
 	}
 }
