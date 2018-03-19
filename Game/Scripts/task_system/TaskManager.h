@@ -22,7 +22,7 @@ namespace v1
 			static TaskManager * Create(GameObject * gameObject);
 			void Copy(GameObject * object);
 			//Adds a Task to the task queue
-			void AddTask(TASK_TYPE type, int priority);
+			void AddTask(Task task, int priority);
 
 			Task Top() const;
 			Task Pop();

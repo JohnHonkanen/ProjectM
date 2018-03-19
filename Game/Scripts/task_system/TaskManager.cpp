@@ -16,15 +16,14 @@ namespace v1
 		{
 		}
 
-		void v1::TaskSystem::TaskManager::AddTask(TASK_TYPE type, int priority)
+		void v1::TaskSystem::TaskManager::AddTask(Task task, int priority)
 		{
 			id_allocator++;
 
 			/** Creates our Task and add it to the queue*/
-			Task t(type, priority);
-			t.SetUID(id_allocator);
+			task.SetUID(id_allocator);
 
-			queue.push(t);
+			queue.push(task);
 		}
 
 		Task TaskManager::Top() const

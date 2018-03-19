@@ -27,7 +27,7 @@ namespace v1 {
 					NONE
 				};
 				IDLE_STATE state;
-				float upper_elevation, lower_elevation;
+				float upperElevation, lowerElevation;
 				float bobSpeed;
 			};
 			
@@ -36,12 +36,27 @@ namespace v1 {
 			void ActiveBehaviour(double dt);
 			void RechargeBehaviour(double dt);
 
+			void CollectionRoutine();
+			void DeliverRoutine();
+
 			State state;
 			IdleBob idleBob;
 			Task task;
 			Drone *drone;
 
-			float elevation_level;
+			float elevationLevel;
+
+			enum ACTIVE_STATE {
+				COLLECT,
+				MOVE,
+				DELIVER,
+				RISE,
+				PARK,
+				ACTIVE_IDLE
+			};
+			ACTIVE_STATE activeState;
+			float baseSpeed = 20.0f;
+			float speedMod = 1.0f;
 		};
 	}
 }

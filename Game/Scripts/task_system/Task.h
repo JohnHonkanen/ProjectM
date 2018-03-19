@@ -1,11 +1,14 @@
 #pragma once
 
 enum class TASK_TYPE {
-	SEND,
+	COLLECT,
 	REQUEST,
-	SENT_TO,
+	SEND_TO,
+	MINE,
 	NONE,
 };
+
+class Structure;
 
 namespace v1
 {
@@ -18,7 +21,8 @@ namespace v1
 		public:
 			Task();
 			Task(TYPE t);
-			Task(TYPE t, uint p);
+			Task(TYPE t, uint p, Structure *from, Structure *to = nullptr);
+			Task(TYPE t, uint p, Structure *from, Structure *to, ResourceName resource, int amount);
 			Task(const Task& task); //copy ctor
 
 			//Sets/Get a ID for the task
@@ -28,14 +32,25 @@ namespace v1
 			uint GetPriority() const;
 
 			TYPE GetType() const;
+
+			Structure *From() const;
+			Structure *To() const;
+
+			ResourceName GetResource() const;
+			int GetAmount() const;
+
 			//Operator Overloads for priority Queue
 			bool operator< (Task const& other) { return priority < other.priority; };
 			bool operator> (Task const& other) { return priority > other.priority; };
 		private:
-
 			TYPE type;
 			uint priority;
 			uint uid;
+			
+			Structure *from;
+			Structure *to;
+			ResourceName resource;
+			int amount;
 		};
 	}
 }

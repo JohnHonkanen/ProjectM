@@ -4,7 +4,7 @@
 #include <glm\gtx\quaternion.hpp>
 #include "core\GameEngine.h"
 #include "components\MeshRenderer.h"
-Drone::Drone() : controller(this)
+Drone::Drone() : controller(this), inventory(1)
 {
 }
 
