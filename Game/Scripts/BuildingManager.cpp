@@ -13,6 +13,7 @@ Devs: Jack Smith (B00308927), Greg Smith (B00308929), John Honkanen (B00291253)
 #include <fstream>
 #include <string>
 #include "BuildingProductionAnims.h"
+#include "InventoryWrapper.h"
 
 using namespace std;
 

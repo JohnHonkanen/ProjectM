@@ -45,8 +45,8 @@ void InventoryPopulator::TestItem(PlayerActions * pla, ResourceManager* resource
 		if (!keyHeld)
 		{
 			keyHeld = true;
-			dynamic_cast<Warehouse*>(pla->GetSelectedStructure())->GetInventory()
-				->PlaceItem((resourceManager->FindResource(resourceManager->RandomResources())));// needs random resource
+		//	dynamic_cast<Warehouse*>(pla->GetSelectedStructure())->GetInventory()
+		//		->PlaceItem((resourceManager->FindResource(resourceManager->RandomResources())));// needs random resource
 		}
 	}
 	else {

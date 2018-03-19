@@ -28,10 +28,10 @@ void ProductionHUD::Copy(GameObject* gameObject) {
 }
 void ProductionHUD::OnLoad()
 {
-		wrapper = EHUD::WHUDContainer::Create(root, { 600,100,300,200 }, "Game/Assets/Textures/cBlack.jpg", true);
+		wrapper = EHUD::WHUDContainer::Create(root, { 600,100,300,200 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 		wrapper->SetActive(true); //For testing purposes, set to false when key selection added
-		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
-		HUD::TextWidget::Create(wrapper, { 10,40,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
+		//HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
+		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr);
 }
 
