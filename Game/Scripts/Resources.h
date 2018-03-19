@@ -8,6 +8,7 @@ using namespace std;
 
 
 enum class ResourceName : unsigned int {
+	Null_Resource,
 	Gold,
 	SpaceCow_Beef,
 	SpaceCow_Milk,
@@ -39,7 +40,7 @@ public:
 	int GetItemAmount(); // Get amount of item in stock
 
 	int GetBasePrice(); // Get current base price of items
-	void SetBasePrice(); // Set current base price of items
+	void SetBasePrice(int basePrice); // Set current base price of items
 
 	void IncreaseItemAmount(int itemStock); // Increase the amount of item in stock
 	void ReduceItemAmount(int itemStock); // Decrease the amount of item in stock
