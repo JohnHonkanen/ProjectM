@@ -25,7 +25,7 @@ namespace v1
 			void AddTask(TASK_TYPE type, int priority);
 
 			Task Top() const;
-			void Pop();
+			Task Pop();
 		private:
 			 TaskQueue queue;
 

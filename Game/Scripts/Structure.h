@@ -39,7 +39,7 @@ protected:
 
 	int tileX, tileY;
 	StructureType structureType;
-	std::unique_ptr<Inventory> inv = std::make_unique<Inventory>();
+	std::unique_ptr<::Inventory> inv = std::make_unique<::Inventory>();
 public:
 	
 	Structure();
@@ -68,7 +68,7 @@ public:
 	void SetActive(bool change);				//
 
 	void InsertItem(Resources res);
-	Inventory* GetInventory() { return inv.get(); }
+	::Inventory* GetInventory() { return inv.get(); }
 	string ViewInventory() { return inv->DisplayInventory(); }
 	string ViewInventoryAt(int index) { return inv->GetAtStorageIndex(index); }
 

@@ -32,9 +32,12 @@ namespace v1
 			return queue.top();
 		}
 
-		void TaskManager::Pop()
+		Task TaskManager::Pop()
 		{
+			Task t = queue.top();
 			queue.pop();
+
+			return t;
 		}
 
 	}
