@@ -24,7 +24,11 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 
 	int newPrice = current + GetModifier(resourceName);
 
+	cout << "Old: " << GetCurrentPrice(resourceName) << endl;
+
 	resourceManager->Find(resourceName)->SetBasePrice(newPrice);
+
+	cout << "New: " << GetCurrentPrice(resourceName) << endl;
 }
 
 

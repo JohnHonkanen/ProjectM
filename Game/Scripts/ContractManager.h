@@ -6,6 +6,7 @@
 #include "utility\Clock.h"
 #include <list>
 
+
 class ContractManager {
 public:
 	ContractManager();

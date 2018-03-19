@@ -33,6 +33,11 @@ MarketManager * MarketManager::Create(GameObject *gameObject)
 	return m;
 }
 
+void MarketManager::SetResourceManager(ResourceManager * resourceManager)
+{
+	this->resourceManager = resourceManager;
+}
+
 void MarketManager::Copy(GameObject * copyObject)
 {
 	// Do nothing
@@ -55,9 +60,10 @@ void MarketManager::Update()
 	clock.UpdateClock();
 
 	if (clock.Alarm()) {
-
+		cout << "boop!" << endl;
+		clock.ResetClock();
 	}
-	clock.ResetClock();
+	
 }
 
 list<LocalMarket*> MarketManager::GetList() const

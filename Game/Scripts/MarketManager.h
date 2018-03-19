@@ -14,6 +14,8 @@ public:
 	LocalMarket* Find();
 
 	static MarketManager* Create(GameObject* gameObject);
+
+	void SetResourceManager(ResourceManager* resourceManager);
 	void Copy(GameObject *copyObject);
 	void OnLoad();
 	void Start();

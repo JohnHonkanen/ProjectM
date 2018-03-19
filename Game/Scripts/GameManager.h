@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "ContractManager.h"
 #include "PlayerEconManager.h"
+#include "MarketManager.h"
 
 class GameManager : public Behaviour
 {
@@ -20,6 +21,6 @@ public:
 	ResourceManager resourceManager;
 	ContractManager contractManager;
 	PlayerEconManager playerEconManager;
-
+	MarketManager marketManager;
 	
 };
