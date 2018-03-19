@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../Resources.h"
 enum class TASK_TYPE {
 	COLLECT,
 	REQUEST,
