@@ -49,9 +49,11 @@ void ProductionButton::Start()
 	container->SetActive(false);
 	resourceList.push_back(ProductionSetterButton::Create(root, { 320,10,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::SpaceCow_Milk));
 	resourceList.push_back(ProductionSetterButton::Create(root, { 380,10,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
-	//resourceList.push_back(ProductionSetterButton::Create(root, { 440,10,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr,3));
-	//resourceList.push_back(ProductionSetterButton::Create(root, { 500,10,50,50 }, "Game/Assets/Textures/chicken-16.png", nullptr, 4));
-	//resourceList.push_back(ProductionSetterButton::Create(root, { 320,70,50,50 }, "Game/Assets/Textures/water-16.png", nullptr, 5));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 440,70,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::Chicken_Egg));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 500,10,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Kittain));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 320,70,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Mandrake));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 380,70,50,50 }, "Game/Assets/Textures/grape-16.png", nullptr, ResourceName::Grape));
+
 	for (ProductionSetterButton* button : resourceList) {
 		button->SetActive(false);
 	}
