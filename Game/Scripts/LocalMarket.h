@@ -21,6 +21,9 @@ public:
 	MarketName GetMarketID();
 	string GetNameOfMarket();
 	
+	Resources AddResource(ResourceName resourceName); // Add Resource that can be sold in the market
+	bool FindResourceForSale(ResourceName resourceName); // Find if resource is for sale
+
 	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
 	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
 
@@ -38,7 +41,7 @@ private:
 	int resourceID, basePrice;
 	string nameOfMarket;
 
-	vector <Resources> resourceForSale;
+	vector<Resources> resourceForSale;
 };
 
 using Market = LocalMarket;

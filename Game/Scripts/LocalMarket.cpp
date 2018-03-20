@@ -25,8 +25,7 @@ LocalMarket::~LocalMarket()
 
 int LocalMarket::GetCurrentPrice(ResourceName resourceName)
 {
-	this->basePrice = FindResourceForSale(resourceName).GetBasePrice();
-	return this->basePrice;
+	return this->basePrice = resourceManager->Find(resourceName)->GetBasePrice();
 }
 
 void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
@@ -35,13 +34,13 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 
 	int newPrice = current + GetModifier(resourceName);
 
-	if (FindResourceForSale(resourceName).GetResouceID() != ResourceName::Null_Resource) {
+	if (resourceManager->Find(resourceName)->GetResouceID() != ResourceName::Null_Resource) {
 		cout << "Old: " << GetCurrentPrice(resourceName) << endl;
-		FindResourceForSale(resourceName).SetBasePrice(newPrice);
+		resourceManager->Find(resourceName)->SetBasePrice(newPrice);
 		cout << "New: " << GetCurrentPrice(resourceName) << endl;
 	}
 
-	if (FindResourceForSale(resourceName).GetResouceID() == ResourceName::Null_Resource) {
+	if (resourceManager->Find(resourceName)->GetResouceID() == ResourceName::Null_Resource) {
 		cout << "Whoops! We just tried to SetNewCurrentPrice on a Null_Resource!" << endl;
 	}
 }
@@ -49,6 +48,37 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 string LocalMarket::GetNameOfMarket()
 {
 	return this->nameOfMarket;
+}
+
+Resources LocalMarket::AddResource(ResourceName resourceName)
+{
+	Resource resource = *resourceManager->Find(resourceName);
+	// Check if resource exists in resourceForSale list
+
+	for (auto res : resourceForSale) {
+		if (res.GetResouceID() != ResourceName::Null_Resource) {
+			this->resourceForSale.push_back(resource);
+		}
+	}
+
+	return resource;
+}
+
+bool LocalMarket::FindResourceForSale(ResourceName resourceName)
+{
+	Resource resource = *resourceManager->Find(resourceName);
+	
+	bool found = false;
+
+	for (auto res : resourceForSale) {
+		if (res.GetResouceID() == resourceName) {
+			found = true;
+			cout << "found = true" << endl;
+			return found;
+		}
+	}
+	cout << "found = false" << endl;
+	return found;
 }
 
 MarketName LocalMarket::GetMarketID()

@@ -37,37 +37,42 @@ LocalMarket MarketManager::Find(MarketName marketName)
 	}
 }
 
-Resources MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceName)
+void MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceName)
 {
 	// Need to add resource to correct market
 
 	Resource resource = *resourceManager->Find(resourceName);
 
-	// Check if resource exists in resourceForSale list
-
-	if (FindResourceForSale(marketToAddTo, resourceName).GetResouceID() != ResourceName::Null_Resource) {
-		this->resourceForSale.push_back(resource);
+	if (marketToAddTo == MarketName::Local) {
+		cout << "Adding resource to... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
+		marketQueue[LOCAL].AddResource(resourceName);
+		FindResourceForSale(marketToAddTo, resourceName);
+		cout << "TASK COMPLETED" << endl << endl;
 	}
 
-	return resource;
+	if (marketToAddTo == MarketName::Galactic) {
+		cout << "Adding resource to... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
+		marketQueue[GALACTIC].AddResource(resourceName);
+		FindResourceForSale(marketToAddTo, resourceName);
+		cout << "TASK COMPLETED" << endl << endl;
+	}
+	
 }
 
-Resources MarketManager::FindResourceForSale(MarketName marketToSearch, ResourceName resourceName)
+void MarketManager::FindResourceForSale(MarketName marketToSearch, ResourceName resourceName)
 {
 	// Need to check resource in correct market
 
-	bool found = false;
-	Resource resource = *resourceManager->Find(resourceName);
-
-	// Check if resource exists in resourceForSale list
-	for (auto res : resourceForSale) {
-		if (res.GetResouceID == resourceName) {
-			found = true;
-			return res;
-		}
+	if (marketToSearch == MarketName::Local) {
+		cout << "Searching... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
+		marketQueue[LOCAL].FindResourceForSale(resourceName);
 	}
 
-	// Need a return statement if not found
+	if (marketToSearch == MarketName::Galactic) {
+		cout << "Searching... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
+		marketQueue[GALACTIC].FindResourceForSale(resourceName);
+	}
+
 }
 
 MarketManager * MarketManager::Create(GameObject *gameObject)
@@ -102,8 +107,6 @@ void MarketManager::Start()
 
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
 	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
-
-	Find(MarketName::Galactic).GetNameOfMarket();
 }
 
 void MarketManager::Update()
