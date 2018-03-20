@@ -20,6 +20,7 @@
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
 #include "hud\ProductionHUD.h"
+#include "hud\MarketHUD.h"
 
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
@@ -125,7 +126,8 @@ int main(int argc, char *argv[])
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
-	
+	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
+
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;
 

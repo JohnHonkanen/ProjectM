@@ -40,6 +40,8 @@
     <ClInclude Include="Game\Scripts\hud\InventoryHUD.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\MainHUD.h" />
+    <ClInclude Include="Game\Scripts\hud\MarketHUD.h" />
+    <ClInclude Include="Game\Scripts\hud\MarketHudElement.h" />
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h" />
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionButton.h" />
@@ -83,6 +85,8 @@
     <ClCompile Include="Game\Scripts\hud\InventoryHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\MainHUD.cpp" />
+    <ClCompile Include="Game\Scripts\hud\MarketHUD.cpp" />
+    <ClCompile Include="Game\Scripts\hud\MarketHudElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\PlayerEconHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionButton.cpp" />
