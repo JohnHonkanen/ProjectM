@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 	ContractHUD* contractHUD = ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
 	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
-	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
 	
 

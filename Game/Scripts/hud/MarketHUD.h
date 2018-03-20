@@ -31,9 +31,9 @@ public:
 private:
 	/*HUD Elements*/
 	EHUD::HUDCanvas* root;
-	EHUD::HUDElement* wrapper;
+	EHUD::HUDElement* wrapper, *wrapper2, *wrapper3;
 
-	class MarketHUDElement *MHElement, *MHElement2, *MHElement3, *MHElement4, *MHElement5, *MHElement6, *MHElement7;
+	class MarketHUDElement *MHElement, *MHElement2;
 
 	class MarketManager* marketManager;
 	class LocalMarket *market1, *market2;
