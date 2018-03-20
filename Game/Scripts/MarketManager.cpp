@@ -37,6 +37,20 @@ LocalMarket MarketManager::Find(MarketName marketName)
 	}
 }
 
+LocalMarket * MarketManager::FindPersistentMarket(MarketName marketName)
+{
+	bool found = false;
+	for (auto &availableMarket : marketQueue) {
+		if (availableMarket.GetMarketID() == marketName) {
+			found = true;
+			return &availableMarket;
+		}
+	}
+	if (!found) {
+		return nullptr;
+	}
+}
+
 void MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceName)
 {
 	// Need to add resource to correct market

@@ -86,6 +86,16 @@ MarketName LocalMarket::GetMarketID()
 	return this->marketName;
 }
 
+string LocalMarket::GetResourceIcon(ResourceName resourceName)
+{
+	return resourceManager->Find(resourceName)->GetResourceIcon();
+}
+
+int LocalMarket::GetResourcePrice(ResourceName resourceName)
+{
+	return resourceManager->Find(resourceName)->GetBasePrice();
+}
+
 int LocalMarket::GetModifier(ResourceName resourceName)
 {
 	return resourceManager->Find(resourceName)->GetDemand();

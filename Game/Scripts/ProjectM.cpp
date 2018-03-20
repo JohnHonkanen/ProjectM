@@ -123,10 +123,11 @@ int main(int argc, char *argv[])
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	ContractHUD* contractHUD = ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
 	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla);
-	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
+	
 
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	//vector<Inventory*> iStorage;

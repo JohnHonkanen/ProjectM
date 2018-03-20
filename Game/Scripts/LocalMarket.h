@@ -24,6 +24,8 @@ public:
 	Resources AddResource(ResourceName resourceName); // Add Resource that can be sold in the market
 	bool FindResourceForSale(ResourceName resourceName); // Find if resource is for sale
 
+	string GetResourceIcon(ResourceName resourceName); // Get Resource Icon for item sold in market
+	int GetResourcePrice(ResourceName resourceName); // Get Resource price
 	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
 	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
 

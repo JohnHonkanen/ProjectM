@@ -4,12 +4,15 @@
 #include "hud/widgets/HUDContainer.h"
 #include "../MarketManager.h"
 #include "hud\widgets\TextWidget.h"
+#include "MarketHudElement.h"
 
 MarketHUD * MarketHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, MarketManager * marketManager)
 {
 	MarketHUD *marketHUD = new MarketHUD();
 	marketHUD->marketManager = marketManager;
 	marketHUD->root = root;
+
+	gameObject->AddComponent(marketHUD);
 
 	return marketHUD;
 }
@@ -27,7 +30,7 @@ void MarketHUD::Copy(GameObject * copyObject)
 void MarketHUD::OnLoad()
 {
 	// Create HUD elements based on markets in marketManager
-	wrapper = EHUD::WHUDContainer::Create(root,{500, 500, 500, 500}, "Game/Assets/Textures/blackG.jpg", true);
+	wrapper = EHUD::WHUDContainer::Create(root,{0, 0, 240, 1000}, "Game/Assets/Textures/transparent_black.png", true);
 	wrapper->SetActive(true);
 
 	Engine::GameEngine::manager.inputManager.AddKey("ToggleMarketHUD", "m");
@@ -35,6 +38,11 @@ void MarketHUD::OnLoad()
 
 void MarketHUD::Start()
 {
+	market1 = marketManager->FindPersistentMarket(MarketName::Local);
+	market2 = marketManager->FindPersistentMarket(MarketName::Galactic);
+
+	MHElement = MarketHUDElement::Create(wrapper, { 25, 25, 0, 0 }, market1);
+
 }
 
 void MarketHUD::Update()

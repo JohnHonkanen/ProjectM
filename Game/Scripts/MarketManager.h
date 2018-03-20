@@ -19,6 +19,7 @@ public:
 
 	LocalMarket AddMarket(MarketName marketName, string nameOfMarket);
 	LocalMarket Find(MarketName marketName);
+	LocalMarket *FindPersistentMarket(MarketName marketName);
 
 	void AddResource(MarketName marketToAddTo, ResourceName resourceName); // Add a resource to a specific market
 	void FindResourceForSale(MarketName marketToSearch, ResourceName resourceName); // Find resource for sale in specific market
