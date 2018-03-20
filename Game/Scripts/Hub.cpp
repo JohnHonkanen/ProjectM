@@ -157,6 +157,54 @@ Structure * Hub::FindNearestToDeposit(StructureType type, int x, int y, Resource
 	return nullptr;
 }
 
+Structure * Hub::FindNearestWithResource(StructureType type, int x, int y, ResourceName resource)
+{
+	int distance = 1000000000;
+	Structure * s = nullptr;
+
+	std::priority_queue<PQueue, vector<PQueue>, PQComparator> queue;
+	for (int i = 0; i < networkList.size(); i++)
+	{
+		//Not the type we are looking for
+		if (networkList[i].type != type)
+		{
+			continue;
+		}
+
+		int dx, dy;
+		dx = (networkList[i].x - x);
+		dy = abs(networkList[i].y - y);
+		int dist = (dx*dx) + (dy*dy);
+
+		queue.push({ dist, i });
+	}
+
+	bool find = false;
+
+	if (queue.empty())
+	{
+		return nullptr;
+	}
+	while (!find)
+	{
+		int i = queue.top().i;
+		s = networkList[i].structure;
+		if (s->GetInventory().Contains(resource))
+		{
+			return s;
+		}
+
+		queue.pop();
+
+		if (queue.empty())
+		{
+			return nullptr;
+		}
+	}
+
+	return nullptr;
+}
+
 void Hub::Copy(GameObject * copyObject)
 {
 	//TO Be Filled in

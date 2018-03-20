@@ -16,6 +16,7 @@ public:
 	class Structure* GetStructure(int x, int y);
 	class Structure* FindNearest(enum StructureType type, int x, int y);
 	class Structure* FindNearestToDeposit(enum StructureType type, int x, int y, ResourceName resource);
+	class Structure* FindNearestWithResource(enum StructureType type, int x, int y, ResourceName resource);
 
 	void Copy(GameObject *copyObject);
 	void OnLoad();
