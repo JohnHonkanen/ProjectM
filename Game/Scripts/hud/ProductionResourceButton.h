@@ -12,7 +12,7 @@ namespace Engine {
 }
 
 namespace EHUD = Engine::HUD;
-class ProductionButton : public ButtonWidget {
+class ProductionResourceButton : public ButtonWidget {
 public:
 	/** Pointer Enter Bounds Event*/
 	void OnPointerEnter(EventData data);
@@ -24,10 +24,11 @@ public:
 	void Start();
 	void Input();
 	void Update();
-	void SetProduction(class Production *production);
+	void DeleteItems(class V2 * inv);
+
 	void SetIcon(string icon) { iconImage = icon; }
 
-	static ProductionButton * Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, class Production *production);
+	static ProductionResourceButton * Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, class Production *production);
 
 
 private:
@@ -36,8 +37,4 @@ private:
 	class Production *production;
 	class EHUD::HUDElement *root;
 	class EHUD::HUDElement *container;
-
-	vector<class ProductionSetterButton*> resourceList;
-
-	void ConfigureResources();
 };
