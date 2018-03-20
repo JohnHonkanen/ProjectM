@@ -170,6 +170,38 @@ namespace v2 {
 		return DContains(rm->Find(res));
 	}
 
+	vector<ResourceSlot> Inventory::Contains()
+	{
+		vector<ResourceSlot> list;
+		map<ResourceName, int> index;
+		for (Slot slot : storage)
+		{
+			if (slot.resource == nullptr)
+			{
+				continue;					// If the resource is nullptr go to the next index.
+			}
+			ResourceName resource = slot.resource->GetResouceID();
+			if (index.find(slot.resource->GetResouceID()) == index.end())
+			{
+				index[resource] = 0;
+			}
+			
+			index[resource] += slot.quantity;
+		}
+
+		for (auto i : index)
+		{
+			ResourceSlot rs;
+			rs.resource = i.first;
+			rs.quantity = i.second;
+
+			list.push_back(rs);
+		}
+
+		return list;
+
+	}
+
 	bool Inventory::DRemove(Resources * res, int &amount)
 	{
 
@@ -199,11 +231,11 @@ namespace v2 {
 						amount = 0;
 						return true;
 					}
-				}
-				else if (slot.quantity <= 0)
-				{
-					slot.quantity = 0;
-					slot.resource = nullptr;
+					if (slot.quantity <= 0)
+					{
+						slot.quantity = 0;
+						slot.resource = nullptr;
+					}
 				}
 			}
 		}

@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 	
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 
-	HubHUD::Create(hudController, canvas, hub);
+	HubHUD::Create(hudController, canvas, hub, &gameManager->resourceManager);
 
 	//Directional Light
 	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
@@ -152,9 +152,6 @@ int main(int argc, char *argv[])
 	};
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
-
-	GameObject * droneObj = manager->CreateGameObject("Drone");
-	Drone::Create(droneObj, hub, &gameManager->resourceManager);
 
 	//Boxes for shadow testing
 	GameObject *box = manager->CreateGameObject("box111");

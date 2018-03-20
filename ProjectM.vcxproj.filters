@@ -153,6 +153,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\hud\HubHUD.cpp" />
+    <ClCompile Include="Game\Scripts\hud\FunctionPtrButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -303,6 +304,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\HubHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\FunctionPtrButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
