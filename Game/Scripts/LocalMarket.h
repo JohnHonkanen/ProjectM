@@ -29,11 +29,13 @@ public:
 	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
 	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
 
+	int GetResourceForSaleSize();
+
 	void OnLoad();
 	void Start();
 	void Update();
 
-
+	vector<Resources> GetResources() const;
 private:
 	int marketID;
 	Resources resource;

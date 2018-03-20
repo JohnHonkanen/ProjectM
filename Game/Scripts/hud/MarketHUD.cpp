@@ -43,6 +43,8 @@ void MarketHUD::Start()
 
 	MHElement = MarketHUDElement::Create(wrapper, { 25, 25, 0, 0 }, market1);
 
+	/*Temp Disabled*/
+	//MHElement = MarketHUDElement::Create(wrapper, { 25, 25, 0, 0 }, market2);
 }
 
 void MarketHUD::Update()

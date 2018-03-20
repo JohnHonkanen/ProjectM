@@ -39,14 +39,15 @@ LocalMarket MarketManager::Find(MarketName marketName)
 
 LocalMarket * MarketManager::FindPersistentMarket(MarketName marketName)
 {
-	bool found = false;
-	for (auto &availableMarket : marketQueue) {
-		if (availableMarket.GetMarketID() == marketName) {
-			found = true;
-			return &availableMarket;
-		}
-	}
-	if (!found) {
+
+	switch (marketName) {
+	case MarketName::Local:
+		return &marketQueue[LOCAL];
+
+	case MarketName::Galactic:
+		return &marketQueue[GALACTIC];
+
+	default:
 		return nullptr;
 	}
 }
@@ -117,10 +118,24 @@ void MarketManager::Start()
 	clock.StartClock();
 
 	AddMarket(MarketName::Local, "LOCAL_MARKET");
+	AddResource(MarketName::Local, ResourceName::SpaceCow_Beef);
+	AddResource(MarketName::Local, ResourceName::SpaceCow_Cheese);
+	AddResource(MarketName::Local, ResourceName::SpaceCow_Milk);
+	AddResource(MarketName::Local, ResourceName::Sheep_Wool);
+	AddResource(MarketName::Local, ResourceName::Sheep_Meat);
 	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
+	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
 
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
-	AddResource(MarketName::Galactic, ResourceName::Chicken_Meat);
+	AddResource(MarketName::Galactic, ResourceName::Kittain);
+	AddResource(MarketName::Galactic, ResourceName::Steel_Cotton);
+	AddResource(MarketName::Galactic, ResourceName::Mandrake);
+	AddResource(MarketName::Galactic, ResourceName::Grape);
+	AddResource(MarketName::Galactic, ResourceName::Wine);
+	AddResource(MarketName::Galactic, ResourceName::Unilateralis);
+	AddResource(MarketName::Galactic, ResourceName::Electronic_Component);
+
+	marketQueue[LOCAL];
 }
 
 void MarketManager::Update()

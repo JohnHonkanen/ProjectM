@@ -25,7 +25,7 @@ public:
 private:
 	class LocalMarket* market;
 	EHUD::TextWidget* text, *rate, *quantity, *price;
-	EHUD::HUDElement* marketHUD;;
+	EHUD::HUDElement* marketHUD, *resourceHUD; //*resourceHUD1, *resourceHUD2, *resourceHUD3, *resourceHUD4, *resourceHUD5, *resourceHUD6, *resourceHUD7;
 	EHUD::WHUDContainer* resourceIcon;
 
 };

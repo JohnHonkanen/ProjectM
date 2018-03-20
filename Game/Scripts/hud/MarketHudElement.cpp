@@ -20,14 +20,16 @@ void MarketHUDElement::Start()
 	marketHUD = EHUD::WHUDContainer::Create(this, { -25, 0, 240, 32 }, "Game/Assets/Textures/transparent_black.png", true);
 	text = EHUD::TextWidget::Create(marketHUD, { 5, 20, 0, 0 }, "Resources  Quantity   Price", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
-	// Resource Icon
-	resourceIcon = EHUD::WHUDContainer::Create(this, {-5, 50, 32, 32}, market->GetResourceIcon(ResourceName::Chicken_Egg), true);
+	auto marketList = market->GetResources();
+	int y = 0;
+	float increment = 45;
 
-	// Resource Quantity in market
-	quantity = EHUD::TextWidget::Create(marketHUD, { 115, 70, 0, 0 }, "0", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-
-	// Price of Resource in market
-	price = EHUD::TextWidget::Create(marketHUD, { 175, 70, 0, 0 }, "$ " + to_string(market->GetResourcePrice(ResourceName::Chicken_Egg)), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	for (auto resource : marketList) {
+		resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 45 + y * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
+		resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 50 + y * increment, 32, 32 }, resource.GetResourceIcon(), true);
+		quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, "0", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+		price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	}
 }
 
 void MarketHUDElement::Update()

@@ -55,10 +55,8 @@ Resources LocalMarket::AddResource(ResourceName resourceName)
 	Resource resource = *resourceManager->Find(resourceName);
 	// Check if resource exists in resourceForSale list
 
-	for (auto res : resourceForSale) {
-		if (res.GetResouceID() != ResourceName::Null_Resource) {
-			this->resourceForSale.push_back(resource);
-		}
+	if (resourceName != ResourceName::Null_Resource) {
+		this->resourceForSale.push_back(resource);
 	}
 
 	return resource;
@@ -88,17 +86,20 @@ MarketName LocalMarket::GetMarketID()
 
 string LocalMarket::GetResourceIcon(ResourceName resourceName)
 {
-	return resourceManager->Find(resourceName)->GetResourceIcon();
+	Resource resource = *resourceManager->Find(resourceName);
+	return resource.GetResourceIcon();
 }
 
 int LocalMarket::GetResourcePrice(ResourceName resourceName)
 {
-	return resourceManager->Find(resourceName)->GetBasePrice();
+	Resource resource = *resourceManager->Find(resourceName);
+	return resource.GetBasePrice();
 }
 
 int LocalMarket::GetModifier(ResourceName resourceName)
 {
-	return resourceManager->Find(resourceName)->GetDemand();
+	Resource resource = *resourceManager->Find(resourceName);
+	return resource.GetDemand();
 }
 
 void LocalMarket::SetModifier(ResourceName resourceName)
@@ -110,6 +111,11 @@ void LocalMarket::SetModifier(ResourceName resourceName)
 	int newDemand = currentDemand + modifier;
 
 	resourceManager->Find(resourceName)->SetDemand(newDemand);
+}
+
+int LocalMarket::GetResourceForSaleSize()
+{
+	return resourceForSale.size();
 }
 
 void LocalMarket::OnLoad()
@@ -124,4 +130,9 @@ void LocalMarket::Start()
 void LocalMarket::Update()
 {
 	
+}
+
+vector<Resources> LocalMarket::GetResources() const
+{
+	return resourceForSale;
 }
