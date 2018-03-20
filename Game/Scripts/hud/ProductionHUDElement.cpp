@@ -28,10 +28,10 @@ ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::
 
 void ProductionHUDElement::Start()
 {
-	title = HUD::TextWidget::Create(productionHUD, { 10,60,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	level = HUD::TextWidget::Create(productionHUD, { 10,90,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	producing = HUD::TextWidget::Create(productionHUD, { 10,120,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	pButton = ProductionButton::Create(productionHUD, { 240,10,50,50 }, "Game/Assets/Textures/ground.jpg", nullptr);
+	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
+	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
+	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " hi ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
+	pButton = ProductionButton::Create(productionHUD, { 240,10,50,50 }, "Game/Assets/Textures/output_icon.png", nullptr);
 	StartChildWidgets();
 }
 
@@ -44,8 +44,8 @@ void ProductionHUDElement::Update()
 {
 	if (prod != nullptr) {
 		title->text = "Building: " + prod->GetName();
-		level->text = " TestingLevel: " + prod->GetProductionEfficiency();
-		producing->text = "Current Output: " + prod->GetProductionName();
+		level->text = "Level: " + to_string(prod->GetProductionEfficiency());
+		producing->text = "Output: " + prod->GetResource()->GetName();
 	}
 }
 
