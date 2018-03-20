@@ -16,10 +16,20 @@ LocalMarket MarketManager::AddMarket(MarketName marketName, string nameOfMarket)
 
 	// Check if market exists
 
-	if (Find(marketName).GetMarketID() == MarketName::Null_Market) {
-		this->marketQueue.push_back(localMarket);
-	}
+	//if (Find(marketName).GetMarketID() == MarketName::Null_Market) {
+	//	this->marketQueue.push_back(localMarket);
+	//}
+	//this->marketQueue.push_back(localMarket);
 
+	switch (marketName) {
+	case MarketName::Local:
+		this->marketQueue[LOCAL] = localMarket;
+		break;
+
+	case MarketName::Galactic:
+		this->marketQueue[GALACTIC] = localMarket;
+		break;
+	}
 	return localMarket;
 }
 
@@ -117,11 +127,14 @@ void MarketManager::Start()
 	clock.SetDelay(5000);
 	clock.StartClock();
 
+	marketQueue.resize(2);
 	AddMarket(MarketName::Local, "LOCAL_MARKET");
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Beef);
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Cheese);
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Milk);
 	AddResource(MarketName::Local, ResourceName::Sheep_Wool);
+	marketQueue[LOCAL];
+
 	AddResource(MarketName::Local, ResourceName::Sheep_Meat);
 	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
 	AddResource(MarketName::Local, ResourceName::Chicken_Meat);

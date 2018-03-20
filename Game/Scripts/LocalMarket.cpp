@@ -57,6 +57,7 @@ Resources LocalMarket::AddResource(ResourceName resourceName)
 
 	if (resourceName != ResourceName::Null_Resource) {
 		this->resourceForSale.push_back(resource);
+		cout << "Current resourceForSale size: " << this->resourceForSale.size() << endl;
 	}
 
 	return resource;
