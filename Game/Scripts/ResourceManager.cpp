@@ -102,7 +102,7 @@ int ResourceManager::NumberOfActiveResources()
 int ResourceManager::RandomResources()
 {
 	int numberOfResources = NumberOfActiveResources();
-	int generatedResourceID = (rand() % numberOfResources) + 1;
+	int generatedResourceID = (rand() % numberOfResources) + 2;
 	return generatedResourceID;
 }
 
