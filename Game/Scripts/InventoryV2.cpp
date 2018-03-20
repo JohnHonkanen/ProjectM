@@ -192,14 +192,18 @@ namespace v2 {
 					else
 					{
 						slot.quantity -= amount;
+						if (slot.quantity <= 0)
+						{
+							slot.resource = nullptr;
+						}
 						amount = 0;
 						return true;
 					}
-					if (slot.quantity <= 0)
-					{
-						slot.quantity = 0;
-						slot.resource = nullptr;
-					}
+				}
+				else if (slot.quantity <= 0)
+				{
+					slot.quantity = 0;
+					slot.resource = nullptr;
 				}
 			}
 		}
