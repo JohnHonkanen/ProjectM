@@ -5,10 +5,11 @@ LocalMarket::LocalMarket()
 	this->marketName = MarketName::Null_Market;
 }
 
-LocalMarket::LocalMarket(MarketName marketName, ResourceManager* resourceManager)
+LocalMarket::LocalMarket(MarketName marketName, ResourceManager* resourceManager, string nameOfMarket)
 {
 	this->marketName = marketName;
 	this->resourceManager = resourceManager;
+	this->nameOfMarket = nameOfMarket;
 }
 
 LocalMarket::LocalMarket(const LocalMarket & copy)
@@ -23,7 +24,8 @@ LocalMarket::~LocalMarket()
 
 int LocalMarket::GetCurrentPrice(ResourceName resourceName)
 {
-	return FindResourceForSale(resourceName).GetBasePrice();
+	this->basePrice = FindResourceForSale(resourceName).GetBasePrice();
+	return this->basePrice;
 }
 
 void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
@@ -41,6 +43,12 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 	if (FindResourceForSale(resourceName).GetResouceID() == ResourceName::Null_Resource) {
 		cout << "Whoops! We just tried to SetNewCurrentPrice on a Null_Resource!" << endl;
 	}
+}
+
+string LocalMarket::GetNameOfMarket()
+{
+	cout << "Marketname = " << this->nameOfMarket << endl;
+	return this->nameOfMarket;
 }
 
 Resources LocalMarket::AddResourceForSale(ResourceName resourceName)
@@ -105,7 +113,7 @@ void LocalMarket::OnLoad()
 void LocalMarket::Start()
 {
 	AddResourceForSale(ResourceName::Chicken_Egg);
-	AddResourceForSale(ResourceName::Chicken_Egg);
+	//AddResourceForSale(ResourceName::Chicken_Egg);
 }
 
 void LocalMarket::Update()

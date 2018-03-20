@@ -4,7 +4,7 @@
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
-#include <list>
+#include <string>
 #include <vector>
 
 #define LOCAL 0
@@ -15,7 +15,7 @@ public:
 	MarketManager();
 	~MarketManager();
 
-	LocalMarket AddMarket(MarketName marketname);
+	LocalMarket AddMarket(MarketName marketname, string nameOfMarket);
 	LocalMarket Find(MarketName marketName);
 
 	static MarketManager* Create(GameObject* gameObject);
