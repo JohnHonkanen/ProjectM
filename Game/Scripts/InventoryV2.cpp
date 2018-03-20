@@ -184,7 +184,7 @@ namespace v2 {
 				if (amount > 0)
 				{
 					int temp = amount;
-					if (temp > slot.quantity)
+					if (temp >= slot.quantity)
 					{
 						amount -= slot.quantity;
 						slot.quantity -= temp;
