@@ -45,7 +45,7 @@ void InventoryHUDElement::Start()
 	{
 		for (int y = 0; y < 3; y++)
 		{
-			slots[x + y] = HUDInventorySlot::Create(this, { float(55 * x),float(55 * y), 50,50}, "Game/Assets/Texture/building_hud.jpg");
+			slots[x + y] = HUDInventorySlot::Create(this, { float(55 * x),float(55 * y), 50,50}, "Game/Assets/Textures/Production_HUD_Texture.png");
 		}
 	}
 		StartChildWidgets();
