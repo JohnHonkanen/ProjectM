@@ -57,7 +57,6 @@ Resources LocalMarket::AddResource(ResourceName resourceName)
 
 	if (resourceName != ResourceName::Null_Resource) {
 		this->resourceForSale.push_back(resource);
-		cout << "Current resourceForSale size: " << this->resourceForSale.size() << endl;
 	}
 
 	return resource;
@@ -72,11 +71,9 @@ bool LocalMarket::FindResourceForSale(ResourceName resourceName)
 	for (auto res : resourceForSale) {
 		if (res.GetResouceID() == resourceName) {
 			found = true;
-			cout << "Resource (duplicate) found" << endl;
 			return found;
 		}
 	}
-	cout << "Resource (duplicate) not found" << endl;
 	return found;
 }
 

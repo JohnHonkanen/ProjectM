@@ -69,17 +69,17 @@ void MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceN
 	Resource resource = *resourceManager->Find(resourceName);
 
 	if (marketToAddTo == MarketName::Local) {
-		cout << "Adding resource to... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
+		//cout << "Adding resource to... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
 		marketQueue[LOCAL].AddResource(resourceName);
 		FindResourceForSale(marketToAddTo, resourceName);
-		cout << "TASK COMPLETED" << endl << endl;
+		//cout << "TASK COMPLETED" << endl << endl;
 	}
 
 	if (marketToAddTo == MarketName::Galactic) {
-		cout << "Adding resource to... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
+		//cout << "Adding resource to... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
 		marketQueue[GALACTIC].AddResource(resourceName);
 		FindResourceForSale(marketToAddTo, resourceName);
-		cout << "TASK COMPLETED" << endl << endl;
+		//cout << "TASK COMPLETED" << endl << endl;
 	}
 	
 }
@@ -89,12 +89,12 @@ void MarketManager::FindResourceForSale(MarketName marketToSearch, ResourceName 
 	// Need to check resource in correct market
 
 	if (marketToSearch == MarketName::Local) {
-		cout << "Searching... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
+		//cout << "Searching... " << marketQueue[LOCAL].GetNameOfMarket() << endl;
 		marketQueue[LOCAL].FindResourceForSale(resourceName);
 	}
 
 	if (marketToSearch == MarketName::Galactic) {
-		cout << "Searching... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
+		//cout << "Searching... " << marketQueue[GALACTIC].GetNameOfMarket() << endl;
 		marketQueue[GALACTIC].FindResourceForSale(resourceName);
 	}
 
