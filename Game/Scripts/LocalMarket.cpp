@@ -73,11 +73,11 @@ bool LocalMarket::FindResourceForSale(ResourceName resourceName)
 	for (auto res : resourceForSale) {
 		if (res.GetResouceID() == resourceName) {
 			found = true;
-			cout << "found = true" << endl;
+			cout << "Resource (duplicate) found" << endl;
 			return found;
 		}
 	}
-	cout << "found = false" << endl;
+	cout << "Resource (duplicate) not found" << endl;
 	return found;
 }
 

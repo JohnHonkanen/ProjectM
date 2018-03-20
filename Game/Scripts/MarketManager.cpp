@@ -106,7 +106,7 @@ void MarketManager::Start()
 	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
 
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
-	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
+	AddResource(MarketName::Galactic, ResourceName::Chicken_Meat);
 }
 
 void MarketManager::Update()
