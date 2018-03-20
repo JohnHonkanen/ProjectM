@@ -28,12 +28,13 @@ void PlayerEconomy::AddGoldBars(int goldBars)
 	playerEconManager->HUBInventory->CheckStorageFull(resourceManager->Find(ResourceName::Gold), amount);
 }
 
-void PlayerEconomy::RemoveGoldBars(int goldBars)
-{
-	int temp = this->resource.GetItemAmount();
-	temp -= goldBars;
-	this->resource.ReduceItemAmount(temp);
-}
+// Depricated
+//void PlayerEconomy::RemoveGoldBars(int goldBars)
+//{
+//	int temp = this->resource.GetItemAmount();
+//	temp -= goldBars;
+//	this->resource.ReduceItemAmount(temp);
+//}
 
 void PlayerEconomy::SetGBAmount(int GBAmount)
 {
