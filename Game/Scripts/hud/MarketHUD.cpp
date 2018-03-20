@@ -31,6 +31,9 @@ void MarketHUD::OnLoad()
 {
 	// Create HUD elements based on markets in marketManager
 	wrapper = EHUD::WHUDContainer::Create(root,{0, 0, 240, 1000}, "Game/Assets/Textures/transparent_black.png", true);
+
+	WidgetToggleButton::Create(wrapper, { 147 , 647 , 60,60 }, "Game/Assets/Textures/galactic.png", wrapper);
+
 	wrapper->SetActive(true);
 
 	Engine::GameEngine::manager.inputManager.AddKey("ToggleMarketHUD", "m");

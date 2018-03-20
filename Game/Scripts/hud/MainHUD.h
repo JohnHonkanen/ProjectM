@@ -31,5 +31,5 @@ private:
 
 	BuildingController * buildingController;
 	class ContractHUD* contractHUD;
-	class MarketHUD* marketHUD; // Need to implement
+	class MarketHUD* marketHUD;
 };

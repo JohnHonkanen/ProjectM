@@ -2,6 +2,7 @@
 
 #include "components\Behaviour.h"
 #include <vector>
+#include "WidgetToggleButton.h"
 
 // Forward Declarations
 
