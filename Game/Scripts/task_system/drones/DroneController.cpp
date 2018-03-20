@@ -152,13 +152,10 @@ namespace v1{
 				activeState = PARK;
 			}
 			vec3 dir = normalize(toPos - position);
-			float angle = atan2(dir.x, dir.z) + radians(90.0f);
-			glm::quat curRot = drone->transform->GetQuaternion();
-			glm::quat rot = quat(0, 1 * sin(angle / 2), 0, cos(angle / 2));
-
-			vec3 rotE = eulerAngles(rot);
-			quat inter_rot = lerp(curRot, rot, 0.1f);
-			drone->transform->SetQuaternion(inter_rot);
+			float angle = atan2(dir.x, dir.z);
+			vec3 droneAngle = drone->transform->GetRotation();
+			droneAngle.y = degrees(angle) - 90.0f;
+			drone->transform->SetEulerAngle(droneAngle);
 
 			
 
@@ -273,6 +270,7 @@ namespace v1{
 						task.From()->TaskCompleted();
 						task = Task();
 						boxObj->transform->SetPosition(vec3(0, -10, 0));
+						collecting = false;
 
 					}
 					else {
@@ -296,13 +294,10 @@ namespace v1{
 				}
 				else {
 					vec3 dir = normalize(to - position);
-					float angle = atan2(dir.x, dir.z) + radians(90.0f);
-					glm::quat curRot = drone->transform->GetQuaternion();
-					glm::quat rot = quat(0, 1 * sin(angle / 2), 0, cos(angle / 2));
-
-					vec3 rotE = eulerAngles(rot);
-					quat inter_rot = lerp(curRot, rot, 0.1f);
-					//drone->transform->SetQuaternion(inter_rot);
+					float angle = atan2(dir.x, dir.z);
+					vec3 droneAngle = drone->transform->GetRotation();
+					droneAngle.y = degrees(angle) - 90.0f;
+					drone->transform->SetEulerAngle(droneAngle);
 
 					drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
 				}
