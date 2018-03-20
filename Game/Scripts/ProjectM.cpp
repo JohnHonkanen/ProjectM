@@ -15,6 +15,7 @@
 #include "Production.h"
 #include "hud\ContractHUD.h"
 #include "hud\InventoryHUD.h"
+#include "hud\HubHUD.h"
 #include "Resources.h"
 #include <iostream>
 #include "PlayerActions.h"
@@ -110,9 +111,6 @@ int main(int argc, char *argv[])
 	HUD::HUD * hud = HUD::HUD::Create(scene, 1280, 720);
 	HUD::HUDCanvas * canvas = HUD::HUDCanvas::Create(hud, { 0, 0, 1280 , 720 }, "");
 
-	Warehouse* w = warehouse->GetComponent<Warehouse>();
-	Warehouse* w2 = warehouse->GetComponent<Warehouse>();
-
 	PlayerActions* pla = buildingController->GetPlayerAction();
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
@@ -124,7 +122,8 @@ int main(int argc, char *argv[])
 	
 
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
-	//vector<Inventory*> iStorage;
+
+	HubHUD::Create(hudController, canvas, hub, &gameManager->resourceManager);
 
 	//Directional Light
 	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
@@ -156,9 +155,6 @@ int main(int argc, char *argv[])
 	};
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
-
-	GameObject * droneObj = manager->CreateGameObject("Drone");
-	Drone::Create(droneObj, hub, &gameManager->resourceManager);
 
 	//Boxes for shadow testing
 	GameObject *box = manager->CreateGameObject("box111");

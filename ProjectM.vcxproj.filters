@@ -152,6 +152,8 @@
     <ClCompile Include="Game\Scripts\hud\HUDInventorySlot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\HubHUD.cpp" />
+    <ClCompile Include="Game\Scripts\hud\FunctionPtrButton.cpp" />
     <ClCompile Include="Game\Scripts\LocalMarket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -309,6 +311,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\HUDInventorySlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\HubHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\FunctionPtrButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h" />

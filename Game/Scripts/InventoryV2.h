@@ -18,6 +18,11 @@ Dev: Jack Smith (B00308927)
 
 using namespace std;
 
+struct ResourceSlot
+{
+	ResourceName resource;
+	int quantity;
+};
 
 namespace v2 {
 	class Inventory : public Behaviour
@@ -52,6 +57,8 @@ namespace v2 {
 
 		// Checks if the resources is in a building
 		int Contains(ResourceName res);
+
+		vector<ResourceSlot> Contains();
 
 		Slot & At(int index) { return storage[index]; }
 

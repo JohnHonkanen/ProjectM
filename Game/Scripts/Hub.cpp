@@ -5,7 +5,7 @@
 #include "InventoryWrapper.h"
 #include "GameManager.h"
 #include <queue>
-
+#include "Drone.h"
 struct Slot
 {
 	StructureType type;
@@ -210,6 +210,21 @@ void Hub::Copy(GameObject * copyObject)
 	//TO Be Filled in
 }
 
+void Hub::OnLoad()
+{
+	
+		//Setup droneprefab
+		Drone::Create(&dronePrefab, this, inventory->GetResourceManager());
+
+		CreateDrone();
+	
+}
+
+void Hub::Update(double dt)
+{
+	TallyResource();
+}
+
 v2::Inventory * Hub::GetInventory() const
 {
 	return inventory;
@@ -218,4 +233,53 @@ v2::Inventory * Hub::GetInventory() const
 v1::TaskSystem::TaskManager * Hub::GetTaskManager() const
 {
 	return taskManager;
+}
+
+vector<ResourceSlot> Hub::GetNetworkResources()
+{
+	return networkResource;
+}
+
+void Hub::CreateDrone()
+{
+	if (inventory->Contains(ResourceName::Gold) >= 1000)
+	{
+		inventory->Remove(ResourceName::Gold, 1000);
+		GameObject *drone = dronePrefab.Instantiate();
+		drone->transform->SetPosition(transform->GetPosition());
+	}
+
+}
+
+int Hub::GetGold()
+{
+	return inventory->Contains(ResourceName::Gold);
+}
+
+void Hub::TallyResource()
+{
+	map<ResourceName, ResourceSlot> tempList;
+
+	for (auto structure : networkList)
+	{
+		auto inventory = structure.structure->GetInventory();
+		auto list = inventory.Contains();
+
+		for (auto i : list)
+		{
+			if (tempList.find(i.resource) == tempList.end())
+			{
+				tempList[i.resource] = ResourceSlot();
+				tempList[i.resource].resource = i.resource;
+			}
+
+			tempList[i.resource].quantity += i.quantity;
+		}
+	}
+
+	networkResource.clear();
+	for (auto item : tempList)
+	{
+		networkResource.push_back(item.second);
+	}
 }

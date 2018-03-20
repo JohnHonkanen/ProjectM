@@ -37,6 +37,8 @@
     <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
     <ClInclude Include="Game\Scripts\hud\ButtonWidget.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
+    <ClInclude Include="Game\Scripts\hud\FunctionPtrButton.h" />
+    <ClInclude Include="Game\Scripts\hud\HubHUD.h" />
     <ClInclude Include="Game\Scripts\hud\HUDInventorySlot.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUD.h" />
     <ClInclude Include="Game\Scripts\hud\InventoryHUDElement.h" />
@@ -86,6 +88,8 @@
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\ButtonWidget.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
+    <ClCompile Include="Game\Scripts\hud\FunctionPtrButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\HubHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\HUDInventorySlot.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\InventoryHUDElement.cpp" />
