@@ -17,7 +17,7 @@ Drone * Drone::Create(GameObject * gameObject, Hub * hub, ResourceManager * reso
 	gameObject->AddComponent(d);
 	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Drone.DAE");
 	gameObject->material->diffuseMap = "Game/Assets/Textures/building_placeholder.jpg";
-	gameObject->transform->Scale(vec3(1.5));
+	gameObject->transform->Scale(vec3(3));
 	gameObject->transform->SetPosition(vec3(0));
 
 
