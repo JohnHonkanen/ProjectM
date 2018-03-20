@@ -154,6 +154,16 @@
     </ClCompile>
     <ClCompile Include="Game\Scripts\hud\HubHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\FunctionPtrButton.cpp" />
+    <ClCompile Include="Game\Scripts\LocalMarket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\MarketManager.cpp" />
+    <ClCompile Include="Game\Scripts\hud\MarketHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\MarketHudElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -307,6 +317,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\FunctionPtrButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\PlayerEconHUD.h" />
+    <ClInclude Include="Game\Scripts\MarketManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\MarketHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\MarketHudElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

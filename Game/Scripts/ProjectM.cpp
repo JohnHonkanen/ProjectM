@@ -21,6 +21,7 @@
 #include "PlayerActions.h"
 #include "hud\PlayerEconHUD.h"
 #include "hud\ProductionHUD.h"
+#include "hud\MarketHUD.h"
 
 #include "Billboard.h"
 #include "BuildingSpawnAnim.h"
@@ -114,10 +115,12 @@ int main(int argc, char *argv[])
 	//HUD GameObjects
 	GameObject *hudController = manager->CreateGameObject("Hud Controller");
 	ContractHUD* contractHUD = ContractHUD::Create(hudController, canvas, &gameManager->contractManager);
+	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
-	PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
-	ProductionHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
+	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
+	ProductionHUD::Create(hudController, canvas, pla);
 	
+
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 
 	HubHUD::Create(hudController, canvas, hub, &gameManager->resourceManager);

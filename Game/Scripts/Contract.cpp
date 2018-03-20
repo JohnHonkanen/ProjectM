@@ -181,7 +181,7 @@ bool Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	SetStatus(false);
-	cout << "Contract: " <<  GetContractIndex() << " completed!" << endl << endl;
+	//cout << "Contract: " <<  GetContractIndex() << " completed!" << endl << endl;
 	return this->complete;
 }
 
