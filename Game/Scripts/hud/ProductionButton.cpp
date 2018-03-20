@@ -47,8 +47,8 @@ void ProductionButton::Start()
 
 	container = EHUD::WHUDContainer::Create(root, { 310,0,250,200 }, "Game/Assets/Textures/cBlack.jpg", true);
 	container->SetActive(false);
-	resourceList.push_back(ProductionSetterButton::Create(root, { 320,10,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, 1));
-	resourceList.push_back(ProductionSetterButton::Create(root, { 380,10,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, 2));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 320,10,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::SpaceCow_Milk));
+	resourceList.push_back(ProductionSetterButton::Create(root, { 380,10,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
 	//resourceList.push_back(ProductionSetterButton::Create(root, { 440,10,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr,3));
 	//resourceList.push_back(ProductionSetterButton::Create(root, { 500,10,50,50 }, "Game/Assets/Textures/chicken-16.png", nullptr, 4));
 	//resourceList.push_back(ProductionSetterButton::Create(root, { 320,70,50,50 }, "Game/Assets/Textures/water-16.png", nullptr, 5));
@@ -93,16 +93,16 @@ void ProductionButton::ConfigureResources()
 	switch (production->GetType())
 	{
 	case StructureType::DOME:
-		resourceList[0]->SetResource(1);
+		resourceList[0]->SetResource(ResourceName::SpaceCow_Milk);
 		resourceList[0]->SetIcon("Game/Assets/Textures/milk-16.png");
-		resourceList[1]->SetResource(2);
+		resourceList[1]->SetResource(ResourceName::SpaceCow_Beef);
 		resourceList[1]->SetIcon("Game/Assets/Textures/steak-16.png");
 
 		break;
 	case StructureType::FACTORY:
-		resourceList[0]->SetResource(3);
+		resourceList[0]->SetResource(ResourceName::Chicken_Egg);
 		resourceList[0]->SetIcon("Game/Assets/Textures/egg-16.png");
-		resourceList[1]->SetResource(4);
+		resourceList[1]->SetResource(ResourceName::Chicken_Meat);
 		resourceList[1]->SetIcon("Game/Assets/Textures/chicken-16.png");
 
 		break;

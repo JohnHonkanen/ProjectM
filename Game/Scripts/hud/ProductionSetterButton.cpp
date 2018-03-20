@@ -16,6 +16,7 @@ void ProductionSetterButton::OnPointerMouseDown(EventData data)
 	}
 	if (data.mouseButton0 == 1) {
 		production->SetProduction(resource);
+		production->SetActive(true);
 	}
 	cout << "testing button" << endl;
 }
@@ -41,7 +42,7 @@ void ProductionSetterButton::SetProduction(Production * production)
 	this->production = production;
 }
 
-void ProductionSetterButton::SetResource(int resource)
+void ProductionSetterButton::SetResource(ResourceName resource)
 {
 	this->resource = resource;
 }
@@ -52,7 +53,7 @@ void ProductionSetterButton::SetIcon(std::string icon)
 	activeTexture = baseTexture;
 }
 
-ProductionSetterButton * ProductionSetterButton::Create(HUDElement * element, EHUD::HUDRect rect, std::string icon, Production * production, int resource)
+ProductionSetterButton * ProductionSetterButton::Create(HUDElement *element, EHUD::HUDRect rect, std::string icon, Production *production, ResourceName resource)
 {
 	ProductionSetterButton * button = new ProductionSetterButton();
 	button->rect = rect;

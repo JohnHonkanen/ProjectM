@@ -30,6 +30,8 @@
 #include "Resources.h"
 #include "components\Light.h"
 
+#include "task_system\TaskManager.h"
+
 using namespace std;
 
 #include "Hub.h"
@@ -60,39 +62,31 @@ int main(int argc, char *argv[])
 	//HUB
 	int amount = 0;
 	GameObject *hubObject = manager->CreateGameObject("HUB");
-	InventoryWrapper * iw = InventoryWrapper::Create(hubObject, &gameManager->resourceManager);
-	gameManager->playerEconManager.SetHUBInventory(&iw->inventory);
-	iw->inventory.AddFilter(ResourceName::Gold);
-	iw->inventory.SetMode(v2::Inventory::WHITELIST);
-	iw->inventory.AddItem(ResourceName::Gold, amount=100);
-	iw->inventory.CheckStorageFull(gameManager->resourceManager.Find(ResourceName::Gold), amount);
-	cout << "contains: " << iw->inventory.Contains(gameManager->resourceManager.Find(ResourceName::Gold)) << endl;
 
-	MeshRenderer * hubRenderer = MeshRenderer::Create(hubObject, "Game/Assets/Models/mobajuice/Hub.DAE", DEFERRED);
-
-	Hub *hub = Hub::Create(hubObject);
+	Hub *hub = Hub::Create(hubObject, gameManager);
 	hubObject->transform->Scale(vec3(3.0f));
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
 	hubObject->transform->Translate(vec3(100, 8, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	//end of Hub Setup
 
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Dome", DOME, 10, 1, 1, 1, false, true, &gameManager->resourceManager, hub),
+		Production::Create("Dome", DOME, 10, 1, 1, 2, 100, 1,false, true, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
 	dome->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
-		Production::Create("Factory", FACTORY, 10, 1, 1, 1, false, false, &gameManager->resourceManager, hub),
+		Production::Create("Factory", FACTORY, 10, 1, 1,2,100, 1, false, false, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
 	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
-		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false),
+		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
@@ -163,13 +157,16 @@ int main(int argc, char *argv[])
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
 
+	GameObject * droneObj = manager->CreateGameObject("Drone");
+	Drone::Create(droneObj, hub, &gameManager->resourceManager);
+
 	//Boxes for shadow testing
 	GameObject *box = manager->CreateGameObject("box111");
 	MeshRenderer::Create(box, "Game/Assets/Models/cube/cube.obj", DEFERRED);
 	box->transform->Scale(vec3(5.0f));
 	box->transform->Translate(vec3(0, 5, 0));
 	box->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
-	box->material->normalMap = "Game/Assets/Textures/cube_normalss.jpg";
+
 	engine.Run();
 	return 0;
 }

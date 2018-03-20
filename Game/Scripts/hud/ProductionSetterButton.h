@@ -1,6 +1,7 @@
 #pragma once
 #include "ButtonWidget.h"
 #include "hud\HUDRect.h"
+#include "../Resources.h"
 
 namespace Engine {
 	namespace HUD {
@@ -22,13 +23,13 @@ public:
 	void EventRegistration();
 	void Start();
 	void SetProduction(class Production *production);
-	void SetResource(int resource);
+	void SetResource(ResourceName resource);
 	void SetIcon(std::string icon);
 
-	static ProductionSetterButton *Create(HUDElement *element, EHUD::HUDRect rect, std::string icon, class Production *production, int resource);
+	static ProductionSetterButton *Create(HUDElement *element, EHUD::HUDRect rect, std::string icon, class Production *production, ResourceName resource);
 private:
 	class Production *production;
 	class EHUD::HUDElement *root;
-	int resource;
+	ResourceName resource;
 
 };

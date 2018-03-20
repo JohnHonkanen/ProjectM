@@ -32,7 +32,6 @@ public:
 	void Start();
 	void Update();
 	void Input();
-	void SetInventory(vector<class ::Inventory*> inventory) { this->inventory = inventory; };
 private:
 	/**HUD elements */
 	class PlayerActions* pla;
@@ -41,7 +40,6 @@ private:
 	/**/
 	class InventoryHUDElement* IHElement;
 	bool keyHeld = false;
-	vector<class ::Inventory*> inventory;
 	class ResourceManager* rManager;
 
 };

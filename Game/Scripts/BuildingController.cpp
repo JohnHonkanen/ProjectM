@@ -92,10 +92,6 @@ void BuildingController::Update(double dt)
 						mouseHeld = true;
 						GameObject * structure = buildingManager->GetBuilding(structureName);						
 						Structure *sComponent = structure->GetComponent<Structure>();
-						if (sComponent->GetType() == FACTORY || sComponent->GetType() == DOME)
-						{
-							DroneProducer::Create(structure, hub, sComponent);
-						}
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						hub->AddStructureToNetwork(sComponent->GetType(), sComponent, coordinates.x, coordinates.y);
 						structure->transform->SetPosition(snapPoint);
