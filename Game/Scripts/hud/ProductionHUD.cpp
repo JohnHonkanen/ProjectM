@@ -15,9 +15,10 @@ Dev: Greg Smith (B00308929)
 #include "ProductionButton.h"
 
 
-ProductionHUD * ProductionHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions *pla) {
+ProductionHUD * ProductionHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions *pla, ResourceManager* rManager) {
 
 	ProductionHUD *ph = new ProductionHUD();
+	ph->rManager = rManager;
 	ph->root = root;
 	ph->pla = pla;
 	gameObject->AddComponent(ph);
@@ -32,7 +33,10 @@ void ProductionHUD::OnLoad()
 		wrapper->SetActive(true); //For testing purposes, set to false when key selection added
 		//HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
-		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr);
+		PHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr, rManager);
+		//RHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr, rManager);
+		//AHElement = ProductionHUDElement::Create(wrapper, { 25,25,0,0 }, nullptr, rManager);
+
 }
 
 void ProductionHUD::Start()
@@ -43,11 +47,14 @@ void ProductionHUD::Update()
 {
 	if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Production*>(pla->GetSelectedStructure()) != nullptr) {
 		PHElement->SetProduction(dynamic_cast<Production*>(pla->GetSelectedStructure()));
+		//RHElement->DeleteItems();
+		//AHElement->ChangeActive();
 		wrapper->SetActive(true);
 	}
 	else {
 		wrapper->SetActive(false);
 	}
+
 }
 
 void ProductionHUD::Input()

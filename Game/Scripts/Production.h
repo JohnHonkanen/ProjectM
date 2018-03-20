@@ -50,6 +50,8 @@ public:
 	ResourceName GetProduction() { return producing; }
 
 	Resources* GetResource() { return resourceManager->Find(producing); }
+
+	bool GetProducing() { return isProducing; }
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

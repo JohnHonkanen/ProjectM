@@ -37,7 +37,12 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 								int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, up, rad, placed, active, resourceMan, hub);
-	p->inventory = v2::Inventory(1);
+	if (typ = DOME) {
+		p->inventory = v2::Inventory(1);
+	}
+	if (typ = FACTORY) {
+		p->inventory = v2::Inventory(2);
+	}
 	p->inventory.SetResourceManager(resourceMan);
 	p->cost = cost;
 	return p;
@@ -79,15 +84,26 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		
-		if (isProducing) {
-			int availableSpace = inventory.CheckStorageFull(producing);
-			
-			if (availableSpace > 0) {
-				Resources* r = resourceManager->Find(producing);
-				int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
-				inventory.AddItem(producing, productionAmount);
-				billboard->Spawn();
+		if (structureType = DOME) {
+			if (isProducing) {
+				int availableSpace = inventory.CheckStorageFull(producing);
+				if (availableSpace > 0) {
+					Resources* r = resourceManager->Find(producing);
+					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
+					inventory.AddItem(producing, productionAmount);
+					billboard->Spawn();
+				}
+			}
+		}
+		else if (structureType = FACTORY) {
+			if (isProducing) {
+				int availableSpace = inventory.At(0).quantity;
+				if (availableSpace > 0) {
+					Resources* r = resourceManager->Find(producing);
+					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
+					inventory.AddItem(producing, productionAmount);
+					billboard->Spawn();
+				}
 			}
 		}
 

@@ -21,7 +21,8 @@ class ProductionHUD : public Behaviour {
 public:
 	static ProductionHUD * Create(	GameObject *gameObject,
 									EHUD::HUDCanvas *root,
-									class PlayerActions *pla);
+									class PlayerActions *pla,
+									class ResourceManager* rManager);
 	void Copy(GameObject* gameObject);
 	void OnLoad();
 	void Start();
@@ -34,4 +35,9 @@ private:
 	EHUD::HUDCanvas * root;
 	EHUD::HUDElement * wrapper;
 	class ProductionHUDElement* PHElement;
+	class ProductionHUDElement* RHElement;
+	class ProductionHUDElement* AHElement;
+
+	class ResourceManager* rManager;
+
 };
