@@ -4,6 +4,7 @@
 #include <map>
 #include "InventoryV2.h"
 #include "task_system\TaskManager.h"
+#include "Resources.h"
 
 struct Slot;
 
@@ -18,13 +19,24 @@ public:
 	class Structure* FindNearestWithResource(enum StructureType type, int x, int y, ResourceName resource);
 
 	void Copy(GameObject *copyObject);
-
+	void OnLoad();
+	void Update(double dt);
 	v2::Inventory * GetInventory() const;
 	v1::TaskSystem::TaskManager * GetTaskManager() const;
+
+	vector<ResourceSlot> GetNetworkResources();
+
+	void CreateDrone();
+	int GetGold();
 private:
+	void TallyResource();
 	std::vector<Slot> networkList;
 	std::vector<Slot> warehouseList;
 	std::map<int, std::map<int, class Structure*>> networkSlots;
 	v2::Inventory * inventory;
 	v1::TaskSystem::TaskManager * taskManager;
+
+	vector<ResourceSlot> networkResource;
+
+	GameObject dronePrefab;
 };
