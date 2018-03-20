@@ -223,7 +223,6 @@ namespace v1{
 						collecting = false;
 					}
 				}
-
 				clock.ResetClock();
 			}
 			
@@ -235,74 +234,70 @@ namespace v1{
 		}
 		void DroneController::DeliverRoutine(double dt)
 		{
-			if (task.GetType() == TASK_TYPE::COLLECT)
+			int x, y;
+			Structure * nearest = new Structure();
+			if (task.GetType() == TASK_TYPE::REQUEST)
 			{
-				int x, y;
-				task.From()->GetTilePosition(x,y);
-				Structure * nearestWarehouse = hub->FindNearestToDeposit(WAREHOUSE, x, y, task.GetResource());
+				task.From()->GetTilePosition(x, y);
+				nearest = hub->FindNearestWithResource(WAREHOUSE, x, y, task.GetResource());
+			}
+			else if (task.GetType() == TASK_TYPE::COLLECT)
+			{
+				task.From()->GetTilePosition(x, y);
+				nearest = hub->FindNearestToDeposit(WAREHOUSE, x, y, task.GetResource());
+			}
+			if (nearest == nullptr)
+			{
+				IdleBehaviour(dt);
+				forceIdle = true;
+				return;
+			}
 
-				if (nearestWarehouse == nullptr)
+			forceIdle = false;
+
+			vec3 position = drone->transform->GetPosition();
+			vec3 to = nearest->transform->GetPosition();
+			to.y = elevationLevel;
+
+			if (distance(position, to) < 0.5f)
+			{
+				if (collecting == false)
 				{
-					IdleBehaviour(dt);
-					forceIdle = true;
-					return;
+					collecting = true;
+					clock.ResetClock();
 				}
-
-				forceIdle = false;
-
-				vec3 position = drone->transform->GetPosition();
-				vec3 to = nearestWarehouse->transform->GetPosition();
-				to.y = elevationLevel;
-
-				if (distance(position, to) < 0.5f)
+				if (drone->GetInventory().At(0).quantity == 0)
 				{
-					if (collecting == false)
+					state = IDLE;
+					activeState = ACTIVE_IDLE;
+					task.From()->TaskCompleted();
+					task = Task();
+					boxObj->transform->SetPosition(vec3(0, -10, 0));
+					collecting = false;
+				}
+				else {
+
+					if (clock.Alarm())
 					{
-						collecting = true;
+						Inventory * wI = &nearest->GetInventory();
+						drone->GetInventory().Send(wI, task.GetResource(), 200);
+						boxObj->transform->SetPosition(drone->transform->GetPosition());
 						clock.ResetClock();
 					}
 
-
-					if (drone->GetInventory().At(0).quantity == 0)
+					if (boxObj != nullptr)
 					{
-						state = IDLE;
-						activeState = ACTIVE_IDLE;
-						task.From()->TaskCompleted();
-						task = Task();
-						boxObj->transform->SetPosition(vec3(0, -10, 0));
-						collecting = false;
-
+						boxObj->transform->Translate(vec3(0, -10, 0) * float(dt / 1000.0f));
 					}
-					else {
-
-						if (clock.Alarm())
-						{
-							Inventory * wI = &nearestWarehouse->GetInventory();
-							drone->GetInventory().Send(wI, task.GetResource(), 200);
-							boxObj->transform->SetPosition(drone->transform->GetPosition());
-							clock.ResetClock();
-						}
-
-						if (boxObj != nullptr)
-						{
-
-							boxObj->transform->Translate(vec3(0, -10, 0) * float(dt / 1000.0f));
-						}
-					}
-					
-					
 				}
-				else {
-					vec3 dir = normalize(to - position);
-					float angle = atan2(dir.x, dir.z);
-					vec3 droneAngle = drone->transform->GetRotation();
-					droneAngle.y = degrees(angle) - 90.0f;
-					drone->transform->SetEulerAngle(droneAngle);
-
-					drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
-				}
-
-				
+			}
+			else {
+				vec3 dir = normalize(to - position);
+				float angle = atan2(dir.x, dir.z);
+				vec3 droneAngle = drone->transform->GetRotation();
+				droneAngle.y = degrees(angle) - 90.0f;
+				drone->transform->SetEulerAngle(droneAngle);
+				drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
 			}
 		}
 	}
