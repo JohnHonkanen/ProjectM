@@ -17,8 +17,11 @@ public:
 	MarketManager();
 	~MarketManager();
 
-	LocalMarket AddMarket(MarketName marketname, string nameOfMarket);
+	LocalMarket AddMarket(MarketName marketName, string nameOfMarket);
 	LocalMarket Find(MarketName marketName);
+
+	Resources AddResource(MarketName marketToAddTo, ResourceName resourceName);
+	Resources FindResourceForSale(MarketName marketToSearch, ResourceName resourceName);
 
 	static MarketManager* Create(GameObject* gameObject);
 
@@ -32,6 +35,7 @@ public:
 private:
 	ResourceManager* resourceManager;
 	vector <LocalMarket> marketQueue;
+	vector <Resources> resourceForSale;
 	Engine::Utility::Clock clock;
 
 	int marketID;

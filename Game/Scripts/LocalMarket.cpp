@@ -51,39 +51,6 @@ string LocalMarket::GetNameOfMarket()
 	return this->nameOfMarket;
 }
 
-Resources LocalMarket::AddResourceForSale(ResourceName resourceName)
-{
-	Resources resource = *resourceManager->Find(resourceName);
-
-	// Check if resource exists in resourceForSale list
-
-	if (FindResourceForSale(resourceName).GetResouceID() != ResourceName::Null_Resource) {
-		this->resourceForSale.push_back(resource);
-	}
-
-	return resource;
-}
-
-Resources LocalMarket::FindResourceForSale(ResourceName resourceName)
-{
-	bool found = false;
-
-	// Check if resource exists in resourceForSale list
-	for (auto res : resourceForSale) {
-		if (res.GetResouceID() == resourceName) {
-			found = true;
-			
-			return res;
-		}
-	}
-
-	if (!found) {
-		cout << "Resource not found/for sale" << endl;
-		return Resources();
-	}
-}
-
-
 MarketName LocalMarket::GetMarketID()
 {
 	return this->marketName;
@@ -112,9 +79,6 @@ void LocalMarket::OnLoad()
 
 void LocalMarket::Start()
 {
-	AddResourceForSale(ResourceName::Chicken_Egg);
-	
-	//AddResourceForSale(ResourceName::Chicken_Egg);
 }
 
 void LocalMarket::Update()

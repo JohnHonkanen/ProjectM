@@ -37,6 +37,39 @@ LocalMarket MarketManager::Find(MarketName marketName)
 	}
 }
 
+Resources MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceName)
+{
+	// Need to add resource to correct market
+
+	Resource resource = *resourceManager->Find(resourceName);
+
+	// Check if resource exists in resourceForSale list
+
+	if (FindResourceForSale(marketToAddTo, resourceName).GetResouceID() != ResourceName::Null_Resource) {
+		this->resourceForSale.push_back(resource);
+	}
+
+	return resource;
+}
+
+Resources MarketManager::FindResourceForSale(MarketName marketToSearch, ResourceName resourceName)
+{
+	// Need to check resource in correct market
+
+	bool found = false;
+	Resource resource = *resourceManager->Find(resourceName);
+
+	// Check if resource exists in resourceForSale list
+	for (auto res : resourceForSale) {
+		if (res.GetResouceID == resourceName) {
+			found = true;
+			return res;
+		}
+	}
+
+	// Need a return statement if not found
+}
+
 MarketManager * MarketManager::Create(GameObject *gameObject)
 {
 	MarketManager *m = new MarketManager();
@@ -65,9 +98,10 @@ void MarketManager::Start()
 	clock.StartClock();
 
 	AddMarket(MarketName::Local, "LOCAL_MARKET");
-	marketQueue[LOCAL].Start();
+	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
+
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
-	marketQueue[GALACTIC].Start();
+	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
 
 	Find(MarketName::Galactic).GetNameOfMarket();
 }

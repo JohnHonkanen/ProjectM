@@ -1,6 +1,6 @@
 #pragma once
 #include "ResourceManager.h"
-#include <list>
+#include <vector>
 #include <string>
 
 enum class MarketName {
@@ -20,10 +20,6 @@ public:
 	void SetNewCurrentPrice(ResourceName resourceName);
 	MarketName GetMarketID();
 	string GetNameOfMarket();
-
-	Resources AddResourceForSale(ResourceName resourceName);
-	Resources FindResourceForSale(ResourceName resourceName);
-	
 	
 	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
 	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
@@ -35,13 +31,14 @@ public:
 
 private:
 	int marketID;
+	Resources resource;
 	ResourceManager* resourceManager;
 	MarketName marketName;
 	int modifier = 1;
 	int resourceID, basePrice;
 	string nameOfMarket;
 
-	list <Resources> resourceForSale;
+	vector <Resources> resourceForSale;
 };
 
 using Market = LocalMarket;
