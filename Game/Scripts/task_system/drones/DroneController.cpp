@@ -42,14 +42,12 @@ namespace v1{
 			state = ACTIVE;
 			task = t;
 		}
-
 		void DroneController::ApplyDroneBehaviour(double dt)
 		{
 			if (task.GetType() != TASK_TYPE::NONE && !forceIdle)
 			{
 				state = ACTIVE;
 			}
-
 			switch (state)
 			{
 			case IDLE:
@@ -133,20 +131,22 @@ namespace v1{
 					}
 				}
 			}
-			
-
 			//Rotate to face dir
 			vec3 toPos = position;
-			switch (task.GetType())
+			if (task.GetType() == TASK_TYPE::COLLECT || task.GetType() == TASK_TYPE::REQUEST)
 			{
-			case TASK_TYPE::COLLECT:
 				toPos = task.From()->gameObject->transform->GetPosition();
 				toPos.y = elevationLevel;
-				break;
-			default:
-				break;
 			}
-
+			//switch (task.GetType())
+			//{
+			//case TASK_TYPE::COLLECT:
+			//	toPos = task.From()->gameObject->transform->GetPosition();
+			//	toPos.y = elevationLevel;
+			//	break;
+			//default:
+			//	break;
+			//}
 			if (activeState == MOVE && distance(position, toPos) < 0.5f && activeState != COLLECT && activeState != DELIVER)
 			{
 				activeState = PARK;
@@ -157,15 +157,12 @@ namespace v1{
 			droneAngle.y = degrees(angle) - 90.0f;
 			drone->transform->SetEulerAngle(droneAngle);
 
-			
-
 			vec3 pos;
 
 			if (forceIdle)
 			{
 				activeState = DELIVER;
 			}
-
 			switch (activeState)
 			{
 			case RISE:
@@ -187,7 +184,6 @@ namespace v1{
 			default:
 				break;
 			}
-
 		}
 		void DroneController::RechargeBehaviour(double dt)
 		{
@@ -199,14 +195,12 @@ namespace v1{
 				collecting = true;
 				clock.ResetClock();
 			}
-
 			if (clock.Alarm())
 			{
 				if (boxObj == nullptr)
 				{
 					boxObj = box.Instantiate();
 				}
-
 				boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, elevationLevel, 0));
 				if (task.GetType() == TASK_TYPE::COLLECT)
 				{
@@ -216,7 +210,6 @@ namespace v1{
 					int left = drone->GetInventory().AddItem(resource, amount);
 					int toRemove = amount - left;
 					fromInventory->Remove(resource, toRemove);
-
 					if (fromInventory->Contains(resource) == 0 || drone->GetInventory().CheckStorageFull(resource) == 0)
 					{
 						activeState = DELIVER;
@@ -225,10 +218,8 @@ namespace v1{
 				}
 				clock.ResetClock();
 			}
-			
 			if (boxObj != nullptr)
 			{
-
 				boxObj->transform->Translate(vec3(0, 10, 0) * float(dt / 1000.0f));
 			}
 		}
