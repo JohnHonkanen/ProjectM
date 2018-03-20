@@ -16,6 +16,7 @@ LocalMarket::LocalMarket(const LocalMarket & copy)
 {
 	this->marketName = copy.marketName;
 	this->resourceManager = copy.resourceManager;
+	this->nameOfMarket = copy.nameOfMarket;
 }
 
 LocalMarket::~LocalMarket()
@@ -47,7 +48,6 @@ void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
 
 string LocalMarket::GetNameOfMarket()
 {
-	cout << "Marketname = " << this->nameOfMarket << endl;
 	return this->nameOfMarket;
 }
 
@@ -113,10 +113,11 @@ void LocalMarket::OnLoad()
 void LocalMarket::Start()
 {
 	AddResourceForSale(ResourceName::Chicken_Egg);
+	
 	//AddResourceForSale(ResourceName::Chicken_Egg);
 }
 
 void LocalMarket::Update()
 {
-
+	
 }

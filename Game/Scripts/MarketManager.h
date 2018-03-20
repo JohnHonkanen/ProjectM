@@ -6,10 +6,12 @@
 #include "utility\Clock.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 #define LOCAL 0
 #define GALACTIC 1
 
+using namespace std;
 class MarketManager : public Behaviour {
 public:
 	MarketManager();

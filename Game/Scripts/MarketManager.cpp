@@ -17,7 +17,6 @@ LocalMarket MarketManager::AddMarket(MarketName marketName, string nameOfMarket)
 	// Check if market exists
 
 	if (Find(marketName).GetMarketID() == MarketName::Null_Market) {
-		Find(marketName).GetNameOfMarket();
 		this->marketQueue.push_back(localMarket);
 	}
 
@@ -69,6 +68,8 @@ void MarketManager::Start()
 	marketQueue[LOCAL].Start();
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
 	marketQueue[GALACTIC].Start();
+
+	Find(MarketName::Galactic).GetNameOfMarket();
 }
 
 void MarketManager::Update()
