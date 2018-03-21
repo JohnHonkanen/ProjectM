@@ -1,9 +1,13 @@
 #include "GameManager.h"
 #include "core\GameEngine.h"
 
+GameManager *GameManager::gameManager = nullptr;
 GameManager * GameManager::Create(GameObject * gameObject)
 {
 	GameManager *gm = new GameManager();
+
+	if (gameManager == nullptr)
+		gameManager = gm;
 
 	gameObject->AddComponent(gm);
 

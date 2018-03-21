@@ -2,6 +2,7 @@
 #include "hud\widgets\HUDContainer.h"
 #include "..\Production.h"
 #include "ProductionSetterButton.h"
+#include "../GameManager.h"
 
 
 void ProductionButton::OnPointerEnter(EventData data)
@@ -95,26 +96,27 @@ ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect 
 
 void ProductionButton::ConfigureResources()
 {
+	auto rm = GameManager::gameManager->resourceManager;
 	switch (production->GetType())
 	{
 	case StructureType::DOME:
 		resourceList[0]->SetResource(ResourceName::SpaceCow_Milk);
-		resourceList[0]->SetIcon("Game/Assets/Textures/milk-16.png");
+		resourceList[0]->SetIcon(rm.Find(ResourceName::SpaceCow_Milk)->GetResourceIcon());
 		//Needs to be replaced with a cow item
 		resourceList[1]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceList[1]->SetIcon("Game/Assets/Textures/steak-16.png");
+		resourceList[1]->SetIcon(rm.Find(ResourceName::SpaceCow_Beef)->GetResourceIcon());
 		resourceList[2]->SetResource(ResourceName::Chicken_Egg);
-		resourceList[2]->SetIcon("Game/Assets/Textures/egg-16.png");
+		resourceList[2]->SetIcon(rm.Find(ResourceName::Chicken_Egg)->GetResourceIcon());
 		resourceList[3]->SetResource(ResourceName::Mandrake);
-		resourceList[3]->SetIcon("Game/Assets/Textures/mandrake-16.png");
+		resourceList[3]->SetIcon(rm.Find(ResourceName::Mandrake)->GetResourceIcon());
 		resourceList[4]->SetResource(ResourceName::Grape);
-		resourceList[4]->SetIcon("Game/Assets/Textures/grape-16.png");
+		resourceList[4]->SetIcon(rm.Find(ResourceName::Grape)->GetResourceIcon());
 		resourceList[5]->SetResource(ResourceName::Kittain);
-		resourceList[5]->SetIcon("Game/Assets/Textures/kittain-16.png");
+		resourceList[5]->SetIcon(rm.Find(ResourceName::Kittain)->GetResourceIcon());
 		resourceList[6]->SetResource(ResourceName::Unilateralis);
-		resourceList[6]->SetIcon("Game/Assets/Textures/unilateralis-16.png");
+		resourceList[6]->SetIcon(rm.Find(ResourceName::Unilateralis)->GetResourceIcon());
 		resourceList[7]->SetResource(ResourceName::Steel_Cotton);
-		resourceList[7]->SetIcon("Game/Assets/Textures/steel_cotton-16.png");
+		resourceList[7]->SetIcon(rm.Find(ResourceName::Steel_Cotton)->GetResourceIcon());
 		//Needs to be replaced with a sheep item
 		//resourceList[8]->SetResource(ResourceName::Sheep);
 		//resourceList[8]->SetIcon("Game/Assets/Textures/sheep-16.png");
@@ -124,21 +126,21 @@ void ProductionButton::ConfigureResources()
 		break;
 	case StructureType::FACTORY:
 		resourceList[0]->SetResource(ResourceName::Chicken_Egg);
-		resourceList[0]->SetIcon("Game/Assets/Textures/egg-16.png");
+		resourceList[0]->SetIcon(rm.Find(ResourceName::Chicken_Egg)->GetResourceIcon());
 		resourceList[1]->SetResource(ResourceName::Chicken_Meat);
-		resourceList[1]->SetIcon("Game/Assets/Textures/chicken-16.png");
+		resourceList[1]->SetIcon(rm.Find(ResourceName::Chicken_Meat)->GetResourceIcon());
 		resourceList[2]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceList[2]->SetIcon("Game/Assets/Textures/steak-16.png");
+		resourceList[2]->SetIcon(rm.Find(ResourceName::SpaceCow_Beef)->GetResourceIcon());
 		resourceList[3]->SetResource(ResourceName::SpaceCow_Cheese);
-		resourceList[3]->SetIcon("Game/Assets/Textures/cheese-16.png");
+		resourceList[3]->SetIcon(rm.Find(ResourceName::SpaceCow_Cheese)->GetResourceIcon());
 		resourceList[4]->SetResource(ResourceName::Wine);
-		resourceList[4]->SetIcon("Game/Assets/Textures/wine-16.png");
+		resourceList[4]->SetIcon(rm.Find(ResourceName::Wine)->GetResourceIcon());
 		resourceList[5]->SetResource(ResourceName::Electronic_Component);
-		resourceList[5]->SetIcon("Game/Assets/Textures/component-16.png");
+		resourceList[5]->SetIcon(rm.Find(ResourceName::Electronic_Component)->GetResourceIcon());
 		resourceList[6]->SetResource(ResourceName::Sheep_Meat);
-		resourceList[6]->SetIcon("Game/Assets/Textures/mutton-16.png");
+		resourceList[6]->SetIcon(rm.Find(ResourceName::Sheep_Meat)->GetResourceIcon());
 		resourceList[7]->SetResource(ResourceName::Sheep_Wool);
-		resourceList[7]->SetIcon("Game/Assets/Textures/wool-16.png");
+		resourceList[7]->SetIcon(rm.Find(ResourceName::Sheep_Wool)->GetResourceIcon());
 
 
 		break;

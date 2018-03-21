@@ -22,5 +22,7 @@ public:
 	ContractManager contractManager;
 	PlayerEconManager playerEconManager;
 	MarketManager marketManager;
+
+	static GameManager *gameManager;
 	
 };

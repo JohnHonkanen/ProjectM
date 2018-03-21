@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 	MarketHUD::Create(hudController, canvas, &gameManager->marketManager);
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD);
 	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
-	ProductionHUD::Create(hudController, canvas, pla);
+	ProductionHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 	
 
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
@@ -155,13 +155,6 @@ int main(int argc, char *argv[])
 	};
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
-
-	//Boxes for shadow testing
-	GameObject *box = manager->CreateGameObject("box111");
-	MeshRenderer::Create(box, "Game/Assets/Models/cube/cube.obj", DEFERRED);
-	box->transform->Scale(vec3(5.0f));
-	box->transform->Translate(vec3(0, 5, 0));
-	box->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
 
 	engine.Run();
 	return 0;

@@ -133,8 +133,6 @@ void MarketManager::Start()
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Cheese);
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Milk);
 	AddResource(MarketName::Local, ResourceName::Sheep_Wool);
-	marketQueue[LOCAL];
-
 	AddResource(MarketName::Local, ResourceName::Sheep_Meat);
 	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
 	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
