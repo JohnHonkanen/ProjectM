@@ -30,7 +30,7 @@ void MarketHUD::Copy(GameObject * copyObject)
 void MarketHUD::OnLoad()
 {
 	// Create HUD elements based on markets in marketManager
-	wrapper = EHUD::WHUDContainer::Create(root,{0, 0, 240, 1000}, "", true);
+	wrapper = EHUD::WHUDContainer::Create(root,{0, 0, 0, 0}, "Game/Assets/Textures/transparent_black.png", true);
 	wrapper2 = EHUD::WHUDContainer::Create(wrapper, { 0, 0, 240, 1000 }, "Game/Assets/Textures/transparent_black.png", true);
 	wrapper3 = EHUD::WHUDContainer::Create(wrapper, { 1040, 0, 240, 1000 }, "Game/Assets/Textures/transparent_black.png", true);
 
