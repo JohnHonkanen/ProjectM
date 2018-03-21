@@ -39,6 +39,9 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 	case PRODUCTION:
 		networkList.push_back({type, x, y, structure});
 		break;
+	case DOME:
+		networkList.push_back({ type, x, y, structure });
+		break;
 	case WAREHOUSE:
 		networkList.push_back({ type, x, y, structure });
 		warehouseList.push_back({ type, x, y, structure });
@@ -271,6 +274,8 @@ void Hub::TallyResource()
 			{
 				tempList[i.resource] = ResourceSlot();
 				tempList[i.resource].resource = i.resource;
+				tempList[i.resource].quantity = 0;;
+
 			}
 
 			tempList[i.resource].quantity += i.quantity;
