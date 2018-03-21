@@ -83,11 +83,6 @@ void ResourceManager::OnLoad()
 	resource = AddResource(ResourceName::Unilateralis, "Unilateralis", "FUNGI", 3, 0, "Game/Assets/Textures/Resource/unilateralis-16.png", 10000, 1);
 	resource = AddResource(ResourceName::Electronic_Component, "Electronic Component", "MATERIAL", 15, 0, "Game/Assets/Textures/Resource/missing-16.png", 1000, 1);
 
-	//for (auto i : resourceQueue) {
-	//	cout << i->GetName() << endl;
-	//}
-
-	cout << Find(ResourceName::Chicken_Egg)->GetName() << endl;
 }
 
 int ResourceManager::NumberOfActiveResources()
