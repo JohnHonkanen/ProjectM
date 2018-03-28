@@ -3,6 +3,7 @@
 #include "../../Drone.h"
 #include "../Task.h"
 #include "CollectBehaviour.h"
+#include "DeliverBehaviour.h"
 namespace v1
 {
 	namespace TaskSystem {
@@ -49,9 +50,18 @@ namespace v1
 
 			if (task.GetType() == TASK_TYPE::COLLECT)
 			{
-				CollectBehaviour *cb = new CollectBehaviour();
-				cb->info = info;
-				info.controller->SetState(cb);
+				AbstractDroneBehaviour * state;
+				if (!info.finalStep)
+				{
+					state = new CollectBehaviour();
+					
+				}
+				else {
+					state = new DeliverBehaviour();
+				}
+				
+				state->info = info;
+				info.controller->SetState(state);
 			}
 
 			delete this;
