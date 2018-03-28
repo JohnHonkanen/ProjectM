@@ -111,7 +111,7 @@ void Production::Update(double currentTime)
 		{
 			if (inventory.At(0).quantity > 0)
 			{
-				task = v1::TaskSystem::Task(TASK_TYPE::COLLECT,5, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
+				task = v1::TaskSystem::Task(TASK_TYPE::COLLECT,5, this, this, inventory.At(0).resource->GetResouceID(), 0);
 				hub->GetTaskManager()->AddTask(task, 5);
 			}
 		}

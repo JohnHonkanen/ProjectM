@@ -173,6 +173,13 @@
     <ClCompile Include="Game\Scripts\hud\ProductionResourceButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\GoToBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\CollectBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\BuildingController.h">
@@ -340,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\ProductionResourceButton.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\GoToBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\CollectBehaviour.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "core\GameObject.h"
 class Drone;
 class Hub;
+
 namespace v1 {
 	namespace TaskSystem {
 
@@ -15,7 +16,37 @@ namespace v1 {
 			void Start();
 			void Update(double dt);
 			bool AssignTask(Task t);
+			bool AssignTaskWithoutBehaviour(Task t);
 			void ForceTask(Task t);
+
+			void SetState(class AbstractDroneBehaviour * state) { droneState = state; };
+
+			Drone *GetDrone() {
+				return drone;
+			};
+
+			Task GetTask() {
+				return task;
+			};
+
+			float GetBaseSpeed() {
+				return baseSpeed;
+			};
+
+			float GetSpeedMod() {
+				return speedMod;
+			}
+
+			float GetCollectionRate()
+			{
+				return collectionRate;
+			}
+
+			Engine::GameObject * GetResourceBox();
+
+			Hub * GetHub() {
+				return hub;
+			};
 
 		private:
 			Hub * hub;
@@ -68,6 +99,8 @@ namespace v1 {
 			float collectionRate = 3.0f;
 			bool collecting = false;
 			Engine::Utility::Clock clock;
+
+			class AbstractDroneBehaviour * droneState;
 
 			Engine::GameObject box;
 			Engine::GameObject * boxObj;

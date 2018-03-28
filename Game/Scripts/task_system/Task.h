@@ -35,6 +35,9 @@ namespace v1
 
 			Structure *From() const;
 			Structure *To() const;
+			void SetTo(Structure *s) {
+				to = s;
+			}
 
 			ResourceName GetResource() const;
 			int GetAmount() const;
