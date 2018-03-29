@@ -77,12 +77,13 @@ void BuildingController::Update(double dt)
 			{
 				if (!mouseHeld)
 				{
-					GameObject * structure = buildingManager->GetBuilding(structureName);
-					Structure *sComponent = structure->GetComponent<Structure>();
-					float tileWidth = float(sComponent->GetTileWidth());
+					Structure *sComp = objectToBuild->GetComponent<Structure>();
+					float tileWidth = float(sComp->GetTileWidth());
 
 					if (FindStructure(coordinates.x, coordinates.y, tileWidth) == nullptr)
 					{
+						GameObject * structure = buildingManager->GetBuilding(structureName);
+						Structure *sComponent = structure->GetComponent<Structure>();
 						mouseHeld = true;
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);

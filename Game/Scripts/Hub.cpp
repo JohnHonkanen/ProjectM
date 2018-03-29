@@ -51,6 +51,7 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 		networkList.push_back({ type, x, y, structure });
 		break;
 	default:
+		networkList.push_back({ type, x, y, structure });
 		break;
 	}
 
