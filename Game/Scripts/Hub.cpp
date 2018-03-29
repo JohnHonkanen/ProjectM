@@ -24,6 +24,7 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 	h->inventory = &InventoryWrapper::Create(gameObject, &gameManager->resourceManager)->inventory;
 	h->inventory->AddFilter(ResourceName::Gold);
 	h->inventory->SetMode(v2::Inventory::WHITELIST);
+	h->tileWidth = 10;
 	gameManager->playerEconManager.SetHUBInventory(h->inventory);
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);

@@ -65,10 +65,10 @@ int main(int argc, char *argv[])
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 
 	Hub *hub = Hub::Create(hubObject, gameManager);
-	hubObject->transform->Scale(vec3(3.0f));
+	hubObject->transform->Scale(vec3(100.0f));
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
-	hubObject->transform->Translate(vec3(100, 8, 0));
+	hubObject->transform->Translate(vec3(0, 15, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
 	//end of Hub Setup

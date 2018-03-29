@@ -43,6 +43,7 @@ protected:
 	string type;
 
 	int tileX, tileY;
+	int tileWidth = 1;
 	StructureType structureType;
 	v2::Inventory inventory;
 
@@ -52,6 +53,7 @@ public:
 	Structure();
 	~Structure();
 	Structure(string building, string typ, int hp, int pow, int eff,int up, int cost, int radOut, bool placed, bool active);
+	Structure(string building, string typ, int hp, int pow, int eff, int up, int cost, int radOut, bool placed, bool active, int tileWidth);
 	Structure(string building);
 
 	void Copy(GameObject *copyObject) {};
@@ -69,6 +71,8 @@ public:
 	void GetTilePosition(int &x, int &y);
 	StructureType GetType();
 	v2::Inventory& GetInventory();
+	int GetTileWidth() { return tileWidth; };
+	void SetTileWidth(int tw) { tileWidth = tw; };
 
 	void SetName(string change);
 	void SetHealth(int change);				//Changes buildings health

@@ -52,6 +52,7 @@ void Warehouse::Copy(GameObject *copyObject)
 	copy->inventory = Inventory(9);
 	copy->inventory.SetResourceManager(rm);
 	copy->rm = rm;
+	copy->tileWidth = tileWidth;
 
 	copyObject->AddComponent(copy);
 
