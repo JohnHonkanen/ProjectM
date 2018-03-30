@@ -35,8 +35,20 @@ public:
 	void Start();
 	void Update();
 
-	vector<Resources> GetResources() const;
+	vector<Resources> &GetResources();
+	int GetBasePriceOf(int index); // Get Base price of resource at vector index
+	void SetBasePriceOf(int index, int price); // Set Base price of resource at vector index.
+	void IncreaseBasePriceOf(int index, int price); // Increase Base price of resource at vector index
+	void DecreaseBasePriceOf(int index, int price); // Decrease Base price of resource at vector index
+
+	int GetItemStock(int index); // Get item stock at vector index
+	void IncreaseItemStock(int index, int amount); // Increase Item stock amount at vector index
+	void DecreaseItemStock(int index, int amount); // Decrease Item stock amount at vector index
+
+	string GetNameOfItem(int index); // Get name of Item 
 private:
+	static const int MAX_LIMITER = 95;
+	static const int MIN_LIMITER = 1;
 	int marketID;
 	Resources resource;
 	ResourceManager* resourceManager;

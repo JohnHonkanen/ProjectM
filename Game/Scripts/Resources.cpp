@@ -73,6 +73,16 @@ void Resources::SetBasePrice(int basePrice)
 	this->basePrice = basePrice;
 }
 
+void Resources::IncreaseItemBasePrice(int amount)
+{
+	this->basePrice += amount;
+}
+
+void Resources::DecreaseItemBasePrice(int amount)
+{
+	this->basePrice -= amount;
+}
+
 /*Increment Item Stock in marketplace*/
 void Resources::IncreaseItemAmount(int itemStock)
 {

@@ -10,23 +10,61 @@
 class MarketHubPurchaseBinder : public FunctionPtrBinder
 {
 public:
-	MarketHubPurchaseBinder(MarketHUD *marketHud, LocalMarket* market) : marketHud(marketHud), market(market) {};
+	MarketHubPurchaseBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
 	void Call() {
-		//marketHud->CreateDrone();
-		
-		cout << "BUY: " + market->GetNameOfMarket() << endl;
-		
-		
+		auto marketList = market->GetResources();
+
+		switch (this->buttonID) {
+		case 0:
+			
+			cout << "Name of Item: " + marketList[0].GetName() << endl;
+			cout << "Name of Item: " + market->GetNameOfItem(0) << endl;
+			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(0)) << endl;
+			market->IncreaseBasePriceOf(0, 5);
+			market->DecreaseItemStock(0, 100);
+
+			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(0)) << endl;
+			break;
+
+		case 1:
+
+			break;
+
+		case 2:
+
+			break;
+
+		case 3:
+
+			break;
+
+		case 4:
+
+			break;
+
+		case 5:
+
+			break;
+
+		case 6:
+
+			break;
+
+		default:
+			cout << "Default case called: " << this->buttonID << " BUY: " + market->GetNameOfMarket() << endl;
+			break;
+		}
 	}
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
+	int buttonID;
 };
 
 class MarketHubSaleBinder : public FunctionPtrBinder
 {
 public:
-	MarketHubSaleBinder(MarketHUD *marketHud, LocalMarket* market) : marketHud(marketHud), market(market) {};
+	MarketHubSaleBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
 	void Call() {
 		//marketHud->CreateDrone();
 
@@ -37,6 +75,7 @@ public:
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
+	int buttonID;
 };
 
 MarketHUD * MarketHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, MarketManager * marketManager)
@@ -88,16 +127,17 @@ void MarketHUD::Start()
 	int y = 0;
 	float market2XOffset = 1112;
 	float increment = 45;
+	int buttonID = 0;
 
 	for (auto resource : marketList1) {
-
+		buttonID = y;
 		// Local Market Buttons (Market1)
-		buyButton = FunctionPtrButton::Create(wrapper, { 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market1));
-		sellButton = FunctionPtrButton::Create(wrapper, { 150, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market1));
+		buyButton = FunctionPtrButton::Create(wrapper, { 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market1, buttonID));
+		sellButton = FunctionPtrButton::Create(wrapper, { 150, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market1, buttonID));
 
 		// Galactic Market Buttons (Market2)
-		buyButton = FunctionPtrButton::Create(wrapper, { market2XOffset, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market2));
-		sellButton = FunctionPtrButton::Create(wrapper, { market2XOffset + 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market2));
+		buyButton = FunctionPtrButton::Create(wrapper, { market2XOffset, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market2, buttonID));
+		sellButton = FunctionPtrButton::Create(wrapper, { market2XOffset + 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market2, buttonID));
 		y++;
 	}
 

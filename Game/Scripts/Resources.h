@@ -42,6 +42,8 @@ public:
 
 	int GetBasePrice(); // Get current base price of items
 	void SetBasePrice(int basePrice); // Set current base price of items
+	void IncreaseItemBasePrice(int amount); // Increase current base price of item
+	void DecreaseItemBasePrice(int amount); // Decrease current base price of item
 
 	void IncreaseItemAmount(int itemStock); // Increase the amount of item in stock
 	void ReduceItemAmount(int itemStock); // Decrease the amount of item in stock

@@ -29,7 +29,7 @@ void MarketHUDElement::Start()
 	for (auto resource : marketList) {
 		resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 65 + y * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
 		resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 70 + y * increment, 32, 32 }, resource.GetResourceIcon(), true);
-		quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, "0", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+		quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 		price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 		
 		y++;
@@ -38,6 +38,11 @@ void MarketHUDElement::Start()
 
 void MarketHUDElement::Update()
 {
+	auto marketList = market->GetResources();
+
+	quantity->text = to_string(marketList[0].GetItemAmount());
+	price->text = "$ " + to_string(marketList[0].GetBasePrice());
+	
 	if (!active) {
 		return;
 	}

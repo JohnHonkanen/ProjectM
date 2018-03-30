@@ -130,7 +130,71 @@ void LocalMarket::Update()
 	
 }
 
-vector<Resources> LocalMarket::GetResources() const
+vector<Resources> &LocalMarket::GetResources()
 {
 	return resourceForSale;
 }
+
+int LocalMarket::GetBasePriceOf(int index)
+{
+
+	return resourceForSale[index].GetBasePrice();
+}
+
+void LocalMarket::SetBasePriceOf(int index, int price)
+{
+	resourceForSale[index].SetBasePrice(price);
+}
+
+void LocalMarket::IncreaseBasePriceOf(int index, int price)
+{
+
+	if (resourceForSale[index].GetBasePrice() >= MAX_LIMITER) {
+		resourceForSale[index].SetBasePrice(MAX_LIMITER);
+	}
+	else {
+		resourceForSale[index].IncreaseItemBasePrice(price);
+	}	
+}
+
+void LocalMarket::DecreaseBasePriceOf(int index, int price)
+{
+	if (resourceForSale[index].GetBasePrice() <= MIN_LIMITER) {
+		resourceForSale[index].SetBasePrice(MIN_LIMITER);
+	}
+	else {
+		resourceForSale[index].DecreaseItemBasePrice(price);
+	}
+}
+
+int LocalMarket::GetItemStock(int index)
+{
+	return resourceForSale[index].GetItemAmount();
+}
+
+void LocalMarket::IncreaseItemStock(int index, int amount)
+{
+
+	if (resourceForSale[index].GetItemAmount() >= MAX_LIMITER) {
+		resourceForSale[index].SetItemAmount(MAX_LIMITER);
+	}
+	else {
+		resourceForSale[index].IncreaseItemAmount(amount);
+	}
+}
+
+void LocalMarket::DecreaseItemStock(int index, int amount)
+{
+	if (resourceForSale[index].GetItemAmount() <= MIN_LIMITER) {
+		resourceForSale[index].SetItemAmount(MIN_LIMITER);
+	}
+	else {
+		resourceForSale[index].ReduceItemAmount(amount);
+	}
+}
+
+string LocalMarket::GetNameOfItem(int index)
+{
+	return resourceForSale[index].GetName();
+}
+

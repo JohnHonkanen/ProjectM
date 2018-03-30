@@ -27,8 +27,6 @@ public:
 	void Update();
 
 	void Input();
-
-	void SellResource();
 private:
 	/*HUD Elements*/
 	EHUD::HUDCanvas* root;
