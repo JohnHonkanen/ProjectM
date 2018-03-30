@@ -3,6 +3,7 @@
 #include "hud\widgets\HUDContainer.h"
 #include "../LocalMarket.h"
 
+
 MarketHUDElement * MarketHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, LocalMarket * market)
 {
 	MarketHUDElement *m = new MarketHUDElement();

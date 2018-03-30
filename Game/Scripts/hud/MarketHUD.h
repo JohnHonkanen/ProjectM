@@ -28,10 +28,12 @@ public:
 
 	void Input();
 
+	void SellResource();
 private:
 	/*HUD Elements*/
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper, *wrapper2, *wrapper3;
+	EHUD::HUDElement *buyButton, *sellButton;
 
 	class MarketHUDElement *MHElement, *MHElement2;
 
