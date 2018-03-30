@@ -87,13 +87,13 @@ int main(int argc, char *argv[])
 		Production::Create("Dome", DOME, 10, 1, 1, 2, 100, 1,false, true, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
-	dome->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+	dome->material->diffuseMap = "Game/Assets/Textures/Dome_UVW.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Factory", FACTORY, 10, 1, 1,2,100, 1, false, false, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
-	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+	factory->material->diffuseMap = "Game/Assets/Textures/factory_UVW.png";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
 		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false, &gameManager->resourceManager),

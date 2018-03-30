@@ -135,22 +135,22 @@ void ProductionButton::ConfigureResources()
 	{
 	case StructureType::DOME:
 		resourceListDome[0]->SetResource(ResourceName::SpaceCow_Milk);
-		resourceListDome[0]->SetIcon("Game/Assets/Textures/milk-16.png");
+		resourceListDome[0]->SetIcon("Game/Assets/Textures/Resource/milk-16.png");
 		//Needs to be replaced with a cow item
 		resourceListDome[1]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceListDome[1]->SetIcon("Game/Assets/Textures/steak-16.png");
+		resourceListDome[1]->SetIcon("Game/Assets/Textures/Resource/steak-16.png");
 		resourceListDome[2]->SetResource(ResourceName::Chicken_Egg);
-		resourceListDome[2]->SetIcon("Game/Assets/Textures/egg-16.png");
+		resourceListDome[2]->SetIcon("Game/Assets/Textures/Resource/egg-16.png");
 		resourceListDome[3]->SetResource(ResourceName::Mandrake);
-		resourceListDome[3]->SetIcon("Game/Assets/Textures/mandrake-16.png");
+		resourceListDome[3]->SetIcon("Game/Assets/Textures/Resource/mandrake-16.png");
 		resourceListDome[4]->SetResource(ResourceName::Grape);
-		resourceListDome[4]->SetIcon("Game/Assets/Textures/grape-16.png");
+		resourceListDome[4]->SetIcon("Game/Assets/Textures/Resource/grape-16.png");
 		resourceListDome[5]->SetResource(ResourceName::Kittain);
-		resourceListDome[5]->SetIcon("Game/Assets/Textures/kittain-16.png");
+		resourceListDome[5]->SetIcon("Game/Assets/Textures/Resource/kittain-16.png");
 		resourceListDome[6]->SetResource(ResourceName::Unilateralis);
-		resourceListDome[6]->SetIcon("Game/Assets/Textures/unilateralis-16.png");
+		resourceListDome[6]->SetIcon("Game/Assets/Textures/Resource/unilateralis-16.png");
 		resourceListDome[7]->SetResource(ResourceName::Steel_Cotton);
-		resourceListDome[7]->SetIcon("Game/Assets/Textures/steel_cotton-16.png");
+		resourceListDome[7]->SetIcon("Game/Assets/Textures/Resource/steel_cotton-16.png");
 		//Needs to be replaced with a sheep item
 		//resourceListDome[8]->SetResource(ResourceName::Sheep);
 		//resourceListDome[8]->SetIcon("Game/Assets/Textures/sheep-16.png");
@@ -160,19 +160,19 @@ void ProductionButton::ConfigureResources()
 		break;
 	case StructureType::FACTORY:
 		resourceListFactory[0]->SetResource(ResourceName::Chicken_Meat);
-		resourceListFactory[0]->SetIcon("Game/Assets/Textures/chicken-16.png");
+		resourceListFactory[0]->SetIcon("Game/Assets/Textures/Resource/chicken-16.png");
 		resourceListFactory[1]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceListFactory[1]->SetIcon("Game/Assets/Textures/steak-16.png");
+		resourceListFactory[1]->SetIcon("Game/Assets/Textures/Resource/steak-16.png");
 		resourceListFactory[2]->SetResource(ResourceName::SpaceCow_Cheese);
-		resourceListFactory[2]->SetIcon("Game/Assets/Textures/cheese-16.png");
+		resourceListFactory[2]->SetIcon("Game/Assets/Textures/Resource/cheese-16.png");
 		resourceListFactory[3]->SetResource(ResourceName::Wine);
-		resourceListFactory[3]->SetIcon("Game/Assets/Textures/wine-16.png");
+		resourceListFactory[3]->SetIcon("Game/Assets/Textures/Resource/wine-16.png");
 		resourceListFactory[4]->SetResource(ResourceName::Electronic_Component);
-		resourceListFactory[4]->SetIcon("Game/Assets/Textures/component-16.png");
+		resourceListFactory[4]->SetIcon("Game/Assets/Textures/Resource/component-16.png");
 		resourceListFactory[5]->SetResource(ResourceName::Sheep_Meat);
-		resourceListFactory[5]->SetIcon("Game/Assets/Textures/mutton-16.png");
+		resourceListFactory[5]->SetIcon("Game/Assets/Textures/Resource/mutton-16.png");
 		resourceListFactory[6]->SetResource(ResourceName::Sheep_Wool);
-		resourceListFactory[6]->SetIcon("Game/Assets/Textures/wool-16.png");
+		resourceListFactory[6]->SetIcon("Game/Assets/Textures/Resource/wool-16.png");
 		break;
 	default:
 		break;
