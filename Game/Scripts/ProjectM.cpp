@@ -32,6 +32,7 @@
 #include "components\Light.h"
 
 #include "task_system\TaskManager.h"
+#include "Dock.h"
 
 using namespace std;
 
@@ -100,6 +101,12 @@ int main(int argc, char *argv[])
 		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+
+	GameObject *dock = gameManager->buildingManager.CreateNewBuilding(
+		Dock::Create(),
+		"Game/Assets/Models/mobajuice/Dock.dae"
+	);
+	dock->material->diffuseMap = "Game/Assets/Textures/Models/dock_texture.png";
 
 	//Player
 	GameObject *focusPoint = manager->CreateGameObject("Camera Focus Point");
