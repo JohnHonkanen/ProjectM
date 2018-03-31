@@ -18,8 +18,9 @@ MarketHUDElement * MarketHUDElement::Create(HUDElement * element, EHUD::HUDRect 
 
 void MarketHUDElement::Start()
 {
-	// Top bar
-	
+	clock.SetDelay(5000);
+	clock.StartClock();
+
 	marketHUD = WHUDContainerWrapper(EHUD::WHUDContainer::Create(this, { -25, 20, 240, 32 }, "Game/Assets/Textures/transparent_black.png", true), this->y);
 	text = EHUD::TextWidget::Create(marketHUD.GetContainer(), { 5, 20, 0, 0 }, "Resources  Quantity   Price", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
@@ -55,6 +56,10 @@ void MarketHUDElement::Start()
 		}
 		this->y++;
 	}
+
+	for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+		GenerateKSuffix(i);
+	}
 }
 
 void MarketHUDElement::Update()
@@ -63,27 +68,20 @@ void MarketHUDElement::Update()
 		return;
 	}
 
-	auto marketList = market->GetResources();
+	clock.UpdateClock();
 
-	for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+	auto marketList = market->GetResources();
+	
+		for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+
+			if (clock.Alarm()) {
+			market->ChangeOverTimeOf(i, 100, 10);
+			clock.ResetClock();
+		}
 		price[i]->text = "$ " + to_string(market->GetBasePriceOf(i));
 		quantity[i]->text = to_string(market->GetItemStock(i));
 
-		// Check if markets current item stock is greater or equal to 1000, then add "K" to it.
-		if (market->GetItemStock(i) >= 1000) {
-			float q = market->GetItemStock(i) / 1000.0f;
-			std::stringstream ss;
-			ss << std::fixed << std::setprecision(1) << q;
-			quantity[i]->text = ss.str() + "K";
-		}
-
-		// Check if markets current item price is greater or equal to 1000, then add "K" to it.
-		if (market->GetBasePriceOf(i) >= 1000) {
-			float q = market->GetBasePriceOf(i) / 1000.0f;
-			std::stringstream ss;
-			ss << std::fixed << std::setprecision(2) << q;
-			price[i]->text = ss.str() + "K";
-		}
+		GenerateKSuffix(i);
 	}
 }
 
@@ -103,4 +101,23 @@ void MarketHUDElement::GenerateMarketHUDElement(int resourceID, float increment,
 		
 		text = EHUD::TextWidget::Create(resourceHUD[resourceID], { 0, 0, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 		StartChildWidgets();
+}
+
+void MarketHUDElement::GenerateKSuffix(int resourceID)
+{
+	// Check if markets current item stock is greater or equal to 1000, then add "K" to it.
+	if (market->GetItemStock(resourceID) >= 1000) {
+		float q = market->GetItemStock(resourceID) / 1000.0f;
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(1) << q;
+		quantity[resourceID]->text = ss.str() + "K";
+	}
+
+	// Check if markets current item price is greater or equal to 1000, then add "K" to it.
+	if (market->GetBasePriceOf(resourceID) >= 1000) {
+		float q = market->GetBasePriceOf(resourceID) / 1000.0f;
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(2) << q;
+		price[resourceID]->text = ss.str() + "K";
+	}
 }

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+
 enum class MarketName {
 	Null_Market,
 	Local,
@@ -24,7 +25,7 @@ public:
 
 	string GetResourceIcon(ResourceName resourceName); // Get Resource Icon for item sold in market
 
-	int GetResourceForSaleSize();
+	int GetResourceForSaleSize(); // Get size of resource list for sale in market
 
 	void OnLoad();
 	void Start();
@@ -45,6 +46,8 @@ public:
 	int GetDemandOf(int index); // Get Demand of item at vector index
 	void IncreaseDemandOf(int index, int amount); // Increase Demand of item at vector index
 	void DecreaseDemandOf(int index, int amount); // Decrease Demand of item at vector index
+
+	void ChangeOverTimeOf(int index, int demand, int price); // Increase/Decrease Quantity/Price of resource available in market based on demand
 
 private:
 	static const int MAX_LIMITER = 1000;

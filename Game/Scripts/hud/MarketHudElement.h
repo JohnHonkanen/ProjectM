@@ -5,6 +5,8 @@
 #include <string>
 #include "ButtonWidget.h"
 #include "../Resources.h"
+#include "core\GameObject.h"
+#include "utility\Clock.h"
 
 // Namespace Alias
 namespace EHUD = Engine::HUD;
@@ -29,6 +31,7 @@ public:
 	void DrawWidget(unsigned int shader);
 	
 	void GenerateMarketHUDElement(int resourceID, float increment, Resources resource);
+	void GenerateKSuffix(int resourceID); // Add K if value of resource quantity exceeds 1000
 private:
 
 	class WHUDContainerWrapper {
@@ -54,6 +57,7 @@ private:
 	EHUD::WHUDContainer* resourceIcon[MAX_MARKET_ITEM_SIZE];
 	WHUDContainerWrapper marketHUD;
 	ButtonWidget *buttonWidget;
+	Engine::Utility::Clock clock;
 
 	int y = 0;
 	

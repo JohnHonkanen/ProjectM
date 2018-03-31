@@ -73,7 +73,6 @@ int LocalMarket::GetResourceForSaleSize()
 
 void LocalMarket::OnLoad()
 {
-	
 }
 
 void LocalMarket::Start()
@@ -128,11 +127,10 @@ void LocalMarket::IncreaseItemStock(int index, int amount)
 
 void LocalMarket::DecreaseItemStock(int index, int amount)
 {
+	resourceForSale[index].ReduceItemAmount(amount);
+
 	if (resourceForSale[index].GetItemAmount() <= MIN_LIMITER) {
 		resourceForSale[index].SetItemAmount(MIN_LIMITER);
-	}
-	else {
-		resourceForSale[index].ReduceItemAmount(amount);
 	}
 }
 
@@ -154,5 +152,19 @@ void LocalMarket::IncreaseDemandOf(int index, int amount)
 void LocalMarket::DecreaseDemandOf(int index, int amount)
 {
 	resourceForSale[index].DecreaseDemand(amount);
+}
+
+void LocalMarket::ChangeOverTimeOf(int index, int demand, int price)
+{
+	int randomInt = rand() % 10;
+	if (randomInt > 5) {
+		IncreaseBasePriceOf(index, price + randomInt);
+		IncreaseDemandOf(index, demand + randomInt);
+		IncreaseItemStock(index, demand + randomInt);
+	} else if (randomInt < 5) {
+		DecreaseBasePriceOf(index, price + randomInt);
+		DecreaseDemandOf(index, demand + randomInt);
+		DecreaseItemStock(index, demand + randomInt);
+	}
 }
 
