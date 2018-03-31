@@ -17,17 +17,23 @@ public:
 		switch (this->buttonID) {
 		case 0:
 			
-			cout << "Name of Item: " + marketList[0].GetName() << endl;
-			cout << "Name of Item: " + market->GetNameOfItem(0) << endl;
-			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(0)) << endl;
+			cout << "Name of Item: " + marketList[this->buttonID].GetName() << endl;
+			cout << "Name of Item: " + market->GetNameOfItem(this->buttonID) << endl;
+			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 			market->IncreaseBasePriceOf(0, 5);
 			market->DecreaseItemStock(0, 100);
 
-			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(0)) << endl;
+			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 			break;
 
 		case 1:
+			cout << "Name of Item: " + marketList[this->buttonID].GetName() << endl;
+			cout << "Name of Item: " + market->GetNameOfItem(this->buttonID) << endl;
+			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
+			market->IncreaseBasePriceOf(0, 5);
+			market->DecreaseItemStock(0, 100);
 
+			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 			break;
 
 		case 2:

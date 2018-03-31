@@ -15,6 +15,8 @@ namespace Engine {
 	}
 }
 
+
+
 class MarketHUDElement : public EHUD::HUDWidget { 
 public:
 	
@@ -27,10 +29,28 @@ public:
 	
 
 private:
+
+	class WHUDContainerWrapper {
+	public:
+		WHUDContainerWrapper() {};
+		WHUDContainerWrapper(EHUD::WHUDContainer *container, int elementID) : container(container), ID(elementID) {};
+
+		int GetID() { return this->ID; };
+		EHUD::WHUDContainer *GetContainer() { return this->container; };
+
+	private:
+		int ID;
+		EHUD::WHUDContainer *container;
+
+
+	};
+
 	class LocalMarket* market;
 	EHUD::TextWidget* text, *rate, *quantity, *price;
-	EHUD::HUDElement* marketHUD, *resourceHUD; 
+	EHUD::HUDElement *resourceHUD; 
 	EHUD::WHUDContainer* resourceIcon;
+	WHUDContainerWrapper marketHUD;
 	ButtonWidget *buttonWidget;
 
+	int y = 0;
 };
