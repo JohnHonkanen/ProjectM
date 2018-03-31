@@ -13,58 +13,48 @@ public:
 	MarketHubPurchaseBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
 	void Call() {
 		auto marketList = market->GetResources();
+		itemID = this->buttonID;
 
-		switch (this->buttonID) {
+		//if resource purchased...
+		switch (itemID) {
 		case 0:
-			
-			cout << "Name of Item: " + marketList[this->buttonID].GetName() << endl;
-			cout << "Name of Item: " + market->GetNameOfItem(this->buttonID) << endl;
-			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
-			market->IncreaseBasePriceOf(0, 5);
-			market->DecreaseItemStock(0, 100);
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 			break;
-
 		case 1:
-			cout << "Name of Item: " + marketList[this->buttonID].GetName() << endl;
-			cout << "Name of Item: " + market->GetNameOfItem(this->buttonID) << endl;
-			cout << "BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
-			market->IncreaseBasePriceOf(0, 5);
-			market->DecreaseItemStock(0, 100);
-
-			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		case 2:
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		case 3:
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		case 4:
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		case 5:
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		case 6:
-
+			market->IncreaseBasePriceOf(itemID, 5);
+			market->DecreaseItemStock(itemID, 100);
 			break;
-
 		default:
-			cout << "Default case called: " << this->buttonID << " BUY: " + market->GetNameOfMarket() << endl;
+			cout << "Default case called: " << this->buttonID << " SELL: " + market->GetNameOfMarket() << endl;
 			break;
 		}
 	}
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
-	int buttonID;
+	int buttonID, itemID;
 };
 
 class MarketHubSaleBinder : public FunctionPtrBinder
@@ -72,7 +62,44 @@ class MarketHubSaleBinder : public FunctionPtrBinder
 public:
 	MarketHubSaleBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
 	void Call() {
-		//marketHud->CreateDrone();
+		auto marketList = market->GetResources();
+		itemID = this->buttonID;
+
+		// If resource sold...
+		switch (itemID) {
+		case 0:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
+			break;
+		case 1:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		case 2:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		case 3:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		case 4:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		case 5:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		case 6:
+			market->DecreaseBasePriceOf(itemID, 5);
+			market->IncreaseItemStock(itemID, 100);
+			break;
+		default:
+			cout << "Default case called: " << this->buttonID << " BUY: " + market->GetNameOfMarket() << endl;
+			break;
+		}
 
 		cout << "SELL: " + market->GetNameOfMarket() << endl;
 
@@ -81,7 +108,7 @@ public:
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
-	int buttonID;
+	int buttonID, itemID;
 };
 
 MarketHUD * MarketHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, MarketManager * marketManager)

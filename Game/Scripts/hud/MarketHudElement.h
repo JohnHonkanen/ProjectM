@@ -28,7 +28,7 @@ public:
 	void Update();
 	void DrawWidget(unsigned int shader);
 	
-	void GenerateMarketHUDElement(int yOffset, float increment, Resources resource);
+	void GenerateMarketHUDElement(int resourceID, float increment, Resources resource);
 private:
 
 	class WHUDContainerWrapper {
@@ -47,11 +47,14 @@ private:
 	};
 
 	class LocalMarket* market;
-	EHUD::TextWidget* text, *rate, *quantity, *price;
-	EHUD::HUDElement *resourceHUD; 
-	EHUD::WHUDContainer* resourceIcon;
+	static const int MAX_MARKET_ITEM_SIZE = 6;
+
+	EHUD::TextWidget* text, *rate, *quantity[MAX_MARKET_ITEM_SIZE], *price[MAX_MARKET_ITEM_SIZE];
+	EHUD::HUDElement *resourceHUD[MAX_MARKET_ITEM_SIZE];
+	EHUD::WHUDContainer* resourceIcon[MAX_MARKET_ITEM_SIZE];
 	WHUDContainerWrapper marketHUD;
 	ButtonWidget *buttonWidget;
 
 	int y = 0;
+	
 };

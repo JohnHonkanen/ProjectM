@@ -47,8 +47,8 @@ public:
 
 	string GetNameOfItem(int index); // Get name of Item 
 private:
-	static const int MAX_LIMITER = 95;
-	static const int MIN_LIMITER = 1;
+	static const int MAX_LIMITER = 1000;
+	static const int MIN_LIMITER = 0;
 	int marketID;
 	Resources resource;
 	ResourceManager* resourceManager;
