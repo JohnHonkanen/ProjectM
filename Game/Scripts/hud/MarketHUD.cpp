@@ -15,40 +15,21 @@ public:
 		auto marketList = market->GetResources();
 		itemID = this->buttonID;
 
+		/* WIP: Add code to:
+		1) Check if storage space is available + player has enough gold.
+		2) if yes, request resource purchased to be transported to warehouse from marketplace by a drone.
+
+		Waiting on above methods to be developed...
+		*/
+
 		//if resource purchased...
-		switch (itemID) {
-		case 0:
+		if (market->GetItemStock(itemID) <= 0) {
+			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
+		}
+		else {
 			market->IncreaseBasePriceOf(itemID, 5);
 			market->DecreaseItemStock(itemID, 100);
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
-			break;
-		case 1:
-			market->IncreaseBasePriceOf(itemID, 150);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		case 2:
-			market->IncreaseBasePriceOf(itemID, 5);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		case 3:
-			market->IncreaseBasePriceOf(itemID, 5);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		case 4:
-			market->IncreaseBasePriceOf(itemID, 5);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		case 5:
-			market->IncreaseBasePriceOf(itemID, 5);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		case 6:
-			market->IncreaseBasePriceOf(itemID, 5);
-			market->DecreaseItemStock(itemID, 100);
-			break;
-		default:
-			cout << "Default case called: " << this->buttonID << " SELL: " + market->GetNameOfMarket() << endl;
-			break;
 		}
 	}
 private:
@@ -65,45 +46,24 @@ public:
 		auto marketList = market->GetResources();
 		itemID = this->buttonID;
 
+		/* WIP: Add code to:
+		1) Check if item and amount is available via the hub.
+		2) if yes, request resource purchased to be transported to market by a drone.
+
+		Waiting on above methods to be developed...
+		*/
+
+
 		// If resource sold...
-		switch (itemID) {
-		case 0:
+
+		if (market->GetItemStock(itemID) >= 9900) {
+			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
+		}
+		else {
 			market->DecreaseBasePriceOf(itemID, 5);
 			market->IncreaseItemStock(itemID, 100);
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
-			break;
-		case 1:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		case 2:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		case 3:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		case 4:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		case 5:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		case 6:
-			market->DecreaseBasePriceOf(itemID, 5);
-			market->IncreaseItemStock(itemID, 100);
-			break;
-		default:
-			cout << "Default case called: " << this->buttonID << " BUY: " + market->GetNameOfMarket() << endl;
-			break;
 		}
-
-		cout << "SELL: " + market->GetNameOfMarket() << endl;
-
-
 	}
 private:
 	MarketHUD * marketHud;
