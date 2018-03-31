@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "core\GameEngine.h"
+#include "TradeShipSpawner.h"
 
 GameManager *GameManager::gameManager = nullptr;
 GameManager * GameManager::Create(GameObject * gameObject)
@@ -46,4 +47,24 @@ void GameManager::Update()
 	contractManager.Update();
 	playerEconManager.Update();
 	marketManager.Update();
+}
+
+void GameManager::SetHub(Hub * in_hub)
+{
+	hub = in_hub;
+}
+
+Hub * GameManager::GetHub() const
+{
+	return hub;
+}
+
+void GameManager::SetTradeShipSpawner(TradeShipSpawner * spawner)
+{
+	tradeShipSpawner = spawner;
+}
+
+TradeShipSpawner * GameManager::GetTradeShipSpawner() const
+{
+	return tradeShipSpawner;
 }

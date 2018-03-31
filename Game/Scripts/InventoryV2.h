@@ -77,6 +77,8 @@ namespace v2 {
 
 		void Copy(GameObject *copyObject);
 
+		void Clear();
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{

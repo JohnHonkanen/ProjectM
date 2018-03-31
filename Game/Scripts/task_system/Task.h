@@ -42,6 +42,7 @@ namespace v1
 			//Operator Overloads for priority Queue
 			bool operator< (Task const& other) { return priority < other.priority; };
 			bool operator> (Task const& other) { return priority > other.priority; };
+			bool operator== (TASK_TYPE in_type) { return type == in_type; };
 		private:
 			TYPE type;
 			uint priority;

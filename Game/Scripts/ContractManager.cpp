@@ -182,3 +182,17 @@ list<Contract*> ContractManager::GetList() const
 {
 	return contractQueue;
 }
+
+Contract * ContractManager::GetFirstAvailable() const
+{
+	for (Contract *c : contractQueue)
+	{
+		if (!c->GetTaken())
+		{
+			c->SetTaken(true);
+			return c;
+		}
+	}
+
+	return nullptr;
+}

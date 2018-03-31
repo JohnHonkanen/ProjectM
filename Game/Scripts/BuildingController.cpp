@@ -88,7 +88,18 @@ void BuildingController::Update(double dt)
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);
 						structure->transform->SetPosition(snapPoint);
-						structure->transform->Translate(vec3(0, -2, 0));
+						float yTrans = -5.0f;
+						switch (sComponent->GetType())
+						{
+						case DOCK:
+								yTrans = -3.5f;
+								break;
+						case FACTORY:
+							yTrans = -8.0f;
+							break;
+						}
+						sComponent->SetActive(true); //Turn on structures
+						structure->transform->Translate(vec3(0, yTrans, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
 						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));
 

@@ -25,7 +25,8 @@ enum StructureType
 	WAREHOUSE,
 	FACTORY, 
 	DOME,
-	HUB
+	HUB,
+	DOCK,
 };
 
 class Structure : public Behaviour {
