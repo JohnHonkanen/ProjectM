@@ -69,6 +69,7 @@
     <ClInclude Include="Game\Scripts\task_system\TaskManager.h" />
     <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
     <ClInclude Include="Game\Scripts\test\InventoryPopulator.h" />
+    <ClInclude Include="Game\Scripts\TradeShipSpawner.h" />
     <ClInclude Include="Game\Scripts\Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClCompile Include="Game\Scripts\task_system\TaskManager.cpp" />
     <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp" />
     <ClCompile Include="Game\Scripts\test\InventoryPopulator.cpp" />
+    <ClCompile Include="Game\Scripts\TradeShipSpawner.cpp" />
     <ClCompile Include="Game\Scripts\Warehouse.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
