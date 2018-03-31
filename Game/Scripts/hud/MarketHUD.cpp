@@ -23,7 +23,7 @@ public:
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 			break;
 		case 1:
-			market->IncreaseBasePriceOf(itemID, 5);
+			market->IncreaseBasePriceOf(itemID, 150);
 			market->DecreaseItemStock(itemID, 100);
 			break;
 		case 2:

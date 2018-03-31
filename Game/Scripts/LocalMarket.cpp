@@ -148,13 +148,7 @@ void LocalMarket::SetBasePriceOf(int index, int price)
 
 void LocalMarket::IncreaseBasePriceOf(int index, int price)
 {
-
-	if (resourceForSale[index].GetBasePrice() >= MAX_LIMITER) {
-		resourceForSale[index].SetBasePrice(MAX_LIMITER);
-	}
-	else {
-		resourceForSale[index].IncreaseItemBasePrice(price);
-	}	
+	resourceForSale[index].IncreaseItemBasePrice(price);
 }
 
 void LocalMarket::DecreaseBasePriceOf(int index, int price)

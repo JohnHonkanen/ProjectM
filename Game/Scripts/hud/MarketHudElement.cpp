@@ -69,11 +69,20 @@ void MarketHUDElement::Update()
 		price[i]->text = "$ " + to_string(market->GetBasePriceOf(i));
 		quantity[i]->text = to_string(market->GetItemStock(i));
 
+		// Check if markets current item stock is greater or equal to 1000, then add "K" to it.
 		if (market->GetItemStock(i) >= 1000) {
 			float q = market->GetItemStock(i) / 1000.0f;
 			std::stringstream ss;
 			ss << std::fixed << std::setprecision(1) << q;
 			quantity[i]->text = ss.str() + "K";
+		}
+
+		// Check if markets current item price is greater or equal to 1000, then add "K" to it.
+		if (market->GetBasePriceOf(i) >= 1000) {
+			float q = market->GetBasePriceOf(i) / 1000.0f;
+			std::stringstream ss;
+			ss << std::fixed << std::setprecision(2) << q;
+			price[i]->text = ss.str() + "K";
 		}
 	}
 }
