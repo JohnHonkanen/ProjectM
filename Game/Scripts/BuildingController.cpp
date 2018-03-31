@@ -38,19 +38,9 @@ void BuildingController::SetObjectToBuild(std::string structure)
 	// Create our Object and insert it to the game Loop
 	structureName = structure;
 	objectToBuild = buildingManager->GetBuilding(structure);
+	Structure *sComp = objectToBuild->GetComponent<Structure>();
 	objectToBuild->transform->Rotate(vec3(-90, 0, 0));
-	if (structure == "Dome")
-	{
-		
-		objectToBuild->transform->Scale(vec3(10.0f));
-	}
-	else if (structure == "Factory")
-	{
-		objectToBuild->transform->Scale(vec3(10.0f));
-	}
-	else {
-		objectToBuild->transform->Scale(vec3(0.5f));
-	}
+	objectToBuild->transform->Scale(vec3(10) * float(sComp->GetTileWidth()));
 
 	// Sets Wheter we want to display the object on the map or not
 	objectToBuild->enabled = true;
@@ -87,31 +77,20 @@ void BuildingController::Update(double dt)
 			{
 				if (!mouseHeld)
 				{
-					if (hub->GetStructure(coordinates.x, coordinates.y) == nullptr)
+					Structure *sComp = objectToBuild->GetComponent<Structure>();
+					float tileWidth = float(sComp->GetTileWidth());
+
+					if (FindStructure(coordinates.x, coordinates.y, tileWidth) == nullptr)
 					{
-						mouseHeld = true;
-						GameObject * structure = buildingManager->GetBuilding(structureName);						
+						GameObject * structure = buildingManager->GetBuilding(structureName);
 						Structure *sComponent = structure->GetComponent<Structure>();
+						mouseHeld = true;
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
-						hub->AddStructureToNetwork(sComponent->GetType(), sComponent, coordinates.x, coordinates.y);
+						RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);
 						structure->transform->SetPosition(snapPoint);
 						structure->transform->Translate(vec3(0, -2, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
-						objectToBuild->transform->Rotate(vec3(-90, 0, 0));
-						switch (sComponent->GetType())
-						{
-						case DOME:
-							structure->transform->Scale(vec3(10.0f));
-							break;
-						case FACTORY:
-							structure->transform->Scale(vec3(10.0f));
-							break;
-						case WAREHOUSE:
-							structure->transform->Scale(vec3(0.5f));
-							break;
-						default:
-							break;
-						}
+						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));
 
 						buildMode = false;
 					}
@@ -165,4 +144,32 @@ void BuildingController::AddTempObject(GameObject * object)
 PlayerActions * BuildingController::GetPlayerAction()
 {
 	return playerAction;
+}
+
+Structure * BuildingController::FindStructure(float x, float y, float width)
+{
+	for (int i = x; i < x + width; i++)
+	{
+		for (int j = y; j < y + width; j++)
+		{
+			Structure * s = hub->GetStructure(i, j);
+			if (s != nullptr)
+			{
+				return s;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+void BuildingController::RegisterToNetwork(Structure * s, float x, float y, float width)
+{
+	for (int i = x; i < x + width; i++)
+	{
+		for (int j = y; j < y + width; j++)
+		{
+			hub->AddStructureToNetwork(s->GetType(),s, i, j);
+		}
+	}
 }
