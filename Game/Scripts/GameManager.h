@@ -19,7 +19,9 @@ public:
 
 	void SetHub(Hub *hub);
 	Hub * GetHub() const;
-	
+
+	void SetTradeShipSpawner(class TradeShipSpawner *spawner);
+	class TradeShipSpawner * GetTradeShipSpawner() const;
 
 	BuildingManager buildingManager;
 	ResourceManager resourceManager;
@@ -30,4 +32,5 @@ public:
 	static GameManager *gameManager;
 private:
 	Hub * hub;
+	class TradeShipSpawner * tradeShipSpawner;
 };

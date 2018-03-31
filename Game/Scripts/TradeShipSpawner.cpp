@@ -1,27 +1,128 @@
 #include "TradeShipSpawner.h"
 #include "core\GameObject.h"
 #include "components\MeshRenderer.h"
+#include <glm\gtc\random.hpp>
 
 TradeShip * TradeShip::Create(GameObject * gameObject)
 {
 	TradeShip *ts = new TradeShip();
-
+	ts->dock = nullptr;
 	gameObject->AddComponent(ts);
 	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Trader.dae");
-	gameObject->material->diffuseMap = "";
+	gameObject->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
 	return ts;
 }
 
+void TradeShip::Copy(GameObject * gameObject)
+{
+	TradeShip *ts = new TradeShip();
+	ts->dock = nullptr;
+	gameObject->AddComponent(ts);
+}
+
+void TradeShip::SetDock(Dock * in_dock)
+{
+	dock = in_dock;
+}
+
+void TradeShip::Update(double dt)
+{
+	vec3 dockPos = dock->transform->GetPosition();
+	dockPos.y += 2.0f;
+	float dist = distance(transform->GetPosition(), dockPos);
+	if (dist < 50.0f)
+	{
+		if (currentSpeed > 10.0f)
+		{
+			currentSpeed -= 100.0f * dt / 1000.0f;
+		}
+
+		if (currentSpeed < 10.0f)
+		{
+			currentSpeed = 10.0f;
+		}
+
+		vec3 objAngle = transform->GetRotation();
+		int rotY = int(objAngle.y) % 360;
+		if (rotY < 90)
+		{
+			rotYOffset += 10 * dt / 1000.0f;
+		}
+
+	}
+	if (dist > 1.0f && !landed)
+	{
+		RotateToFaceDock();
+		vec3 dir = dockPos - transform->GetPosition();
+		dir = normalize(dir);
+
+		transform->Translate(dir * float(dt / 1000.0f) * currentSpeed);
+
+		if (dist <= 2.0f)
+		{
+			landed = true;
+		}
+	}
+	else {
+		vec3 objAngle = transform->GetRotation();
+		int rotY = int(objAngle.y) % 360;
+
+		if (rotY < 85 || rotY > 95)
+		{
+			transform->Rotate(vec3(0, 20 * dt / 1000.0f, 0));
+		}
+	}
+
+	
+}
+
+void TradeShip::RotateToFaceDock()
+{
+	vec3 dir = dock->transform->GetPosition() - transform->GetPosition();
+	float angle = atan2(dir.x, dir.z);
+	vec3 objAngle = transform->GetRotation();
+	objAngle.y = degrees(angle) + 90.0f + rotYOffset; 
+	transform->SetEulerAngle(objAngle);
+}
+
 //End Of TradeShip Section
+
+TradeShipSpawner * TradeShipSpawner::Create(GameObject * gameObject)
+{
+	TradeShipSpawner * tss = new TradeShipSpawner();
+
+	gameObject->AddComponent(tss);
+
+	return tss;
+}
 
 TradeShipSpawner::~TradeShipSpawner()
 {
 	delete prefab->gameObject;
 }
+void TradeShipSpawner::Copy(GameObject * gameObject)
+{
+}
 void TradeShipSpawner::OnLoad()
 {
 	GameObject * gameObject = new GameObject("TradeShipPrefab");
 	prefab = TradeShip::Create(gameObject);
+}
+
+void TradeShipSpawner::Update()
+{
+}
+
+void TradeShipSpawner::CreateTradeShip(Dock *dock)
+{
+	GameObject * gameObject = prefab->gameObject->Instantiate();
+	TradeShip * ts = gameObject->GetComponent<TradeShip>();
+	ts->transform->SetPosition(vec3(glm::linearRand(-1000, 1000), 500, glm::linearRand(-1000, 1000)));
+	ts->SetDock(dock);
+	ts->transform->SetScale(vec3(20));
+	ts->transform->Rotate(vec3(-90, 0, 0));
+	tradeShips.push_back(ts);
+
 }
 
 

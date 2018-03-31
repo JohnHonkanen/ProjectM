@@ -33,6 +33,7 @@
 
 #include "task_system\TaskManager.h"
 #include "Dock.h"
+#include "TradeShipSpawner.h"
 
 using namespace std;
 
@@ -182,6 +183,11 @@ int main(int argc, char *argv[])
 	trader->transform->Scale(vec3(500));
 	trader->transform->Rotate(vec3(-90, 0, 0));
 
+	//Trade Ship Spawner
+	GameObject *tspObject = manager->CreateGameObject("tradeShipSpawner");
+	auto tsp = TradeShipSpawner::Create(tspObject);
+
+	gameManager->SetTradeShipSpawner(tsp);
 
 	engine.Run();
 	return 0;

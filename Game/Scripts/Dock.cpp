@@ -1,6 +1,6 @@
 #include "Dock.h"
 #include "components\MeshRenderer.h"
-
+#include "TradeShipSpawner.h"
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -44,7 +44,10 @@ void Dock::Update()
 			inventory.Clear();
 			task = Task();
 			contractFufilled = false;
+			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
 		}
+
+		
 
 		return;
 	}
