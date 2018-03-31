@@ -12,7 +12,15 @@ public:
 	void Copy(GameObject * copyObject);
 	void Update();
 private:
-	ContractManager * contractManager;
+	const ContractManager * contractManager;
 	Contract *contract;
-	v1::TaskSystem::Task task;
+	const Hub * hub;
+	bool contractFufilled;
+
+	v1::TaskSystem::Task flushTask;
+
+	bool docked = false;
+
+	//Debug timer
+	Engine::Utility::Clock timer;
 };

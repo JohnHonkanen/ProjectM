@@ -5,6 +5,7 @@
 #include "ContractManager.h"
 #include "PlayerEconManager.h"
 #include "MarketManager.h"
+#include "Hub.h"
 
 class GameManager : public Behaviour
 {
@@ -15,6 +16,9 @@ public:
 	void OnLoad();
 	void Start();
 	void Update();
+
+	void SetHub(Hub *hub);
+	Hub * GetHub() const;
 	
 
 	BuildingManager buildingManager;
@@ -24,5 +28,6 @@ public:
 	MarketManager marketManager;
 
 	static GameManager *gameManager;
-	
+private:
+	Hub * hub;
 };

@@ -47,3 +47,13 @@ void GameManager::Update()
 	playerEconManager.Update();
 	marketManager.Update();
 }
+
+void GameManager::SetHub(Hub * in_hub)
+{
+	hub = in_hub;
+}
+
+Hub * GameManager::GetHub() const
+{
+	return hub;
+}

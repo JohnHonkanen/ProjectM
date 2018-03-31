@@ -10,7 +10,13 @@ Dock * Dock::Create()
 	d->structureType = DOCK;
 	d->type = "Dock";
 	d->contractManager = &GameManager::gameManager->contractManager;
+	d->hub = GameManager::gameManager->GetHub();
 	d->tileWidth = 5;
+	d->contractFufilled = true;
+	d->isActive = false;
+
+	d->timer.StartClock();
+	d->timer.SetDelay(1000);
 
 	return d;
 }
@@ -22,9 +28,76 @@ void Dock::Copy(GameObject * copyObject)
 
 void Dock::Update()
 {
-	if (contract == nullptr)
+	if (!isActive)
 	{
-		//Scan for Contract
 		return;
 	}
+
+	if (contract == nullptr)
+	{
+		
+		//Scan for Contract
+		contract = contractManager->GetFirstAvailable();
+
+		if (contract)
+		{
+			inventory.Clear();
+			task = Task();
+			contractFufilled = false;
+		}
+
+		return;
+	}
+
+	////Debug Code
+	//timer.UpdateClock();
+	//if (timer.Alarm())
+	//{
+	//	if (contractFufilled)
+	//		return;
+
+	//	timer.ResetClock();
+
+	//	inventory.AddItem(contract->GetResource().GetResouceID(), 5);
+	//}
+
+	////End of Debug
+
+	//Found Contract, now do something
+	if (task == TASK_TYPE::NONE && contractFufilled)
+	{
+		//Configure our task and send it on.
+		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, contract->GetResource().GetResouceID(), contract->GetAmount());
+		hub->GetTaskManager()->AddTask(task, task.GetPriority());
+
+		contractFufilled = false;
+	}
+
+	if (!contractFufilled)
+	{
+		int inInventory = inventory.Contains(contract->GetResource().GetResouceID());
+
+		//Nothing to do
+		if (inInventory == 0)
+		{
+			return;
+		}
+
+		int potential = contract->GetCurrent() + inInventory;
+		
+
+		contract->IncreaseCurrent(inInventory);
+		inventory.Remove(contract->GetResource().GetResouceID(), inInventory);
+
+		if (potential >= contract->GetAmount())
+		{
+			contractFufilled = true;
+			contract = nullptr;
+
+			task = Task();
+			//Flush Inventory of Junk
+			inventory.Clear();
+		}
+	}
+
 }

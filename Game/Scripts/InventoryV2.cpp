@@ -4,6 +4,7 @@ Dev: Jack Smith (B00308927)
 */
 
 #include "InventoryV2.h"
+#include "GameManager.h"
 
 namespace v2 {
 	Inventory::Inventory():Inventory(9)
@@ -15,6 +16,7 @@ namespace v2 {
 		storage.resize(storageSize);
 		storage.reserve(storageSize);
 
+		SetResourceManager(&GameManager::gameManager->resourceManager);
 		for (int i = 0; i < storage.size(); i++)
 		{
 			storage[i] = { nullptr,0 };
@@ -333,5 +335,12 @@ namespace v2 {
 		copy->storage = storage;
 		copyObject->AddComponent(copy);
 
+	}
+	void Inventory::Clear()
+	{
+		for (int i = 0; i < storage.size(); i++)
+		{
+			storage[i] = { nullptr,0 };
+		}
 	}
 }

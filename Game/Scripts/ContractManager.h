@@ -26,6 +26,7 @@ public:
 	void Start();
 
 	list <Contract*> GetList() const;
+	Contract * GetFirstAvailable() const;
 private:
 	int contractIndex = 0;
 	

@@ -45,6 +45,9 @@ public:
 	int DifficultyModifier(int tempDif);
 
 	int GetResourceID(); // Resource ID for contract
+
+	bool GetTaken();
+	void SetTaken(bool taken);
 private:
 	int payment, tempDif, amount;
 	int time = 120; 
@@ -52,6 +55,8 @@ private:
 	int difficulty = 1;
 	int contractID, contractIndex, resourceID;
 	int difficultyModifier = 100; // bonus
+
+	bool taken;
 	Resources resource;
 	ResourceManager* resourceManager;
 	ContractManager* contractManager;

@@ -209,3 +209,13 @@ int Contract::GetResourceID()
 {
 	return this->resourceID;
 }
+
+bool Contract::GetTaken()
+{
+	return taken;
+}
+
+void Contract::SetTaken(bool in_taken)
+{
+	taken = in_taken;
+}

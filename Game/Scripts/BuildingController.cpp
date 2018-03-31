@@ -98,6 +98,7 @@ void BuildingController::Update(double dt)
 							yTrans = -8.0f;
 							break;
 						}
+						sComponent->SetActive(true); //Turn on structures
 						structure->transform->Translate(vec3(0, yTrans, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
 						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));

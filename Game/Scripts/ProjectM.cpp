@@ -83,6 +83,9 @@ int main(int argc, char *argv[])
 			hub->AddStructureToNetwork(HUB, hub, x, z);
 		}
 	}
+
+	gameManager->SetHub(hub);
+
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Dome", DOME, 10, 1, 1, 2, 100, 1,false, true, &gameManager->resourceManager, hub),
@@ -171,6 +174,14 @@ int main(int argc, char *argv[])
 	};
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
+
+	GameObject * trader = manager->CreateGameObject("trader");
+	MeshRenderer::Create(trader, "Game/Assets/Models/mobajuice/Trader.dae");
+	trader->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	trader->transform->Translate(vec3(-300, 300, 50));
+	trader->transform->Scale(vec3(500));
+	trader->transform->Rotate(vec3(-90, 0, 0));
+
 
 	engine.Run();
 	return 0;
