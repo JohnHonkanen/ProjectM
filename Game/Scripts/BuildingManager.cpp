@@ -27,28 +27,6 @@ BuildingManager::~BuildingManager()
 void BuildingManager::Start()
 {
 
-	////Basic Factory
-	//CreateNewBuilding(
-	//	Production::Create("Factory 1","Factory", 10, 1, 1, 1, false, false, resourceManager),
-	//	"AssetPath"
-	//);
-
-	////Basic Factory
-	//CreateNewBuilding(
-	//	Production::Create("Dome 1", DOME, 10, 1, 1, 1, false, false, resourceManager),
-	//	"AssetPath"
-	//);
-
-	////Radiation Factory
-	//CreateNewBuilding(
-	//	Production::Create("Factory 2","Radiation Factory", 10, 1, 1, 1000, false, false, resourceManager),
-	//	"AssetPath"
-	//);
-
-	//GameObject * object = GetBuilding("Radiation Factory");
-	//object->transform->SetPosition(vec3(100,0,10));
-	//object->transform->Scale(vec3(1.0));
-
 }
 
 //based on get texture in texture manager
@@ -62,6 +40,22 @@ GameObject* BuildingManager::CreateNewBuilding(Structure * cStructure, string as
 		structure->AddComponent(cStructure); //Component Structure
 		if (cStructure->GetType()==DOME || cStructure->GetType() == FACTORY) {
 			BuildingProductionAnims::Create(structure);
+		}
+
+		switch (cStructure->GetType())
+		{
+		case DOME:
+			cStructure->SetTileWidth(3);
+			break;
+		case FACTORY:
+			cStructure->SetTileWidth(3);
+			break;
+		case WAREHOUSE:
+			cStructure->SetTileWidth(3);
+			break;
+		default:
+			cStructure->SetTileWidth(1);
+			break;
 		}
 		MeshRenderer::Create(structure, asset);
 		buildingList[cStructure->GetName()] =  unique_ptr<GameObject>(structure);

@@ -18,7 +18,11 @@ Structure::~Structure()
 
 Structure::Structure(string building, string typ, int hp, int pow, int eff, int up, int cost, int radOut, bool placed, bool active)
 {
-	
+	Structure(building, typ, hp, pow, eff, up, cost, radOut, placed, active, 1);
+}
+
+Structure::Structure(string building, string typ, int hp, int pow, int eff, int up, int cost, int radOut, bool placed, bool active, int tileWidth)
+{
 	name = building;
 	type = typ;
 	health = hp;
@@ -30,6 +34,7 @@ Structure::Structure(string building, string typ, int hp, int pow, int eff, int 
 	radiationOutput = radOut;
 	isPlaced = placed;
 	isActive = active;
+	this->tileWidth = tileWidth;
 }
 
 Structure::Structure(string building)

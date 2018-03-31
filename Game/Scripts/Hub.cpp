@@ -24,6 +24,7 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 	h->inventory = &InventoryWrapper::Create(gameObject, &gameManager->resourceManager)->inventory;
 	h->inventory->AddFilter(ResourceName::Gold);
 	h->inventory->SetMode(v2::Inventory::WHITELIST);
+	h->tileWidth = 10;
 	gameManager->playerEconManager.SetHUBInventory(h->inventory);
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
@@ -50,6 +51,7 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 		networkList.push_back({ type, x, y, structure });
 		break;
 	default:
+		networkList.push_back({ type, x, y, structure });
 		break;
 	}
 
