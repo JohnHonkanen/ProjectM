@@ -23,8 +23,8 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		Drone *drone = info.controller->GetDrone();
 
 		int x, y;
-		task.From()->GetTilePosition(x, y);
-		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, y, 0));
+		task.To()->GetTilePosition(x, y);
+		boxObj->transform->SetPosition(drone->transform->GetPosition());
 		
 		Inventory * toInventory = &task.To()->GetInventory();
 		ResourceName resource = task.GetResource();
@@ -43,7 +43,7 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 
 	if (boxObj != nullptr)
 	{
-		boxObj->transform->Translate(vec3(0, 10, 0) * float(dt / 1000.0f));
+		boxObj->transform->Translate(vec3(0, -10, 0) * float(dt / 1000.0f));
 	}
 
 
