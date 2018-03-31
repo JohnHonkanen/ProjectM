@@ -65,14 +65,23 @@ int main(int argc, char *argv[])
 	GameObject *hubObject = manager->CreateGameObject("HUB");
 
 	Hub *hub = Hub::Create(hubObject, gameManager);
-	hubObject->transform->Scale(vec3(3.0f));
+	hubObject->transform->Scale(vec3(100.0f));
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
-	hubObject->transform->Translate(vec3(100, 8, 0));
+	hubObject->transform->Translate(vec3(0, 15, 0));
 	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
 	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
 	//end of Hub Setup
-
+	vec2 snapPoint = grid->GetCoordinates(vec3(0));
+	snapPoint.x -= 5;
+	snapPoint.y -= 1;
+	for (int x = snapPoint.x; x < snapPoint.x + 10; x++)
+	{
+		for (int z = snapPoint.y; z < snapPoint.y + 7; z++)
+		{
+			hub->AddStructureToNetwork(HUB, hub, x, z);
+		}
+	}
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Dome", DOME, 10, 1, 1, 2, 100, 1,false, true, &gameManager->resourceManager, hub),

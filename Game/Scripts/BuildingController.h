@@ -24,6 +24,8 @@ public:
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;
 private:
+	Structure * FindStructure(float x, float y, float width);
+	void RegisterToNetwork(Structure * s, float x, float y, float width);
 	class Hub * hub;
 	class PlayerActions *playerAction;
 	BuildingManager * buildingManager;

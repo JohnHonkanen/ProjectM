@@ -5,10 +5,11 @@
 #include "InventoryV2.h"
 #include "task_system\TaskManager.h"
 #include "Resources.h"
+#include "Structure.h"
 
 struct Slot;
 
-class Hub : public Behaviour
+class Hub : public Structure
 {
 public:
 	static Hub *Create(GameObject* gameObject, class GameManager* gameManager);

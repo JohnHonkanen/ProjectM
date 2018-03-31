@@ -179,7 +179,7 @@
     <ClCompile Include="Game\Scripts\task_system\drones\GoToBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\task_system\drones\RequestBehaviour.cpp">
+    <ClCompile Include="Game\Scripts\task_system\drones\DeliverBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\task_system\drones\CollectBehaviour.cpp">
@@ -360,9 +360,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\task_system\drones\CollectBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scripts\task_system\drones\RequestBehaviour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

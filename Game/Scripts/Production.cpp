@@ -65,6 +65,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->resourceManager = resourceManager;
 	copy->hub = hub;
 	copy->inventory.SetResourceManager(resourceManager);
+	copy->tileWidth = tileWidth;
 	copyObject->AddComponent(copy);
 }
 

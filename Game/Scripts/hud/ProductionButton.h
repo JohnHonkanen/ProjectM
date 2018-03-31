@@ -35,9 +35,9 @@ private:
 
 	class Production *production;
 	class EHUD::HUDElement *root;
-	class EHUD::HUDElement *container;
+	class EHUD::HUDElement *containerDome, *containerFactory;
 
-	vector<class ProductionSetterButton*> resourceList;
+	vector<class ProductionSetterButton*> resourceListDome, resourceListFactory;
 
 	void ConfigureResources();
 };
