@@ -3,7 +3,6 @@
 #include "../../Structure.h"
 #include "GoToBehaviour.h"
 #include "../../Hub.h"
-#include "../../Drone.h"
 
 v1::TaskSystem::DeliverBehaviour::DeliverBehaviour()
 {
@@ -64,6 +63,4 @@ void v1::TaskSystem::DeliverBehaviour::Next()
 		delete this;
 		return;
 	}
-
-	delete this;
 }
