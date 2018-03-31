@@ -4,6 +4,7 @@
 #include "hud\HUDRect.h"
 #include <string>
 #include "ButtonWidget.h"
+#include "../Resources.h"
 
 // Namespace Alias
 namespace EHUD = Engine::HUD;
@@ -27,7 +28,7 @@ public:
 	void Update();
 	void DrawWidget(unsigned int shader);
 	
-
+	void GenerateMarketHUDElement(int yOffset, float increment, Resources resource);
 private:
 
 	class WHUDContainerWrapper {

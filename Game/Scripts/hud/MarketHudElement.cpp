@@ -23,31 +23,25 @@ void MarketHUDElement::Start()
 
 	auto marketList = market->GetResources();
 	float increment = 45;
+	int resourceID = 0; 
 	for (auto resource : marketList) {
-		switch (this->y) {
+		resourceID = this->y;
+		switch (resourceID) {
 		case 0:
-			resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 65 + this->y * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
-			resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 70 + this->y * increment, 32, 32 }, resource.GetResourceIcon(), true);
-			quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-			price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+			GenerateMarketHUDElement(resourceID, increment, resource);
+			break;
 
 		case 1:
-			resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 65 + this->y * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
-			resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 70 + this->y * increment, 32, 32 }, resource.GetResourceIcon(), true);
-			quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-			price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+			GenerateMarketHUDElement(resourceID, increment, resource);
+			break;
 
 		case 2:
-			resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 65 + this->y * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
-			resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 70 + this->y * increment, 32, 32 }, resource.GetResourceIcon(), true);
-			quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-			price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+			GenerateMarketHUDElement(resourceID, increment, resource);
+			break;
 
 		default:
 			break;
 		}
-		
-		
 		this->y++;
 	}
 }
@@ -69,4 +63,12 @@ void MarketHUDElement::DrawWidget(unsigned int shader)
 	if (!active) {
 		return;
 	}
+}
+
+void MarketHUDElement::GenerateMarketHUDElement(int yOffset, float increment, Resources resource)
+{
+	resourceHUD = EHUD::WHUDContainer::Create(this, { -25, 65 + yOffset * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
+	resourceIcon = EHUD::WHUDContainer::Create(this, { -5, 70 + yOffset * increment, 32, 32 }, resource.GetResourceIcon(), true);
+	quantity = EHUD::TextWidget::Create(resourceHUD, { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	price = EHUD::TextWidget::Create(resourceHUD, { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 }
