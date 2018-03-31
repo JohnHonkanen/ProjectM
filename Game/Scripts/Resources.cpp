@@ -75,12 +75,18 @@ void Resources::SetBasePrice(int basePrice)
 
 void Resources::IncreaseItemBasePrice(int amount)
 {
-	this->basePrice += amount;
+	int randomAmount = rand() % amount + 1;
+	IncreaseItemPrice(randomAmount);
 }
 
 void Resources::DecreaseItemBasePrice(int amount)
 {
-	this->basePrice -= amount;
+	int randomAmount = rand() % amount + 1;
+	DecreaseItemPrice(randomAmount);
+
+	if (GetBasePrice() > 2000) {
+		DecreaseItemPrice(GetBasePrice() / 3);
+	}
 }
 
 /*Increment Item Stock in marketplace*/
@@ -102,19 +108,22 @@ void Resources::SetItemAmount(int itemStock)
 }
 
 /*Increase Item price*/
-void Resources::IncreaseItemPrice(float modifier)
+void Resources::IncreaseItemPrice(float amount)
 {
-	mood = modifier;
-
-	this->basePrice += GetBasePrice() + baseModifier * mood;
+	int newPrice = amount + GetDemand();
+	this->basePrice += newPrice;
+	
+	if (this->basePrice >= 500) {
+		newPrice = 500;
+		this->basePrice += newPrice;
+	}
 }
 
 /*Increase Item price*/
-void Resources::DecreaseItemPrice(float modifier)
+void Resources::DecreaseItemPrice(float amount)
 {
-	mood = modifier;
-
-	this->basePrice -= mood;
+	int newPrice = amount + GetDemand();
+	this->basePrice -= newPrice;
 
 	if (this->basePrice < 0) {
 		SetItemPrice(1);
@@ -159,6 +168,34 @@ void Resources::SetDemand(int demand)
 int Resources::GetDemand()
 {
 	return this->demand;
+}
+
+void Resources::IncreaseDemand(int demand)
+{
+	int randomInt = rand() % 100;
+
+	if (randomInt > 80) {
+		int newDemand = GetDemand() + (rand() % demand + 1);
+		this->demand += newDemand;
+	}
+
+	if (this->demand > 10) {
+		SetDemand(10);
+	}
+}
+
+void Resources::DecreaseDemand(int demand)
+{
+	int randomInt = rand() % 100;
+
+	if (randomInt > 50) {
+		int newDemand = GetDemand() + (rand() % demand + 1);
+		this->demand -= newDemand;
+	}
+
+	if (this->demand < 1) {
+		SetDemand(1);
+	}
 }
 
 void Resources::update()

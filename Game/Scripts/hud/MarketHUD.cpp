@@ -27,8 +27,9 @@ public:
 			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
-			market->IncreaseBasePriceOf(itemID, 5);
+			market->IncreaseBasePriceOf(itemID, 10);
 			market->DecreaseItemStock(itemID, 100);
+			market->IncreaseDemandOf(itemID, 5);
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 		}
 	}
@@ -60,8 +61,10 @@ public:
 			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
-			market->DecreaseBasePriceOf(itemID, 5);
+			market->DecreaseBasePriceOf(itemID, 100);
 			market->IncreaseItemStock(itemID, 100);
+			market->DecreaseDemandOf(itemID, 10);
+			
 			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 		}
 	}

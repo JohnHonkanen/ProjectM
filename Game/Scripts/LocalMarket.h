@@ -16,8 +16,6 @@ public:
 	LocalMarket(const LocalMarket &copy);
 	~LocalMarket();
 
-	int GetCurrentPrice(ResourceName resourceName);
-	void SetNewCurrentPrice(ResourceName resourceName);
 	MarketName GetMarketID();
 	string GetNameOfMarket();
 	
@@ -25,9 +23,6 @@ public:
 	bool FindResourceForSale(ResourceName resourceName); // Find if resource is for sale
 
 	string GetResourceIcon(ResourceName resourceName); // Get Resource Icon for item sold in market
-	int GetResourcePrice(ResourceName resourceName); // Get Resource price
-	int GetModifier(ResourceName resourceName); // Gets resouce demand to calc modifier
-	void SetModifier(ResourceName resourceNAme); // Sets resource demand using modifier
 
 	int GetResourceForSaleSize();
 
@@ -46,6 +41,11 @@ public:
 	void DecreaseItemStock(int index, int amount); // Decrease Item stock amount at vector index
 
 	string GetNameOfItem(int index); // Get name of Item 
+
+	int GetDemandOf(int index); // Get Demand of item at vector index
+	void IncreaseDemandOf(int index, int amount); // Increase Demand of item at vector index
+	void DecreaseDemandOf(int index, int amount); // Decrease Demand of item at vector index
+
 private:
 	static const int MAX_LIMITER = 1000;
 	static const int MIN_LIMITER = 0;
