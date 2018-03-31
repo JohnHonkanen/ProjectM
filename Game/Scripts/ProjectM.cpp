@@ -165,6 +165,8 @@ int main(int argc, char *argv[])
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
 
+
+
 	engine.Run();
 	return 0;
 }
