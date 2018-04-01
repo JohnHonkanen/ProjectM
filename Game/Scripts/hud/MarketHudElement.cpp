@@ -18,7 +18,7 @@ MarketHUDElement * MarketHUDElement::Create(HUDElement * element, EHUD::HUDRect 
 
 void MarketHUDElement::Start()
 {
-	clock.SetDelay(5000);
+	clock.SetDelay(10000);
 	clock.StartClock();
 
 	marketHUD = WHUDContainerWrapper(EHUD::WHUDContainer::Create(this, { -25, 20, 240, 32 }, "Game/Assets/Textures/transparent_black.png", true), this->y);
@@ -51,7 +51,14 @@ void MarketHUDElement::Start()
 		case 6:
 			GenerateMarketHUDElement(resourceID, increment, resource);
 			break;
+		case 7:
+			GenerateMarketHUDElement(resourceID, increment, resource);
+			break;
+		case 8:
+			GenerateMarketHUDElement(resourceID, increment, resource);
+			break;
 		default:
+			cout << "Insuficient number of MarketHudElement, please generate more." << endl;
 			break;
 		}
 		this->y++;

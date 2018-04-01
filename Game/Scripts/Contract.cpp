@@ -179,6 +179,7 @@ bool Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	SetStatus(false);
+
 	return this->complete;
 }
 
