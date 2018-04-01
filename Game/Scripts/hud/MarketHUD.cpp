@@ -6,13 +6,18 @@
 #include "hud\widgets\TextWidget.h"
 #include "MarketHudElement.h"
 #include "FunctionPtrButton.h"
+#include "../PlayerEconManager.h"
+#include "../GameManager.h"
 
 class MarketHubPurchaseBinder : public FunctionPtrBinder
 {
 public:
-	MarketHubPurchaseBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
+	MarketHubPurchaseBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID, PlayerEconomy* pEcon) : marketHud(marketHud), market(market), pEcon(pEcon)
+	{ this->buttonID = buttonID; };
 	void Call() {
 		auto marketList = market->GetResources();
+		auto pEconList = pEcon->GetPlayerEconList();
+
 		itemID = this->buttonID;
 
 		/* WIP: Add code to:
@@ -23,28 +28,40 @@ public:
 		*/
 
 		//if resource purchased...
-		if (market->GetItemStock(itemID) <= 0) {
+		if (market->GetItemStock(itemID) <= 100) {
 			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
-			market->IncreaseBasePriceOf(itemID, 10);
-			market->DecreaseItemStock(itemID, 100);
-			market->IncreaseDemandOf(itemID, 5);
-			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
+			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+				// Remove gold bars from HUB Inventory
+				pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
+
+				// Adjust price/demand/stock amount of item
+				market->IncreaseBasePriceOf(itemID, 10);
+				market->DecreaseItemStock(itemID, 100);
+				market->IncreaseDemandOf(itemID, 5);
+			}
+
+			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+				cout << "Insufficient funds in pEcon detected!" << endl;
+			}
 		}
 	}
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
+	PlayerEconManager *pEconManager;
+	PlayerEconomy* pEcon;
 	int buttonID, itemID;
 };
 
 class MarketHubSaleBinder : public FunctionPtrBinder
 {
 public:
-	MarketHubSaleBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID) : marketHud(marketHud), market(market) { this->buttonID = buttonID; };
+	MarketHubSaleBinder(MarketHUD *marketHud, LocalMarket* market, int buttonID, PlayerEconomy* pEcon) : marketHud(marketHud), market(market), pEcon(pEcon){ this->buttonID = buttonID; };
 	void Call() {
 		auto marketList = market->GetResources();
+		auto pEconList = pEcon->GetPlayerEconList();
 		itemID = this->buttonID;
 
 		/* WIP: Add code to:
@@ -61,6 +78,8 @@ public:
 			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
+			// Add Gold Bars to HUB Inventory
+			pEcon->AddGoldBars(market->GetBasePriceOf(itemID));
 			market->DecreaseBasePriceOf(itemID, 100);
 			market->IncreaseItemStock(itemID, 100);
 			market->DecreaseDemandOf(itemID, 10);
@@ -71,6 +90,8 @@ public:
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
+	PlayerEconManager *pEconManager;
+	PlayerEconomy* pEcon;
 	int buttonID, itemID;
 };
 
@@ -78,6 +99,7 @@ MarketHUD * MarketHUD::Create(GameObject * gameObject, EHUD::HUDCanvas * root, M
 {
 	MarketHUD *marketHUD = new MarketHUD();
 	marketHUD->marketManager = marketManager;
+	marketHUD->pEconManager = &GameManager::gameManager->playerEconManager;
 	marketHUD->root = root;
 
 	gameObject->AddComponent(marketHUD);
@@ -117,6 +139,7 @@ void MarketHUD::Start()
 {
 	market1 = marketManager->FindPersistentMarket(MarketName::Local);
 	market2 = marketManager->FindPersistentMarket(MarketName::Galactic);
+	pEcon = pEconManager->FindPlayerEcon(EconName::Player_Econ);
 
 	auto marketList1 = market1->GetResources();
 	auto marketList2 = market2->GetResources();
@@ -128,12 +151,12 @@ void MarketHUD::Start()
 	for (auto resource : marketList1) {
 		buttonID = y;
 		// Local Market Buttons (Market1)
-		buyButton = FunctionPtrButton::Create(wrapper, { 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market1, buttonID));
-		sellButton = FunctionPtrButton::Create(wrapper, { 150, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market1, buttonID));
+		buyButton = FunctionPtrButton::Create(wrapper, { 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market1, buttonID, pEcon));
+		sellButton = FunctionPtrButton::Create(wrapper, { 150, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market1, buttonID, pEcon));
 
 		// Galactic Market Buttons (Market2)
-		buyButton = FunctionPtrButton::Create(wrapper, { market2XOffset, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market2, buttonID));
-		sellButton = FunctionPtrButton::Create(wrapper, { market2XOffset + 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market2, buttonID));
+		buyButton = FunctionPtrButton::Create(wrapper, { market2XOffset, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/plus.png", new MarketHubPurchaseBinder(this, market2, buttonID, pEcon));
+		sellButton = FunctionPtrButton::Create(wrapper, { market2XOffset + 75, 105 + y * increment, 16, 16 }, "Game/Assets/Textures/Market/minus.png", new MarketHubSaleBinder(this, market2, buttonID, pEcon));
 		y++;
 	}
 

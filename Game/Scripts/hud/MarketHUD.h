@@ -34,7 +34,8 @@ private:
 	EHUD::HUDElement *buyButton, *sellButton;
 
 	class MarketHUDElement *MHElement, *MHElement2;
-
+	class PlayerEconManager* pEconManager;
+	class PlayerEconomy *pEcon;
 	class MarketManager* marketManager;
 	class LocalMarket *market1, *market2;
 	bool keyReleased = true;

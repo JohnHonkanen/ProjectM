@@ -148,13 +148,6 @@ void MarketManager::Update()
 	clock.UpdateClock();
 	if (clock.Alarm()) {
 		
-	/*	for (int i = 0; i < marketQueue[LOCAL].GetResourceForSaleSize(); i++) {
-			marketQueue[LOCAL].ChangeOverTimeOf(i, 25, 10);
-		}
-		
-		for (int i = 0; i < marketQueue[LOCAL].GetResourceForSaleSize(); i++) {
-			marketQueue[GALACTIC].ChangeOverTimeOf(i, 25, 10);
-		}*/
 		clock.ResetClock();
 	}
 	

@@ -75,7 +75,7 @@ void MarketHUDElement::Update()
 		for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
 
 			if (clock.Alarm()) {
-			market->ChangeOverTimeOf(i, 100, 10);
+			market->ChangeOverTimeOf(i, 100, 50);
 			clock.ResetClock();
 		}
 		price[i]->text = "$ " + to_string(market->GetBasePriceOf(i));
