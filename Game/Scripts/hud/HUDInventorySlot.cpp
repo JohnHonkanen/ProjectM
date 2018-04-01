@@ -23,7 +23,6 @@ void HUDInventorySlot::Start()
 
 void HUDInventorySlot::DrawWidget(unsigned int shader)
 {
-	// not implemented because this class uses other widget classes to draw
 	if (!this->IsActive())
 	{
 		return;

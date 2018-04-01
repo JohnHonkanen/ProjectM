@@ -14,6 +14,7 @@ class Hub : public Structure
 public:
 	static Hub *Create(GameObject* gameObject, class GameManager* gameManager);
 	void AddStructureToNetwork(enum StructureType type, class Structure* structure, int x, int y);
+	void AddStructureToList(enum StructureType type, class Structure* structure, int x, int y);
 	class Structure* GetStructure(int x, int y);
 	class Structure* FindNearest(enum StructureType type, int x, int y);
 	class Structure* FindNearestToDeposit(enum StructureType type, int x, int y, ResourceName resource);

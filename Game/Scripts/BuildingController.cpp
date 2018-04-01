@@ -183,4 +183,6 @@ void BuildingController::RegisterToNetwork(Structure * s, float x, float y, floa
 			hub->AddStructureToNetwork(s->GetType(),s, i, j);
 		}
 	}
+
+	hub->AddStructureToList(s->GetType(), s, x, y);
 }

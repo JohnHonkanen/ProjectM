@@ -35,10 +35,15 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 
 void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x, int y)
 {
+	networkSlots[x][y] = structure;
+}
+
+void Hub::AddStructureToList(StructureType type, Structure * structure, int x, int y)
+{
 	switch (type)
 	{
 	case PRODUCTION:
-		networkList.push_back({type, x, y, structure});
+		networkList.push_back({ type, x, y, structure });
 		break;
 	case DOME:
 		networkList.push_back({ type, x, y, structure });
@@ -54,8 +59,6 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 		networkList.push_back({ type, x, y, structure });
 		break;
 	}
-
-	networkSlots[x][y] = structure;
 }
 
 Structure * Hub::GetStructure(int x, int y)
@@ -271,7 +274,7 @@ void Hub::TallyResource()
 {
 	map<ResourceName, ResourceSlot> tempList;
 
-	for (auto structure : networkList)
+	for (auto structure : warehouseList)
 	{
 		auto inventory = structure.structure->GetInventory();
 		auto list = inventory.Contains();

@@ -68,6 +68,11 @@ void HubHUD::Update()
 		inventoryDisplay.reserve(size);
 	}
 	int i = 0;
+	for (auto &iDisplay : inventoryDisplay)
+	{
+		iDisplay->SetIcon("");
+		iDisplay->SetQuantity(0);
+	}
 	for (auto item : totalList)
 	{
 		Resource resource = *resourceManager->Find(item.resource);
