@@ -52,20 +52,6 @@ void Dock::Update()
 		return;
 	}
 
-	////Debug Code
-	//timer.UpdateClock();
-	//if (timer.Alarm())
-	//{
-	//	if (contractFufilled)
-	//		return;
-
-	//	timer.ResetClock();
-
-	//	inventory.AddItem(contract->GetResource().GetResouceID(), 5);
-	//}
-
-	////End of Debug
-
 	//Found Contract, now do something
 	if (task == TASK_TYPE::NONE && contractFufilled)
 	{
@@ -76,31 +62,51 @@ void Dock::Update()
 		contractFufilled = false;
 	}
 
-	if (!contractFufilled)
+	if (dockedShip)
 	{
-		int inInventory = inventory.Contains(contract->GetResource().GetResouceID());
-
-		//Nothing to do
-		if (inInventory == 0)
+		if (!contractFufilled)
 		{
-			return;
-		}
+			int inInventory = inventory.Contains(contract->GetResource().GetResouceID());
 
-		int potential = contract->GetCurrent() + inInventory;
-		
+			//Nothing to do
+			if (inInventory == 0)
+			{
+				return;
+			}
 
-		contract->IncreaseCurrent(inInventory);
-		inventory.Remove(contract->GetResource().GetResouceID(), inInventory);
+			int potential = contract->GetCurrent() + inInventory;
 
-		if (potential >= contract->GetAmount())
-		{
-			contractFufilled = true;
-			contract = nullptr;
 
-			task = Task();
-			//Flush Inventory of Junk
-			inventory.Clear();
+			contract->IncreaseCurrent(inInventory);
+			inventory.Remove(contract->GetResource().GetResouceID(), inInventory);
+
+			if (potential >= contract->GetAmount())
+			{
+				contractFufilled = true;
+				contract = nullptr;
+
+				task = Task();
+				//Flush Inventory of Junk
+				inventory.Clear();
+
+
+				dockedShip->Return();
+				dockedShip = nullptr;
+				docked = false;
+			}
 		}
 	}
+	
 
+}
+
+void Dock::DockShip(TradeShip * ship)
+{
+	dockedShip = ship;
+	docked = true;
+}
+
+vec3 Dock::ParkingLocation()
+{
+	return transform->GetPosition() + vec3(30, 0, 0);
 }

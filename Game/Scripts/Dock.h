@@ -11,6 +11,9 @@ public:
 	static Dock * Create();
 	void Copy(GameObject * copyObject);
 	void Update();
+
+	void DockShip(class TradeShip* ship);
+	vec3 ParkingLocation();
 private:
 	const ContractManager * contractManager;
 	Contract *contract;
@@ -20,6 +23,7 @@ private:
 	v1::TaskSystem::Task flushTask;
 
 	bool docked = false;
+	class TradeShip *dockedShip;
 
 	//Debug timer
 	Engine::Utility::Clock timer;

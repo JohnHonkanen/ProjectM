@@ -13,7 +13,7 @@ ContractManager::~ContractManager()
 Contract ContractManager::AddContract()
 {
 	int numberOfResources = resourceManager->NumberOfActiveResources();
-	int generatedResID = 2;//resourceManager->RandomResources(); 
+	int generatedResID = 3;//resourceManager->RandomResources(); 
 	//cout << generatedResID << endl;
 	int generatedContractID = (rand() % 640000) + 1;
 

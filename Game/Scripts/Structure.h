@@ -87,6 +87,8 @@ public:
 	void SetTilePosition(int x, int y);
 	void TaskCompleted();
 
+	virtual vec3 ParkingLocation();
+
 	template<class Archive>
 	void serialize(Archive & ar)
 	{

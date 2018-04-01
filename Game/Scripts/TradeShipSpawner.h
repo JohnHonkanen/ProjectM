@@ -10,12 +10,17 @@ public:
 	void SetDock(Dock *dock);
 
 	void Update(double dt);
+	void Return();
+	void SetCameFrom(vec3 from);
 private:
-	void RotateToFaceDock();
+	void RotateToFace(vec3 pos);
+	void MoveTo(vec3 pos, double dt);
+	vec3 cameFrom;
 	Dock * dock;
 	float speed = 100.0f;
 	float currentSpeed = 100.0f;
 	bool landed = false;
+	bool returning = false;
 	float rotYOffset = 0;
 };
 

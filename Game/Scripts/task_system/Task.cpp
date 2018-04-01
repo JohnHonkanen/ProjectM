@@ -34,6 +34,16 @@ namespace v1
 			return to;
 		}
 
+		int Task::Fufill(int amount)
+		{
+			return fufilled += amount;
+		}
+
+		int Task::HasLeft()
+		{
+			return amount - fufilled;
+		}
+
 		ResourceName Task::GetResource() const
 		{
 			return resource;

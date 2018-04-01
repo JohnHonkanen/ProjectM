@@ -39,6 +39,8 @@ namespace v1
 				to = s;
 			}
 
+			int Fufill(int amount);
+			int HasLeft();
 			ResourceName GetResource() const;
 			int GetAmount() const;
 
@@ -55,6 +57,7 @@ namespace v1
 			Structure *to;
 			ResourceName resource;
 			int amount;
+			int fufilled = 0;
 		};
 	}
 }

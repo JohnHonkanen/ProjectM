@@ -24,7 +24,7 @@ namespace v1
 			destination.y = 0;
 
 			//Check if We have reached target
-			if (distance(position, destination) < 0.5f)
+			if (distance(position, destination) < 2.0f)
 			{
 				//Target Reached
 				return true;

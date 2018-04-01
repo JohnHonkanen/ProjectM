@@ -52,6 +52,11 @@ void Structure::TaskCompleted()
 	task = v1::TaskSystem::Task();
 }
 
+vec3 Structure::ParkingLocation()
+{
+	return transform->GetPosition();
+}
+
 void Structure::OnLoad()
 {
 }

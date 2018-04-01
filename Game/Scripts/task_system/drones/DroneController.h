@@ -98,7 +98,7 @@ namespace v1 {
 				REQUEST
 			};
 			ACTIVE_STATE activeState;
-			float baseSpeed = 20.0f;
+			float baseSpeed = 40.0f;
 			float speedMod = 1.0f;
 			bool forceIdle = false;
 
