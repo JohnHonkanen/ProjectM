@@ -1,6 +1,7 @@
 #include "MarketManager.h"
 #include "core\GameEngine.h"
 #include "core\InputManager.h"
+#include "utility\Clock.h"
 
 MarketManager::MarketManager()
 {
@@ -13,13 +14,6 @@ MarketManager::~MarketManager()
 LocalMarket MarketManager::AddMarket(MarketName marketName, string nameOfMarket)
 {
 	LocalMarket localMarket = LocalMarket(marketName, resourceManager, nameOfMarket);
-
-	// Check if market exists
-
-	//if (Find(marketName).GetMarketID() == MarketName::Null_Market) {
-	//	this->marketQueue.push_back(localMarket);
-	//}
-	//this->marketQueue.push_back(localMarket);
 
 	switch (marketName) {
 	case MarketName::Local:
@@ -152,9 +146,7 @@ void MarketManager::Start()
 void MarketManager::Update()
 {
 	clock.UpdateClock();
-	//marketQueue[LOCAL].SetNewCurrentPrice(ResourceName::Chicken_Egg);
 	if (clock.Alarm()) {
-		
 		
 		clock.ResetClock();
 	}

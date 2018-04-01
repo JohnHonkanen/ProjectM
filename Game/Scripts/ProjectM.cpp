@@ -32,6 +32,8 @@
 #include "components\Light.h"
 
 #include "task_system\TaskManager.h"
+#include "Dock.h"
+#include "TradeShipSpawner.h"
 
 using namespace std;
 
@@ -82,24 +84,33 @@ int main(int argc, char *argv[])
 			hub->AddStructureToNetwork(HUB, hub, x, z);
 		}
 	}
+
+	gameManager->SetHub(hub);
+
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Dome", DOME, 10, 1, 1, 2, 100, 1,false, true, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
-	dome->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+	dome->material->diffuseMap = "Game/Assets/Textures/Dome_UVW.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Factory", FACTORY, 10, 1, 1,2,100, 1, false, false, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
-	factory->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+	factory->material->diffuseMap = "Game/Assets/Textures/factory_UVW.png";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
 		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
 	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+
+	GameObject *dock = gameManager->buildingManager.CreateNewBuilding(
+		Dock::Create(),
+		"Game/Assets/Models/mobajuice/Dock.dae"
+	);
+	dock->material->diffuseMap = "Game/Assets/Textures/Models/dock_texture.png";
 
 	//Player
 	GameObject *focusPoint = manager->CreateGameObject("Camera Focus Point");
@@ -165,7 +176,18 @@ int main(int argc, char *argv[])
 	pointLight->SetLightProperties(pointProp);
 	p1->transform->SetPosition(vec3(-23,5,1));
 
+	GameObject * trader = manager->CreateGameObject("trader");
+	MeshRenderer::Create(trader, "Game/Assets/Models/mobajuice/Trader.dae");
+	trader->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	trader->transform->Translate(vec3(-300, 300, 50));
+	trader->transform->Scale(vec3(500));
+	trader->transform->Rotate(vec3(-90, 0, 0));
 
+	//Trade Ship Spawner
+	GameObject *tspObject = manager->CreateGameObject("tradeShipSpawner");
+	auto tsp = TradeShipSpawner::Create(tspObject);
+
+	gameManager->SetTradeShipSpawner(tsp);
 
 	engine.Run();
 	return 0;

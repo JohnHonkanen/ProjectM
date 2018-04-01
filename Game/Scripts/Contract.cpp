@@ -81,8 +81,6 @@ void Contract::SetAmount()
 void Contract::SetTime(int timer)
 {
 
-	//this->time = timer;
-
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
@@ -181,7 +179,6 @@ bool Contract::SetStatus(bool active)
 bool Contract::IsComplete()
 {
 	SetStatus(false);
-	//cout << "Contract: " <<  GetContractIndex() << " completed!" << endl << endl;
 	return this->complete;
 }
 
@@ -208,4 +205,14 @@ int Contract::DifficultyModifier(int tempDif)
 int Contract::GetResourceID()
 {
 	return this->resourceID;
+}
+
+bool Contract::GetTaken()
+{
+	return taken;
+}
+
+void Contract::SetTaken(bool in_taken)
+{
+	taken = in_taken;
 }

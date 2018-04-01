@@ -8,21 +8,33 @@ PlayerEconManager::~PlayerEconManager()
 {
 }
 
-PlayerEconomy PlayerEconManager::AddEconomy()
+PlayerEconomy PlayerEconManager::AddEconomy(EconName econName, string nameOfEconomy)
 {
-	PlayerEconomy playerEconomy = PlayerEconomy(resourceManager, this);
+	PlayerEconomy playerEconomy = PlayerEconomy(resourceManager, this, econName, nameOfEconomy);
 	Resources resource = resourceManager->FindResource(ResourceName::Gold); // Add gold as a resource to player economy
 
-	playerEconomy.SetPlayerEconIndex(0);
-	playerEconomy.name = "pEcon";
+	switch (econName) {
+	case EconName::Player_Econ:
+		this->econList[PLAYER_ECON] = playerEconomy;
+		break;
 
-	return this->economyList[playerEconomy.GetPlayerEconIndex()] = playerEconomy;;
+	default:
+		cout << "No Economy found" << endl;
+		break;
+	}
+
+	return playerEconomy;
 }
 
-PlayerEconomy* PlayerEconManager::FindPlayerEcon()
+PlayerEconomy* PlayerEconManager::FindPlayerEcon(EconName econName)
 {
-	
-	return &this->economyList[0];
+	switch (econName) {
+	case EconName::Player_Econ:
+		return &econList[PLAYER_ECON];
+
+	default:
+		return nullptr;
+	}
 }
 
 
@@ -56,10 +68,16 @@ void PlayerEconManager::Update()
 
 void PlayerEconManager::Start()
 {
-	AddEconomy();
+	econList.resize(1);
+	AddEconomy(EconName::Player_Econ, "playerEcon");
 }
 
 void PlayerEconManager::SetHUBInventory(v2::Inventory * HUBInventory)
 {
 	this->HUBInventory = HUBInventory;
+}
+
+vector<PlayerEconomy*> PlayerEconManager::GetList() const
+{
+	return vector<PlayerEconomy*>();
 }

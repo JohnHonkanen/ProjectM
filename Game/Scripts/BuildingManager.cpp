@@ -54,7 +54,7 @@ GameObject* BuildingManager::CreateNewBuilding(Structure * cStructure, string as
 			cStructure->SetTileWidth(3);
 			break;
 		default:
-			cStructure->SetTileWidth(1);
+			//cStructure->SetTileWidth(3);
 			break;
 		}
 		MeshRenderer::Create(structure, asset);

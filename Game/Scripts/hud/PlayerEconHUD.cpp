@@ -36,7 +36,7 @@ void PlayerEconHUD::OnLoad()
 void PlayerEconHUD::Start()
 {
 	
-	playerEconomy = playerEconManager->FindPlayerEcon();
+	playerEconomy = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
 	PEElement = PlayerEconHUDElement::Create(wrapper, { 5, 8, 0, 0 }, playerEconomy);
 }
 

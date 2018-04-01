@@ -23,28 +23,6 @@ LocalMarket::~LocalMarket()
 {
 }
 
-int LocalMarket::GetCurrentPrice(ResourceName resourceName)
-{
-	return this->basePrice = resourceManager->Find(resourceName)->GetBasePrice();
-}
-
-void LocalMarket::SetNewCurrentPrice(ResourceName resourceName)
-{
-	int current = GetCurrentPrice(resourceName);
-
-	int newPrice = current + GetModifier(resourceName);
-
-	if (resourceManager->Find(resourceName)->GetResouceID() != ResourceName::Null_Resource) {
-		cout << "Old: " << GetCurrentPrice(resourceName) << endl;
-		resourceManager->Find(resourceName)->SetBasePrice(newPrice);
-		cout << "New: " << GetCurrentPrice(resourceName) << endl;
-	}
-
-	if (resourceManager->Find(resourceName)->GetResouceID() == ResourceName::Null_Resource) {
-		cout << "Whoops! We just tried to SetNewCurrentPrice on a Null_Resource!" << endl;
-	}
-}
-
 string LocalMarket::GetNameOfMarket()
 {
 	return this->nameOfMarket;
@@ -88,29 +66,6 @@ string LocalMarket::GetResourceIcon(ResourceName resourceName)
 	return resource.GetResourceIcon();
 }
 
-int LocalMarket::GetResourcePrice(ResourceName resourceName)
-{
-	Resource resource = *resourceManager->Find(resourceName);
-	return resource.GetBasePrice();
-}
-
-int LocalMarket::GetModifier(ResourceName resourceName)
-{
-	Resource resource = *resourceManager->Find(resourceName);
-	return resource.GetDemand();
-}
-
-void LocalMarket::SetModifier(ResourceName resourceName)
-{
-	// WIP: Add conditional statement:  If purchase, then increase modifier else, decrease.
-
-	int currentDemand = GetModifier(resourceName);
-
-	int newDemand = currentDemand + modifier;
-
-	resourceManager->Find(resourceName)->SetDemand(newDemand);
-}
-
 int LocalMarket::GetResourceForSaleSize()
 {
 	return resourceForSale.size();
@@ -118,7 +73,6 @@ int LocalMarket::GetResourceForSaleSize()
 
 void LocalMarket::OnLoad()
 {
-	
 }
 
 void LocalMarket::Start()
@@ -130,7 +84,87 @@ void LocalMarket::Update()
 	
 }
 
-vector<Resources> LocalMarket::GetResources() const
+vector<Resources> &LocalMarket::GetResources()
 {
 	return resourceForSale;
 }
+
+int LocalMarket::GetBasePriceOf(int index)
+{
+
+	return resourceForSale[index].GetBasePrice();
+}
+
+void LocalMarket::SetBasePriceOf(int index, int price)
+{
+	resourceForSale[index].SetBasePrice(price);
+}
+
+void LocalMarket::IncreaseBasePriceOf(int index, int price)
+{
+	resourceForSale[index].IncreaseItemBasePrice(price);
+}
+
+void LocalMarket::DecreaseBasePriceOf(int index, int price)
+{
+
+	resourceForSale[index].DecreaseItemBasePrice(price);
+
+	if (resourceForSale[index].GetBasePrice() <= MIN_LIMITER) {
+		resourceForSale[index].SetBasePrice(1);
+	}
+}
+
+int LocalMarket::GetItemStock(int index)
+{
+	return resourceForSale[index].GetItemAmount();
+}
+
+void LocalMarket::IncreaseItemStock(int index, int amount)
+{
+	resourceForSale[index].IncreaseItemAmount(amount);
+}
+
+void LocalMarket::DecreaseItemStock(int index, int amount)
+{
+	resourceForSale[index].ReduceItemAmount(amount);
+
+	if (resourceForSale[index].GetItemAmount() <= MIN_LIMITER) {
+		resourceForSale[index].SetItemAmount(MIN_LIMITER);
+	}
+}
+
+string LocalMarket::GetNameOfItem(int index)
+{
+	return resourceForSale[index].GetName();
+}
+
+int LocalMarket::GetDemandOf(int index)
+{
+	return resourceForSale[index].GetDemand();
+}
+
+void LocalMarket::IncreaseDemandOf(int index, int amount)
+{
+	resourceForSale[index].IncreaseDemand(amount);
+}
+
+void LocalMarket::DecreaseDemandOf(int index, int amount)
+{
+	resourceForSale[index].DecreaseDemand(amount);
+}
+
+void LocalMarket::ChangeOverTimeOf(int index, int demand, int price)
+{
+	int randomInt = rand() % 10;
+	if (randomInt > 5) {
+		IncreaseBasePriceOf(index, price + randomInt);
+		IncreaseDemandOf(index, demand + randomInt);
+		IncreaseItemStock(index, demand + randomInt);
+	} else if (randomInt < 5) {
+		DecreaseBasePriceOf(index, price + randomInt);
+		DecreaseDemandOf(index, demand + randomInt);
+		DecreaseItemStock(index, demand + randomInt);
+	}
+}
+

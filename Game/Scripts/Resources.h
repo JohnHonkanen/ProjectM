@@ -42,6 +42,8 @@ public:
 
 	int GetBasePrice(); // Get current base price of items
 	void SetBasePrice(int basePrice); // Set current base price of items
+	void IncreaseItemBasePrice(int amount); // Increase current base price of item
+	void DecreaseItemBasePrice(int amount); // Decrease current base price of item
 
 	void IncreaseItemAmount(int itemStock); // Increase the amount of item in stock
 	void ReduceItemAmount(int itemStock); // Decrease the amount of item in stock
@@ -59,6 +61,8 @@ public:
 
 	void SetDemand(int demand); // Set resource demand
 	int GetDemand(); // Get resource demand
+	void IncreaseDemand(int demand); // Increase resource demand
+	void DecreaseDemand(int demand); // Decrease resource demand
 
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
@@ -70,7 +74,6 @@ private:
 	int itemID, itemValue, itemQuality, stackLimit, demand;
 	int itemStock = 0;
 	int basePrice; // Standard price
-	float mood; // The modifier
 	float baseModifier = 5.0;
 	string itemName, sku, resourceIcon;
 
