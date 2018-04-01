@@ -10,14 +10,18 @@ using namespace std;
 enum class ResourceName : unsigned int {
 	Null_Resource,
 	Gold,
+	SpaceCow, // Dome Only
 	SpaceCow_Beef,
 	SpaceCow_Milk,
 	SpaceCow_Cheese, // Recipe: Use SpaceCow_Milk to produce
+	Sheep, // Dome Only
 	Sheep_Wool, // Factory Only
 	Sheep_Meat, // Factory Only
+	Chicken, // Dome only
 	Chicken_Egg,
 	Chicken_Meat, // Factory Only
 	Kittain, // Dome only (Pets)
+	Doggo, // Dome only (Pets)
 	Steel_Cotton, // Building material
 	Mandrake,
 	Grape,

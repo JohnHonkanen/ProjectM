@@ -66,16 +66,21 @@ void ResourceManager::OnLoad()
 	GameEngine::manager.inputManager.AddKey("IO", "i", "o");
 
 	int randomInt = rand() % 100 + 1;
+
 	Resources resource = AddResource(ResourceName::Null_Resource, "Null_Resource", "NULL", 1, 0, "Game/Assets/Textures/Resource/missing-16.png", 0, 1);
 	resource = AddResource(ResourceName::Gold, "Gold", "GOLD", 1, 1, "Game/Assets/Textures/Resource/gold-16.png", 1000, 1);
-	resource = AddResource(ResourceName::SpaceCow_Beef, "SpaceCow Beef", "MEAT", 10, 1000, "Game/Assets/Textures/Resource/steak-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::SpaceCow, "SpaceCow", "ANIMAL", 2750, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::SpaceCow_Beef, "SpaceCow Beef", "MEAT", 75, 1000, "Game/Assets/Textures/Resource/steak-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::SpaceCow_Milk, "SpaceCow Milk", "DAIRY", 50, 1000, "Game/Assets/Textures/Resource/milk-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::SpaceCow_Cheese, "SpaceCow Cheese", "DAIRY", 10, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::Sheep, "Sheep", "ANIMAL", 1800, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::Sheep_Wool, "Sheep Wool", "MATERIAL", 30, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::Sheep_Meat, "Sheep Meat", "MEAT", 150, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::Chicken, "SpaceCow", "ANIMAL", 800, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::Chicken_Egg, "Chicken Egg", "EGGS", 10, 1000, "Game/Assets/Textures/Resource/egg-16.jpg", 100, randomInt);
 	resource = AddResource(ResourceName::Chicken_Meat, "Chicken Meat", "MEAT", 50, 1000, "Game/Assets/Textures/Resource/chicken-16.png", 1000, randomInt);
-	resource = AddResource(ResourceName::Kittain, "Kittain", "PET", 10, 1000, "Game/Assets/Textures/Resource/kittain-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::Kittain, "Kittain", "PET", 675, 1000, "Game/Assets/Textures/Resource/kittain-16.png", 100, randomInt);
+	resource = AddResource(ResourceName::Doggo, "SpaceCow", "PET", 675, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::Steel_Cotton, "Steel Cotton", "MATERIAL", 30, 1000, "Game/Assets/Textures/Resource/steel_cotton-16.png", 1000, randomInt);
 	resource = AddResource(ResourceName::Mandrake, "Mandrake", "PLANT", 150, 1000, "Game/Assets/Textures/Resource/mandrake-16.png", 100, randomInt);
 	resource = AddResource(ResourceName::Grape, "Grape", "PLANT", 30, 1000, "Game/Assets/Textures/Resource/grape-16.png", 100, randomInt);
