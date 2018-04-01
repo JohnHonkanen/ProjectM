@@ -32,21 +32,26 @@ public:
 			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
+			// Check if enough funds available in pEcon to complete purchase
 			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
-				// Remove gold bars from HUB Inventory
+				// Remove gold bars from HUB Inventory + reqiest drone to send
 				pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
-
+				// if item received at dock...
 				// Adjust price/demand/stock amount of item
 				market->IncreaseBasePriceOf(itemID, 10);
 				market->DecreaseItemStock(itemID, 100);
 				market->IncreaseDemandOf(itemID, 5);
+
+				// Request drone to pick up item : WIP
 			}
 
-			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+			// If NOT enough funds available in pEcon to complete purchase
+			if (pEcon->GetGBAmount() < market->GetBasePriceOf(itemID)) {
 				cout << "Insufficient funds in pEcon detected!" << endl;
 			}
 		}
 	}
+
 private:
 	MarketHUD * marketHud;
 	LocalMarket *market;
@@ -74,7 +79,7 @@ public:
 
 		// If resource sold...
 
-		if (market->GetItemStock(itemID) >= 9900) {
+		if (market->GetItemStock(itemID) >= market->GetMaxLimit()) {
 			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
@@ -83,8 +88,6 @@ public:
 			market->DecreaseBasePriceOf(itemID, 100);
 			market->IncreaseItemStock(itemID, 100);
 			market->DecreaseDemandOf(itemID, 10);
-			
-			cout << "New BasePrice of Item: " + to_string(market->GetBasePriceOf(this->buttonID)) << endl;
 		}
 	}
 private:

@@ -57,9 +57,10 @@ void MarketHUDElement::Start()
 		this->y++;
 	}
 
-	for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+	for (int i = 0; i < MAX_MARKET_ITEM_SIZE; ++i) {
 		GenerateKSuffix(i);
 	}
+	StartChildWidgets();
 }
 
 void MarketHUDElement::Update()
@@ -71,17 +72,19 @@ void MarketHUDElement::Update()
 	clock.UpdateClock();
 
 	auto marketList = market->GetResources();
-	
-		for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+
+		for (int resourceID = 0; resourceID < MAX_MARKET_ITEM_SIZE; resourceID++) {
 
 			if (clock.Alarm()) {
-			market->ChangeOverTimeOf(i, 100, 50);
+			market->ChangeOverTimeOf(resourceID, 100, 50);
 			clock.ResetClock();
 		}
-		price[i]->text = "$ " + to_string(market->GetBasePriceOf(i));
-		quantity[i]->text = to_string(market->GetItemStock(i));
-
-		GenerateKSuffix(i);
+		
+		quantity[resourceID]->text = to_string(market->GetItemStock(resourceID));
+		
+		price[resourceID]->text = "$ " + to_string(market->GetBasePriceOf(resourceID));
+		
+		GenerateKSuffix(resourceID);
 	}
 }
 
@@ -96,11 +99,9 @@ void MarketHUDElement::GenerateMarketHUDElement(int resourceID, float increment,
 {
 		resourceHUD[resourceID] = EHUD::WHUDContainer::Create(this, { -25, 65 + resourceID * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
 		resourceIcon[resourceID] = EHUD::WHUDContainer::Create(this, { -5, 70 + resourceID * increment, 32, 32 }, resource.GetResourceIcon(), true);
-		quantity[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 115, 25, 0, 0 }, to_string(resource.GetItemAmount()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-		price[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 175, 25, 0, 0 }, "$ " + to_string(resource.GetBasePrice()), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-		
-		text = EHUD::TextWidget::Create(resourceHUD[resourceID], { 0, 0, 0, 0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-		StartChildWidgets();
+		quantity[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 100, 25, 0, 0 }, to_string(0), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+		price[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 185, 25, 0, 0 }, to_string(5), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+
 }
 
 void MarketHUDElement::GenerateKSuffix(int resourceID)
