@@ -42,7 +42,7 @@ public:
 				market->IncreaseDemandOf(itemID, 5);
 			}
 
-			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+			if (pEcon->GetGBAmount() < market->GetBasePriceOf(itemID)) {
 				cout << "Insufficient funds in pEcon detected!" << endl;
 			}
 		}

@@ -75,7 +75,6 @@ void MarketManager::AddResource(MarketName marketToAddTo, ResourceName resourceN
 		FindResourceForSale(marketToAddTo, resourceName);
 		//cout << "TASK COMPLETED" << endl << endl;
 	}
-	
 }
 
 void MarketManager::FindResourceForSale(MarketName marketToSearch, ResourceName resourceName)
