@@ -253,6 +253,44 @@ vector<ResourceSlot> Hub::GetNetworkResources()
 	return networkResource;
 }
 
+int Hub::GetNumberOf(StructureType type)
+{
+	int count = 0;
+
+	for (auto s : networkList)
+	{
+		if (s.type == type)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+std::map<ResourceName, int> Hub::GetResourceInNetwork()
+{
+	std::map<ResourceName, int> resources;
+
+	for (unsigned int i = static_cast<unsigned int>(ResourceName::Null_Resource); i != static_cast<unsigned int>(ResourceName::Electronic_Component); i++)
+	{
+		resources[static_cast<ResourceName>(i)] = 0;
+	}
+
+	for (auto structure : warehouseList)
+	{
+		auto inventory = structure.structure->GetInventory();
+		auto list = inventory.Contains();
+
+		for (auto i : list)
+		{
+			resources[i.resource] += i.quantity;
+		}
+	}
+
+	return resources;
+}
+
 void Hub::CreateDrone()
 {
 	if (inventory->Contains(ResourceName::Gold) >= 1000)

@@ -28,7 +28,8 @@ public:
 	v1::TaskSystem::TaskManager * GetTaskManager() const;
 
 	vector<ResourceSlot> GetNetworkResources();
-
+	int GetNumberOf(StructureType type);
+	std::map<ResourceName, int> GetResourceInNetwork();
 	void CreateDrone();
 	int GetGold();
 private:
