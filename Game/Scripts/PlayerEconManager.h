@@ -7,14 +7,17 @@
 
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
+#include <vector>
+
+#define PLAYER_ECON 0 
 
 class PlayerEconManager : public Behaviour{
 public:
 	PlayerEconManager();
 	~PlayerEconManager();
 
-	PlayerEconomy AddEconomy();
-	PlayerEconomy* FindPlayerEcon(); // Finds the player economy
+	PlayerEconomy AddEconomy(EconName econName, string nameOfEconomy);
+	PlayerEconomy* FindPlayerEcon(EconName econName); // Finds the player economy
 	void SetResourceManager(ResourceManager* resourceManager);
 
 	static PlayerEconManager* Create(GameObject *gameObject);
@@ -25,13 +28,12 @@ public:
 	void Start();
 
 	void SetHUBInventory(v2::Inventory* HUBInventory);
-	v2::Inventory* HUBInventory;
-private:
 	
-	PlayerEconomy economyList[1]; // List of economies
+	v2::Inventory* HUBInventory;
+	vector <PlayerEconomy*> GetList() const;
+private:
+	vector<PlayerEconomy> econList;
 	ResourceManager* resourceManager;
 	PlayerEconomy playerEconomy;
 	ContractManager* contractManager;
-
-	
 };

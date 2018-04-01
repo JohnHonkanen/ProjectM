@@ -114,7 +114,7 @@ void ContractManager::Update()
 	// Complete contract when resource requirement is fulfilled.
 	if (this->contractQueue.front()->GetCurrent() >= this->contractQueue.front()->GetAmount()) {
 		
-		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon();
+		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
 		pEcon->AddGoldBars(contractQueue.front()->GetPayment());
 
 		this->contractQueue.front()->IsComplete();
