@@ -225,6 +225,11 @@ void Hub::OnLoad()
 	
 }
 
+void Hub::Start()
+{
+	inventory->AddItem(ResourceName::Gold, 6000);
+}
+
 void Hub::Update(double dt)
 {
 	TallyResource();
@@ -252,6 +257,7 @@ void Hub::CreateDrone()
 		inventory->Remove(ResourceName::Gold, 1000);
 		GameObject *drone = dronePrefab.Instantiate();
 		drone->transform->SetPosition(transform->GetPosition());
+		drone->transform->Scale(vec3(15));
 	}
 
 }

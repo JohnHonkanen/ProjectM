@@ -68,10 +68,8 @@ void v1::TaskSystem::CollectBehaviour::Next()
 			nearest = task.From();
 		}
 		state->info.to = nearest->transform->GetPosition();
-		if (task.GetType() == TASK_TYPE::COLLECT)
-		{
-			state->info.finalStep = true;
-		}
+		state->info.finalStep = true;
+
 		task.SetTo(nearest);
 		info.controller->AssignTaskWithoutBehaviour(task);
 		info.controller->SetState(state);

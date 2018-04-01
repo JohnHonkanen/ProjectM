@@ -43,7 +43,7 @@ void Dock::Update()
 		{
 			inventory.Clear();
 			task = Task();
-			contractFufilled = false;
+			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
 		}
 

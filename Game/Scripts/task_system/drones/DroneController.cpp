@@ -47,6 +47,33 @@ namespace v1{
 					task.From()->GetTilePosition(x, y);
 					task.SetTo(GetHub()->FindNearestWithResource(WAREHOUSE, x,y,task.GetResource()));
 				}
+
+				//Did not find task
+				if (task.To() == nullptr)
+				{
+					state = IDLE;
+
+					auto taskManager = hub->GetTaskManager();
+					if (taskManager->HasTask())
+					{
+						Task temp = task;
+						AssignTask(taskManager->Pop()); //Recursion
+						taskManager->AddTask(temp, temp.GetPriority());
+					}
+
+					if (task == TASK_TYPE::NONE)
+					{
+						return false;
+					}
+
+					if (task.To() == nullptr) {
+						taskManager->AddTask(task, task.GetPriority());
+						task = Task();
+						
+						return false;
+					}
+				}
+
 				droneState->info = TaskInformation(task.To()->transform->GetPosition(), this);
 				return true;
 			}
@@ -101,8 +128,8 @@ namespace v1{
 			if (taskManager->HasTask())
 			{
 				AssignTask(taskManager->Pop());
-				return;
 			}
+
 			vec3 position = drone->transform->GetPosition();
 			float upperBounds = elevationLevel + idleBob.upperElevation;
 			float lowerBounds = elevationLevel - idleBob.lowerElevation;

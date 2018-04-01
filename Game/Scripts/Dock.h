@@ -15,7 +15,7 @@ private:
 	const ContractManager * contractManager;
 	Contract *contract;
 	const Hub * hub;
-	bool contractFufilled;
+	bool contractFufilled = true;
 
 	v1::TaskSystem::Task flushTask;
 
