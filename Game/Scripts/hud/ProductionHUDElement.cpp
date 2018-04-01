@@ -23,7 +23,7 @@ ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::
 {
 	ProductionHUDElement *p = new ProductionHUDElement();
 
-	p->rManager = rManager;
+	//p->rManager = rManager;
 	p->rect = rect;
 	p->prod = prod;
 	p->productionHUD = element;
@@ -59,8 +59,9 @@ void ProductionHUDElement::Update()
 			producing->text = "Producing: ";
 			if (prod->GetType() == DOME) {
 				storage1->text = "Storage: " + to_string(inv.At(0).quantity);
+				storage2->text = " ";
 			}
-			else if (prod->GetType() == FACTORY){
+ 			else if (prod->GetType() == FACTORY){
 				storage1->text = "Output: " + to_string(inv.At(0).quantity);
 				storage2->text = "Input: " + to_string(inv.At(1).quantity);
 			}

@@ -38,10 +38,10 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 								int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, up, rad, placed, active, resourceMan, hub);
-	if (typ = DOME) {
+	if (typ == DOME) {
 		p->inventory = v2::Inventory(1);
 	}
-	if (typ = FACTORY) {
+	if (typ == FACTORY) {
 		p->inventory = v2::Inventory(2);
 	}
 	p->inventory.SetResourceManager(resourceMan);
@@ -62,6 +62,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
+	copy->isProducing = Production::isProducing;
 	copy->structureType = structureType;
 	copy->resourceManager = resourceManager;
 	copy->hub = hub;
@@ -86,7 +87,7 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		if (structureType = DOME) {
+		if (structureType == DOME) {
 			if (isProducing) {
 				int availableSpace = inventory.CheckStorageFull(producing);
 				if (availableSpace > 0) {
@@ -97,9 +98,10 @@ void Production::Update(double currentTime)
 				}
 			}
 		}
-		else if (structureType = FACTORY) {
-			if (isProducing) {
-				int availableSpace = inventory.At(0).quantity;
+		else if (structureType == FACTORY) {
+			//if (inventory.At(1).quantity > 0) {
+			if (isProducing /*&& required primary resource available*/) {
+				int availableSpace = inventory.CheckStorageFull(producing);
 				if (availableSpace > 0) {
 					Resources* r = resourceManager->Find(producing);
 					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
@@ -107,6 +109,8 @@ void Production::Update(double currentTime)
 					billboard->Spawn();
 				}
 			}
+			//}
+			//else{ make request for drone drop off}
 		}
 
 		if (task.GetType() == TASK_TYPE::NONE)
@@ -122,8 +126,6 @@ void Production::Update(double currentTime)
 	}
 }
 
-//this method will be used when declaring what item a building is producing
-//and limiting it to the correct items
 void Production::SetProduction(ResourceName type)
 {
 		producing = type;

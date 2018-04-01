@@ -40,7 +40,7 @@ protected:
 	int cost;
 	int upkeep;
 	bool isPlaced;					//
-	bool isActive;					//Turn on or off building
+	bool isActive=false;					//Turn on or off building
 	string name;
 	string type;
 
