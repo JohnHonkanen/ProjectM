@@ -21,6 +21,7 @@ public:
 
 	void Copy(GameObject *copyObject);
 	void OnLoad();
+	void Start();
 	void Update(double dt);
 	v2::Inventory * GetInventory() const;
 	v1::TaskSystem::TaskManager * GetTaskManager() const;

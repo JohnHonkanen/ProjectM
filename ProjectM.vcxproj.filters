@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\hud\AnimatedButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,6 +40,9 @@
     <ClCompile Include="Game\Scripts\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\CollectBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game\Scripts\Contract.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,6 +53,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\ContractManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\DeliverBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\Dock.cpp">
@@ -65,6 +74,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\task_system\drones\GoToBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scripts\Hub.cpp">
@@ -177,6 +189,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Game\Scripts\hud\AnimatedButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -213,6 +228,9 @@
     <ClInclude Include="Game\Scripts\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\CollectBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Game\Scripts\Contract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -223,6 +241,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\ContractManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\DeliverBehaviour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\Dock.h">
@@ -241,6 +262,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\task_system\drones\GoToBehaviour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\Hub.h">
@@ -351,10 +375,10 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{492758d8-4161-42a4-bcbc-0cbab231cf58}</UniqueIdentifier>
+      <UniqueIdentifier>{d9a7fbe2-ead5-4404-abad-5b280007a128}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{b347375e-4563-42f4-813b-77f1f4f8a666}</UniqueIdentifier>
+      <UniqueIdentifier>{725aba88-299d-44a7-b44e-01f808b3f535}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

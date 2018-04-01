@@ -44,7 +44,7 @@ namespace v1
 			return amount;
 		}
 
-		Task::Task(): type(TASK_TYPE::NONE)
+		Task::Task(): type(TASK_TYPE::NONE), to(nullptr)
 		{
 		}
 

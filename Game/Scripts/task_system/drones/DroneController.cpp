@@ -6,6 +6,10 @@
 #include "../../Hub.h"
 #include "../TaskManager.h"
 #include "components\MeshRenderer.h"
+#include "AbstractDroneBehaviour.h"
+#include "GoToBehaviour.h"
+
+
 namespace v1{
 	namespace TaskSystem
 	{
@@ -31,16 +35,70 @@ namespace v1{
 			{
 				state = ACTIVE;
 				task = t;
+				if (droneState != nullptr)
+				{
+					delete droneState;
+				}
+
+				droneState = new GoToBehaviour();
+				if (task.GetType() == TASK_TYPE::REQUEST) 
+				{
+					int x, y;
+					task.From()->GetTilePosition(x, y);
+					task.SetTo(GetHub()->FindNearestWithResource(WAREHOUSE, x,y,task.GetResource()));
+				}
+
+				//Did not find task
+				if (task.To() == nullptr)
+				{
+					state = IDLE;
+
+					auto taskManager = hub->GetTaskManager();
+					if (taskManager->HasTask())
+					{
+						Task temp = task;
+						AssignTask(taskManager->Pop()); //Recursion
+						taskManager->AddTask(temp, temp.GetPriority());
+					}
+
+					if (task == TASK_TYPE::NONE)
+					{
+						return false;
+					}
+
+					if (task.To() == nullptr) {
+						taskManager->AddTask(task, task.GetPriority());
+						task = Task();
+						
+						return false;
+					}
+				}
+
+				droneState->info = TaskInformation(task.To()->transform->GetPosition(), this);
 				return true;
 			}
-
 			//Has an active task
 			return false;
+		}
+		bool DroneController::AssignTaskWithoutBehaviour(Task t)
+		{
+			task = t;
+			return true;
 		}
 		void DroneController::ForceTask(Task t)
 		{
 			state = ACTIVE;
 			task = t;
+		}
+		GameObject * DroneController::GetResourceBox()
+		{
+			if (boxObj == nullptr)
+			{
+				boxObj = box.Instantiate();
+				boxObj->transform->SetPosition(vec3(-9999));
+			}
+
+			return boxObj;
 		}
 		void DroneController::ApplyDroneBehaviour(double dt)
 		{
@@ -69,8 +127,9 @@ namespace v1{
 
 			if (taskManager->HasTask())
 			{
-				task = taskManager->Pop();
+				AssignTask(taskManager->Pop());
 			}
+
 			vec3 position = drone->transform->GetPosition();
 			float upperBounds = elevationLevel + idleBob.upperElevation;
 			float lowerBounds = elevationLevel - idleBob.lowerElevation;
@@ -116,73 +175,23 @@ namespace v1{
 		}
 		void DroneController::ActiveBehaviour(double dt)
 		{
+			if (droneState == nullptr)
+			{
+				IdleBehaviour(dt);
+				return;
+			}
+
 			vec3 position = drone->transform->GetPosition();
-
-			if (activeState != DELIVER)
+			if (position.y < elevationLevel)
 			{
-				if (position.y < elevationLevel)
-				{
-					activeState = RISE;
-				}
-				else {
-					if (activeState != COLLECT)
-					{
-						activeState = MOVE;
-					}
-				}
-			}
-			//Rotate to face dir
-			vec3 toPos = position;
-			if (task.GetType() == TASK_TYPE::COLLECT || task.GetType() == TASK_TYPE::REQUEST)
-			{
-				toPos = task.From()->gameObject->transform->GetPosition();
-				toPos.y = elevationLevel;
-			}
-			//switch (task.GetType())
-			//{
-			//case TASK_TYPE::COLLECT:
-			//	toPos = task.From()->gameObject->transform->GetPosition();
-			//	toPos.y = elevationLevel;
-			//	break;
-			//default:
-			//	break;
-			//}
-			if (activeState == MOVE && distance(position, toPos) < 0.5f && activeState != COLLECT && activeState != DELIVER)
-			{
-				activeState = PARK;
-			}
-			vec3 dir = normalize(toPos - position);
-			float angle = atan2(dir.x, dir.z);
-			vec3 droneAngle = drone->transform->GetRotation();
-			droneAngle.y = degrees(angle) - 90.0f;
-			drone->transform->SetEulerAngle(droneAngle);
-
-			vec3 pos;
-
-			if (forceIdle)
-			{
-				activeState = DELIVER;
-			}
-			switch (activeState)
-			{
-			case RISE:
-				pos = lerp(position, vec3(position.x, elevationLevel + 1, position.z), 0.02f);
+				vec3 pos = lerp(position, vec3(position.x, elevationLevel + 1, position.z), 0.02f);
 				drone->transform->SetPosition(pos);
-				break;
-			case MOVE:
-				drone->transform->Translate(dir * (baseSpeed * speedMod) * float(dt / 1000.0f));
-				break;
-			case PARK:
-				activeState = COLLECT;
-				break;
-			case COLLECT:
-				CollectionRoutine(dt);
-				break;
-			case DELIVER:
-				DeliverRoutine(dt);
-				break;
-			default:
-				break;
+				return;
+			}
+
+			//If Run is completed move to next state;
+			if(droneState->Run(dt)) {
+				droneState->Next();
 			}
 		}
 		void DroneController::RechargeBehaviour(double dt)
