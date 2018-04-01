@@ -6,10 +6,20 @@ Contract::Contract()
 {
 }
 
-Contract::Contract(Resources resource, ContractManager* contractManager)
+Contract::Contract(ContractName contractName, Resources resource, ContractManager* contractManager, string nameOfContract)
 {
+	this->contractName = contractName;
 	this->resource = resource;
 	this->contractManager = contractManager;
+	this->nameOfContract = nameOfContract;
+}
+
+Contract::Contract(const Contract & copy)
+{
+	this->contractName = copy.contractName;
+	this->resource = copy.resource;
+	this->contractManager = copy.contractManager;
+	this->nameOfContract = copy.nameOfContract;
 }
 
 

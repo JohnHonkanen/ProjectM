@@ -7,9 +7,8 @@
 #include <list>
 #include <vector>
 
-enum class ContractName {
-	Player_Contract
-};
+#define PLAYER 0
+
 
 class ContractManager {
 public:
@@ -17,11 +16,12 @@ public:
 	~ContractManager();
 
 
-	Contract AddContract();
-	Contract FindContract(int contractID);
-	Contract* FindPersistentContract(int contractID);
-	Contract* FindContractQueueFront();
-	Contract* FindContractQueueBack();
+	//Contract AddContract();
+	Contract AddContract(ContractName contractName, string nameOfContract, int contractIndex);
+	//Contract FindContract(int contractID);
+	//Contract* FindPersistentContract(int contractID);
+	//Contract* FindContractQueueFront();
+	//Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetManager(ResourceManager* resourceManager);
@@ -30,17 +30,21 @@ public:
 	void Start();
 
 	//list <Contract*> GetList() const;
-	Contract GetFirstAvailable() const;
+	Contract * GetFirstAvailable() const;
 
 	ContractName GetContractName(); // Returns name of Contract from contractName enum
 	int GetSizeOfListOfContract(); // Returns the size of listOfContract
-	vector<Contract*> GetList() const; // Returns a listOfContract
+	int GetIndexOfLastElement(int offSet); // Gets index ID for contract at last element of listOfContract + offSet
+	Resources GenerateRandomResourceID();
+	Contract *FindContract(ContractName contractName, int contractIndex);
 
+	vector<Contract*> GetList() const; // Returns a listOfContract
+	
 
 private:
 	int contractIndex = 0;
 	
-	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
+	//Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
 	Engine::Utility::Clock clock;
@@ -49,7 +53,7 @@ private:
 	bool active, complete;
 	bool statusCheck = true;
 
-	list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
-	vector <Contract> listOfContract; // Creates a vector of list of contracts
+	//list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
+	vector <Contract*> listOfContract; // Creates a vector of list of contracts
 	ContractName contractName;
 };

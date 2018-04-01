@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+// Add new resource in between SpaceCow and Electronic_Component
 enum class ResourceName : unsigned int {
 	Null_Resource,
 	Gold,

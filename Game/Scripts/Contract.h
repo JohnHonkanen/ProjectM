@@ -3,11 +3,17 @@
 #include "ResourceManager.h"
 #include <string>
 
+enum class ContractName {
+	Player_Contract
+};
+
+
 class ContractManager;
 class Contract{
 public:
 	Contract();
-	Contract(Resources resource, ContractManager* contractManager);
+	Contract(ContractName contractName, Resources resource, ContractManager* contractManager, string nameOfContract);
+	Contract(const Contract &copy);
 	~Contract();
 
 	int GetDifficulty(); // Gets contract difficulty
@@ -60,7 +66,10 @@ private:
 	Resources resource;
 	ResourceManager* resourceManager;
 	ContractManager* contractManager;
+	ContractName contractName;
 
 	bool active = false;
 	bool complete = false;
+
+	string nameOfContract;
 };

@@ -38,9 +38,13 @@ void ContractHUD::OnLoad()
 
 void ContractHUD::Start()
 {
-	contract = contractManager->FindPersistentContract(1);
-	contract2 = contractManager->FindPersistentContract(2);
-	contract3 = contractManager->FindPersistentContract(3);
+	for (int i = 0; i < 3; i++) {
+		contract = contractManager->FindContract(ContractName::Player_Contract, i);
+	}
+	
+	//contract = contractManager->FindPersistentContract(1);
+	//contract2 = contractManager->FindPersistentContract(2);
+	//contract3 = contractManager->FindPersistentContract(3);
 
 	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract);
 	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract2);
