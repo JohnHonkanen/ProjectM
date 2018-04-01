@@ -125,13 +125,17 @@ void MarketManager::Start()
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Beef);
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Cheese);
 	AddResource(MarketName::Local, ResourceName::SpaceCow_Milk);
+	AddResource(MarketName::Local, ResourceName::Sheep);
 	AddResource(MarketName::Local, ResourceName::Sheep_Wool);
 	AddResource(MarketName::Local, ResourceName::Sheep_Meat);
+	AddResource(MarketName::Local, ResourceName::Chicken);
 	AddResource(MarketName::Local, ResourceName::Chicken_Egg);
 	AddResource(MarketName::Local, ResourceName::Chicken_Meat);
 
 	AddMarket(MarketName::Galactic, "GALACTIC_MARKET");
+	AddResource(MarketName::Galactic, ResourceName::SpaceCow);
 	AddResource(MarketName::Galactic, ResourceName::Kittain);
+	AddResource(MarketName::Galactic, ResourceName::Doggo);
 	AddResource(MarketName::Galactic, ResourceName::Steel_Cotton);
 	AddResource(MarketName::Galactic, ResourceName::Mandrake);
 	AddResource(MarketName::Galactic, ResourceName::Grape);
