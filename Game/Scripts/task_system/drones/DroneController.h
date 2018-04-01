@@ -48,14 +48,19 @@ namespace v1 {
 				return hub;
 			};
 
-		private:
-			Hub * hub;
 			enum State
 			{
 				IDLE,
 				ACTIVE,
 				RECHARGE,
 			};
+
+			void SetInternalState(State in_state) { state = in_state; };
+
+			void SetInternalStateIdle() { state = IDLE; }
+		private:
+			Hub * hub;
+			
 
 			struct IdleBob {
 				enum IDLE_STATE {

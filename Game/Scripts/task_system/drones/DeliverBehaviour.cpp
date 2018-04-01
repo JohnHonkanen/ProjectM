@@ -34,6 +34,7 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 
 		if (drone->GetInventory().Contains(resource) == 0 || toInventory->CheckStorageFull(resource) == 0)
 		{
+			boxObj->transform->SetPosition(vec3(0, -10, 0));
 			return true;
 		}
 
@@ -45,8 +46,6 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		boxObj->transform->Translate(vec3(0, -10, 0) * float(dt / 1000.0f));
 	}
 
-
-
 	return false;
 }
 	
@@ -57,9 +56,10 @@ void v1::TaskSystem::DeliverBehaviour::Next()
 	//If info is final set task to complete
 	if (info.finalStep)
 	{
-		info.controller->AssignTaskWithoutBehaviour(Task());
 		info.controller->SetState(nullptr);
 		info.controller->GetTask().From()->TaskCompleted();
+		info.controller->SetInternalStateIdle();
+		info.controller->AssignTaskWithoutBehaviour(Task());
 		delete this;
 		return;
 	}
