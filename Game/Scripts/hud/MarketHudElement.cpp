@@ -57,7 +57,7 @@ void MarketHUDElement::Start()
 		this->y++;
 	}
 
-	for (int i = 0; i <= MAX_MARKET_ITEM_SIZE; ++i) {
+	for (int i = 0; i < MAX_MARKET_ITEM_SIZE; ++i) {
 		GenerateKSuffix(i);
 	}
 	StartChildWidgets();
@@ -73,7 +73,7 @@ void MarketHUDElement::Update()
 
 	auto marketList = market->GetResources();
 
-		for (int resourceID = 0; resourceID <= MAX_MARKET_ITEM_SIZE; resourceID++) {
+		for (int resourceID = 0; resourceID < MAX_MARKET_ITEM_SIZE; resourceID++) {
 
 			if (clock.Alarm()) {
 			market->ChangeOverTimeOf(resourceID, 100, 50);
@@ -86,7 +86,6 @@ void MarketHUDElement::Update()
 		
 		GenerateKSuffix(resourceID);
 	}
-		cout << market->GetBasePriceOf(0) << endl;
 }
 
 void MarketHUDElement::DrawWidget(unsigned int shader)
@@ -100,8 +99,8 @@ void MarketHUDElement::GenerateMarketHUDElement(int resourceID, float increment,
 {
 		resourceHUD[resourceID] = EHUD::WHUDContainer::Create(this, { -25, 65 + resourceID * increment, 240, 40 }, "Game/Assets/Textures/transparent_black.png", true);
 		resourceIcon[resourceID] = EHUD::WHUDContainer::Create(this, { -5, 70 + resourceID * increment, 32, 32 }, resource.GetResourceIcon(), true);
-		quantity[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 115, 25, 0, 0 }, to_string(0), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-		price[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 175, 25, 0, 0 }, to_string(5), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+		quantity[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 100, 25, 0, 0 }, to_string(0), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+		price[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 185, 25, 0, 0 }, to_string(5), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 }
 

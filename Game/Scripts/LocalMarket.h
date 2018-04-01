@@ -49,8 +49,10 @@ public:
 
 	void ChangeOverTimeOf(int index, int demand, int price); // Increase/Decrease Quantity/Price of resource available in market based on demand
 
+	int GetMaxLimit(); // Get MAX_LIMITER
+	
 private:
-	static const int MAX_LIMITER = 1000;
+	static const int MAX_LIMITER = 99000;
 	static const int MIN_LIMITER = 0;
 	int marketID;
 	Resources resource;
