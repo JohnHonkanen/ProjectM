@@ -178,21 +178,43 @@ void ContractManager::Start()
 	AddContract();
 }
 
-list<Contract*> ContractManager::GetList() const
-{
-	return contractQueue;
-}
+//list<Contract*> ContractManager::GetList() const
+//{
+//	return contractQueue;
+//}
 
 Contract * ContractManager::GetFirstAvailable() const
 {
-	for (Contract *c : contractQueue)
+	bool completed = true;
+	for (auto contract : listOfContract)
 	{
-		if (!c->GetTaken())
-		{
-			c->SetTaken(true);
-			return c;
+		if (contract.IsComplete == !completed) {
+			if (!contract.GetTaken())
+			{
+				contract.SetTaken(true);
+				return &contract;
+			}
 		}
+		
 	}
 
-	return nullptr;
+	if (completed) {
+		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
+		return &Contract();
+	}
+}
+
+ContractName ContractManager::GetContractName()
+{
+	return this->contractName;
+}
+
+int ContractManager::GetSizeOfListOfContract()
+{
+	return listOfContract.size();
+}
+
+vector<Contract*> ContractManager::GetList() const
+{
+	return vector<Contract*>();
 }

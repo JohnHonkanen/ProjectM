@@ -5,7 +5,11 @@
 #include "core\GameObject.h"
 #include "utility\Clock.h"
 #include <list>
+#include <vector>
 
+enum class ContractName {
+	Player_Contract
+};
 
 class ContractManager {
 public:
@@ -25,8 +29,14 @@ public:
 	void Update();
 	void Start();
 
-	list <Contract*> GetList() const;
-	Contract * GetFirstAvailable() const;
+	//list <Contract*> GetList() const;
+	Contract GetFirstAvailable() const;
+
+	ContractName GetContractName(); // Returns name of Contract from contractName enum
+	int GetSizeOfListOfContract(); // Returns the size of listOfContract
+	vector<Contract*> GetList() const; // Returns a listOfContract
+
+
 private:
 	int contractIndex = 0;
 	
@@ -40,4 +50,6 @@ private:
 	bool statusCheck = true;
 
 	list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
+	vector <Contract> listOfContract; // Creates a vector of list of contracts
+	ContractName contractName;
 };
