@@ -6,6 +6,7 @@
 #include "task_system\TaskManager.h"
 #include "Resources.h"
 #include "Structure.h"
+#include "utility\Clock.h"
 
 struct Slot;
 
@@ -27,11 +28,16 @@ public:
 	v2::Inventory * GetInventory() const;
 	v1::TaskSystem::TaskManager * GetTaskManager() const;
 
+	int CalculateUpkeep();
 	vector<ResourceSlot> GetNetworkResources();
 	int GetNumberOf(StructureType type);
 	std::map<ResourceName, int> GetResourceInNetwork();
 	void CreateDrone();
 	int GetGold();
+	int GetDroneCost();
+	int GetDroneUpkeep();
+	int GetBuildingUpkeep();
+
 private:
 	void TallyResource();
 	std::vector<Slot> networkList;
@@ -41,6 +47,13 @@ private:
 	v1::TaskSystem::TaskManager * taskManager;
 
 	vector<ResourceSlot> networkResource;
+	vector<class Drone*> drones;
 
 	GameObject dronePrefab;
+	Drone * dronePrefabComp;
+
+	Engine::Utility::Clock timer;
+
+	int upkeepBuilding;
+	int upkeepDrone;
 };

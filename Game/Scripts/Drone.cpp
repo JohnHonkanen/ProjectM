@@ -29,6 +29,8 @@ void Drone::Copy(GameObject * copyObject)
 	Drone *d = new Drone(hub);
 	d->resourceManager = resourceManager;
 	d->inventory.SetResourceManager(resourceManager);
+	d->cost = cost;
+	d->upkeep = upkeep;
 	copyObject->AddComponent(d);
 }
 
@@ -61,4 +63,29 @@ v2::Inventory & Drone::GetInventory()
 v1::TaskSystem::DroneController const & Drone::GetController()
 {
 	return controller;
+}
+
+int Drone::GetUpkeep()
+{
+	return upkeep;
+}
+
+int Drone::GetCost()
+{
+	return cost;
+}
+
+void Drone::IncreaseUpkeep(int amount)
+{
+	upkeep += amount;
+}
+
+void Drone::SetUpkeep(int amount)
+{
+	upkeep = amount;
+}
+
+void Drone::IncreaseCost(int amount)
+{
+	cost += amount;
 }

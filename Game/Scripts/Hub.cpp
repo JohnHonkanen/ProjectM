@@ -219,12 +219,12 @@ void Hub::Copy(GameObject * copyObject)
 }
 
 void Hub::OnLoad()
-{
-	
-		//Setup droneprefab
-		Drone::Create(&dronePrefab, this, inventory->GetResourceManager());
+{	
+	//Setup droneprefab
+	dronePrefabComp = Drone::Create(&dronePrefab, this, inventory->GetResourceManager());
 
-		CreateDrone();
+	timer.StartClock();
+	timer.SetDelay(3000);
 	
 }
 
@@ -236,6 +236,15 @@ void Hub::Start()
 void Hub::Update(double dt)
 {
 	TallyResource();
+
+	timer.UpdateClock();
+
+	if (timer.Alarm())
+	{
+		int upkeep = CalculateUpkeep();
+		inventory->Remove(ResourceName::Gold, upkeep);
+		timer.ResetClock();
+	}
 }
 
 v2::Inventory * Hub::GetInventory() const
@@ -246,6 +255,28 @@ v2::Inventory * Hub::GetInventory() const
 v1::TaskSystem::TaskManager * Hub::GetTaskManager() const
 {
 	return taskManager;
+}
+
+int Hub::CalculateUpkeep()
+{
+	int droneUpkeep = 0;
+
+	for (auto i : drones)
+	{
+		droneUpkeep += i->GetUpkeep();
+	}
+
+	droneUpkeep += drones.size() * 2;
+	int buildingUpkeep = 0;
+
+	for (auto i : networkList)
+	{
+		buildingUpkeep += i.structure->GetUpkeep();
+	}
+
+	upkeepBuilding = buildingUpkeep;
+	upkeepDrone = droneUpkeep;
+	return droneUpkeep + buildingUpkeep;
 }
 
 vector<ResourceSlot> Hub::GetNetworkResources()
@@ -293,12 +324,18 @@ std::map<ResourceName, int> Hub::GetResourceInNetwork()
 
 void Hub::CreateDrone()
 {
-	if (inventory->Contains(ResourceName::Gold) >= 1000)
+	if (inventory->Contains(ResourceName::Gold) >= dronePrefabComp->GetCost())
 	{
-		inventory->Remove(ResourceName::Gold, 1000);
+		inventory->Remove(ResourceName::Gold, dronePrefabComp->GetCost());
 		GameObject *drone = dronePrefab.Instantiate();
 		drone->transform->SetPosition(transform->GetPosition());
 		drone->transform->Scale(vec3(15));
+		Drone *component = drone->GetComponent<Drone>();
+		component->SetUpkeep(dronePrefabComp->GetUpkeep());
+		drones.push_back(component);
+
+		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
+		dronePrefabComp->IncreaseUpkeep(1);
 	}
 
 }
@@ -306,6 +343,21 @@ void Hub::CreateDrone()
 int Hub::GetGold()
 {
 	return inventory->Contains(ResourceName::Gold);
+}
+
+int Hub::GetDroneCost()
+{
+	return dronePrefabComp->GetCost();
+}
+
+int Hub::GetDroneUpkeep()
+{
+	return upkeepDrone;
+}
+
+int Hub::GetBuildingUpkeep()
+{
+	return upkeepBuilding;
 }
 
 void Hub::TallyResource()

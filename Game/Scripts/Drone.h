@@ -18,6 +18,14 @@ public:
 	void SetDestination(vec3 destination);
 	v2::Inventory &GetInventory();
 	v1::TaskSystem::DroneController const &GetController();
+
+	int GetUpkeep();
+	int GetCost();
+
+	void IncreaseUpkeep(int amount);
+	void SetUpkeep(int amount);
+	void IncreaseCost(int amount);
+
 private:
 	float speed;
 	float verticalSpeed;
@@ -26,6 +34,9 @@ private:
 	float minY;
 	bool reachedDestination;
 	bool liftOff;
+
+	int upkeep = 10;
+	int cost = 400;
 
 	v2::Inventory inventory;
 	v1::TaskSystem::DroneController controller;

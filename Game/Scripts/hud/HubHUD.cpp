@@ -41,13 +41,16 @@ void HubHUD::OnLoad()
 
 	auto droneContainer = EHUD::WHUDContainer::Create(wrapper, { 320, 50, 350, 120 }, "Game/Assets/Textures/hub_containers.png", true);
 	EHUD::TextWidget::Create(droneContainer, { 10, 32, 0, 0 }, "Drones", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 32, 1, vec3(0, 0, 0));
-	EHUD::WHUDContainer::Create(wrapper, { 320, 180, 350, 310 }, "Game/Assets/Textures/hub_containers.png", true);
+	statBox = EHUD::WHUDContainer::Create(wrapper, { 320, 180, 350, 310 }, "Game/Assets/Textures/hub_containers.png", true);
 	syncButton = FunctionPtrButton::Create(root, { 860, 160, 100, 100 }, "Game/Assets/Textures/building_selected.jpg", new HubDroneBinder(hub));
-	EHUD::TextWidget::Create(syncButton, { 5, 90, 0, 0 }, "1000", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 22, 1, vec3(1, 1, 1));
+	droneCost = EHUD::TextWidget::Create(syncButton, { 5, 90, 0, 0 }, "1000", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 22, 1, vec3(1, 1, 1));
 	EHUD::WHUDContainer::Create(syncButton, { 70, 70, 20, 20 }, "Game/Assets/Textures/gold_bars.png", true);
 	EHUD::WHUDContainer::Create(syncButton, { 15, 10, 60, 60 }, "Game/Assets/Textures/building_list_icon.png", true);
 	EHUD::WHUDContainer::Create(wrapper, { 540, 10, 30, 30 }, "Game/Assets/Textures/gold_bars.png", true);
 	goldCounter = EHUD::TextWidget::Create(wrapper, { 580, 32, 0, 0 }, to_string(hub->GetGold()), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	buildingUpkeep = EHUD::TextWidget::Create(statBox, { 20, 30, 0, 0 }, "Building Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
+	droneUpkeep = EHUD::TextWidget::Create(statBox, { 20, 60, 0, 0 }, "Drone Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
+	totalUpkeep = EHUD::TextWidget::Create(statBox, { 20, 280, 0, 0 }, "Total Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
 
 	WidgetToggleButton::Create(root, { 1170, 610, 100, 100 }, "Game/Assets/Textures/hub.png", wrapper);
 	
@@ -83,6 +86,10 @@ void HubHUD::Update()
 	}
 
 	goldCounter->text = to_string(hub->GetGold());
+	droneCost->text = to_string(hub->GetDroneCost());
+	buildingUpkeep->text = "Buildings Upkeep: " + to_string(hub->GetBuildingUpkeep());
+	droneUpkeep->text = "Drones Upkeep: " + to_string(hub->GetDroneUpkeep());
+	totalUpkeep->text = "Total Upkeep: " + to_string(hub->GetBuildingUpkeep() + hub->GetDroneUpkeep());
 }
 
 void HubHUD::CreateSlot()

@@ -33,8 +33,13 @@ private:
 	EHUD::HUDCanvas * root;
 	EHUD::HUDElement *wrapper;
 	EHUD::HUDElement *inventoryBox;
+	EHUD::HUDElement *statBox;
 	EHUD::HUDElement *syncButton;
 	EHUD::TextWidget *goldCounter;
+	EHUD::TextWidget *droneCost;
+	EHUD::TextWidget *droneUpkeep;
+	EHUD::TextWidget *buildingUpkeep;
+	EHUD::TextWidget *totalUpkeep;
 
 	std::vector<HUDInventorySlot *> inventoryDisplay;
 
