@@ -48,7 +48,7 @@ namespace v1
 		{
 			Task task = info.controller->GetTask();
 
-			if (task.GetType() == TASK_TYPE::COLLECT)
+			if (task.GetType() == TASK_TYPE::COLLECT || task.GetType() == TASK_TYPE::REQUEST)
 			{
 				AbstractDroneBehaviour * state;
 				if (!info.finalStep)

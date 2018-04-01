@@ -41,10 +41,15 @@ namespace v1{
 				}
 
 				droneState = new GoToBehaviour();
+				if (task.GetType() == TASK_TYPE::REQUEST) 
+				{
+					int x, y;
+					task.From()->GetTilePosition(x, y);
+					task.SetTo(GetHub()->FindNearestWithResource(WAREHOUSE, x,y,task.GetResource()));
+				}
 				droneState->info = TaskInformation(task.To()->transform->GetPosition(), this);
 				return true;
 			}
-
 			//Has an active task
 			return false;
 		}

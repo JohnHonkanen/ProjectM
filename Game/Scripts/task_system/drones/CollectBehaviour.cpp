@@ -52,18 +52,28 @@ void v1::TaskSystem::CollectBehaviour::Next()
 {
 	Task task = info.controller->GetTask();
 
-	if (task.GetType() == TASK_TYPE::COLLECT)
+	if (task.GetType() == TASK_TYPE::COLLECT || task.GetType() == TASK_TYPE::REQUEST)
 	{
 		int x, y;
 		task.From()->GetTilePosition(x, y);
 		Structure * nearest = info.controller->GetHub()->FindNearestToDeposit(WAREHOUSE, x, y, task.GetResource());
 		GoToBehaviour *state = new GoToBehaviour();
 		state->info = info;
+		if (task.GetType() == TASK_TYPE::COLLECT)
+		{
+			nearest = info.controller->GetHub()->FindNearestToDeposit(WAREHOUSE, x, y, task.GetResource());
+		}
+		else if(task.GetType() == TASK_TYPE::REQUEST)
+		{
+			nearest = task.From();
+		}
 		state->info.to = nearest->transform->GetPosition();
-		state->info.finalStep = true;
+		if (task.GetType() == TASK_TYPE::COLLECT)
+		{
+			state->info.finalStep = true;
+		}
 		task.SetTo(nearest);
 		info.controller->AssignTaskWithoutBehaviour(task);
-
 		info.controller->SetState(state);
 	}
 

@@ -21,8 +21,6 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		Task task = info.controller->GetTask();
 		Drone *drone = info.controller->GetDrone();
 
-		int x, y;
-		task.To()->GetTilePosition(x, y);
 		boxObj->transform->SetPosition(drone->transform->GetPosition());
 		
 		Inventory * toInventory = &task.To()->GetInventory();

@@ -94,7 +94,8 @@ namespace v1 {
 				DELIVER,
 				RISE,
 				PARK,
-				ACTIVE_IDLE
+				ACTIVE_IDLE,
+				REQUEST
 			};
 			ACTIVE_STATE activeState;
 			float baseSpeed = 20.0f;
