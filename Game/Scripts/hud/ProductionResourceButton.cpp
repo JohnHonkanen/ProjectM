@@ -27,7 +27,6 @@ void ProductionResourceButton::Start()
 	EventRegistration();
 	RegisterToEvents();
 
-
 }
 
 void ProductionResourceButton::Input()
@@ -36,6 +35,9 @@ void ProductionResourceButton::Input()
 
 void ProductionResourceButton::Update()
 {
+	if (activeTexture != baseTexture) {
+		activeTexture = baseTexture;
+	}
 }
 
 void ProductionResourceButton::DeleteItems(V2 * inv)

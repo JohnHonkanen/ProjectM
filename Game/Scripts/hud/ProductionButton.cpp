@@ -18,12 +18,20 @@ void ProductionButton::OnPointerExit(EventData data)
 
 void ProductionButton::OnPointerMouseDown(EventData data)
 {
+
+
 	if (production->GetType() == DOME) {
+
 		if (data.mouseButton0 == 1) {
 			containerDome->SetActive(true);
 			ConfigureResources();
 			for (ProductionSetterButton* button : resourceListDome) {
-				button->SetActive(true);
+				if (containerDome->IsActive() == false) {
+					return;
+				}
+				else {
+					button->SetActive(true);
+				}
 			}
 		}
 		if (data.mouseButton1 == 1) {
@@ -32,13 +40,19 @@ void ProductionButton::OnPointerMouseDown(EventData data)
 				button->SetActive(false);
 			}
 		}
+
 	}
 	else if (production->GetType() == FACTORY) {
 		if (data.mouseButton0 == 1) {
 			containerFactory->SetActive(true);
 			ConfigureResources();
 			for (ProductionSetterButton* button : resourceListFactory) {
-				button->SetActive(true);
+				if (containerFactory->IsActive() == false) {
+					return;
+				}
+				else {
+					button->SetActive(true);
+				}
 			}
 		}
 		if (data.mouseButton1 == 1) {
@@ -48,6 +62,7 @@ void ProductionButton::OnPointerMouseDown(EventData data)
 			}
 		}
 	}
+	
 }
 
 void ProductionButton::EventRegistration()
@@ -67,14 +82,16 @@ void ProductionButton::Start()
 
 	containerDome = EHUD::WHUDContainer::Create(root, { 310,0,210,210 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	containerDome->SetActive(false);
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::SpaceCow_Milk));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::Chicken_Egg));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Mandrake));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/grape-16.png", nullptr, ResourceName::Grape));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/cow-16.png", nullptr, ResourceName::SpaceCow));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::SpaceCow_Milk));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/livechicken-16.png", nullptr, ResourceName::Chicken));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::Chicken_Egg));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/sheep-16.png", nullptr, ResourceName::Sheep));
 	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Kittain));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Unilateralis));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "Game/Assets/Textures/steel_cotton-16.png", nullptr, ResourceName::Steel_Cotton));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Mandrake));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Unilateralis));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,140,50,50 }, "Game/Assets/Textures/steel_cotton-16.png", nullptr, ResourceName::Steel_Cotton));
+
 
 	for (ProductionSetterButton* button : resourceListDome) {
 		button->SetActive(false);
@@ -82,13 +99,15 @@ void ProductionButton::Start()
 
 	containerFactory = EHUD::WHUDContainer::Create(root, { 310,0,210,210 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	containerFactory->SetActive(false);
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::Chicken_Meat));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::SpaceCow_Cheese));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Wine));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/grape-16.png", nullptr, ResourceName::Electronic_Component));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Sheep_Meat));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Sheep_Wool));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::SpaceCow_Cheese));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Wine));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/chicken-16.png", nullptr, ResourceName::Chicken_Meat));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Sheep_Meat));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Sheep_Wool));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/wine-16.png", nullptr, ResourceName::Wine));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "Game/Assets/Textures/grape-16.png", nullptr, ResourceName::Electronic_Component));
+
 
 	for (ProductionSetterButton* button : resourceListFactory) {
 		button->SetActive(false);
@@ -106,15 +125,17 @@ void ProductionButton::Update()
 
 void ProductionButton::SetProduction(Production * production)
 {
-	this->production = production;
-	if (production->GetType() == DOME) {
-		for (ProductionSetterButton* button : resourceListDome) {
-			button->SetProduction(production);
+	if (this->production != production) {
+		this->production = production;
+		if (production->GetType() == DOME) {
+			for (ProductionSetterButton* button : resourceListDome) {
+				button->SetProduction(production);
+			}
 		}
-	}
-	else if (production->GetType() == DOME) {
-		for (ProductionSetterButton* button : resourceListFactory) {
-			button->SetProduction(production);
+		else if (production->GetType() == DOME) {
+			for (ProductionSetterButton* button : resourceListFactory) {
+				button->SetProduction(production);
+			}
 		}
 	}
 
@@ -139,45 +160,42 @@ void ProductionButton::ConfigureResources()
 	switch (production->GetType())
 	{
 	case StructureType::DOME:
-		resourceListDome[0]->SetResource(ResourceName::SpaceCow_Milk);
-		resourceListDome[0]->SetIcon(GetIcon(ResourceName::SpaceCow_Milk));
-		//Needs to be replaced with a cow item
-		resourceListDome[1]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceListDome[1]->SetIcon(GetIcon(ResourceName::SpaceCow_Beef));
-		resourceListDome[2]->SetResource(ResourceName::Chicken_Egg);
-		resourceListDome[2]->SetIcon(GetIcon(ResourceName::Chicken_Egg));
-		resourceListDome[3]->SetResource(ResourceName::Mandrake);
-		resourceListDome[3]->SetIcon(GetIcon(ResourceName::Mandrake));
-		resourceListDome[4]->SetResource(ResourceName::Grape);
-		resourceListDome[4]->SetIcon(GetIcon(ResourceName::Grape));
+		resourceListDome[0]->SetResource(ResourceName::SpaceCow);
+		resourceListDome[0]->SetIcon(GetIcon(ResourceName::SpaceCow));//test if cow appears
+		resourceListDome[1]->SetResource(ResourceName::SpaceCow_Milk);
+		resourceListDome[1]->SetIcon(GetIcon(ResourceName::SpaceCow_Milk));
+		resourceListDome[2]->SetResource(ResourceName::Chicken);
+		resourceListDome[2]->SetIcon(GetIcon(ResourceName::Chicken));
+		resourceListDome[3]->SetResource(ResourceName::Chicken_Egg);
+		resourceListDome[3]->SetIcon(GetIcon(ResourceName::Chicken_Egg));
+		resourceListDome[4]->SetResource(ResourceName::Sheep);
+		resourceListDome[4]->SetIcon(GetIcon(ResourceName::Sheep));
 		resourceListDome[5]->SetResource(ResourceName::Kittain);
 		resourceListDome[5]->SetIcon(GetIcon(ResourceName::Kittain));
-		resourceListDome[6]->SetResource(ResourceName::Unilateralis);
-		resourceListDome[6]->SetIcon(GetIcon(ResourceName::Unilateralis));
-		resourceListDome[7]->SetResource(ResourceName::Steel_Cotton);
-		resourceListDome[7]->SetIcon(GetIcon(ResourceName::Steel_Cotton));
-		//Needs to be replaced with a sheep item
-		//resourceListDome[8]->SetResource(ResourceName::Sheep);
-		//resourceListDome[8]->SetIcon(GetIcon(ResourceName::SpaceCow_Beef));
-		//Needs to be replaced with a chicken item
-		//resourceListDome[8]->SetResource(ResourceName::Chicken);
-		//resourceListDome[8]->SetIcon(GetIcon(ResourceName::SpaceCow_Beef));
+		resourceListDome[6]->SetResource(ResourceName::Mandrake);
+		resourceListDome[6]->SetIcon(GetIcon(ResourceName::Mandrake));
+		resourceListDome[7]->SetResource(ResourceName::Grape);
+		resourceListDome[7]->SetIcon(GetIcon(ResourceName::Grape));
+		resourceListDome[8]->SetResource(ResourceName::Unilateralis);
+		resourceListDome[8]->SetIcon(GetIcon(ResourceName::Unilateralis));
+		resourceListDome[9]->SetResource(ResourceName::Steel_Cotton);
+		resourceListDome[9]->SetIcon(GetIcon(ResourceName::Steel_Cotton));
 		break;
 	case StructureType::FACTORY:
-		resourceListFactory[0]->SetResource(ResourceName::Chicken_Meat);
-		resourceListFactory[0]->SetIcon(GetIcon(ResourceName::Chicken_Meat));
-		resourceListFactory[1]->SetResource(ResourceName::SpaceCow_Beef);
-		resourceListFactory[1]->SetIcon(GetIcon(ResourceName::SpaceCow_Beef));
-		resourceListFactory[2]->SetResource(ResourceName::SpaceCow_Cheese);
-		resourceListFactory[2]->SetIcon(GetIcon(ResourceName::SpaceCow_Cheese));
-		resourceListFactory[3]->SetResource(ResourceName::Wine);
-		resourceListFactory[3]->SetIcon(GetIcon(ResourceName::Wine));
-		resourceListFactory[4]->SetResource(ResourceName::Electronic_Component);
-		resourceListFactory[4]->SetIcon(GetIcon(ResourceName::Electronic_Component));
-		resourceListFactory[5]->SetResource(ResourceName::Sheep_Meat);
-		resourceListFactory[5]->SetIcon(GetIcon(ResourceName::Sheep_Meat));
-		resourceListFactory[6]->SetResource(ResourceName::Sheep_Wool);
-		resourceListFactory[6]->SetIcon(GetIcon(ResourceName::Sheep_Wool));
+		resourceListFactory[0]->SetResource(ResourceName::SpaceCow_Beef);
+		resourceListFactory[0]->SetIcon(GetIcon(ResourceName::SpaceCow_Beef));
+		resourceListFactory[1]->SetResource(ResourceName::SpaceCow_Cheese);
+		resourceListFactory[1]->SetIcon(GetIcon(ResourceName::SpaceCow_Cheese));
+		resourceListFactory[2]->SetResource(ResourceName::Chicken_Meat);
+		resourceListFactory[2]->SetIcon(GetIcon(ResourceName::Chicken_Meat));
+		resourceListFactory[3]->SetResource(ResourceName::Sheep_Meat);
+		resourceListFactory[3]->SetIcon(GetIcon(ResourceName::Sheep_Meat));
+		resourceListFactory[4]->SetResource(ResourceName::Sheep_Wool);
+		resourceListFactory[4]->SetIcon(GetIcon(ResourceName::Sheep_Wool));
+		resourceListFactory[5]->SetResource(ResourceName::Wine);
+		resourceListFactory[5]->SetIcon(GetIcon(ResourceName::Wine));
+		resourceListFactory[6]->SetResource(ResourceName::Electronic_Component);
+		resourceListFactory[6]->SetIcon(GetIcon(ResourceName::Electronic_Component));
 		break;
 	default:
 		break;

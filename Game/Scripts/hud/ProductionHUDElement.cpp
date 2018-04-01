@@ -5,6 +5,8 @@
 #include "..\Production.h"
 #include "ProductionButton.h"
 #include "ProductionResourceButton.h"
+#include "../GameManager.h"
+
 
 /*ToDo:
 Button to turn building on and off manually
@@ -34,7 +36,7 @@ void ProductionHUDElement::Start()
 	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
 	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
 	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	rButton = ProductionResourceButton::Create(productionHUD, { 150,75,30,30 }, "Game/Assets/Textures/missing-16.png", nullptr);
+	rButton = ProductionResourceButton::Create(productionHUD, { 150,75,30,30 }, "Game/Assets/Textures/Resource/missing-16.png", nullptr);
 	storage1 = HUD::TextWidget::Create(productionHUD, { 20,130,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
 	storage2 = HUD::TextWidget::Create(productionHUD, { 20,160,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
 	aButton = ProductionResourceButton::Create(productionHUD, { 240,150,30,30 }, "Game/Assets/Textures/active-16.png", nullptr);
@@ -49,38 +51,28 @@ void ProductionHUDElement::OnLoad()
 
 void ProductionHUDElement::Update()
 {
-	if (prod->GetType() == DOME) {
+	//if (prod->GetProduction()) {
 		if (prod != nullptr) {
 			v2::Inventory inv = prod->GetInventory();
-
 			title->text = "Building: " + prod->GetName();
 			level->text = "Level: " + to_string(prod->GetProductionEfficiency());
 			producing->text = "Producing: ";
-			storage1->text = "Storage: " + to_string(inv.At(0).quantity);
-
-			if (prod->GetProducing() && inv.At(0).quantity < 0) {
-				Resource res = *inv.At(0).resource;
-				rButton->SetIcon((rManager->Find(res.GetResouceID())->GetResourceIcon()));
+			if (prod->GetType() == DOME) {
+				storage1->text = "Storage: " + to_string(inv.At(0).quantity);
+			}
+			else if (prod->GetType() == FACTORY){
+				storage1->text = "Output: " + to_string(inv.At(0).quantity);
+				storage2->text = "Input: " + to_string(inv.At(1).quantity);
+			}
+			if (prod->GetProducing() == true && inv.At(0).quantity > 0) {
+				ResourceName res = inv.At(0).resource->GetResouceID();
+				rButton->SetIcon(GameManager::gameManager->resourceManager.Find(res)->GetResourceIcon());
+			}
+			else {
+				rButton->SetIcon("Game/Assets/Textures/Resource/missing-16.png");
 			}
 		}
-	}
-	else {
-		if (prod != nullptr) {
-			v2::Inventory inv = prod->GetInventory();
-
-			title->text = "Building: " + prod->GetName();
-			level->text = "Level: " + to_string(prod->GetProductionEfficiency());
-			producing->text = "Producing: ";
-			storage1->text = "Output: " + to_string(inv.At(0).quantity);
-			storage2->text = "Input: " + to_string(inv.At(1).quantity);
-
-
-			if (prod->GetProducing() && inv.At(0).quantity < 0) {
-				Resource res = *inv.At(0).resource;
-				rButton->SetIcon((rManager->Find(res.GetResouceID())->GetResourceIcon()));
-			}
-		}
-	}
+	//}
 }
 
 void ProductionHUDElement::DrawWidget(unsigned int shader)

@@ -28,7 +28,8 @@ Production::Production(string buildingName, StructureType typ, int hp, int pow, 
 	upkeep = up;
 	radiationOutput = radOut;
 	isPlaced = placed;
-	isActive = active;
+	isActive = false;
+	isProducing = false;
 	resourceManager = resourceMan;
 	this->hub = hub;
 }
@@ -127,6 +128,7 @@ void Production::SetProduction(ResourceName type)
 {
 		producing = type;
 		billboard->SetTextureToDisplay(resourceManager->Find(producing)->GetResourceIcon());
+		SetActive(true);
 }
 
 void Production::SetActive(bool change)
