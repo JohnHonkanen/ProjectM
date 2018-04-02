@@ -33,8 +33,12 @@ private:
 	EHUD::TextWidget* title;
 	EHUD::TextWidget* level;
 	EHUD::TextWidget* producing;
+	EHUD::TextWidget* ingredient;
 	EHUD::TextWidget* storage1;
 	EHUD::TextWidget* storage2;
+
+	string IconName(ResourceName res);			//Returns the resource string from the resource manager
+	ResourceName GetIngredient();				//Returns the ResourceName input from the recipe manager
 
 
 	vector<EHUD::TextWidget*> text;
@@ -43,6 +47,7 @@ private:
 	class ProductionButton * pButton;		//Set Production button
 
 	class ProductionResourceButton * rButton;		//Producing Resource Button
+	class ProductionResourceButton * iButton;		//Ingredient Resource Button
 	class ProductionResourceButton * aButton;		//Active Building Button
 
 	EHUD::HUDElement* productionHUD;

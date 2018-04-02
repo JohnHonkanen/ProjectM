@@ -17,5 +17,11 @@ ResourceName RecipeManager::GetInput(ResourceName output)
 void RecipeManager::OnLoad()
 {
 	Add(ResourceName::SpaceCow, ResourceName::SpaceCow_Beef);
+	Add(ResourceName::SpaceCow, ResourceName::SpaceCow_Milk);
 	Add(ResourceName::SpaceCow_Milk, ResourceName::SpaceCow_Cheese);
+	Add(ResourceName::Chicken, ResourceName::Chicken_Meat);
+	Add(ResourceName::Sheep, ResourceName::Sheep_Meat);
+	Add(ResourceName::Sheep, ResourceName::Sheep_Wool);
+	Add(ResourceName::Grape, ResourceName::Wine);
+	Add(ResourceName::Unilateralis, ResourceName::Electronic_Component);
 }
