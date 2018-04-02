@@ -199,10 +199,9 @@ void ContractManager::Start()
 
 	listOfContract.reserve(3);
 
-	int index = GetIndexOfLastElement(9);
-	AddContract(ContractName::Player_Contract, to_string(index), index);
-	AddContract(ContractName::Player_Contract, to_string(index), index);
-	AddContract(ContractName::Player_Contract, to_string(index), index);
+	AddContract(ContractName::Player_Contract, to_string(0), 0);
+	AddContract(ContractName::Player_Contract, to_string(1), 1);
+	AddContract(ContractName::Player_Contract, to_string(2), 2);
 	cout << listOfContract.size()<< endl;
 }
 
