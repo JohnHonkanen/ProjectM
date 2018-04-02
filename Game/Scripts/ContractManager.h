@@ -36,7 +36,7 @@ public:
 	vector<Contract*> GetList() const; // Returns a listOfContract
 
 private:
-	int contractIndex = 3;
+	int contractIndex = 0;
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
 	Contract contract;

@@ -18,6 +18,7 @@ ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDR
 void ContractHUDElement::Start()
 {
 
+
 	// Text
 	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 250, 150 }, "Game/Assets/Textures/black.jpg", true);
 	resourceIcon = EHUD::WHUDContainer::Create(this, { 163, 84, 14, 14 }, contract->GetResourceIcon(), true);

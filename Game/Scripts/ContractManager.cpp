@@ -169,9 +169,11 @@ void ContractManager::Start()
 
 	listOfContract.reserve(3);
 
-	AddContract(ContractName::Player_Contract, to_string(0), 0);
-	AddContract(ContractName::Player_Contract, to_string(1), 1);
-	AddContract(ContractName::Player_Contract, to_string(2), 2);
+	for (int i = 0; i < 3; i++) {
+		this->contractIndex = i;
+		AddContract(ContractName::Player_Contract, to_string(i), i);
+	}
+	
 	cout << listOfContract.size()<< endl;
 }
 
