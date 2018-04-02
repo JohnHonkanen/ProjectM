@@ -44,9 +44,10 @@ public:
 private:
 	int contractIndex = 0;
 	
-	//Contract contractList[1064]; // List of contracts to be held, and chosen from. 
+	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
+	Contract contract;
 	Engine::Utility::Clock clock;
 	bool keyReleased1 = true;
 	bool keyReleased2 = true;

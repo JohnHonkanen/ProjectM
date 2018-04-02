@@ -112,7 +112,7 @@ void MarketManager::Copy(GameObject * copyObject)
 
 void MarketManager::OnLoad()
 {
-
+	
 }
 
 void MarketManager::Start()
