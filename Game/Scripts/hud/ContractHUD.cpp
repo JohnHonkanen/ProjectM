@@ -30,7 +30,7 @@ void ContractHUD::Copy(GameObject * copyObject)
 void ContractHUD::OnLoad()
 {
 	// Create HUD elements based on contracts in the ContractManager
-	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 300, 550 }, "Game/Assets/Textures/blackG.jpg", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 750, 550 }, "Game/Assets/Textures/transparent_black.png", true);
 	wrapper->SetActive(false);
 
 	Engine::GameEngine::manager.inputManager.AddKey("toggleContractHUD", "c");
@@ -38,21 +38,10 @@ void ContractHUD::OnLoad()
 
 void ContractHUD::Start()
 {
-	/*vectorOfContracts.push_back(&contractManager->FindContract(ContractName::Player_Contract, 0));
-	CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, vectorOfContracts[0]));*/
-
 	for (int i = 0; i < contractManager->GetSizeOfListOfContract(); i++) {
 		vectorOfContracts.push_back(&contractManager->FindContract(ContractName::Player_Contract, i));
-		CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , (float)25 + 175 * i, 0, 0 }, vectorOfContracts[i]));
+		CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , (float)25 + 55 * i, 0, 0 }, vectorOfContracts[i]));
 	}
-	
-	//contract0 = &contractManager->FindContract(ContractName::Player_Contract, 0);
-	//contract1 = &contractManager->FindContract(ContractName::Player_Contract, 1);
-	//contract2 = &contractManager->FindContract(ContractName::Player_Contract, 2);
-
-	//CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract0);
-	//CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract1);
-	//CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract2);
 }
 
 void ContractHUD::Update()
