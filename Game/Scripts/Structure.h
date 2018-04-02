@@ -88,6 +88,9 @@ public:
 	void TaskCompleted();
 
 	virtual vec3 ParkingLocation();
+	virtual int Deposit(ResourceName resource, int amount);
+	virtual int Collect(ResourceName resource, int amount);
+	virtual int Contains(ResourceName resource);
 
 	template<class Archive>
 	void serialize(Archive & ar)
