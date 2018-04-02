@@ -38,52 +38,18 @@ void ContractHUD::OnLoad()
 
 void ContractHUD::Start()
 {
-	contract = contractManager->FindPersistentContract(1);
-	contract2 = contractManager->FindPersistentContract(2);
-	contract3 = contractManager->FindPersistentContract(3);
+	contract0 = &contractManager->FindContract(ContractName::Player_Contract, 0);
+	contract1 = &contractManager->FindContract(ContractName::Player_Contract, 1);
+	contract2 = &contractManager->FindContract(ContractName::Player_Contract, 2);
 
-	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract);
-	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract2);
-	CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract3);
+	CHElement = ContractHUDElement::Create(wrapper, { 25 , 25, 0, 0 }, contract0);
+	CHElement2 = ContractHUDElement::Create(wrapper, { 25 , (200), 0, 0 }, contract1);
+	CHElement3 = ContractHUDElement::Create(wrapper, { 25 , (375), 0, 0 }, contract2);
 }
 
 void ContractHUD::Update()
 {
-	auto contractList = contractManager->GetList();
-	//int i = 0;
 
-	for (Contract* c : contractList) {
-
-		ContractHUDElement* cHUD = nullptr;
-
-		// Determines the slot of the contract HUD and index.
-		// 1 = top, 2 = middle, 0 = bottom
-		int index = c->GetContractIndex() % 3;
-
-		switch (index) {
-		case 1:
-			cHUD = CHElement;
-			break;
-
-		case 2:
-			cHUD = CHElement2;
-			break;
-
-		case 0:
-			cHUD = CHElement3;
-			break;
-
-		default:
-			break;
-		}
-
-		if (cHUD != nullptr && !cHUD->IsActive()) 
-		{
-			cHUD->SetContract(c);
-			cHUD->SetAllActive(true);
-		}
-		//i++;
-	}
 }
 
 void ContractHUD::Input()

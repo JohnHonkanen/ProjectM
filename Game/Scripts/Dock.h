@@ -16,7 +16,7 @@ public:
 	void DockShip(class TradeShip* ship);
 	vec3 ParkingLocation();
 private:
-	const ContractManager * contractManager;
+	ContractManager * contractManager;
 	Contract *contract;
 	const Hub * hub;
 	bool contractFufilled = true;

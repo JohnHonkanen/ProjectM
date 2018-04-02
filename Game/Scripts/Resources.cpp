@@ -8,7 +8,7 @@ Resources::Resources()
 	this->resourceName = ResourceName::Null_Resource;
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, float productionRate)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -19,6 +19,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->resourceName = itemID;
 	this->stackLimit = stackLimit;
 	this->demand = demand;
+	this->productionRate = productionRate;
 }
 
 Resources::Resources(const Resources & copyRes)
@@ -32,6 +33,7 @@ Resources::Resources(const Resources & copyRes)
 	this->resourceName = copyRes.resourceName;
 	this->stackLimit = copyRes.stackLimit;
 	this->demand = copyRes.demand;
+	this->productionRate = copyRes.productionRate;
 }
 
 Resources::~Resources()
@@ -196,6 +198,21 @@ void Resources::DecreaseDemand(int demand)
 	if (this->demand < 1) {
 		SetDemand(1);
 	}
+}
+
+int Resources::GetProductionRate()
+{
+	return this->productionRate;
+}
+
+void Resources::IncreaseProductionRate(int amountToIncreaseBy)
+{
+	this->productionRate += amountToIncreaseBy;
+}
+
+void Resources::DecreaseProductionRate(int amountToDecreaseBy)
+{
+	this->productionRate -= amountToDecreaseBy;
 }
 
 void Resources::update()

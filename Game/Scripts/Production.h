@@ -35,6 +35,10 @@ private:
 	BuildingProductionAnims* billboard;
 	v1::TaskSystem::Task request;
 
+	v2::Inventory inventoryOutput;
+
+	void DomeProduction();
+	void FactoryProduction();
 
 public:
 
@@ -56,6 +60,12 @@ public:
 	Resources* GetResource() { return resourceManager->Find(producing); }
 
 	bool GetProducing() { return isProducing; }
+
+	int Collect(ResourceName resource, int amount);
+	int GetInputCount();
+	int GetOutputCount();
+	void TaskCompleted(TASK_TYPE type);
+
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

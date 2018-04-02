@@ -62,15 +62,14 @@ void ProductionHUDElement::Update()
 			if (prod->GetType() == DOME) {
 				iButton->SetActive(false);
 				ingredient->text = " ";
-				storage1->text = "Storage: " + to_string(inv.At(0).quantity);
+				storage1->text = "Storage: " + to_string(prod->GetOutputCount());
 				storage2->text = " ";
-
 			}
  			else if (prod->GetType() == FACTORY){
 				iButton->SetActive(true);
 				ingredient->text = "Needs: ";
-				storage1->text = "Output: " + to_string(inv.At(1).quantity);
-				storage2->text = "Input: " + to_string(inv.At(0).quantity);
+				storage1->text = "Output: " + to_string(prod->GetOutputCount());
+				storage2->text = "Input: " + to_string(prod->GetInputCount());
 				if (prod->GetProducing()) {
 					iButton->SetIcon(IconName(GetIngredient()));
 				}
@@ -98,11 +97,6 @@ void ProductionHUDElement::Input()
 void ProductionHUDElement::SetProduction(Production * prod)
 {
 	this->prod = prod;
-	if (prod->GetInventory().At(0).quantity > 0) {
-		if (this->prod->GetProduction() != this->prod->GetInventory().At(0).resource->GetResouceID()) {
-			DeleteItems();
-		}
-	}
 	pButton->SetProduction(prod);
 	if (prod->GetActive() == false) {
 		aButton->SetIcon("Game/Assets/Textures/Resource/inactive-16.png");
@@ -111,20 +105,6 @@ void ProductionHUDElement::SetProduction(Production * prod)
 		aButton->SetIcon("Game/Assets/Textures/Resource/active-16.png");
 	}
 
-}
-
-void ProductionHUDElement::DeleteItems()
-{
-	v2::Inventory inventory = prod->GetInventory();
-
-	if (prod->GetProducing() && inventory.At(0).quantity > 0) {
-		ResourceName res = inventory.At(0).resource->GetResouceID();
-		inventory.Remove(res, inventory.At(0).quantity);
-		if (prod->GetType() == FACTORY && inventory.At(1).quantity > 0) {
-			ResourceName res2 = inventory.At(1).resource->GetResouceID();
-			inventory.Remove(res2, inventory.At(1).quantity);
-		}
-	}
 }
 
 void ProductionHUDElement::ChangeActive()

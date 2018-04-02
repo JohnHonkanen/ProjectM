@@ -42,7 +42,7 @@ void Dock::Update()
 	{
 		
 		//Scan for Contract
-		contract = contractManager->GetFirstAvailable();
+		contract = &contractManager->GetFirstAvailable();
 
 		if (contract->GetDifficulty() != -1)
 		{

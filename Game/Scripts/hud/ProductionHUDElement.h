@@ -24,7 +24,6 @@ public:
 	void DrawWidget(unsigned int shader);
 	void Input();
 	void SetProduction(class Production *prod);
-	void DeleteItems();
 	void ChangeActive();
 	void CloseProductionWindows();
 

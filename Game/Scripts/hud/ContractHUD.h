@@ -37,7 +37,7 @@ private:
 	int count = 0;
 
 	class ContractManager* contractManager;
-	class Contract* contract, *contract2, *contract3;
+	class Contract* contract0, *contract1, *contract2;
 	bool keyReleased = true;
 
 };

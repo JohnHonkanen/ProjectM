@@ -4,7 +4,11 @@
 #include "PlayerEconManager.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
+//#include "GameManager.h"
 #include <list>
+#include <vector>
+
+#define PLAYER 0
 
 
 class ContractManager {
@@ -12,12 +16,8 @@ public:
 	ContractManager();
 	~ContractManager();
 
+	Contract AddContract(ContractName contractName, string nameOfContract, int contractIndex);
 
-	Contract AddContract();
-	Contract FindContract(int contractID);
-	Contract* FindPersistentContract(int contractID);
-	Contract* FindContractQueueFront();
-	Contract* FindContractQueueBack();
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetManager(ResourceManager* resourceManager);
@@ -25,19 +25,27 @@ public:
 	void Update();
 	void Start();
 
-	list <Contract*> GetList() const;
-	Contract * GetFirstAvailable() const;
+	Contract &GetFirstAvailable();
+
+	ContractName GetContractName(); // Returns name of Contract from contractName enum
+	int GetSizeOfListOfContract(); // Returns the size of listOfContract
+	int GetIndexOfLastElement(int offSet); // Gets index ID for contract at last element of listOfContract + offSet
+	Resources GenerateRandomResourceID();
+	Contract &FindContract(ContractName contractName, int contractIndex);
+
+	vector<Contract*> GetList() const; // Returns a listOfContract
+
 private:
-	int contractIndex = 0;
-	
-	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
+	int contractIndex = 3;
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
+	Contract contract;
 	Engine::Utility::Clock clock;
 	bool keyReleased1 = true;
 	bool keyReleased2 = true;
 	bool active, complete;
 	bool statusCheck = true;
 
-	list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
+	vector <Contract> listOfContract; // Creates a vector of list of contracts
+	ContractName contractName;
 };
