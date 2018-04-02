@@ -33,11 +33,14 @@ private:
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
 
-	class ContractHUDElement* CHElement, *CHElement2, *CHElement3;
+	//class ContractHUDElement* CHElement, *CHElement2, *CHElement3;
 	int count = 0;
 
 	class ContractManager* contractManager;
 	class Contract* contract0, *contract1, *contract2;
 	bool keyReleased = true;
 
+	vector <Contract*> vectorOfContracts;
+	vector <class ContractHUDElement*> CHElement;
+	int sizeOfContractList = 0;
 };

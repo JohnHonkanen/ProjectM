@@ -28,11 +28,9 @@ Contract ContractManager::AddContract(ContractName contractName, string nameOfCo
 		contract.SetStatus(true);
 		contract.InitComplete(false);
 
-		this->contract = contract;
+		this->listOfContract.push_back(contract);
 
-		this->listOfContract.push_back(this->contract);
-
-		return this->contract;
+		return contract;
 		break;
 	default:
 		cout << "ERROR::NO_CONTRACT_NAME_FOUND::CANNOT_ADD_CONTRACT::" << endl;
@@ -82,8 +80,10 @@ void ContractManager::Update()
 
 	// If new dock is detected, add new contract.
 	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
-		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
 		this->contractIndex++;
+		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+		
+		cout << listOfContract.size() << endl;
 	}
 
 	// Loop through listOfContract to determine if contract needs to be set as isComplete().
@@ -167,12 +167,12 @@ void ContractManager::Start()
 	clock.SetDelay(1000);
 	clock.StartClock();
 
-	listOfContract.reserve(3);
-
-	AddContract(ContractName::Player_Contract, to_string(0), 0);
-	AddContract(ContractName::Player_Contract, to_string(1), 1);
-	AddContract(ContractName::Player_Contract, to_string(2), 2);
-	cout << listOfContract.size()<< endl;
+	int startingContract = 3;
+	
+	for (int i = 0; i < startingContract; i++) {
+		this->contractIndex = i;
+		AddContract(ContractName::Player_Contract, to_string(i), i);
+	}
 }
 
 Contract &ContractManager::GetFirstAvailable() 
@@ -192,8 +192,8 @@ Contract &ContractManager::GetFirstAvailable()
 
 	if (completed) {
 		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
-		Contract fail = Contract();
-		return fail;
+		Contract failedContract = Contract();
+		return failedContract;
 	}
 }
 
@@ -233,7 +233,7 @@ Contract &ContractManager::FindContract(ContractName contractName, int contractI
 	
 }
 
-vector<Contract*> ContractManager::GetList() const
+vector<Contract> ContractManager::GetList()
 {
-	return vector<Contract*>();
+	return listOfContract;
 }
