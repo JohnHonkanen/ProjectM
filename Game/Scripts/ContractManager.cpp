@@ -180,7 +180,7 @@ Contract &ContractManager::GetFirstAvailable()
 	bool completed = true;
 	for (int i = 0; i < listOfContract.size(); i++)
 	{
-		if (listOfContract[i].IsComplete() == !completed) {
+		if (listOfContract[i].GetStatus() == true) {
 			if (!listOfContract[i].GetTaken())
 			{
 				listOfContract[i].SetTaken(true);
