@@ -127,7 +127,8 @@ void ContractManager::Update()
 		clock.ResetClock();
 	}
 	
-	
+	GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK);
+
 	for (int i = 0; i < this->listOfContract.size();) {
 
 		// Set contract status to isComplete if timer reaches 0 
