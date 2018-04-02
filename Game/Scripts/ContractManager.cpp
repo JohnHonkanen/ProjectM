@@ -96,7 +96,8 @@ void ContractManager::Update()
 		// Complete contract when resource requirement is fulfilled.
 		if (this->listOfContract[i].GetCurrent() >= this->listOfContract[i].GetAmount()) {
 			PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
-			pEcon->AddGoldBars(listOfContract[i].GetPayment());
+			// Pay out the contract bonus when contract is fulfilled.
+			pEcon->AddGoldBars(listOfContract[i].GetContractBonus());
 
 			this->listOfContract[i].IsComplete();
 		}
@@ -121,7 +122,6 @@ void ContractManager::Update()
 		if (keyReleased1 == true) {
 			AddContract(ContractName::Player_Contract, "", GetIndexOfLastElement(9));
 			
-			//cout << "Contract Added!" << endl;
 			keyReleased1 = false;
 			}
 	}
@@ -137,6 +137,7 @@ void ContractManager::Update()
 	if (changeCurrent == 1) {
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;
+
 			this->listOfContract.front().IncreaseCurrent(5);
 		}
 	}

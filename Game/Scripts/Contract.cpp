@@ -1,6 +1,7 @@
 #include "Contract.h"
 #include "ContractManager.h"
 #include "glm\glm.hpp"
+#include "GameManager.h"
 
 Contract::Contract()
 {
@@ -163,6 +164,10 @@ int Contract::IncreaseCurrent(int amountToIncrease)
 		return SetCurrent(GetAmount());
 	}
 	else {
+		// Calculate value of amount delivered + add to player economy + adjust contract current.
+		int amountDelivered = GetResource().GetBasePrice() * amountToIncrease;
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(amountDelivered);
+		
 		this->current += amountToIncrease;
 		return SetCurrent(this->current);
 	}

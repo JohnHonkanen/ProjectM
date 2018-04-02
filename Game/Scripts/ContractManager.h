@@ -4,7 +4,6 @@
 #include "PlayerEconManager.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
-//#include "GameManager.h"
 #include <list>
 #include <vector>
 

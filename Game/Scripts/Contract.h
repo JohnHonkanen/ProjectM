@@ -71,7 +71,7 @@ private:
 	ResourceManager* resourceManager;
 	ContractManager* contractManager;
 	ContractName contractName;
-
+	
 	bool active = false;
 	bool complete = false;
 
