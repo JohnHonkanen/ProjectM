@@ -28,11 +28,9 @@ Contract ContractManager::AddContract(ContractName contractName, string nameOfCo
 		contract.SetStatus(true);
 		contract.InitComplete(false);
 
-		this->contract = contract;
+		this->listOfContract.push_back(contract);
 
-		this->listOfContract.push_back(this->contract);
-
-		return this->contract;
+		return contract;
 		break;
 	default:
 		cout << "ERROR::NO_CONTRACT_NAME_FOUND::CANNOT_ADD_CONTRACT::" << endl;
@@ -82,8 +80,10 @@ void ContractManager::Update()
 
 	// If new dock is detected, add new contract.
 	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
-		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
 		this->contractIndex++;
+		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+		
+		cout << listOfContract.size() << endl;
 	}
 
 	// Loop through listOfContract to determine if contract needs to be set as isComplete().
@@ -167,14 +167,12 @@ void ContractManager::Start()
 	clock.SetDelay(1000);
 	clock.StartClock();
 
-	listOfContract.reserve(3);
+	int startingContract = 3;
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < startingContract; i++) {
 		this->contractIndex = i;
 		AddContract(ContractName::Player_Contract, to_string(i), i);
 	}
-	
-	cout << listOfContract.size()<< endl;
 }
 
 Contract &ContractManager::GetFirstAvailable() 
@@ -234,7 +232,7 @@ Contract &ContractManager::FindContract(ContractName contractName, int contractI
 	
 }
 
-vector<Contract*> ContractManager::GetList() const
+vector<Contract> ContractManager::GetList()
 {
-	return vector<Contract*>();
+	return listOfContract;
 }

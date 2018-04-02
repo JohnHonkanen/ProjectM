@@ -33,8 +33,7 @@ public:
 	Resources GenerateRandomResourceID();
 	Contract &FindContract(ContractName contractName, int contractIndex);
 
-	vector<Contract*> GetList() const; // Returns a listOfContract
-
+	vector <Contract> GetList();
 private:
 	int contractIndex = 0;
 	ResourceManager* resourceManager;

@@ -4,13 +4,12 @@
 #include "../Contract.h"
 #include "InventoryHUDElement.h"
 #include <sstream>
-#include  <iomanip>
+#include <iomanip>
 
-ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDRect rect, Contract* contract)
+ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDRect rect)
 {
 	ContractHUDElement *c = new ContractHUDElement();
 	c->rect = rect;
-	c->contract = contract;
 
 	element->AttachWidget(c);
 
@@ -30,19 +29,19 @@ void ContractHUDElement::Update()
 	}
 
 	// Contract ID
-	contractID->text = "# " + to_string(contract->GetContractID());
+	contractID->text = "# " + to_string(contract.GetContractID());
 
 	// Contract Amount to FulFill
-	fulfill->text = to_string(contract->GetCurrent()) + "/" + to_string(contract->GetAmount());
+	fulfill->text = to_string(contract.GetCurrent()) + "/" + to_string(contract.GetAmount());
 	
 	// Contract Resource Icon
-	resourceIcon->ChangeImage(contract->GetResourceIcon());
+	resourceIcon->ChangeImage(contract.GetResourceIcon());
 
 	// Contract time left
-	text->text = "Time Left: " + to_string((int)contract->GetTime() / 1000) + "s";
+	text->text = "Time Left: " + to_string((int)contract.GetTime() / 1000) + "s";
 
 	GenerateKSuffix();
-	if (contract->GetStatus() == 0) {
+	if (contract.GetStatus() == 0) {
 		SetAllActive(false);
 	}
 }
@@ -55,9 +54,10 @@ void ContractHUDElement::DrawWidget(unsigned int shader)
 
 }
 
-void ContractHUDElement::SetContract(Contract * contractToSet)
+void ContractHUDElement::SetContract(Contract contractToSet)
 {
-	contract = contractToSet;
+	this->contract = contractToSet;
+	SetAllActive(true);
 }
 
 void ContractHUDElement::SetAllActive(bool state)
@@ -67,7 +67,7 @@ void ContractHUDElement::SetAllActive(bool state)
 	resourceIcon->SetActive(state);
 }
 
-Contract * ContractHUDElement::GetContract()
+Contract ContractHUDElement::GetContract()
 {
 	return contract;
 }
@@ -81,7 +81,7 @@ void ContractHUDElement::GenerateContractElements()
 	contractID = EHUD::TextWidget::Create(contractHUD, { 10, 12, 0, 0 }, "", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Resource Icon
-	resourceIcon = EHUD::WHUDContainer::Create(this, { 10, 15, 32, 32 }, contract->GetResourceIcon(), true);
+	resourceIcon = EHUD::WHUDContainer::Create(this, { 10, 15, 32, 32 }, contract.GetResourceIcon(), true);
 
 	// Contract Amount to FulFill
 	fulfill = EHUD::TextWidget::Create(contractHUD, { 55, 35, 0, 0 }, "", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
@@ -96,8 +96,8 @@ void ContractHUDElement::GenerateContractElements()
 void ContractHUDElement::GenerateKSuffix()
 {
 	// Check if reward of current contract item price is greater or equal to 1000, then add "K" to it.
-	if (contract->GetPayment() >= 1000) {
-		float q = contract->GetPayment() / 1000.0f;
+	if (contract.GetPayment() >= 1000) {
+		float q = contract.GetPayment() / 1000.0f;
 		std::stringstream ss;
 		ss << std::fixed << std::setprecision(2) << q;
 		reward->text = "Reward: " + ss.str() + "K Gold";

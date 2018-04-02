@@ -38,15 +38,27 @@ void ContractHUD::OnLoad()
 
 void ContractHUD::Start()
 {
-	for (int i = 0; i < contractManager->GetSizeOfListOfContract(); i++) {
-		vectorOfContracts.push_back(&contractManager->FindContract(ContractName::Player_Contract, i));
-		CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , (float)25 + 55 * i, 0, 0 }, vectorOfContracts[i]));
+	this->sizeOfContractList = 9;//contractManager->GetSizeOfListOfContract();
+
+	for (int i = 0; i < this->sizeOfContractList; i++) {
+		//vectorOfContracts.push_back(&contractManager->FindContract(ContractName::Player_Contract, this->index));
+		CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , (float)25 + 55 * i, 0, 0 }));
 	}
 }
 
 void ContractHUD::Update()
 {
+	auto contractList = contractManager->GetList();
 
+	int numberOfElements = contractList.size();
+
+	if (numberOfElements > CHElement.size()) {
+		numberOfElements = 9;
+	}
+
+	for (int i = 0; i < numberOfElements; i++) {
+		CHElement[i]->SetContract(contractList[i]);
+	}
 }
 
 void ContractHUD::Input()

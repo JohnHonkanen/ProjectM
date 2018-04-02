@@ -4,6 +4,7 @@
 #include "hud\HUDRect.h"
 #include <string>
 #include "../ResourceManager.h"
+#include "../Contract.h"
 
 //Namespace Alias 
 namespace EHUD = Engine::HUD;
@@ -17,20 +18,20 @@ namespace Engine {
 class ContractHUDElement : public EHUD::HUDWidget {
 
 public:
-
-	static ContractHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class Contract* contract); 
+	static ContractHUDElement* Create(HUDElement* element, EHUD::HUDRect rect); 
 
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
-	void SetContract(Contract* contractToSet);
 	void SetAllActive(bool state);
-	class Contract* GetContract();
+	Contract GetContract();
 
 	void GenerateContractElements();
 	void GenerateKSuffix();
+
+	void SetContract(Contract contractToSet);
 private:
-	class Contract* contract;
+	Contract contract;
 	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName, *reward, *contractIssueNumber, *contractID, *difficulty;
 	EHUD::HUDElement* contractHUD;
 	EHUD::WHUDContainer* resourceIcon;

@@ -42,4 +42,5 @@ private:
 
 	vector <Contract*> vectorOfContracts;
 	vector <class ContractHUDElement*> CHElement;
+	int sizeOfContractList = 0;
 };
