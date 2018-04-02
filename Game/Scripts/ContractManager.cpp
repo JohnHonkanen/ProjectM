@@ -170,7 +170,6 @@ void ContractManager::Start()
 
 Contract &ContractManager::GetFirstAvailable() 
 {
-	bool completed = true;
 	for (int i = 0; i < listOfContract.size(); i++)
 	{
 		if (listOfContract[i].GetStatus() == true) {
