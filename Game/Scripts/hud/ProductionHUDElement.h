@@ -26,6 +26,7 @@ public:
 	void SetProduction(class Production *prod);
 	void DeleteItems();
 	void ChangeActive();
+	void CloseProductionWindows();
 
 
 private:

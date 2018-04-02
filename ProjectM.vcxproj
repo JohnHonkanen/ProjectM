@@ -63,6 +63,7 @@
     <ClInclude Include="Game\Scripts\PlayerActions.h" />
     <ClInclude Include="Game\Scripts\PlayerEconManager.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
+    <ClInclude Include="Game\Scripts\RecipeManager.h" />
     <ClInclude Include="Game\Scripts\Structure.h" />
     <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h" />
     <ClInclude Include="Game\Scripts\task_system\drones\CollectBehaviour.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Game\Scripts\PlayerEconManager.cpp" />
     <ClCompile Include="Game\Scripts\Production.cpp" />
     <ClCompile Include="Game\Scripts\ProjectM.cpp" />
+    <ClCompile Include="Game\Scripts\RecipeManager.cpp" />
     <ClCompile Include="Game\Scripts\Structure.cpp" />
     <ClCompile Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.cpp" />
     <ClCompile Include="Game\Scripts\task_system\drones\CollectBehaviour.cpp" />

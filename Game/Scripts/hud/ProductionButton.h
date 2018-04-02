@@ -2,6 +2,7 @@
 #include "ButtonWidget.h"
 #include "hud\HUDRect.h"
 #include <vector>
+#include "../Structure.h"
 
 namespace Engine {
 	namespace HUD {
@@ -26,12 +27,16 @@ public:
 	void Update();
 	void SetProduction(class Production *production);
 	void SetIcon(string icon) { iconImage = icon; }
+	void CloseProductionWindows();
+	
+
 
 	static ProductionButton * Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, class Production *production);
 
 
 private:
 	string iconImage;
+	StructureType currentStructure = StructureType::HUB;
 
 	class Production *production;
 	class EHUD::HUDElement *root;
@@ -40,4 +45,5 @@ private:
 	vector<class ProductionSetterButton*> resourceListDome, resourceListFactory;
 
 	void ConfigureResources();
+	
 };

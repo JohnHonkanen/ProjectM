@@ -6,6 +6,7 @@ Dev: Greg Smith (B00308929)
 
 #include "Production.h"
 #include "utility\Clock.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -99,8 +100,7 @@ void Production::Update(double currentTime)
 			}
 		}
 		else if (structureType == FACTORY) {
-			//if (inventory.At(1).quantity > 0) {
-			if (isProducing /*&& required primary resource available*/) {
+			if (isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
 				int availableSpace = inventory.CheckStorageFull(producing);
 				if (availableSpace > 0) {
 					Resources* r = resourceManager->Find(producing);
@@ -110,15 +110,13 @@ void Production::Update(double currentTime)
 				}
 			}
 		}
-
-
 		if (structureType == DOME) {
 			if (task.GetType() == TASK_TYPE::NONE)
 			{
 				if (inventory.At(0).quantity > 0)
 				{
-					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
-					hub->GetTaskManager()->AddTask(task, 5);
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, this, inventory.At(0).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, task.GetPriority());
 				}
 			}
 		}
@@ -127,14 +125,14 @@ void Production::Update(double currentTime)
 			{
 				if (inventory.At(0).quantity > 0)
 				{
-					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
-					hub->GetTaskManager()->AddTask(task, 5);
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, this, inventory.At(0).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, task.GetPriority());
 				}
 			}
 			if (request.GetType() == TASK_TYPE::NONE && isProducing)
 			{
-					request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, ResourceName::SpaceCow, 100);
-					hub->GetTaskManager()->AddTask(task, 5);
+					request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
+					hub->GetTaskManager()->AddTask(request, request.GetPriority());
 			}
 		}
 		clock.ResetClock();
@@ -144,6 +142,9 @@ void Production::Update(double currentTime)
 void Production::SetProduction(ResourceName type)
 {
 		producing = type;
+		if (structureType == FACTORY) {
+			inputResource = GameManager::gameManager->recipeManager.GetInput(producing);
+		}
 		billboard->SetTextureToDisplay(resourceManager->Find(producing)->GetResourceIcon());
 		SetActive(true);
 }

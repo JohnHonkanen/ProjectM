@@ -25,6 +25,7 @@ void GameManager::OnLoad()
 	resourceManager.OnLoad();
 	playerEconManager.OnLoad();
 	marketManager.OnLoad();
+	recipeManager.OnLoad();
 	GameEngine::manager.shaderManager.CreateShader("billboard", "Game/Shaders/billboard.vert", "Game/Shaders/billboard.frag");
 }
 

@@ -49,7 +49,9 @@ void ProductionHUD::Update()
 		PHElement->SetProduction(dynamic_cast<Production*>(pla->GetSelectedStructure()));
 		//RHElement->DeleteItems();
 		//AHElement->ChangeActive();
+		PHElement->CloseProductionWindows();
 		wrapper->SetActive(true);
+		
 	}
 	else {
 		wrapper->SetActive(false);

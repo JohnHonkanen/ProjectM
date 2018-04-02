@@ -27,12 +27,14 @@ using namespace glm;
 class Production : public Structure {
 private:
 	ResourceName producing;
+	ResourceName inputResource;
 	Engine::Utility::Clock clock;
 	Hub * hub;
 	ResourceManager * resourceManager;
 	bool isProducing = false;
 	BuildingProductionAnims* billboard;
 	v1::TaskSystem::Task request;
+
 
 public:
 

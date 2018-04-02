@@ -33,12 +33,12 @@ ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::
 
 void ProductionHUDElement::Start()
 {
-	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
+	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
 	rButton = ProductionResourceButton::Create(productionHUD, { 150,75,30,30 }, "Game/Assets/Textures/Resource/missing-16.png", nullptr);
-	storage1 = HUD::TextWidget::Create(productionHUD, { 20,130,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	storage2 = HUD::TextWidget::Create(productionHUD, { 20,160,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
+	storage1 = HUD::TextWidget::Create(productionHUD, { 20,130,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	storage2 = HUD::TextWidget::Create(productionHUD, { 20,160,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
 	aButton = ProductionResourceButton::Create(productionHUD, { 240,150,30,30 }, "Game/Assets/Textures/active-16.png", nullptr);
 	pButton = ProductionButton::Create(productionHUD, { 240,10,50,50 }, "Game/Assets/Textures/output_icon.png", nullptr);
 	StartChildWidgets();
@@ -54,7 +54,7 @@ void ProductionHUDElement::Update()
 	//if (prod->GetProduction()) {
 		if (prod != nullptr) {
 			v2::Inventory inv = prod->GetInventory();
-			title->text = "Building: " + prod->GetName();
+			title->text = "Building: " + prod->gameObject->name;
 			level->text = "Level: " + to_string(prod->GetProductionEfficiency());
 			producing->text = "Producing: ";
 			if (prod->GetType() == DOME) {
@@ -78,6 +78,7 @@ void ProductionHUDElement::Update()
 
 void ProductionHUDElement::DrawWidget(unsigned int shader)
 {
+
 }
 
 void ProductionHUDElement::Input()
@@ -105,4 +106,9 @@ void ProductionHUDElement::ChangeActive()
 	if (prod->GetProducing()) {
 		prod->SetActive(!prod->GetActive());
 	}
+}
+
+void ProductionHUDElement::CloseProductionWindows()
+{
+	pButton->CloseProductionWindows();
 }

@@ -3,6 +3,8 @@
 #include "..\Production.h"
 #include "ProductionSetterButton.h"
 #include "../GameManager.h"
+#include "core\InputManager.h"
+#include "core\GameEngine.h"
 
 string GetIcon(ResourceName resource) {
 	return GameManager::gameManager->resourceManager.Find(resource)->GetResourceIcon();
@@ -116,6 +118,19 @@ void ProductionButton::Input()
 
 void ProductionButton::Update()
 {
+	if (!active) {
+		return;
+	}
+	if (GameEngine::manager.inputManager.GetKey("mouse1")) {
+		containerFactory->SetActive(false);
+		for (ProductionSetterButton* button : resourceListFactory) {
+			button->SetActive(false);
+		}
+		containerDome->SetActive(false);
+		for (ProductionSetterButton* button : resourceListDome) {
+			button->SetActive(false);
+		}
+	}
 }
 
 void ProductionButton::SetProduction(Production * production)
@@ -135,6 +150,23 @@ void ProductionButton::SetProduction(Production * production)
 	}
 
 }
+
+void ProductionButton::CloseProductionWindows()
+{
+	if (currentStructure != production->GetType()) {
+		containerFactory->SetActive(false);
+		for (ProductionSetterButton* button : resourceListFactory) {
+			button->SetActive(false);
+		}
+		containerDome->SetActive(false);
+		for (ProductionSetterButton* button : resourceListDome) {
+			button->SetActive(false);
+		}
+		currentStructure = production->GetType();
+	}
+}
+
+
 
 ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, Production *production)
 {
