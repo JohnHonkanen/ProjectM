@@ -10,6 +10,7 @@ class Dock : public Structure
 public:
 	static Dock * Create();
 	void Copy(GameObject * copyObject);
+	void Start();
 	void Update();
 
 	void DockShip(class TradeShip* ship);

@@ -26,6 +26,11 @@ void Dock::Copy(GameObject * copyObject)
 	copyObject->AddComponent(Create());
 }
 
+void Dock::Start()
+{
+	isActive = true;
+}
+
 void Dock::Update()
 {
 	if (!isActive)
@@ -39,7 +44,7 @@ void Dock::Update()
 		//Scan for Contract
 		contract = contractManager->GetFirstAvailable();
 
-		if (contract)
+		if (contract->GetDifficulty() != -1)
 		{
 			inventory.Clear();
 			task = Task();
