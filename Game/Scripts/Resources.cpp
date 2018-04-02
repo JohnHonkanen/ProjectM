@@ -8,7 +8,7 @@ Resources::Resources()
 	this->resourceName = ResourceName::Null_Resource;
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionSpeed)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -20,7 +20,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->stackLimit = stackLimit;
 	this->demand = demand;
 	this->productionRate = productionRate;
-	this->productionSpeed = productionSpeed;
+	this->productionTimer = productionTimer;
 }
 
 Resources::Resources(const Resources & copyRes)
@@ -35,7 +35,7 @@ Resources::Resources(const Resources & copyRes)
 	this->stackLimit = copyRes.stackLimit;
 	this->demand = copyRes.demand;
 	this->productionRate = copyRes.productionRate;
-	this->productionSpeed = copyRes.productionSpeed;
+	this->productionTimer = copyRes.productionTimer;
 }
 
 Resources::~Resources()
@@ -204,7 +204,7 @@ void Resources::DecreaseDemand(int demand)
 
 int Resources::GetProductionRate()
 {
-	return this->productionRate * GetProductionSpeed();
+	return this->productionRate;
 }
 
 void Resources::IncreaseProductionRate(int amountToIncreaseBy)
@@ -217,19 +217,19 @@ void Resources::DecreaseProductionRate(int amountToDecreaseBy)
 	this->productionRate -= amountToDecreaseBy;
 }
 
-int Resources::GetProductionSpeed()
+int Resources::GetProductionTimer()
 {
-	return this->productionSpeed;
+	return this->productionTimer;
 }
 
-void Resources::IncreaseProductionSpeed(int amountToIncreaseBy)
+void Resources::IncreaseProductionTimer(int amountToIncreaseBy)
 {
-	this->productionSpeed += amountToIncreaseBy;
+	this->productionTimer += amountToIncreaseBy;
 }
 
-void Resources::DecreaseProductionSpeed(int amountToDecreaseBy)
+void Resources::DecreaseProductionTimer(int amountToDecreaseBy)
 {
-	this->productionSpeed -= amountToDecreaseBy;
+	this->productionTimer -= amountToDecreaseBy;
 }
 
 void Resources::update()

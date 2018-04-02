@@ -34,7 +34,7 @@ class Resources
 {
 public:
 	Resources();
-	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionSpeed);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer);
 	Resources(const Resources &copyRes);
 	~Resources();
 	
@@ -73,9 +73,9 @@ public:
 	void IncreaseProductionRate(int amountToIncreaseBy); // Increase resource production rate (Example: Due to building upgrades)
 	void DecreaseProductionRate(int amountToDecreaseBy); // Decrease resource production rate (Example: Due to power shortage)
 
-	int GetProductionSpeed(); // Get the resource production speed
-	void IncreaseProductionSpeed(int amountToIncreaseBy); // Increase the resource production speed
-	void DecreaseProductionSpeed(int amountToDecreaseBy); // Decrease the resource production speed
+	int GetProductionTimer(); // Get the resource production speed
+	void IncreaseProductionTimer(int amountToIncreaseBy); // Increase the resource production speed
+	void DecreaseProductionTimer(int amountToDecreaseBy); // Decrease the resource production speed
 
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
@@ -84,7 +84,7 @@ public:
 
 	ResourceName GetResouceID();
 private:
-	int itemID, itemValue, itemQuality, stackLimit, demand, productionSpeed;
+	int itemID, itemValue, itemQuality, stackLimit, demand, productionTimer;
 	int itemStock = 0;
 	int basePrice; // Standard price
 	float baseModifier = 5.0;

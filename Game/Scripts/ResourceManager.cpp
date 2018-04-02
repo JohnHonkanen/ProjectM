@@ -14,9 +14,9 @@ ResourceManager::~ResourceManager()
 
 /*Use to add resources into resourcemanagers list*/
 Resources ResourceManager::AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon, 
-	int stackLimit, int demand, int productionRate, int productionSpeed)
+	int stackLimit, int demand, int productionRate, int productionTimer)
 {
-	this->resources = Resources(resName, itemName, SKU, itemPrice, itemStock, resourceIcon, stackLimit, demand, productionRate, productionSpeed);
+	this->resources = Resources(resName, itemName, SKU, itemPrice, itemStock, resourceIcon, stackLimit, demand, productionRate, productionTimer);
 	
 	this->itemIndex = static_cast<int>(resName);
 
