@@ -36,6 +36,7 @@ Contract::Contract(const Contract & copy)
 	this->difficultyModifier = copy.difficultyModifier;
 	this->taken = copy.taken;
 	this->complete = copy.complete;
+	this->contractBonus = copy.contractBonus;
 }
 
 
@@ -60,18 +61,16 @@ int Contract::GetPayment()
 
 void Contract::SetPayment()
 {
-	int tempDif = GetDifficulty();
+	// Generate random amount of resources to fulfill
 	SetAmount();
 
-	if (tempDif == 1) {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
-	else if (tempDif == 2) {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
-	else {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
+	// Calculate Price of contract total reward.
+	this->payment = resource.GetBasePrice() * GetAmount() + GetContractBonus();
+}
+
+int Contract::GetContractBonus()
+{
+	return this->contractBonus = DifficultyModifier(GetDifficulty());
 }
 
 Resources Contract::GetResource()
@@ -94,13 +93,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = (rand() % 10) + 15;
+		this->amount = (rand() % 10);
 	}
 	else if (tempDif == 2) {
-		this->amount = (rand() % 20) + 30;
+		this->amount = (rand() % 20);
 	}
 	else {
-		this->amount = (rand() % 60) + 90;
+		this->amount = (rand() % 60);
 	}
 }
 
@@ -223,18 +222,10 @@ bool Contract::InitComplete(bool completeStatus)
 	return this->complete;
 }
 
-void Contract::DebugContractOnce()
-{
-	// print result of contracts
-
-	printf("Contract ID: %i\n", contractID);
-}
 
 int Contract::DifficultyModifier(int tempDif)
 {
-	difficultyModifier = this->difficultyModifier * tempDif;
-
-	return difficultyModifier;
+	return this->difficultyModifier * tempDif;;
 }
 
 int Contract::GetResourceID()

@@ -23,7 +23,6 @@ Contract ContractManager::AddContract(ContractName contractName, string nameOfCo
 		contract.SetDifficulty();
 		contract.SetPayment();
 		contract.SetTime(1000000);
-		contract.SetAmount();
 		contract.SetContractIndex(contractIndex);
 		contract.SetStatus(true);
 		contract.InitComplete(false);

@@ -102,5 +102,8 @@ void ContractHUDElement::GenerateKSuffix()
 		ss << std::fixed << std::setprecision(2) << q;
 		reward->text = "Reward: " + ss.str() + "K Gold";
 	}
+	else {
+		reward->text = "Reward: " + to_string(contract.GetPayment()) + " Gold";
+	}
 }
 
