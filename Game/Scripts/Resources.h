@@ -34,7 +34,7 @@ class Resources
 {
 public:
 	Resources();
-	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, float productionRate);
 	Resources(const Resources &copyRes);
 	~Resources();
 	
@@ -68,6 +68,10 @@ public:
 	void IncreaseDemand(int demand); // Increase resource demand
 	void DecreaseDemand(int demand); // Decrease resource demand
 
+	float GetProductionRate(); // Get resource production rate
+	void IncreaseProductionRate(float amountToIncreaseBy); // Increase resource production rate (Example: Due to building upgrades)
+	void DecreaseProductionRate(float amountToDecreaseBy); // Decrease resource production rate (Example: Due to power shortage)
+
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
 	string GetResourceIcon(); // Get Resource icon
@@ -79,6 +83,7 @@ private:
 	int itemStock = 0;
 	int basePrice; // Standard price
 	float baseModifier = 5.0;
+	float productionRate = 0.0;
 	string itemName, sku, resourceIcon;
 
 	ResourceName resourceName;
