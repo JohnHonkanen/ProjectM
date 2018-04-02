@@ -68,7 +68,7 @@ public:
 	void IncreaseDemand(int demand); // Increase resource demand
 	void DecreaseDemand(int demand); // Decrease resource demand
 
-	float GetProductionRate(); // Get resource production rate
+	int GetProductionRate(); // Get resource production rate
 	void IncreaseProductionRate(int amountToIncreaseBy); // Increase resource production rate (Example: Due to building upgrades)
 	void DecreaseProductionRate(int amountToDecreaseBy); // Decrease resource production rate (Example: Due to power shortage)
 

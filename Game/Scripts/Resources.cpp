@@ -200,7 +200,7 @@ void Resources::DecreaseDemand(int demand)
 	}
 }
 
-float Resources::GetProductionRate()
+int Resources::GetProductionRate()
 {
 	return this->productionRate;
 }
