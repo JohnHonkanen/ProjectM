@@ -28,7 +28,7 @@ public:
 	void SetTime(int timer); // Set time left on contract
 	int GetTime(); // Get time left on contract
 	int ReduceTime(int millisecond); // Reduce Time on contract over time.
-	void StartTime(); // Start contract timer.
+	void StartTime(); // Sets this->begin to true. Use to start reduceTime() for contract.
 
 	int GetCurrent(); // Get current amount fulfilled of contract
 	int SetCurrent(int currentAmount); // Set current amount
