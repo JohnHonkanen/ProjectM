@@ -4,7 +4,7 @@
 #include "PlayerEconManager.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include <list>
 #include <vector>
 
@@ -16,13 +16,8 @@ public:
 	ContractManager();
 	~ContractManager();
 
-
-	//Contract AddContract();
 	Contract AddContract(ContractName contractName, string nameOfContract, int contractIndex);
-	//Contract FindContract(int contractID);
-	//Contract* FindPersistentContract(int contractID);
-	//Contract* FindContractQueueFront();
-	//Contract* FindContractQueueBack();
+
 	int NumberOfActiveContract(); // Counts number of current active contract
 
 	void SetManager(ResourceManager* resourceManager);
@@ -30,7 +25,6 @@ public:
 	void Update();
 	void Start();
 
-	//list <Contract*> GetList() const;
 	Contract &GetFirstAvailable();
 
 	ContractName GetContractName(); // Returns name of Contract from contractName enum
@@ -40,12 +34,9 @@ public:
 	Contract &FindContract(ContractName contractName, int contractIndex);
 
 	vector<Contract*> GetList() const; // Returns a listOfContract
-	
 
 private:
 	int contractIndex = 3;
-	
-	//Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
 	Contract contract;
@@ -54,10 +45,7 @@ private:
 	bool keyReleased2 = true;
 	bool active, complete;
 	bool statusCheck = true;
-	int contractNumber = 3;
 
-	//list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
 	vector <Contract> listOfContract; // Creates a vector of list of contracts
-	vector <vector<Contract>::iterator> listOfContractToDestroy; // Create a vector of list of contracts to destroy.
 	ContractName contractName;
 };
