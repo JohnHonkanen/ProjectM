@@ -12,7 +12,7 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate);
+	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionSpeed);
 
 	/*!!! Stop using: Depricated !!!
 	!!! Stop using: Depricated !!!
@@ -45,5 +45,4 @@ private:
 	Resources resources;
 
 	list <Resource*> resourceQueue;
-
 };

@@ -34,7 +34,7 @@ class Resources
 {
 public:
 	Resources();
-	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, float productionRate);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionSpeed);
 	Resources(const Resources &copyRes);
 	~Resources();
 	
@@ -52,6 +52,7 @@ public:
 	void IncreaseItemAmount(int itemStock); // Increase the amount of item in stock
 	void ReduceItemAmount(int itemStock); // Decrease the amount of item in stock
 	void SetItemAmount(int itemStock); // Set the amount of item in stock
+
 	void IncreaseItemPrice(float modifier); // Increase the base price of the item
 	void DecreaseItemPrice(float modifier); // Decrease the base price of item
 	void SetItemPrice(int basePrice); // Set the base price of item
@@ -68,9 +69,13 @@ public:
 	void IncreaseDemand(int demand); // Increase resource demand
 	void DecreaseDemand(int demand); // Decrease resource demand
 
-	int GetProductionRate(); // Get resource production rate
+	int GetProductionRate(); // Get resource production rate. (How many resource is made per sec)
 	void IncreaseProductionRate(int amountToIncreaseBy); // Increase resource production rate (Example: Due to building upgrades)
 	void DecreaseProductionRate(int amountToDecreaseBy); // Decrease resource production rate (Example: Due to power shortage)
+
+	int GetProductionSpeed(); // Get the resource production speed
+	void IncreaseProductionSpeed(int amountToIncreaseBy); // Increase the resource production speed
+	void DecreaseProductionSpeed(int amountToDecreaseBy); // Decrease the resource production speed
 
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
@@ -79,7 +84,7 @@ public:
 
 	ResourceName GetResouceID();
 private:
-	int itemID, itemValue, itemQuality, stackLimit, demand;
+	int itemID, itemValue, itemQuality, stackLimit, demand, productionSpeed;
 	int itemStock = 0;
 	int basePrice; // Standard price
 	float baseModifier = 5.0;

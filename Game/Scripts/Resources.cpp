@@ -8,7 +8,7 @@ Resources::Resources()
 	this->resourceName = ResourceName::Null_Resource;
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, float productionRate)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionSpeed)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -20,6 +20,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->stackLimit = stackLimit;
 	this->demand = demand;
 	this->productionRate = productionRate;
+	this->productionSpeed = productionSpeed;
 }
 
 Resources::Resources(const Resources & copyRes)
@@ -34,6 +35,7 @@ Resources::Resources(const Resources & copyRes)
 	this->stackLimit = copyRes.stackLimit;
 	this->demand = copyRes.demand;
 	this->productionRate = copyRes.productionRate;
+	this->productionSpeed = copyRes.productionSpeed;
 }
 
 Resources::~Resources()
@@ -213,6 +215,21 @@ void Resources::IncreaseProductionRate(int amountToIncreaseBy)
 void Resources::DecreaseProductionRate(int amountToDecreaseBy)
 {
 	this->productionRate -= amountToDecreaseBy;
+}
+
+int Resources::GetProductionSpeed()
+{
+	return this->productionSpeed;
+}
+
+void Resources::IncreaseProductionSpeed(int amountToIncreaseBy)
+{
+	this->productionSpeed += amountToIncreaseBy;
+}
+
+void Resources::DecreaseProductionSpeed(int amountToDecreaseBy)
+{
+	this->productionSpeed -= amountToDecreaseBy;
 }
 
 void Resources::update()
