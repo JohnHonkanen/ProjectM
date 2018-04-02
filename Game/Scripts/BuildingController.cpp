@@ -87,6 +87,7 @@ void BuildingController::Update(double dt)
 						Structure *sComponent = structure->GetComponent<Structure>();
 						mouseHeld = true;
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
+						sComponent->SetActive(false); //Turn on structures
 						RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);
 						structure->transform->SetPosition(snapPoint);
 						float yTrans = -5.0f;
@@ -94,12 +95,13 @@ void BuildingController::Update(double dt)
 						{
 						case DOCK:
 								yTrans = -3.5f;
+								sComponent->SetActive(true);
 								break;
 						case FACTORY:
 							yTrans = -8.0f;
 							break;
 						}
-						sComponent->SetActive(false); //Turn on structures
+						
 						structure->transform->Translate(vec3(0, yTrans, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
 						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));

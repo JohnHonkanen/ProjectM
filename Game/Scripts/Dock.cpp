@@ -28,7 +28,6 @@ void Dock::Copy(GameObject * copyObject)
 
 void Dock::Start()
 {
-	isActive = true;
 }
 
 void Dock::Update()
@@ -50,6 +49,9 @@ void Dock::Update()
 			task = Task();
 			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
+		}
+		else {
+			contract = nullptr;
 		}
 
 		

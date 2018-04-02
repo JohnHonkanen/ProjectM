@@ -192,7 +192,8 @@ Contract &ContractManager::GetFirstAvailable()
 
 	if (completed) {
 		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
-		return Contract();
+		Contract fail = Contract();
+		return fail;
 	}
 }
 
