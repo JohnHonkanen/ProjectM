@@ -5,6 +5,11 @@ using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
 {
+	return Create(5, 150);
+}
+
+Dock * Dock::Create(int upkeep, int cost)
+{
 	Dock *d = new Dock();
 	d->name = "Dock";
 	d->structureType = DOCK;
@@ -14,6 +19,8 @@ Dock * Dock::Create()
 	d->tileWidth = 5;
 	d->contractFufilled = true;
 	d->isActive = false;
+	d->upkeep = upkeep;
+	d->cost = cost;
 
 	d->timer.StartClock();
 	d->timer.SetDelay(1000);
@@ -23,7 +30,7 @@ Dock * Dock::Create()
 
 void Dock::Copy(GameObject * copyObject)
 {
-	copyObject->AddComponent(Create());
+	copyObject->AddComponent(Create(upkeep, cost));
 }
 
 void Dock::Start()

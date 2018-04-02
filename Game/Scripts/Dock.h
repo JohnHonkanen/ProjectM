@@ -9,6 +9,8 @@ class Dock : public Structure
 {
 public:
 	static Dock * Create();
+	static Dock * Create(int upkeep, int cost);
+
 	void Copy(GameObject * copyObject);
 	void Start();
 	void Update();

@@ -14,10 +14,8 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 #include <cstring>
 #include "task_system\Task.h"
 
-
 using namespace std;
 using namespace glm;
-
 
 enum StructureType
 {
@@ -32,15 +30,15 @@ enum StructureType
 class Structure : public Behaviour {
 protected:
 
-	int health;						//Buildings remaining health
-	int powerUsage;					//Set to 0 until power is added to game
-	int productionEfficiency;		//Level of building, will be adjustable using buttons, limited between 1 and 10
-	int radiationOutput;			//
+	int health;											//Buildings remaining health
+	int powerUsage;										//Set to 0 until power is added to game
+	int productionEfficiency;							//Level of building, will be adjustable using buttons, limited between 1 and 10
+	int radiationOutput;								//
 	int initialUpkeep;
 	int cost;
 	int upkeep;
-	bool isPlaced;					//
-	bool isActive=false;					//Turn on or off building
+	bool isPlaced;										//
+	bool isActive=false;								//Turn on or off building
 	string name;
 	string type;
 
@@ -62,14 +60,14 @@ public:
 	void OnLoad();
 
 	string GetName() { return name; }
-	int  GetHealth();				//Returns building health
-	int  GetPowerusage();			//Returns power usage
-	int  GetProductionEfficiency();	//
-	int  GetRadiationOutput();		//
-	int GetUpkeep() { return upkeep; } // returns the buildings gold upkeep
+	int  GetHealth();									//Returns building health
+	int  GetPowerusage();								//Returns power usage
+	int  GetProductionEfficiency();						//
+	int  GetRadiationOutput();							//
+	int GetUpkeep() { return upkeep; }					// returns the buildings gold upkeep
 	int GetCost() { return cost; }
-	bool GetPlaced();				//
-	bool GetActive();				//
+	bool GetPlaced();									//
+	bool GetActive();									//
 	void GetTilePosition(int &x, int &y);
 	StructureType GetType();
 	v2::Inventory& GetInventory();
@@ -77,12 +75,12 @@ public:
 	void SetTileWidth(int tw) { tileWidth = tw; };
 
 	void SetName(string change);
-	void SetHealth(int change);				//Changes buildings health
-	void setPowerUsage(int change);			//Changes building power usage
-	void SetProductionEfficiency(int change);	//Changes buildings
-	void SetRadiationOutput(int change);		//
-	bool SetUpkeep(int change);					//Used when adjusting the buildings upkeep when using prod ui
-	void SetPlaced(bool change);				//
+	void SetHealth(int change);							//Changes buildings health
+	void setPowerUsage(int change);						//Changes building power usage
+	void SetProductionEfficiency(int change);			//Changes buildings
+	void SetRadiationOutput(int change);				//
+	bool SetUpkeep(int change);							//Used when adjusting the buildings upkeep when using prod ui
+	void SetPlaced(bool change);						//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
 	virtual void TaskCompleted(TASK_TYPE type);

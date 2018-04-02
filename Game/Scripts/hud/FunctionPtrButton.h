@@ -8,6 +8,7 @@ class FunctionPtrButton : public ButtonWidget {
 public:
 	static FunctionPtrButton *Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, FunctionPtrBinder * binder);
 
+	void SetBaseTexture(std::string basetexture);
 	virtual void OnPointerMouseDown(EventData data);
 	virtual void EventRegistration();
 	virtual void Update(double dt);

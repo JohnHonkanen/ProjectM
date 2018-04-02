@@ -10,6 +10,12 @@ FunctionPtrButton * FunctionPtrButton::Create(HUDElement * element, EHUD::HUDRec
 	return fpb;
 }
 
+void FunctionPtrButton::SetBaseTexture(std::string basetexture)
+{
+	baseTexture = basetexture;
+	activeTexture = baseTexture;
+}
+
 void FunctionPtrButton::OnPointerMouseDown(EventData data)
 {
 	if (IsActive())
