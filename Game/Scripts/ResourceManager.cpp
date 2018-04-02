@@ -69,7 +69,7 @@ void ResourceManager::OnLoad()
 	int randomInt = rand() % 100 + 1;
 
 	Resources resource = AddResource(ResourceName::Null_Resource, "Null_Resource", "NULL", 1, 0, "Game/Assets/Textures/Resource/missing-16.png", 0, 1, 0, 0);
-	resource = AddResource(ResourceName::Gold, "Gold", "GOLD", 1, 1, "Game/Assets/Textures/Resource/gold-16.png", 1000, 1, 0, 0);
+	resource = AddResource(ResourceName::Gold, "Gold", "GOLD", 1, 1, "Game/Assets/Textures/Resource/gold-16.png", 10000, 1, 0, 0);
 	resource = AddResource(ResourceName::SpaceCow, "SpaceCow", "ANIMAL", 2750, 1000, "Game/Assets/Textures/Resource/cow-16.png", 100, randomInt, 1, 1);
 	resource = AddResource(ResourceName::SpaceCow_Beef, "SpaceCow Beef", "MEAT", 75, 1000, "Game/Assets/Textures/Resource/steak-16.png", 100, randomInt, 1, 1);
 	resource = AddResource(ResourceName::SpaceCow_Milk, "SpaceCow Milk", "DAIRY", 50, 1000, "Game/Assets/Textures/Resource/milk-16.png", 100, randomInt, 1, 1);
