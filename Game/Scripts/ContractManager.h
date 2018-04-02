@@ -42,7 +42,7 @@ public:
 	
 
 private:
-	int contractIndex = 0;
+	int contractIndex = 3;
 	
 	//Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
@@ -53,8 +53,10 @@ private:
 	bool keyReleased2 = true;
 	bool active, complete;
 	bool statusCheck = true;
+	int contractNumber = 3;
 
 	//list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
 	vector <Contract> listOfContract; // Creates a vector of list of contracts
+	vector <vector<Contract>::iterator> listOfContractToDestroy; // Create a vector of list of contracts to destroy.
 	ContractName contractName;
 };

@@ -202,9 +202,10 @@ void Contract::SetStatus(bool active)
 	this->active = active;
 }
 
-bool Contract::IsComplete() const
+bool Contract::IsComplete() 
 {
-	return this->complete;
+	SetStatus(false); // Set contract status to false
+	return this->complete = true;
 }
 
 bool Contract::InitComplete(bool completeStatus)

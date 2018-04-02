@@ -43,7 +43,7 @@ public:
 	bool GetStatus(); // Get the status of contract (true/false)
 	void SetStatus(bool active); // Return true
 	
-	bool IsComplete() const; // Return true
+	bool IsComplete(); // Return true
 	bool InitComplete(bool completeStatus); // Initial complete, return false;
 
 	void DebugContractOnce(); // Use to debug contract

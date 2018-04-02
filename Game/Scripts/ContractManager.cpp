@@ -127,25 +127,36 @@ void ContractManager::Update()
 		clock.ResetClock();
 	}
 	
-	// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
-	if (this->listOfContract.front().GetStatus() == false) {
-		AddContract(ContractName::Player_Contract, "", GetIndexOfLastElement(9));
-		//this->listOfContract.erase(this->listOfContract.front()); <---- TO:DO Fix it
+	
+	for (int i = 0; i < this->listOfContract.size();) {
+
+		// Set contract status to isComplete if timer reaches 0 
+		if (this->listOfContract[i].GetTime() <= 0) {
+			this->listOfContract[i].IsComplete();
+		}
+
+		// Complete contract when resource requirement is fulfilled.
+		if (this->listOfContract[i].GetCurrent() >= this->listOfContract[i].GetAmount()) {
+			PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
+			pEcon->AddGoldBars(listOfContract[i].GetPayment());
+
+			this->listOfContract[i].IsComplete();
+		}
+
+		// If contract status is no longer active (false), then erase it + add a new active contract in its place.
+		if (this->listOfContract[i].GetStatus() == false){
+			listOfContract.erase(listOfContract.begin() + i);
+			AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+			this->contractIndex++;
+		}
+		else {
+			i++;
+		}
 	}
 
-	// Set contract status to isComplete if timer reaches 0 
-	if (this->listOfContract.front().GetTime() <= 0) {
-		this->listOfContract.front().IsComplete();
-	}
+	// Delete completed contracts and clear the listOfContracts to be destroyed.
+	
 
-	// Complete contract when resource requirement is fulfilled.
-	if (this->listOfContract.front().GetCurrent() >= this->listOfContract.front().GetAmount()) {
-		
-		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
-		pEcon->AddGoldBars(listOfContract.front().GetPayment());
-
-		this->listOfContract.front().IsComplete();
-	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
 	int changeCurrent = Engine::GameEngine::manager.inputManager.GetKey("Change Current");
