@@ -37,9 +37,14 @@ void Dock::Update()
 		return;
 	}
 
-	if (contract == nullptr)
+ 	if (contract == nullptr || contract->GetContractID() != contractID)
 	{
-		
+		if (dockedShip != nullptr)
+		{
+			dockedShip->Return();
+			dockedShip = nullptr;
+			docked = false;
+		}
 		//Scan for Contract
 		contract = &contractManager->GetFirstAvailable();
 
@@ -49,6 +54,7 @@ void Dock::Update()
 			task = Task();
 			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
+			contractID = contract->GetContractID();
 		}
 		else {
 			contract = nullptr;

@@ -18,6 +18,7 @@ public:
 private:
 	ContractManager * contractManager;
 	Contract *contract;
+	int contractID;
 	const Hub * hub;
 	bool contractFufilled = true;
 
