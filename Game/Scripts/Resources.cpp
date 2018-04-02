@@ -205,12 +205,12 @@ float Resources::GetProductionRate()
 	return this->productionRate;
 }
 
-void Resources::IncreaseProductionRate(float amountToIncreaseBy)
+void Resources::IncreaseProductionRate(int amountToIncreaseBy)
 {
 	this->productionRate += amountToIncreaseBy;
 }
 
-void Resources::DecreaseProductionRate(float amountToDecreaseBy)
+void Resources::DecreaseProductionRate(int amountToDecreaseBy)
 {
 	this->productionRate -= amountToDecreaseBy;
 }
