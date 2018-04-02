@@ -127,6 +127,10 @@ int Contract::GetTime()
 
 int Contract::ReduceTime(int millisecond)
 {
+	if (!begin) {
+		return this->time;
+	} 
+
 	this->time -= millisecond;
 
 	if (this->time < 0) {
@@ -135,6 +139,11 @@ int Contract::ReduceTime(int millisecond)
 		IsComplete();
 	}
 	return this->time;
+}
+
+void Contract::StartTime()
+{
+	this->begin = true;
 }
 
 

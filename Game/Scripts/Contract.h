@@ -28,6 +28,7 @@ public:
 	void SetTime(int timer); // Set time left on contract
 	int GetTime(); // Get time left on contract
 	int ReduceTime(int millisecond); // Reduce Time on contract over time.
+	void StartTime(); // Start contract timer.
 
 	int GetCurrent(); // Get current amount fulfilled of contract
 	int SetCurrent(int currentAmount); // Set current amount
@@ -63,6 +64,7 @@ private:
 	int contractID, contractIndex, resourceID;
 	int difficultyModifier = 100; // bonus
 
+	bool begin = false;
 	bool taken;
 	Resources resource;
 	ResourceManager* resourceManager;
