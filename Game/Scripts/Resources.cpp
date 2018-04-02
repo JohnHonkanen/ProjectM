@@ -204,7 +204,7 @@ void Resources::DecreaseDemand(int demand)
 
 int Resources::GetProductionRate()
 {
-	return this->productionRate;
+	return this->productionRate * GetProductionSpeed();
 }
 
 void Resources::IncreaseProductionRate(int amountToIncreaseBy)
