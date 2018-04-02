@@ -74,7 +74,7 @@ namespace v1{
 					}
 				}
 
-				droneState->info = TaskInformation(task.To()->transform->GetPosition(), this);
+				droneState->info = TaskInformation(task.To()->ParkingLocation(), this);
 				return true;
 			}
 			//Has an active task

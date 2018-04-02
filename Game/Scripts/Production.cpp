@@ -6,6 +6,7 @@ Dev: Greg Smith (B00308929)
 
 #include "Production.h"
 #include "utility\Clock.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -28,7 +29,8 @@ Production::Production(string buildingName, StructureType typ, int hp, int pow, 
 	upkeep = up;
 	radiationOutput = radOut;
 	isPlaced = placed;
-	isActive = active;
+	isActive = false;
+	isProducing = false;
 	resourceManager = resourceMan;
 	this->hub = hub;
 }
@@ -37,10 +39,10 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 								int rad, bool placed, bool active, ResourceManager * resourceMan, Hub * hub)
 {
 	Production *p = new Production(name, typ, hp, pow, eff, up, rad, placed, active, resourceMan, hub);
-	if (typ = DOME) {
+	if (typ == DOME) {
 		p->inventory = v2::Inventory(1);
 	}
-	if (typ = FACTORY) {
+	if (typ == FACTORY) {
 		p->inventory = v2::Inventory(2);
 	}
 	p->inventory.SetResourceManager(resourceMan);
@@ -61,6 +63,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
 	copy->isActive = Production::isActive;
+	copy->isProducing = Production::isProducing;
 	copy->structureType = structureType;
 	copy->resourceManager = resourceManager;
 	copy->hub = hub;
@@ -85,7 +88,7 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		if (structureType = DOME) {
+		if (structureType == DOME) {
 			if (isProducing) {
 				int availableSpace = inventory.CheckStorageFull(producing);
 				if (availableSpace > 0) {
@@ -96,9 +99,9 @@ void Production::Update(double currentTime)
 				}
 			}
 		}
-		else if (structureType = FACTORY) {
-			if (isProducing) {
-				int availableSpace = inventory.At(0).quantity;
+		else if (structureType == FACTORY) {
+			if (isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
+				int availableSpace = inventory.CheckStorageFull(producing);
 				if (availableSpace > 0) {
 					Resources* r = resourceManager->Find(producing);
 					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
@@ -107,26 +110,43 @@ void Production::Update(double currentTime)
 				}
 			}
 		}
-
-		if (task.GetType() == TASK_TYPE::NONE)
-		{
-			if (inventory.At(0).quantity > 0)
+		if (structureType == DOME) {
+			if (task.GetType() == TASK_TYPE::NONE)
 			{
-				task = v1::TaskSystem::Task(TASK_TYPE::COLLECT,5, this, this, inventory.At(0).resource->GetResouceID(), 0);
-				hub->GetTaskManager()->AddTask(task, 5);
+				if (inventory.At(0).quantity > 0)
+				{
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, this, inventory.At(0).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, task.GetPriority());
+				}
 			}
 		}
-		
+		else if (structureType == FACTORY) {
+			if (task.GetType() == TASK_TYPE::NONE)
+			{
+				if (inventory.At(0).quantity > 0)
+				{
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, this, inventory.At(1).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, task.GetPriority());
+				}
+			}
+			if (request.GetType() == TASK_TYPE::NONE && isProducing)
+			{
+					request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
+					hub->GetTaskManager()->AddTask(request, request.GetPriority());
+			}
+		}
 		clock.ResetClock();
 	}
 }
 
-//this method will be used when declaring what item a building is producing
-//and limiting it to the correct items
 void Production::SetProduction(ResourceName type)
 {
 		producing = type;
+		if (structureType == FACTORY) {
+			inputResource = GameManager::gameManager->recipeManager.GetInput(producing);
+		}
 		billboard->SetTextureToDisplay(resourceManager->Find(producing)->GetResourceIcon());
+		SetActive(true);
 }
 
 void Production::SetActive(bool change)

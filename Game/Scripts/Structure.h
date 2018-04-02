@@ -40,7 +40,7 @@ protected:
 	int cost;
 	int upkeep;
 	bool isPlaced;					//
-	bool isActive;					//Turn on or off building
+	bool isActive=false;					//Turn on or off building
 	string name;
 	string type;
 
@@ -86,6 +86,11 @@ public:
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
 	void TaskCompleted();
+
+	virtual vec3 ParkingLocation();
+	virtual int Deposit(ResourceName resource, int amount);
+	virtual int Collect(ResourceName resource, int amount);
+	virtual int Contains(ResourceName resource);
 
 	template<class Archive>
 	void serialize(Archive & ar)

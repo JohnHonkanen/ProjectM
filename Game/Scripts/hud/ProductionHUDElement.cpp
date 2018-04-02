@@ -5,6 +5,8 @@
 #include "..\Production.h"
 #include "ProductionButton.h"
 #include "ProductionResourceButton.h"
+#include "../GameManager.h"
+
 
 /*ToDo:
 Button to turn building on and off manually
@@ -21,7 +23,7 @@ ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::
 {
 	ProductionHUDElement *p = new ProductionHUDElement();
 
-	p->rManager = rManager;
+	//p->rManager = rManager;
 	p->rect = rect;
 	p->prod = prod;
 	p->productionHUD = element;
@@ -31,14 +33,16 @@ ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::
 
 void ProductionHUDElement::Start()
 {
-	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	rButton = ProductionResourceButton::Create(productionHUD, { 150,75,30,30 }, "Game/Assets/Textures/missing-16.png", nullptr);
-	storage1 = HUD::TextWidget::Create(productionHUD, { 20,130,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	storage2 = HUD::TextWidget::Create(productionHUD, { 20,160,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 26, 1, vec3(1, 1, 1));
-	aButton = ProductionResourceButton::Create(productionHUD, { 240,150,30,30 }, "Game/Assets/Textures/active-16.png", nullptr);
-	pButton = ProductionButton::Create(productionHUD, { 240,10,50,50 }, "Game/Assets/Textures/output_icon.png", nullptr);
+	title = HUD::TextWidget::Create(productionHUD, { 20,40,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	level = HUD::TextWidget::Create(productionHUD, { 20,70,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	producing = HUD::TextWidget::Create(productionHUD, { 20,100,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	rButton = ProductionResourceButton::Create(productionHUD, { 150,75,30,30 }, "Game/Assets/Textures/Resource/missing-16.png", nullptr);//Resource
+	storage1 = HUD::TextWidget::Create(productionHUD, { 20,130,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	storage2 = HUD::TextWidget::Create(productionHUD, { 20,160,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	ingredient = HUD::TextWidget::Create(productionHUD, { 20,190,0,0 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 24, 1, vec3(1, 1, 1));
+	iButton = ProductionResourceButton::Create(productionHUD, { 150,165,30,30 }, "Game/Assets/Textures/Resource/missing-16.png", nullptr);//Ingredient
+	aButton = ProductionResourceButton::Create(productionHUD, { 240,165,30,30 }, "Game/Assets/Textures/Resource/inactive-16.png", nullptr);//Active
+	pButton = ProductionButton::Create(productionHUD, { 240,10,50,50 }, "Game/Assets/Textures/output_icon.png", nullptr);//Production
 	StartChildWidgets();
 }
 
@@ -49,42 +53,42 @@ void ProductionHUDElement::OnLoad()
 
 void ProductionHUDElement::Update()
 {
-	if (prod->GetType() == DOME) {
+	//if (prod->GetProduction()) {
 		if (prod != nullptr) {
 			v2::Inventory inv = prod->GetInventory();
-
-			title->text = "Building: " + prod->GetName();
+			title->text = "Building: " + prod->gameObject->name;
 			level->text = "Level: " + to_string(prod->GetProductionEfficiency());
 			producing->text = "Producing: ";
-			storage1->text = "Storage: " + to_string(inv.At(0).quantity);
+			if (prod->GetType() == DOME) {
+				iButton->SetActive(false);
+				ingredient->text = " ";
+				storage1->text = "Storage: " + to_string(inv.At(0).quantity);
+				storage2->text = " ";
 
-			if (prod->GetProducing() && inv.At(0).quantity < 0) {
-				Resource res = *inv.At(0).resource;
-				rButton->SetIcon((rManager->Find(res.GetResouceID())->GetResourceIcon()));
+			}
+ 			else if (prod->GetType() == FACTORY){
+				iButton->SetActive(true);
+				ingredient->text = "Needs: ";
+				storage1->text = "Output: " + to_string(inv.At(1).quantity);
+				storage2->text = "Input: " + to_string(inv.At(0).quantity);
+				if (prod->GetProducing()) {
+					iButton->SetIcon(IconName(GetIngredient()));
+				}
+			}
+			if (prod->GetProducing() == true) {
+				ResourceName res = prod->GetProduction();
+				rButton->SetIcon(IconName(res));
+			}
+			else {
+				rButton->SetIcon("Game/Assets/Textures/Resource/missing-16.png");
 			}
 		}
-	}
-	else {
-		if (prod != nullptr) {
-			v2::Inventory inv = prod->GetInventory();
-
-			title->text = "Building: " + prod->GetName();
-			level->text = "Level: " + to_string(prod->GetProductionEfficiency());
-			producing->text = "Producing: ";
-			storage1->text = "Output: " + to_string(inv.At(0).quantity);
-			storage2->text = "Input: " + to_string(inv.At(1).quantity);
-
-
-			if (prod->GetProducing() && inv.At(0).quantity < 0) {
-				Resource res = *inv.At(0).resource;
-				rButton->SetIcon((rManager->Find(res.GetResouceID())->GetResourceIcon()));
-			}
-		}
-	}
+	//}
 }
 
 void ProductionHUDElement::DrawWidget(unsigned int shader)
 {
+
 }
 
 void ProductionHUDElement::Input()
@@ -94,16 +98,32 @@ void ProductionHUDElement::Input()
 void ProductionHUDElement::SetProduction(Production * prod)
 {
 	this->prod = prod;
+	if (prod->GetInventory().At(0).quantity > 0) {
+		if (this->prod->GetProduction() != this->prod->GetInventory().At(0).resource->GetResouceID()) {
+			DeleteItems();
+		}
+	}
 	pButton->SetProduction(prod);
+	if (prod->GetActive() == false) {
+		aButton->SetIcon("Game/Assets/Textures/Resource/inactive-16.png");
+	}
+	if (prod->GetActive() == true) {
+		aButton->SetIcon("Game/Assets/Textures/Resource/active-16.png");
+	}
+
 }
 
 void ProductionHUDElement::DeleteItems()
 {
 	v2::Inventory inventory = prod->GetInventory();
 
-	if (prod->GetProducing() && inventory.At(0).quantity < 0) {
-		Resource res = *inventory.At(0).resource;
-		inventory.Remove(res.GetResouceID(), inventory.At(0).quantity);
+	if (prod->GetProducing() && inventory.At(0).quantity > 0) {
+		ResourceName res = inventory.At(0).resource->GetResouceID();
+		inventory.Remove(res, inventory.At(0).quantity);
+		if (prod->GetType() == FACTORY && inventory.At(1).quantity > 0) {
+			ResourceName res2 = inventory.At(1).resource->GetResouceID();
+			inventory.Remove(res2, inventory.At(1).quantity);
+		}
 	}
 }
 
@@ -112,4 +132,19 @@ void ProductionHUDElement::ChangeActive()
 	if (prod->GetProducing()) {
 		prod->SetActive(!prod->GetActive());
 	}
+}
+
+void ProductionHUDElement::CloseProductionWindows()
+{
+	pButton->CloseProductionWindows();
+}
+
+string ProductionHUDElement::IconName(ResourceName res)
+{
+	return string(GameManager::gameManager->resourceManager.Find(res)->GetResourceIcon());
+}
+
+ResourceName ProductionHUDElement::GetIngredient()
+{
+	return ResourceName(GameManager::gameManager->recipeManager.GetInput(prod->GetProduction()));
 }

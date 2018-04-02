@@ -52,6 +52,38 @@ void Structure::TaskCompleted()
 	task = v1::TaskSystem::Task();
 }
 
+vec3 Structure::ParkingLocation()
+{
+	return transform->GetPosition();
+}
+
+int Structure::Deposit(ResourceName resource, int amount)
+{
+	inventory.AddItem(resource, amount);
+
+	return 0;
+}
+
+int Structure::Collect(ResourceName resource, int amount)
+{
+	int toRemove = amount;
+	int contains = inventory.Contains(resource);
+	if (contains < amount)
+	{
+		toRemove = contains;
+	}
+
+	inventory.Remove(resource, toRemove);
+
+	return toRemove;
+	
+}
+
+int Structure::Contains(ResourceName resource)
+{
+	return inventory.Contains(resource);
+}
+
 void Structure::OnLoad()
 {
 }

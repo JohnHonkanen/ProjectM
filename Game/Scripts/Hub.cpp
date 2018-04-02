@@ -35,10 +35,15 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 
 void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x, int y)
 {
+	networkSlots[x][y] = structure;
+}
+
+void Hub::AddStructureToList(StructureType type, Structure * structure, int x, int y)
+{
 	switch (type)
 	{
 	case PRODUCTION:
-		networkList.push_back({type, x, y, structure});
+		networkList.push_back({ type, x, y, structure });
 		break;
 	case DOME:
 		networkList.push_back({ type, x, y, structure });
@@ -54,8 +59,6 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 		networkList.push_back({ type, x, y, structure });
 		break;
 	}
-
-	networkSlots[x][y] = structure;
 }
 
 Structure * Hub::GetStructure(int x, int y)
@@ -216,12 +219,12 @@ void Hub::Copy(GameObject * copyObject)
 }
 
 void Hub::OnLoad()
-{
-	
-		//Setup droneprefab
-		Drone::Create(&dronePrefab, this, inventory->GetResourceManager());
+{	
+	//Setup droneprefab
+	dronePrefabComp = Drone::Create(&dronePrefab, this, inventory->GetResourceManager());
 
-		CreateDrone();
+	timer.StartClock();
+	timer.SetDelay(3000);
 	
 }
 
@@ -233,6 +236,15 @@ void Hub::Start()
 void Hub::Update(double dt)
 {
 	TallyResource();
+
+	timer.UpdateClock();
+
+	if (timer.Alarm())
+	{
+		int upkeep = CalculateUpkeep();
+		inventory->Remove(ResourceName::Gold, upkeep);
+		timer.ResetClock();
+	}
 }
 
 v2::Inventory * Hub::GetInventory() const
@@ -245,19 +257,85 @@ v1::TaskSystem::TaskManager * Hub::GetTaskManager() const
 	return taskManager;
 }
 
+int Hub::CalculateUpkeep()
+{
+	int droneUpkeep = 0;
+
+	for (auto i : drones)
+	{
+		droneUpkeep += i->GetUpkeep();
+	}
+
+	droneUpkeep += drones.size() * 2;
+	int buildingUpkeep = 0;
+
+	for (auto i : networkList)
+	{
+		buildingUpkeep += i.structure->GetUpkeep();
+	}
+
+	upkeepBuilding = buildingUpkeep;
+	upkeepDrone = droneUpkeep;
+	return droneUpkeep + buildingUpkeep;
+}
+
 vector<ResourceSlot> Hub::GetNetworkResources()
 {
 	return networkResource;
 }
 
+int Hub::GetNumberOf(StructureType type)
+{
+	int count = 0;
+
+	for (auto s : networkList)
+	{
+		if (s.type == type)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+std::map<ResourceName, int> Hub::GetResourceInNetwork()
+{
+	std::map<ResourceName, int> resources;
+
+	for (unsigned int i = static_cast<unsigned int>(ResourceName::Null_Resource); i != static_cast<unsigned int>(ResourceName::Electronic_Component); i++)
+	{
+		resources[static_cast<ResourceName>(i)] = 0;
+	}
+
+	for (auto structure : warehouseList)
+	{
+		auto inventory = structure.structure->GetInventory();
+		auto list = inventory.Contains();
+
+		for (auto i : list)
+		{
+			resources[i.resource] += i.quantity;
+		}
+	}
+
+	return resources;
+}
+
 void Hub::CreateDrone()
 {
-	if (inventory->Contains(ResourceName::Gold) >= 1000)
+	if (inventory->Contains(ResourceName::Gold) >= dronePrefabComp->GetCost())
 	{
-		inventory->Remove(ResourceName::Gold, 1000);
+		inventory->Remove(ResourceName::Gold, dronePrefabComp->GetCost());
 		GameObject *drone = dronePrefab.Instantiate();
 		drone->transform->SetPosition(transform->GetPosition());
 		drone->transform->Scale(vec3(15));
+		Drone *component = drone->GetComponent<Drone>();
+		component->SetUpkeep(dronePrefabComp->GetUpkeep());
+		drones.push_back(component);
+
+		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
+		dronePrefabComp->IncreaseUpkeep(1);
 	}
 
 }
@@ -267,11 +345,26 @@ int Hub::GetGold()
 	return inventory->Contains(ResourceName::Gold);
 }
 
+int Hub::GetDroneCost()
+{
+	return dronePrefabComp->GetCost();
+}
+
+int Hub::GetDroneUpkeep()
+{
+	return upkeepDrone;
+}
+
+int Hub::GetBuildingUpkeep()
+{
+	return upkeepBuilding;
+}
+
 void Hub::TallyResource()
 {
 	map<ResourceName, ResourceSlot> tempList;
 
-	for (auto structure : networkList)
+	for (auto structure : warehouseList)
 	{
 		auto inventory = structure.structure->GetInventory();
 		auto list = inventory.Contains();

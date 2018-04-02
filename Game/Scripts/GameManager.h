@@ -6,6 +6,7 @@
 #include "PlayerEconManager.h"
 #include "MarketManager.h"
 #include "Hub.h"
+#include "RecipeManager.h"
 
 class GameManager : public Behaviour
 {
@@ -28,6 +29,7 @@ public:
 	ContractManager contractManager;
 	PlayerEconManager playerEconManager;
 	MarketManager marketManager;
+	RecipeManager recipeManager;
 
 	static GameManager *gameManager;
 private:

@@ -18,6 +18,7 @@ Dev: Greg Smith (B00308929)
 #include "ResourceManager.h"
 #include "utility\Clock.h"
 #include "Hub.h"
+#include "task_system\Task.h"
 
 
 using namespace std;
@@ -26,11 +27,14 @@ using namespace glm;
 class Production : public Structure {
 private:
 	ResourceName producing;
+	ResourceName inputResource;
 	Engine::Utility::Clock clock;
 	Hub * hub;
 	ResourceManager * resourceManager;
 	bool isProducing = false;
 	BuildingProductionAnims* billboard;
+	v1::TaskSystem::Task request;
+
 
 public:
 

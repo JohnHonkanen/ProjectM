@@ -27,9 +27,44 @@ void TradeShip::SetDock(Dock * in_dock)
 
 void TradeShip::Update(double dt)
 {
+	if (returning)
+	{
+		if (currentSpeed < 300.0f)
+		{
+			currentSpeed += 100.0f * dt / 1000;
+		}
+		rotYOffset = 0;
+		MoveTo(cameFrom, dt);
+		return;
+	}
 	vec3 dockPos = dock->transform->GetPosition();
 	dockPos.y += 2.0f;
-	float dist = distance(transform->GetPosition(), dockPos);
+	MoveTo(dockPos, dt);
+}
+
+void TradeShip::Return()
+{
+	returning = true;
+	landed = false;
+}
+
+void TradeShip::SetCameFrom(vec3 from)
+{
+	cameFrom = from;
+}
+
+void TradeShip::RotateToFace(vec3 pos)
+{
+	vec3 dir = pos - transform->GetPosition();
+	float angle = atan2(dir.x, dir.z);
+	vec3 objAngle = transform->GetRotation();
+	objAngle.y = degrees(angle) + 90.0f + rotYOffset; 
+	transform->SetEulerAngle(objAngle);
+}
+
+void TradeShip::MoveTo(vec3 pos, double dt)
+{
+	float dist = distance(transform->GetPosition(), pos);
 	if (dist < 50.0f)
 	{
 		if (currentSpeed > 10.0f)
@@ -52,15 +87,23 @@ void TradeShip::Update(double dt)
 	}
 	if (dist > 1.0f && !landed)
 	{
-		RotateToFaceDock();
-		vec3 dir = dockPos - transform->GetPosition();
+		RotateToFace(pos);
+		vec3 dir = pos - transform->GetPosition();
 		dir = normalize(dir);
 
 		transform->Translate(dir * float(dt / 1000.0f) * currentSpeed);
 
 		if (dist <= 2.0f)
 		{
-			landed = true;
+			if (!returning)
+			{
+				landed = true;
+				dock->DockShip(this);
+			}
+			else {
+				gameObject->Destroy();
+			}
+			
 		}
 	}
 	else {
@@ -72,17 +115,6 @@ void TradeShip::Update(double dt)
 			transform->Rotate(vec3(0, 20 * dt / 1000.0f, 0));
 		}
 	}
-
-	
-}
-
-void TradeShip::RotateToFaceDock()
-{
-	vec3 dir = dock->transform->GetPosition() - transform->GetPosition();
-	float angle = atan2(dir.x, dir.z);
-	vec3 objAngle = transform->GetRotation();
-	objAngle.y = degrees(angle) + 90.0f + rotYOffset; 
-	transform->SetEulerAngle(objAngle);
 }
 
 //End Of TradeShip Section
@@ -118,6 +150,7 @@ void TradeShipSpawner::CreateTradeShip(Dock *dock)
 	GameObject * gameObject = prefab->gameObject->Instantiate();
 	TradeShip * ts = gameObject->GetComponent<TradeShip>();
 	ts->transform->SetPosition(vec3(glm::linearRand(-1000, 1000), 500, glm::linearRand(-1000, 1000)));
+	ts->SetCameFrom(ts->transform->GetPosition());
 	ts->SetDock(dock);
 	ts->transform->SetScale(vec3(20));
 	ts->transform->Rotate(vec3(-90, 0, 0));

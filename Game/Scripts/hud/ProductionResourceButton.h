@@ -26,13 +26,12 @@ public:
 	void Update();
 	void DeleteItems(class V2 * inv);
 
-	void SetIcon(string icon) { iconImage = icon; }
+	void SetIcon(string icon) { baseTexture = icon; }
 
 	static ProductionResourceButton * Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, class Production *production);
 
 
 private:
-	string iconImage;
 
 	class Production *production;
 	class EHUD::HUDElement *root;

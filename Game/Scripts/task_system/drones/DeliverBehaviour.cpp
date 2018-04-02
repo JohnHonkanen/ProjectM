@@ -26,13 +26,28 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		Inventory * toInventory = &task.To()->GetInventory();
 		ResourceName resource = task.GetResource();
 		int amount = 200;
-		int left = drone->GetInventory().Remove(resource, amount);
-		int toAdd = amount - left;
-		toInventory->AddItem(resource, toAdd);
+		int amountInDrone = drone->GetInventory().Contains(resource);
+
+		if (amountInDrone < amount)
+		{
+			amount = amountInDrone;
+		}
+		drone->GetInventory().Remove(resource, amount);
+
+		task.To()->Deposit(resource, amount);
+
+		task.Fufill(amount);
 
 		if (drone->GetInventory().Contains(resource) == 0 || toInventory->CheckStorageFull(resource) == 0)
 		{
 			boxObj->transform->SetPosition(vec3(0, -10, 0));
+			//Check if Task is Completed
+			int amountLeft = task.HasLeft();
+			if (amountLeft > 0)
+			{
+				Task t = Task(TASK_TYPE::REQUEST, 20, task.From(), nullptr, task.GetResource(), amountLeft);
+				info.controller->GetHub()->GetTaskManager()->AddTask(t, t.GetPriority());
+			}
 			return true;
 		}
 

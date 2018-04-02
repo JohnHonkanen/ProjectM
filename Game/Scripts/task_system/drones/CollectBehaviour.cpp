@@ -23,14 +23,30 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 
 		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, drone->transform->GetPosition().y, 0));
 
-		Inventory * fromInventory = &task.From()->GetInventory();
+		Structure * structure;
+
+		if (task == TASK_TYPE::REQUEST)
+		{
+			structure = task.To();
+		}
+		else {
+			structure = task.From();
+		}
 		ResourceName resource = task.GetResource();
 		int amount = 200;
-		int left = drone->GetInventory().AddItem(resource, amount);
-		int toRemove = amount - left;
-		fromInventory->Remove(resource, toRemove);
+		int spaceLeftInDrone = drone->GetInventory().CheckStorageFull(resource);
 
-		if (fromInventory->Contains(resource) == 0 || drone->GetInventory().CheckStorageFull(resource) == 0)
+		if (spaceLeftInDrone < amount)
+		{
+			amount = spaceLeftInDrone;
+			spaceLeftInDrone = 0;
+		}
+
+		int amountCollected = structure->Collect(resource, amount);
+
+		drone->GetInventory().AddItem(resource, amountCollected);
+
+		if (structure->Contains(resource) == 0 || spaceLeftInDrone == 0)
 		{
 			return true;
 		}
@@ -67,12 +83,23 @@ void v1::TaskSystem::CollectBehaviour::Next()
 		{
 			nearest = task.From();
 		}
-		state->info.to = nearest->transform->GetPosition();
-		state->info.finalStep = true;
+		if (nearest == nullptr) //Not Found Anymore, Abandon ship
+		{
+			info.controller->AssignTask(task);
+			info.controller->SetState(nullptr);
+			info.controller->GetTask().From()->TaskCompleted();
+			info.controller->SetInternalStateIdle();
+			info.controller->AssignTaskWithoutBehaviour(Task());
+		}
+		else {
+			state->info.to = nearest->ParkingLocation();
+			state->info.finalStep = true;
 
-		task.SetTo(nearest);
-		info.controller->AssignTaskWithoutBehaviour(task);
-		info.controller->SetState(state);
+			task.SetTo(nearest);
+			info.controller->AssignTaskWithoutBehaviour(task);
+			info.controller->SetState(state);
+		}
+		
 	}
 
 	delete this;

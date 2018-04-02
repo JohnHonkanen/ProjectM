@@ -3,6 +3,7 @@
 #include "Hub.h"
 #include "PlayerActions.h"
 #include "DroneProducer.h"
+#include "GameManager.h"
 BuildingController::~BuildingController()
 {
 }
@@ -98,11 +99,12 @@ void BuildingController::Update(double dt)
 							yTrans = -8.0f;
 							break;
 						}
-						sComponent->SetActive(true); //Turn on structures
+						sComponent->SetActive(false); //Turn on structures
 						structure->transform->Translate(vec3(0, yTrans, 0));
 						structure->transform->Rotate(vec3(-90,0,0));
 						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));
 
+						GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->RemoveGoldBars(sComponent->GetCost());
 						buildMode = false;
 					}
 					else {
@@ -183,4 +185,6 @@ void BuildingController::RegisterToNetwork(Structure * s, float x, float y, floa
 			hub->AddStructureToNetwork(s->GetType(),s, i, j);
 		}
 	}
+
+	hub->AddStructureToList(s->GetType(), s, x, y);
 }

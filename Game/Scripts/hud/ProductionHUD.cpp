@@ -29,7 +29,7 @@ void ProductionHUD::Copy(GameObject* gameObject) {
 }
 void ProductionHUD::OnLoad()
 {
-		wrapper = EHUD::WHUDContainer::Create(root, { 600,100,300,200 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
+		wrapper = EHUD::WHUDContainer::Create(root, { 600,100,300,220 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 		wrapper->SetActive(true); //For testing purposes, set to false when key selection added
 		//HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, "Production", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
 		HUD::TextWidget::Create(wrapper, { 10,30,50,50 }, " ", "Game/Assets/Fonts/MavenPro-Regular.ttf", 36, 1, vec3(1, 1, 1));
@@ -49,7 +49,9 @@ void ProductionHUD::Update()
 		PHElement->SetProduction(dynamic_cast<Production*>(pla->GetSelectedStructure()));
 		//RHElement->DeleteItems();
 		//AHElement->ChangeActive();
+		PHElement->CloseProductionWindows();
 		wrapper->SetActive(true);
+		
 	}
 	else {
 		wrapper->SetActive(false);
