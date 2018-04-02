@@ -168,7 +168,7 @@ void ContractManager::Start()
 	clock.StartClock();
 
 	int startingContract = 3;
-
+	
 	for (int i = 0; i < startingContract; i++) {
 		this->contractIndex = i;
 		AddContract(ContractName::Player_Contract, to_string(i), i);
