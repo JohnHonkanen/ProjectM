@@ -81,10 +81,10 @@ void ContractManager::Update()
 	//GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK);
 
 	// If new dock is detected, add new contract.
-	//if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
-	//	AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
-	//	this->contractIndex++;
-	//}
+	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
+		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+		this->contractIndex++;
+	}
 
 	// Loop through listOfContract to determine if contract needs to be set as isComplete().
 	for (int i = 0; i < this->listOfContract.size();) {
