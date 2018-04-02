@@ -35,7 +35,9 @@ private:
 	BuildingProductionAnims* billboard;
 	v1::TaskSystem::Task request;
 
+	v2::Inventory inventoryOutput;
 
+	void ProductionLine();
 public:
 
 	Production();

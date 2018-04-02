@@ -43,7 +43,7 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 		p->inventory = v2::Inventory(1);
 	}
 	if (typ == FACTORY) {
-		p->inventory = v2::Inventory(2);
+		p->inventory = v2::Inventory(1);
 	}
 	p->inventory.SetResourceManager(resourceMan);
 	p->cost = cost;
@@ -52,7 +52,6 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 
 void Production::Copy(GameObject * copyObject)
 {
-
 	Production * copy = new Production();
 	copy->name = Production::name;
 	copy->health = Production::health;
@@ -69,6 +68,8 @@ void Production::Copy(GameObject * copyObject)
 	copy->hub = hub;
 	copy->inventory.SetResourceManager(resourceManager);
 	copy->tileWidth = tileWidth;
+	//copy->inventory = inventory;
+	//copy->inventory2 = inventoryOutput;
 	copyObject->AddComponent(copy);
 }
 
@@ -88,9 +89,14 @@ void Production::Update(double currentTime)
 	clock.UpdateClock();//updating clock time
 
 	if (clock.Alarm()) {//check if alarm has gone off
-		if (structureType == DOME) {
-			if (isProducing) {
-				int availableSpace = inventory.CheckStorageFull(producing);
+		if (inventory.At(0).quantity > 0) {
+			if (producing != inventory.At(0).resource->GetResouceID()) {
+
+			}
+		}
+		else {
+			int availableSpace = inventory.CheckStorageFull(producing);
+			if (structureType == DOME && isProducing) {
 				if (availableSpace > 0) {
 					Resources* r = resourceManager->Find(producing);
 					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
@@ -98,10 +104,7 @@ void Production::Update(double currentTime)
 					billboard->Spawn();
 				}
 			}
-		}
-		else if (structureType == FACTORY) {
-			if (isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
-				int availableSpace = inventory.CheckStorageFull(producing);
+			else if (structureType == FACTORY && isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
 				if (availableSpace > 0) {
 					Resources* r = resourceManager->Find(producing);
 					int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
@@ -125,14 +128,14 @@ void Production::Update(double currentTime)
 			{
 				if (inventory.At(0).quantity > 0)
 				{
-					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, this, inventory.At(1).resource->GetResouceID(), 0);
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, this, inventory.At(0).resource->GetResouceID(), 0);
 					hub->GetTaskManager()->AddTask(task, task.GetPriority());
 				}
 			}
 			if (request.GetType() == TASK_TYPE::NONE && isProducing)
 			{
-					request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
-					hub->GetTaskManager()->AddTask(request, request.GetPriority());
+				request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
+				hub->GetTaskManager()->AddTask(request, request.GetPriority());
 			}
 		}
 		clock.ResetClock();
@@ -154,4 +157,24 @@ void Production::SetActive(bool change)
 	isActive = change;
 	isProducing = change;
 }
+
+//void ProductionLine() {
+//	int availableSpace = inventory.CheckStorageFull(producing);
+//	if (structureType == DOME && isProducing) {
+//		if (availableSpace > 0) {
+//			Resources* r = resourceManager->Find(producing);
+//			int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
+//			inventory.AddItem(producing, productionAmount);
+//			billboard->Spawn();
+//		}
+//	}
+//	else if (structureType == FACTORY && isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
+//		if (availableSpace > 0) {
+//			Resources* r = resourceManager->Find(producing);
+//			int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
+//			inventory.AddItem(producing, productionAmount);
+//			billboard->Spawn();
+//		}
+//	}
+//}
  
