@@ -23,6 +23,7 @@ public:
 
 	void SetTradeShipSpawner(class TradeShipSpawner *spawner);
 	class TradeShipSpawner * GetTradeShipSpawner() const;
+	bool mouseOverHudElement = false;
 
 	BuildingManager buildingManager;
 	ResourceManager resourceManager;

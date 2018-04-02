@@ -2,6 +2,7 @@
 #include "BuildingController.h"
 #include "Hub.h"
 #include "core\GameEngine.h"
+#include "GameManager.h"
 PlayerActions * PlayerActions::Create(GameObject * gameObject, BuildingController * bController, Hub * hub)
 {
 	PlayerActions * p = new PlayerActions();
@@ -22,6 +23,9 @@ void PlayerActions::Start()
 
 void PlayerActions::Update(double dt)
 {
+	if (GameManager::gameManager->mouseOverHudElement) {
+		return;
+	}
 	int mx, my; //Mouse Position
 	GameEngine::manager.inputManager.GetMousePos(mx, my);
 

@@ -34,7 +34,7 @@ public:
 
 	void RegisterToEvents();
 	//Set Textures
-	void SetBaseTexture(std::string texture);
+	virtual void SetBaseTexture(std::string texture);
 	void SetMouseEnterTexture(std::string texture);
 	void SetMouseDownTexture(std::string texture);
 

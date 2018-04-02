@@ -12,10 +12,16 @@ string GetIcon(ResourceName resource) {
 
 void ProductionButton::OnPointerEnter(EventData data)
 {
+	if (!active) {
+		GameManager::gameManager->mouseOverHudElement = false;
+		return;
+	}
+	GameManager::gameManager->mouseOverHudElement = true;
 }
 
 void ProductionButton::OnPointerExit(EventData data)
 {
+	GameManager::gameManager->mouseOverHudElement = false;
 }
 
 void ProductionButton::OnPointerMouseDown(EventData data)
@@ -79,16 +85,15 @@ void ProductionButton::Start()
 
 	containerDome = EHUD::WHUDContainer::Create(root, { 310,0,210,280 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	containerDome->SetActive(false);
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/cow-16.png", nullptr, ResourceName::SpaceCow));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/livechicken-16.png", nullptr, ResourceName::Chicken));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::Chicken_Egg));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/sheep-16.png", nullptr, ResourceName::Sheep));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Kittain));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "Game/Assets/Textures/grape-16.png", nullptr, ResourceName::Grape));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/mandrake-16.png", nullptr, ResourceName::Mandrake));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Unilateralis));
-	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,140,50,50 }, "Game/Assets/Textures/steel_cotton-16.png", nullptr, ResourceName::Steel_Cotton));
-
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "", nullptr, ResourceName::SpaceCow));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "", nullptr, ResourceName::Chicken));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "", nullptr, ResourceName::Chicken_Egg));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "", nullptr, ResourceName::Sheep));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "", nullptr, ResourceName::Kittain));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "", nullptr, ResourceName::Grape));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "", nullptr, ResourceName::Mandrake));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "", nullptr, ResourceName::Unilateralis));
+	resourceListDome.push_back(ProductionSetterButton::Create(root, { 450,140,50,50 }, "", nullptr, ResourceName::Steel_Cotton));
 
 	for (ProductionSetterButton* button : resourceListDome) {
 		button->SetActive(false);
@@ -96,15 +101,14 @@ void ProductionButton::Start()
 
 	containerFactory = EHUD::WHUDContainer::Create(root, { 310,0,210,210 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	containerFactory->SetActive(false);
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "Game/Assets/Textures/steak-16.png", nullptr, ResourceName::SpaceCow_Beef));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "Game/Assets/Textures/milk-16.png", nullptr, ResourceName::SpaceCow_Milk));//Idealy made in a dome but in factory for example of recipy complexity
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "Game/Assets/Textures/egg-16.png", nullptr, ResourceName::SpaceCow_Cheese));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "Game/Assets/Textures/chicken-16.png", nullptr, ResourceName::Chicken_Meat));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "Game/Assets/Textures/kittain-16.png", nullptr, ResourceName::Sheep_Meat));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "Game/Assets/Textures/unilateralis-16.png", nullptr, ResourceName::Sheep_Wool));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,140,50,50 }, "Game/Assets/Textures/wine-16.png", nullptr, ResourceName::Wine));
-	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,140,50,50 }, "Game/Assets/Textures/component-16.png", nullptr, ResourceName::Electronic_Component));
-
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "", nullptr, ResourceName::SpaceCow_Beef));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "", nullptr, ResourceName::SpaceCow_Milk));//Idealy made in a dome but in factory for example of recipy complexity
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,20,50,50 }, "", nullptr, ResourceName::SpaceCow_Cheese));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,80,50,50 }, "", nullptr, ResourceName::Chicken_Meat));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,80,50,50 }, "", nullptr, ResourceName::Sheep_Meat));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 450,80,50,50 }, "", nullptr, ResourceName::Sheep_Wool));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 330,140,50,50}, "", nullptr, ResourceName::Wine));
+	resourceListFactory.push_back(ProductionSetterButton::Create(root, { 390,140,50,50}, "", nullptr, ResourceName::Electronic_Component));
 
 	for (ProductionSetterButton* button : resourceListFactory) {
 		button->SetActive(false);
@@ -148,7 +152,6 @@ void ProductionButton::SetProduction(Production * production)
 			}
 		}
 	}
-
 }
 
 void ProductionButton::CloseProductionWindows()
@@ -233,4 +236,3 @@ void ProductionButton::ConfigureResources()
 		break;
 	}
 }
-

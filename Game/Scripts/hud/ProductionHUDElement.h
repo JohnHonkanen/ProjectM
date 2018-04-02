@@ -47,10 +47,13 @@ private:
 
 	class ProductionResourceButton * rButton;		//Producing Resource Button
 	class ProductionResourceButton * iButton;		//Ingredient Resource Button
-	class ProductionResourceButton * aButton;		//Active Building Button
+	class FunctionPtrButton * aButton;				//Active Building Button
+	class FunctionPtrButton * uButton;				//Increase building level
+	class FunctionPtrButton * dButton;				//Decrease building level
+
 
 	EHUD::HUDElement* productionHUD;
 	class ResourceManager* rManager;
 
-
+	class ActivateButtonHud * activateButtonBinder;
 };
