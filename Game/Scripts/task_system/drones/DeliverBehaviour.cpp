@@ -26,10 +26,17 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		Inventory * toInventory = &task.To()->GetInventory();
 		ResourceName resource = task.GetResource();
 		int amount = 200;
-		int left = drone->GetInventory().Remove(resource, amount);
-		int toAdd = amount - left;
-		toInventory->AddItem(resource, toAdd);
-		task.Fufill(toAdd);
+		int amountInDrone = drone->GetInventory().Contains(resource);
+
+		if (amountInDrone < amount)
+		{
+			amount = amountInDrone;
+		}
+		drone->GetInventory().Remove(resource, amount);
+
+		task.To()->Deposit(resource, amount);
+
+		task.Fufill(amount);
 
 		if (drone->GetInventory().Contains(resource) == 0 || toInventory->CheckStorageFull(resource) == 0)
 		{

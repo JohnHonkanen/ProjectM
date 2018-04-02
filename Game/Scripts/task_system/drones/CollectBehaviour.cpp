@@ -23,22 +23,30 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 
 		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, drone->transform->GetPosition().y, 0));
 
-		Inventory * inventory = &task.From()->GetInventory();
+		Structure * structure;
 
 		if (task == TASK_TYPE::REQUEST)
 		{
-			inventory = &task.To()->GetInventory();
+			structure = task.To();
 		}
 		else {
-			inventory = &task.From()->GetInventory();
+			structure = task.From();
 		}
 		ResourceName resource = task.GetResource();
 		int amount = 200;
-		int left = drone->GetInventory().AddItem(resource, amount);
-		int toRemove = amount - left;
-		inventory->Remove(resource, toRemove);
+		int spaceLeftInDrone = drone->GetInventory().CheckStorageFull(resource);
 
-		if (inventory->Contains(resource) == 0 || drone->GetInventory().CheckStorageFull(resource) == 0)
+		if (spaceLeftInDrone < amount)
+		{
+			amount = spaceLeftInDrone;
+			spaceLeftInDrone = 0;
+		}
+
+		int amountCollected = structure->Collect(resource, amount);
+
+		drone->GetInventory().AddItem(resource, amountCollected);
+
+		if (structure->Contains(resource) == 0 || spaceLeftInDrone == 0)
 		{
 			return true;
 		}
