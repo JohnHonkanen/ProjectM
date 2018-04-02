@@ -64,7 +64,11 @@
     <ClInclude Include="Game\Scripts\PlayerEconManager.h" />
     <ClInclude Include="Game\Scripts\Production.h" />
     <ClInclude Include="Game\Scripts\Structure.h" />
+    <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h" />
+    <ClInclude Include="Game\Scripts\task_system\drones\CollectBehaviour.h" />
+    <ClInclude Include="Game\Scripts\task_system\drones\DeliverBehaviour.h" />
     <ClInclude Include="Game\Scripts\task_system\drones\DroneController.h" />
+    <ClInclude Include="Game\Scripts\task_system\drones\GoToBehaviour.h" />
     <ClInclude Include="Game\Scripts\task_system\Task.h" />
     <ClInclude Include="Game\Scripts\task_system\TaskManager.h" />
     <ClInclude Include="Game\Scripts\TerrainCollisionHelper.h" />
@@ -119,7 +123,11 @@
     <ClCompile Include="Game\Scripts\Production.cpp" />
     <ClCompile Include="Game\Scripts\ProjectM.cpp" />
     <ClCompile Include="Game\Scripts\Structure.cpp" />
+    <ClCompile Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.cpp" />
+    <ClCompile Include="Game\Scripts\task_system\drones\CollectBehaviour.cpp" />
+    <ClCompile Include="Game\Scripts\task_system\drones\DeliverBehaviour.cpp" />
     <ClCompile Include="Game\Scripts\task_system\drones\DroneController.cpp" />
+    <ClCompile Include="Game\Scripts\task_system\drones\GoToBehaviour.cpp" />
     <ClCompile Include="Game\Scripts\task_system\Task.cpp" />
     <ClCompile Include="Game\Scripts\task_system\TaskManager.cpp" />
     <ClCompile Include="Game\Scripts\TerrainCollisionHelper.cpp" />

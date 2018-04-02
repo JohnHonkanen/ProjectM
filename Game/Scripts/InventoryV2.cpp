@@ -21,6 +21,8 @@ namespace v2 {
 		{
 			storage[i] = { nullptr,0 };
 		}
+
+		rm = &GameManager::gameManager->resourceManager;
 	}
 
 	Inventory::~Inventory()

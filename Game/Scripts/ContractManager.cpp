@@ -13,7 +13,7 @@ ContractManager::~ContractManager()
 Contract ContractManager::AddContract()
 {
 	int numberOfResources = resourceManager->NumberOfActiveResources();
-	int generatedResID = resourceManager->RandomResources(); 
+	int generatedResID = 3;//resourceManager->RandomResources(); 
 	//cout << generatedResID << endl;
 	int generatedContractID = (rand() % 640000) + 1;
 
@@ -30,7 +30,7 @@ Contract ContractManager::AddContract()
 	contract.SetContractID(generatedContractID);
 	contract.SetDifficulty();
 	contract.SetPayment();
-	contract.SetTime(10000);
+	contract.SetTime(1000000);
 	contract.SetAmount();
 	contract.SetContractIndex(contractIndex);
 	contract.SetStatus(true);
