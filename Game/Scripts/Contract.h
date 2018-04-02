@@ -41,9 +41,9 @@ public:
 	void SetContractID(int contractID); // Set contract ID
 
 	bool GetStatus(); // Get the status of contract (true/false)
-	bool SetStatus(bool active); // Return true
+	void SetStatus(bool active); // Return true
 	
-	bool IsComplete(); // Return true
+	bool IsComplete() const; // Return true
 	bool InitComplete(bool completeStatus); // Initial complete, return false;
 
 	void DebugContractOnce(); // Use to debug contract
@@ -52,8 +52,9 @@ public:
 
 	int GetResourceID(); // Resource ID for contract
 
-	bool GetTaken();
+	bool GetTaken() const;
 	void SetTaken(bool taken);
+
 private:
 	int payment, tempDif, amount;
 	int time = 120; 

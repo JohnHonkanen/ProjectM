@@ -12,7 +12,7 @@ public:
 	void Copy(GameObject * copyObject);
 	void Update();
 private:
-	const ContractManager * contractManager;
+	ContractManager * contractManager;
 	Contract *contract;
 	const Hub * hub;
 	bool contractFufilled = true;

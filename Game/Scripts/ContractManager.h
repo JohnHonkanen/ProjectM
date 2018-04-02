@@ -30,13 +30,13 @@ public:
 	void Start();
 
 	//list <Contract*> GetList() const;
-	Contract * GetFirstAvailable() const;
+	Contract &GetFirstAvailable();
 
 	ContractName GetContractName(); // Returns name of Contract from contractName enum
 	int GetSizeOfListOfContract(); // Returns the size of listOfContract
 	int GetIndexOfLastElement(int offSet); // Gets index ID for contract at last element of listOfContract + offSet
 	Resources GenerateRandomResourceID();
-	Contract *FindContract(ContractName contractName, int contractIndex);
+	Contract &FindContract(ContractName contractName, int contractIndex);
 
 	vector<Contract*> GetList() const; // Returns a listOfContract
 	
@@ -44,7 +44,7 @@ public:
 private:
 	int contractIndex = 0;
 	
-	Contract contractList[1064]; // List of contracts to be held, and chosen from. 
+	//Contract contractList[1064]; // List of contracts to be held, and chosen from. 
 	ResourceManager* resourceManager;
 	PlayerEconManager* playerEconManager;
 	Contract contract;
@@ -55,6 +55,6 @@ private:
 	bool statusCheck = true;
 
 	//list <Contract*> contractQueue; // Creates an empty queue of contractQueue 
-	vector <Contract*> listOfContract; // Creates a vector of list of contracts
+	vector <Contract> listOfContract; // Creates a vector of list of contracts
 	ContractName contractName;
 };
