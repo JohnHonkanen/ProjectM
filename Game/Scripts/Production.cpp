@@ -88,7 +88,6 @@ void Production::OnLoad()
 {
 }
 
-
 void Production::DomeProduction()
 {
 	int availableSpace = inventory.CheckStorageFull(producing);
@@ -121,9 +120,7 @@ void Production::FactoryProduction()
 void Production::Update(double currentTime)
 {
 	if (!isActive) {
-		cout << "not active" <<endl;
 		return;
-
 	}
 	clock.UpdateClock();//updating clock time
 
@@ -146,7 +143,7 @@ void Production::Update(double currentTime)
 			hub->GetTaskManager()->AddTask(request, request.GetPriority());
 		}
 	}
-
+	clock.SetDelay(resourceManager->Find(producing)->GetProductionTimer() * 1000);
 	if (clock.Alarm()) {//check if alarm has gone off
 		if (structureType == DOME) {
 			DomeProduction();
@@ -160,6 +157,10 @@ void Production::Update(double currentTime)
 
 void Production::SetProduction(ResourceName type)
 {
+	if (producing != type) {
+		inventory.Clear();
+		inventoryOutput.Clear();
+	}
 		producing = type;
 		if (structureType == FACTORY) {
 			inputResource = GameManager::gameManager->recipeManager.GetInput(producing);
