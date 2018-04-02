@@ -38,10 +38,10 @@ void ContractHUD::OnLoad()
 
 void ContractHUD::Start()
 {
-	for (int i = 0; i < 3; i++) {
-		contract = contractManager->FindContract(ContractName::Player_Contract, i);
-	}
-	
+	contract = contractManager->FindContract(ContractName::Player_Contract, 0);
+	contract2 = contractManager->FindContract(ContractName::Player_Contract, 1);
+	contract3 = contractManager->FindContract(ContractName::Player_Contract, 2);
+
 	//contract = contractManager->FindPersistentContract(1);
 	//contract2 = contractManager->FindPersistentContract(2);
 	//contract3 = contractManager->FindPersistentContract(3);
