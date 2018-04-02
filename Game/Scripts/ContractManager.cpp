@@ -166,13 +166,6 @@ void ContractManager::Start()
 	GameEngine::manager.inputManager.AddKey("Change Current", "j", "k");
 	clock.SetDelay(1000);
 	clock.StartClock();
-
-	int startingContract = 3;
-	
-	for (int i = 0; i < startingContract; i++) {
-		this->contractIndex = i;
-		AddContract(ContractName::Player_Contract, to_string(i), i);
-	}
 }
 
 Contract &ContractManager::GetFirstAvailable() 
@@ -190,11 +183,10 @@ Contract &ContractManager::GetFirstAvailable()
 		
 	}
 
-	if (completed) {
-		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
-		Contract failedContract = Contract();
-		return failedContract;
-	}
+	cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
+	Contract failedContract = Contract();
+	return failedContract;
+
 }
 
 ContractName ContractManager::GetContractName()

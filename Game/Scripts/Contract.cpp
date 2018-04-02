@@ -179,6 +179,9 @@ int Contract::DecreaseCurrent(int amountToDecrease)
 		return SetCurrent(0);
 	}
 	else {
+		// Calculate value of amount deducted + deduct from player economy + adjust contract current.
+		int amountDelivered = GetResource().GetBasePrice() * amountToDecrease;
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->RemoveGoldBars(amountDelivered);
 		this->current -= amountToDecrease;
 		return SetCurrent(this->current);
 	}
