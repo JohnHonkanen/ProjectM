@@ -37,7 +37,9 @@ private:
 
 	v2::Inventory inventoryOutput;
 
-	void ProductionLine();
+	void DomeProduction();
+	void FactoryProduction();
+
 public:
 
 	Production();
@@ -58,6 +60,12 @@ public:
 	Resources* GetResource() { return resourceManager->Find(producing); }
 
 	bool GetProducing() { return isProducing; }
+
+	int Collect(ResourceName resource, int amount);
+	int GetInputCount();
+	int GetOutputCount();
+	void TaskCompleted(TASK_TYPE type);
+
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

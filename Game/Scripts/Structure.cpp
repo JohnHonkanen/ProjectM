@@ -47,7 +47,7 @@ void Structure::SetTilePosition(int x, int y)
 	tileY = y;
 }
 
-void Structure::TaskCompleted()
+void Structure::TaskCompleted(TASK_TYPE type)
 {
 	task = v1::TaskSystem::Task();
 }

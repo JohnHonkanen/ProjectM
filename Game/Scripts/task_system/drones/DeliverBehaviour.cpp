@@ -69,8 +69,9 @@ void v1::TaskSystem::DeliverBehaviour::Next()
 	//If info is final set task to complete
 	if (info.finalStep)
 	{
+		Task t = info.controller->GetTask();
 		info.controller->SetState(nullptr);
-		info.controller->GetTask().From()->TaskCompleted();
+		info.controller->GetTask().From()->TaskCompleted(t.GetType());
 		info.controller->SetInternalStateIdle();
 		info.controller->AssignTaskWithoutBehaviour(Task());
 		delete this;

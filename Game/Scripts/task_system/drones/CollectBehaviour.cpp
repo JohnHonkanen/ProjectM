@@ -87,7 +87,7 @@ void v1::TaskSystem::CollectBehaviour::Next()
 		{
 			info.controller->AssignTask(task);
 			info.controller->SetState(nullptr);
-			info.controller->GetTask().From()->TaskCompleted();
+			info.controller->GetTask().From()->TaskCompleted(task.GetType());
 			info.controller->SetInternalStateIdle();
 			info.controller->AssignTaskWithoutBehaviour(Task());
 		}

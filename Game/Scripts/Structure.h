@@ -85,7 +85,8 @@ public:
 	void SetPlaced(bool change);				//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
-	void TaskCompleted();
+	virtual void TaskCompleted(TASK_TYPE type);
+	
 
 	virtual vec3 ParkingLocation();
 	virtual int Deposit(ResourceName resource, int amount);
