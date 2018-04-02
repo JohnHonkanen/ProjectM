@@ -109,19 +109,34 @@ void Production::Update(double currentTime)
 					billboard->Spawn();
 				}
 			}
-			//}
-			//else{ make request for drone drop off}
 		}
 
-		if (task.GetType() == TASK_TYPE::NONE)
-		{
-			if (inventory.At(0).quantity > 0)
+
+		if (structureType == DOME) {
+			if (task.GetType() == TASK_TYPE::NONE)
 			{
-				task = v1::TaskSystem::Task(TASK_TYPE::COLLECT,5, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
-				hub->GetTaskManager()->AddTask(task, 5);
+				if (inventory.At(0).quantity > 0)
+				{
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, 5);
+				}
 			}
 		}
-		
+		else if (structureType == FACTORY) {
+			if (task.GetType() == TASK_TYPE::NONE)
+			{
+				if (inventory.At(0).quantity > 0)
+				{
+					task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 10, this, nullptr, inventory.At(0).resource->GetResouceID(), 0);
+					hub->GetTaskManager()->AddTask(task, 5);
+				}
+			}
+			if (request.GetType() == TASK_TYPE::NONE && isProducing)
+			{
+					request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, ResourceName::SpaceCow, 100);
+					hub->GetTaskManager()->AddTask(task, 5);
+			}
+		}
 		clock.ResetClock();
 	}
 }

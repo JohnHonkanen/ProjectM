@@ -18,6 +18,7 @@ Dev: Greg Smith (B00308929)
 #include "ResourceManager.h"
 #include "utility\Clock.h"
 #include "Hub.h"
+#include "task_system\Task.h"
 
 
 using namespace std;
@@ -31,6 +32,7 @@ private:
 	ResourceManager * resourceManager;
 	bool isProducing = false;
 	BuildingProductionAnims* billboard;
+	v1::TaskSystem::Task request;
 
 public:
 
