@@ -1,6 +1,7 @@
 #include "ContractManager.h"
 #include "core\GameEngine.h"
 #include "core\InputManager.h"
+#include "GameManager.h"
 
 ContractManager::ContractManager()
 {
@@ -10,68 +11,44 @@ ContractManager::~ContractManager()
 {
 }
 
-Contract ContractManager::AddContract()
+
+Contract ContractManager::AddContract(ContractName contractName, string nameOfContract, int contractIndex)
 {
-	int numberOfResources = resourceManager->NumberOfActiveResources();
-	int generatedResID = 3;//resourceManager->RandomResources(); 
-	//cout << generatedResID << endl;
-	int generatedContractID = (rand() % 640000) + 1;
+	Contract contract = Contract(contractName, GenerateRandomResourceID(), this, nameOfContract);
 
-	Resources resource = resourceManager->FindResource(generatedResID); // Add a random resource to contract
-	Contract contract = Contract(resource, this);
+	switch (contractName) {
+	case ContractName::Player_Contract:
+		
+		contract.SetContractID(contractIndex);
+		contract.SetDifficulty();
+		contract.SetPayment();
+		contract.SetTime(1000000);
+		contract.SetAmount();
+		contract.SetContractIndex(contractIndex);
+		contract.SetStatus(true);
+		contract.InitComplete(false);
 
-	if (this->contractIndex >= ResourceManager::sizeOfList) {
-		contractIndex = 0;
+		this->contract = contract;
+
+		this->listOfContract.push_back(this->contract);
+
+		return this->contract;
+		break;
+	default:
+		cout << "ERROR::NO_CONTRACT_NAME_FOUND::CANNOT_ADD_CONTRACT::" << endl;
+		break;
 	}
-	else {
-		contractIndex++;
-	}
-
-	contract.SetContractID(generatedContractID);
-	contract.SetDifficulty();
-	contract.SetPayment();
-	contract.SetTime(1000000);
-	contract.SetAmount();
-	contract.SetContractIndex(contractIndex);
-	contract.SetStatus(true);
-	contract.InitComplete(false);
-
-	this->contractList[contractIndex] = contract;
-
-	this->contractQueue.push_back(&this->contractList[contractIndex]);
-
-	//cout << "New Contract added! : "  << contractQueue.back()->GetContractIndex() << endl;
-	return this->contractList[contractIndex];
-}
-
-Contract ContractManager::FindContract(int contractID)
-{
-	return this->contractList[contractID];
-}
-
-Contract * ContractManager::FindPersistentContract(int contractID)
-{
-	return &this->contractList[contractID];;
-}
-
-Contract * ContractManager::FindContractQueueFront()
-{
-	return this->contractQueue.front();
-}
-
-Contract * ContractManager::FindContractQueueBack()
-{
-	return  this->contractQueue.back();;
+	return this->contract;
 }
 
 int ContractManager::NumberOfActiveContract()
 {
 
-	if (!this->contractQueue.empty()) {
-		return this->contractQueue.size();
+	if (!this->listOfContract.empty()) {
+		return this->listOfContract.size();
 	}
 	else {
-		AddContract();
+		AddContract(ContractName::Player_Contract, "", GetIndexOfLastElement(0));
 	}
 }
 
@@ -92,32 +69,48 @@ void ContractManager::Update()
 	clock.UpdateClock();
 
 	if (clock.Alarm()) {
-		for (Contract* c : this->contractQueue) {
-			if (c->GetTime() > 0 && c->GetStatus() == true) {
-				c->ReduceTime(1000);
+		listOfContract.reserve(this->listOfContract.size());
+		for (Contract &c : this->listOfContract) {
+			if (c.GetTime() > 0 && c.GetStatus() == true) {
+				c.ReduceTime(1000);
 			}
 		}
 		clock.ResetClock();
 	}
 	
-	// If contract status is no longer active (false), then pop from contractQueue + add a new contract.
-	if (this->contractQueue.front()->GetStatus() == false) {
-		AddContract();
-		this->contractQueue.pop_front();
+	//GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK);
+
+	// If new dock is detected, add new contract.
+	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
+		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+		this->contractIndex++;
 	}
 
-	// Set contract status to iscomplete if timer reaches 0 
-	if (this->contractQueue.front()->GetTime() <= 0) {
-		this->contractQueue.front()->IsComplete();
-	}
+	// Loop through listOfContract to determine if contract needs to be set as isComplete().
+	for (int i = 0; i < this->listOfContract.size();) {
 
-	// Complete contract when resource requirement is fulfilled.
-	if (this->contractQueue.front()->GetCurrent() >= this->contractQueue.front()->GetAmount()) {
-		
-		PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
-		pEcon->AddGoldBars(contractQueue.front()->GetPayment());
+		// Set contract status to isComplete if timer reaches 0 
+		if (this->listOfContract[i].GetTime() <= 0) {
+			this->listOfContract[i].IsComplete();
+		}
 
-		this->contractQueue.front()->IsComplete();
+		// Complete contract when resource requirement is fulfilled.
+		if (this->listOfContract[i].GetCurrent() >= this->listOfContract[i].GetAmount()) {
+			PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
+			pEcon->AddGoldBars(listOfContract[i].GetPayment());
+
+			this->listOfContract[i].IsComplete();
+		}
+
+		// If contract status is no longer active (false), then erase it + add a new active contract in its place.
+		if (this->listOfContract[i].GetStatus() == false){
+			listOfContract.erase(listOfContract.begin() + i);
+			AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+			this->contractIndex++;
+		}
+		else {
+			i++;
+		}
 	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
@@ -127,7 +120,7 @@ void ContractManager::Update()
 	// Add Contract
 	if (addContractKey == 1) {
 		if (keyReleased1 == true) {
-			AddContract();
+			AddContract(ContractName::Player_Contract, "", GetIndexOfLastElement(9));
 			
 			//cout << "Contract Added!" << endl;
 			keyReleased1 = false;
@@ -145,7 +138,7 @@ void ContractManager::Update()
 	if (changeCurrent == 1) {
 		if (keyReleased2 == true) { // if key j is pressed (Increase)
 			keyReleased2 = false;
-			this->contractQueue.front()->IncreaseCurrent(5);
+			this->listOfContract.front().IncreaseCurrent(5);
 		}
 	}
 	else {
@@ -157,7 +150,7 @@ void ContractManager::Update()
 	if (changeCurrent == -1) { 
 		if (keyReleased2 == true) { // if key k is pressed (Decrease)
 			keyReleased2 = false;
-			this->contractQueue.front()->DecreaseCurrent(5);
+			this->listOfContract.front().DecreaseCurrent(5);
 		}
 	}
 	else {
@@ -173,26 +166,73 @@ void ContractManager::Start()
 	GameEngine::manager.inputManager.AddKey("Change Current", "j", "k");
 	clock.SetDelay(1000);
 	clock.StartClock();
-	AddContract();
-	AddContract();
-	AddContract();
+
+	listOfContract.reserve(3);
+
+	AddContract(ContractName::Player_Contract, to_string(0), 0);
+	AddContract(ContractName::Player_Contract, to_string(1), 1);
+	AddContract(ContractName::Player_Contract, to_string(2), 2);
+	cout << listOfContract.size()<< endl;
 }
 
-list<Contract*> ContractManager::GetList() const
+Contract &ContractManager::GetFirstAvailable() 
 {
-	return contractQueue;
-}
-
-Contract * ContractManager::GetFirstAvailable() const
-{
-	for (Contract *c : contractQueue)
+	bool completed = true;
+	for (int i = 0; i < listOfContract.size(); i++)
 	{
-		if (!c->GetTaken())
-		{
-			c->SetTaken(true);
-			return c;
+		if (listOfContract[i].IsComplete() == !completed) {
+			if (!listOfContract[i].GetTaken())
+			{
+				listOfContract[i].SetTaken(true);
+				return listOfContract[i];
+			}
 		}
+		
 	}
 
-	return nullptr;
+	if (completed) {
+		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
+		return Contract();
+	}
+}
+
+ContractName ContractManager::GetContractName()
+{
+	return this->contractName;
+}
+
+int ContractManager::GetSizeOfListOfContract()
+{
+	return listOfContract.size();
+}
+
+int ContractManager::GetIndexOfLastElement(int offSet)
+{
+	return listOfContract.size() + offSet;
+}
+
+Resources ContractManager::GenerateRandomResourceID()
+{
+	int generatedResID = 3; //resourceManager->RandomResources(); 
+	Resources resource = resourceManager->FindResource(generatedResID);
+	return resource;
+}
+
+Contract &ContractManager::FindContract(ContractName contractName, int contractIndex)
+{
+	// Find contract based on number of trade depo
+	switch (contractName) {
+	case ContractName::Player_Contract:
+		return this->listOfContract[contractIndex];
+
+	default:
+		cout << "ERROR::COULD_NOT_FIND_CONTRACT:: " << endl;
+		break;
+	}
+	
+}
+
+vector<Contract*> ContractManager::GetList() const
+{
+	return vector<Contract*>();
 }

@@ -4,12 +4,38 @@
 
 Contract::Contract()
 {
+	this->difficulty = -1;
 }
 
-Contract::Contract(Resources resource, ContractManager* contractManager)
+Contract::Contract(ContractName contractName, Resources resource, ContractManager* contractManager, string nameOfContract)
 {
+	this->contractName = contractName;
 	this->resource = resource;
 	this->contractManager = contractManager;
+	this->nameOfContract = nameOfContract;
+}
+
+Contract::Contract(const Contract & copy)
+{
+	this->contractName = copy.contractName;
+	this->resource = copy.resource;
+	this->contractManager = copy.contractManager;
+	this->nameOfContract = copy.nameOfContract;
+	this->contractID = copy.contractID;
+	this->difficulty = copy.difficulty;
+	this->payment = copy.payment;
+	this->time = copy.time;
+	this->amount = copy.amount;
+	this->contractIndex = copy.contractIndex;
+	this->active = copy.active;
+	this->current = copy.current;
+	this->resourceID = copy.resourceID;
+	this->tempDif = copy.tempDif;
+	this->resourceManager = copy.resourceManager;
+	this->resource = copy.resource;
+	this->difficultyModifier = copy.difficultyModifier;
+	this->taken = copy.taken;
+	this->complete = copy.complete;
 }
 
 
@@ -171,16 +197,15 @@ bool Contract::GetStatus()
 	return this->active;
 }
 
-bool Contract::SetStatus(bool active)
+void Contract::SetStatus(bool active) 
 {
-	return this->active = active;
+	this->active = active;
 }
 
-bool Contract::IsComplete()
+bool Contract::IsComplete() 
 {
-	SetStatus(false);
-
-	return this->complete;
+	SetStatus(false); // Set contract status to false
+	return this->complete = true;
 }
 
 bool Contract::InitComplete(bool completeStatus)
@@ -208,7 +233,7 @@ int Contract::GetResourceID()
 	return this->resourceID;
 }
 
-bool Contract::GetTaken()
+bool Contract::GetTaken() const
 {
 	return taken;
 }

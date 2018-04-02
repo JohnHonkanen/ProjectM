@@ -12,7 +12,7 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon, int stackLimit, int demand);
+	Resources AddResource(ResourceName resName, string itemName, string SKU, int itemPrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate);
 
 	/*!!! Stop using: Depricated !!!
 	!!! Stop using: Depricated !!!
@@ -41,7 +41,6 @@ public:
 	list <Resource*> GetList() const;
 private:
 	int itemIndex = 0;
-	
 	Resources resourceList[sizeOfList];
 	Resources resources;
 
