@@ -193,8 +193,12 @@
     <ClCompile Include="Game\Scripts\hud\DockHUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scripts\DayNightCycle.cpp" />
-    <ClCompile Include="Game\Scripts\LightCycle.cpp" />
+    <ClCompile Include="Game\Scripts\DayNightCycle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scripts\LightCycle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h">
