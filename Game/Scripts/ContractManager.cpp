@@ -93,24 +93,8 @@ void ContractManager::Update()
 			this->listOfContract[i].IsComplete();
 		}
 
-		// Complete contract when resource requirement is fulfilled.
-		if (this->listOfContract[i].GetCurrent() >= this->listOfContract[i].GetAmount()) {
-			PlayerEconomy* pEcon = playerEconManager->FindPlayerEcon(EconName::Player_Econ);
-			// Pay out the contract bonus when contract is fulfilled.
-			pEcon->AddGoldBars(listOfContract[i].GetContractBonus());
 
-			this->listOfContract[i].IsComplete();
-		}
-
-		// If contract status is no longer active (false), then erase it + add a new active contract in its place.
-		if (this->listOfContract[i].GetStatus() == false){
-			listOfContract.erase(listOfContract.begin() + i);
-			AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
-			this->contractIndex++;
-		}
-		else {
-			i++;
-		}
+		i++;
 	}
 
 	int addContractKey = Engine::GameEngine::manager.inputManager.GetKey("Add Contract");
@@ -237,6 +221,13 @@ void ContractManager::CompleteContract(int index)
 void ContractManager::IncreaseContractCurrent(int index, int amount)
 {
 	listOfContract[index].IncreaseCurrent(amount);
+}
+
+void ContractManager::RemoveContract(int index)
+{
+	listOfContract.erase(listOfContract.begin() + index);
+	AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+	this->contractIndex++;
 }
 
 vector<Contract> ContractManager::GetList()

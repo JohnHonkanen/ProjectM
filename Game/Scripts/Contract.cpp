@@ -2,6 +2,7 @@
 #include "ContractManager.h"
 #include "glm\glm.hpp"
 #include "GameManager.h"
+#include "PlayerEconomy.h"
 
 Contract::Contract()
 {
@@ -221,8 +222,18 @@ void Contract::SetStatus(bool active)
 
 bool Contract::IsComplete() 
 {
+	bool actuallyCompleted = false;
+
+	if (current >= amount)
+	{
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(GetContractBonus());
+		actuallyCompleted = true;
+	}
+	
 	SetStatus(false); // Set contract status to false
-	return this->complete = true;
+	this->complete = true;
+
+	return actuallyCompleted;
 }
 
 bool Contract::InitComplete(bool completeStatus)

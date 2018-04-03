@@ -36,7 +36,7 @@ public:
 	void StartContract(int index);
 	void CompleteContract(int index);
 	void IncreaseContractCurrent(int index, int amount);
-
+	void RemoveContract(int index);
 	vector <Contract> GetList();
 private:
 	int contractIndex = 0;

@@ -142,6 +142,20 @@ void Dock::GenerateContractConfiguration()
 	{
 		Contract c = contractManager->GetContract(contractIndex);
 		contractManager->StartContract(contractIndex);
+
+		if (!c.GetStatus())
+		{
+			contractManager->CompleteContract(contractIndex);
+			contractManager->RemoveContract(contractIndex);
+			contractFufilled = true;
+			contractIndex = -1;
+			dockedShip->Return();
+			dockedShip = nullptr;
+			docked = false;
+			task = Task();
+			return;
+		}
+
 		if (!contractFufilled)
 		{
 			int inInventory = inventory.Contains(c.GetResource().GetResouceID());
@@ -160,6 +174,8 @@ void Dock::GenerateContractConfiguration()
 
 			if (potential >= c.GetAmount())
 			{
+				contractManager->CompleteContract(contractIndex);
+				contractManager->RemoveContract(contractIndex);
 				contractFufilled = true;
 				contractIndex = -1;
 
