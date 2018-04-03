@@ -150,17 +150,7 @@ void Structure::setPowerUsage(int change)
 
 void Structure::SetProductionEfficiency(int change)
 {
-	if (productionEfficiency < 10 && productionEfficiency > 1) {
-		productionEfficiency += change;
-		
-		bool temp = SetUpkeep(change);
-		if (!temp) {
-			productionEfficiency -= change;
-		}
-		else{
-			SetRadiationOutput(change);
-		}
-	}
+	productionEfficiency = change;
 }
 
 void Structure::SetRadiationOutput(int change)
@@ -170,12 +160,9 @@ void Structure::SetRadiationOutput(int change)
 	}
 }
 
-bool Structure::SetUpkeep(int change)
+void Structure::SetUpkeep(int change)
 {
-	if (upkeep < 10 && upkeep > 1) {
-		upkeep += change * initialUpkeep;
-	}
-	return true;
+	upkeep = change;
 }
 
 void Structure::SetPlaced(bool change)

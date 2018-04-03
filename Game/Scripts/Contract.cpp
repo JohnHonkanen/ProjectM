@@ -37,6 +37,7 @@ Contract::Contract(const Contract & copy)
 	this->difficultyModifier = copy.difficultyModifier;
 	this->taken = copy.taken;
 	this->complete = copy.complete;
+	this->begin = copy.begin;
 	this->contractBonus = copy.contractBonus;
 }
 

@@ -65,6 +65,8 @@ public:
 	int GetInputCount();
 	int GetOutputCount();
 	void TaskCompleted(TASK_TYPE type, int index);
+	void IncreaseLevel();
+	void DecreaseLevel();
 
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);

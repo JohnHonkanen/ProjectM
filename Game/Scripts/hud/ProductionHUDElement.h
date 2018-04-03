@@ -31,6 +31,8 @@ public:
 private:
 	EHUD::TextWidget* title;
 	EHUD::TextWidget* level;
+	EHUD::TextWidget* upkeep;
+
 	EHUD::TextWidget* producing;
 	EHUD::TextWidget* ingredient;
 	EHUD::TextWidget* storage1;
@@ -56,4 +58,7 @@ private:
 	class ResourceManager* rManager;
 
 	class ActivateButtonHud * activateButtonBinder;
+	class IncreaseButtonHud * increaseButtonBinder;
+	class DecreaseButtonHud * decreaseButtonBinder;
+
 };

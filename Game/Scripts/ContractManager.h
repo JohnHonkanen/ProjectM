@@ -24,13 +24,17 @@ public:
 	void Update();
 	void Start();
 
-	Contract &GetFirstAvailable();
+	int GetFirstAvailable();
 
 	ContractName GetContractName(); // Returns name of Contract from contractName enum
 	int GetSizeOfListOfContract(); // Returns the size of listOfContract
 	int GetIndexOfLastElement(int offSet); // Gets index ID for contract at last element of listOfContract + offSet
 	Resources GenerateRandomResourceID();
 	Contract &FindContract(ContractName contractName, int contractIndex);
+
+	Contract GetContract(int index);
+	void StartContract(int index);
+	void IncreaseContractCurrent(int index, int amount);
 
 	vector <Contract> GetList();
 private:
