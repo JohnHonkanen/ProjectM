@@ -38,7 +38,6 @@ void PlayerEconomy::GiveGoldBars(int amountToGive)
 
 void PlayerEconomy::AddGoldBars(int goldBars)
 {
-	this->resource.IncreaseItemAmount(goldBars);
 	playerEconManager->HUBInventory->AddItem(ResourceName::Gold, goldBars);
 	playerEconManager->HUBInventory->CheckStorageFull(ResourceName::Gold);
 }

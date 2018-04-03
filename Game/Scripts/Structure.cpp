@@ -52,6 +52,10 @@ void Structure::TaskCompleted(TASK_TYPE type, int index)
 	task = v1::TaskSystem::Task();
 }
 
+void Structure::IncreaseTaskNumber(TASK_TYPE type, int index)
+{
+}
+
 vec3 Structure::ParkingLocation()
 {
 	return transform->GetPosition();

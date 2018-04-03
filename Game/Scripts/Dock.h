@@ -34,6 +34,7 @@ public:
 	void TaskCompleted(TASK_TYPE type, int index); //@Override
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override
 	int Deposit(ResourceName resourceName, int resourceAmount, int index); //@Override
+	void IncreaseTaskNumber(TASK_TYPE type, int index); //@Override
 private:
 	void MarketDumpTaskee(); // Generate task for market dump
 	void BufferMarket(); // Does magic with inventory

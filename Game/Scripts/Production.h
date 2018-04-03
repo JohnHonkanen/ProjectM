@@ -74,6 +74,8 @@ public:
 	void IncreaseLevel();
 	void DecreaseLevel();
 
+	void IncreaseTaskNumber(TASK_TYPE type, int index);
+
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 

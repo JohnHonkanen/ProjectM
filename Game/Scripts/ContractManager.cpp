@@ -74,8 +74,6 @@ void ContractManager::Update()
 		}
 		clock.ResetClock();
 	}
-	
-	//GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK);
 
 	// If new dock is detected, add new contract.
 	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
@@ -92,8 +90,6 @@ void ContractManager::Update()
 		if (this->listOfContract[i].GetTime() <= 0) {
 			this->listOfContract[i].IsComplete();
 		}
-
-
 		i++;
 	}
 

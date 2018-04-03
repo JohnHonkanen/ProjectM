@@ -254,6 +254,16 @@ void Production::DecreaseLevel()
 	}
 }
 
+void Production::IncreaseTaskNumber(TASK_TYPE type, int index)
+{
+	if (type == TASK_TYPE::REQUEST) {
+		numRequestTask++;
+	}
+	else {
+		numCollectTask++;
+	}
+}
+
 //void ProductionLine() {
 //	int availableSpace = inventory.CheckStorageFull(producing);
 //	if (structureType == DOME && isProducing) {
