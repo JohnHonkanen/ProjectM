@@ -32,6 +32,7 @@ public:
 	
 	void GenerateMarketHUDElement(int resourceID, float increment, Resources resource);
 	void GenerateKSuffix(int resourceID); // Add K if value of resource quantity exceeds 1000
+	void GenerateMarketName(); // Generates the market names for each market type
 private:
 
 	class WHUDContainerWrapper {
