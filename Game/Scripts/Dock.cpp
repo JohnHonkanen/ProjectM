@@ -72,7 +72,7 @@ void Dock::Update()
 	MarketDumpTaskee();
 	BufferMarket();
 
- 	if (contractIndex == -1 || contractManager->GetContract(contractIndex).GetContractID() != contractID)
+ 	if (contractIndex == -1)
 	{
 		if (dockedShip != nullptr)
 		{

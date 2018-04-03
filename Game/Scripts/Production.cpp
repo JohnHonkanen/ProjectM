@@ -146,7 +146,7 @@ void Production::Update(double currentTime)
 	if (structureType == FACTORY) {
 		if (request.GetType() == TASK_TYPE::NONE && isProducing)
 		{
-			request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
+			request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 5);
 			hub->GetTaskManager()->AddTask(request, request.GetPriority());
 		}
 	}
