@@ -27,14 +27,28 @@ public:
 	void GenerateContractConfiguration();
 	void GenerateLocalMarketConfiguration();
 	void GenerateGalacticMarketConfiguration();
+
+	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump
+	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest
+
+	void TaskCompleted(TASK_TYPE type, int index); //@Override
+	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override
+	int Deposit(ResourceName resourceName, int resourceAmount, int index); //@Override
 private:
+	void MarketDumpTaskee(); // Generate task for market dump
+	void BufferMarket(); // Does magic with inventory
+
 	ContractManager * contractManager;
 	Contract *contract;
 	int contractID;
 	const Hub * hub;
 	bool contractFufilled = true;
 
-	v1::TaskSystem::Task flushTask;
+	v1::TaskSystem::Task marketTask;
+	v1::TaskSystem::Task marketRequestTask;
+	v2::Inventory marketDump; // Marketplace item inventory
+	v2::Inventory marketRequest; // Marketplace inventory of items asking from system
+	v2::Inventory marketPlaceBuffer; // Marketplace buffer inventory
 
 	bool docked = false;
 	class TradeShip *dockedShip;

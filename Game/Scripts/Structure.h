@@ -83,12 +83,12 @@ public:
 	void SetPlaced(bool change);						//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
-	virtual void TaskCompleted(TASK_TYPE type);
+	virtual void TaskCompleted(TASK_TYPE type, int index);
 	
 
 	virtual vec3 ParkingLocation();
-	virtual int Deposit(ResourceName resource, int amount);
-	virtual int Collect(ResourceName resource, int amount);
+	virtual int Deposit(ResourceName resource, int amount, int index);
+	virtual int Collect(ResourceName resource, int amount, int index);
 	virtual int Contains(ResourceName resource);
 
 	template<class Archive>

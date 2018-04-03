@@ -175,10 +175,10 @@ void Production::SetActive(bool change)
 	isProducing = change;
 }
 
-int Production::Collect(ResourceName resource, int amount)
+int Production::Collect(ResourceName resource, int amount, int index)
 {
 	if (structureType == DOME) {
-		return Structure::Collect(resource, amount);
+		return Structure::Collect(resource, amount, index);
 	}
 	else{
 		int toRemove = amount;
@@ -210,7 +210,7 @@ int Production::GetOutputCount()
 	return inventory.Contains(producing);
 }
 
-void Production::TaskCompleted(TASK_TYPE type)
+void Production::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::REQUEST) {
 		request = v1::TaskSystem::Task();

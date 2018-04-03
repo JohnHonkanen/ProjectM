@@ -23,6 +23,7 @@ namespace v1
 			Task(TYPE t);
 			Task(TYPE t, uint p, Structure *from, Structure *to = nullptr);
 			Task(TYPE t, uint p, Structure *from, Structure *to, ResourceName resource, int amount);
+			Task(TYPE t, uint p, Structure *from, Structure *to, ResourceName resource, int amount, int index);
 			Task(const Task& task); //copy ctor
 
 			//Sets/Get a ID for the task
@@ -43,6 +44,7 @@ namespace v1
 			int HasLeft();
 			ResourceName GetResource() const;
 			int GetAmount() const;
+			int GetIndex() const;
 
 			//Operator Overloads for priority Queue
 			bool operator< (Task const& other) { return priority < other.priority; };
@@ -58,6 +60,7 @@ namespace v1
 			ResourceName resource;
 			int amount;
 			int fufilled = 0;
+			int index;
 		};
 	}
 }

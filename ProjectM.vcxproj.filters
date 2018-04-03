@@ -190,6 +190,9 @@
     <ClCompile Include="Game\Scripts\RecipeManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\hud\DockHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h">
@@ -376,6 +379,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\RecipeManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\hud\DockHUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

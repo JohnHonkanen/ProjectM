@@ -112,13 +112,6 @@ int main(int argc, char *argv[])
 	);
 	dock->material->diffuseMap = "Game/Assets/Textures/Models/dock_texture.png";
 
-	GameObject *dock = gameManager->buildingManager.CreateNewBuilding(
-		Dock::Create(10, 150),
-		"Game/Assets/Models/mobajuice/Dock.dae"
-	);
-	dock->material->diffuseMap = "Game/Assets/Textures/Models/dock_texture.png";
-
-
 	//Player
 	GameObject *focusPoint = manager->CreateGameObject("Camera Focus Point");
 	//MeshRenderer::Create(focusPoint, "Game/Assets/Models/cube/cube.obj");

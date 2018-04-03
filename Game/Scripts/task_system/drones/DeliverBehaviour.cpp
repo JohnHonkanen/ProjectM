@@ -34,7 +34,7 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		}
 		drone->GetInventory().Remove(resource, amount);
 
-		task.To()->Deposit(resource, amount);
+		task.To()->Deposit(resource, amount, task.GetIndex());
 
 		task.Fufill(amount);
 
@@ -71,7 +71,7 @@ void v1::TaskSystem::DeliverBehaviour::Next()
 	{
 		Task t = info.controller->GetTask();
 		info.controller->SetState(nullptr);
-		info.controller->GetTask().From()->TaskCompleted(t.GetType());
+		info.controller->GetTask().From()->TaskCompleted(t.GetType(), t.GetIndex());
 		info.controller->SetInternalStateIdle();
 		info.controller->AssignTaskWithoutBehaviour(Task());
 		delete this;

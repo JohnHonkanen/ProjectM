@@ -42,7 +42,7 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 			spaceLeftInDrone = 0;
 		}
 
-		int amountCollected = structure->Collect(resource, amount);
+		int amountCollected = structure->Collect(resource, amount, task.GetIndex());
 
 		drone->GetInventory().AddItem(resource, amountCollected);
 
@@ -87,7 +87,7 @@ void v1::TaskSystem::CollectBehaviour::Next()
 		{
 			info.controller->AssignTask(task);
 			info.controller->SetState(nullptr);
-			info.controller->GetTask().From()->TaskCompleted(task.GetType());
+			info.controller->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
 			info.controller->SetInternalStateIdle();
 			info.controller->AssignTaskWithoutBehaviour(Task());
 		}

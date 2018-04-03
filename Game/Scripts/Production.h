@@ -61,10 +61,10 @@ public:
 
 	bool GetProducing() { return isProducing; }
 
-	int Collect(ResourceName resource, int amount);
+	int Collect(ResourceName resource, int amount, int index);
 	int GetInputCount();
 	int GetOutputCount();
-	void TaskCompleted(TASK_TYPE type);
+	void TaskCompleted(TASK_TYPE type, int index);
 
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
