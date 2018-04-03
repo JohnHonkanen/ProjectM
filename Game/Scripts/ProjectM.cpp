@@ -34,11 +34,12 @@
 #include "task_system\TaskManager.h"
 #include "Dock.h"
 #include "TradeShipSpawner.h"
+#include "Hub.h"
+#include "Drone.h"
 
 using namespace std;
 
-#include "Hub.h"
-#include "Drone.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -145,43 +146,6 @@ int main(int argc, char *argv[])
 
 	HubHUD::Create(hudController, canvas, hub, &gameManager->resourceManager);
 
-	//Directional Light
-	GameObject *dirLightObj = manager->CreateGameObject("dirLight");
-	MeshRenderer::Create(dirLightObj, "Game/Assets/Models/cube/cube.obj", DEFERRED);
-	Light * dirLight =Light::Create(dirLightObj, DIRECTIONAL_LIGHT);
-	LightProperties dirProp = {
-		DIRECTIONAL_LIGHT,
-		vec3(0.5f),
-		vec3(0.5f),
-		vec3(0.05f),
-
-		1.0f, 0.1f, 3.0f
-	};
-
-	dirLight->SetLightProperties(dirProp);
-
-	dirLightObj->transform->SetPosition(vec3(10000000, 10000000,1000000));
-	dirLightObj->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
-
-	GameObject *p1 = manager->CreateGameObject("p1");
-	Light * pointLight = Light::Create(p1, POINT_LIGHT);
-	LightProperties pointProp = {
-		POINT_LIGHT,
-		vec3(1.0f),
-		vec3(1.0f),
-		vec3(0.15f),
-
-		1.0f, 0.07f, 0.017f
-	};
-	pointLight->SetLightProperties(pointProp);
-	p1->transform->SetPosition(vec3(-23,5,1));
-
-	GameObject * trader = manager->CreateGameObject("trader");
-	MeshRenderer::Create(trader, "Game/Assets/Models/mobajuice/Trader.dae");
-	trader->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
-	trader->transform->Translate(vec3(-300, 300, 50));
-	trader->transform->Scale(vec3(500));
-	trader->transform->Rotate(vec3(-90, 0, 0));
 
 	//Trade Ship Spawner
 	GameObject *tspObject = manager->CreateGameObject("tradeShipSpawner");

@@ -56,7 +56,7 @@ void HubHUD::OnLoad()
 
 	WidgetToggleButton::Create(root, { 1170, 610, 100, 100 }, "Game/Assets/Textures/hub.png", wrapper);
 	
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 24; i++)
 	{
 		CreateSlot();
 	}
@@ -78,6 +78,7 @@ void HubHUD::Update()
 		iDisplay->SetIcon("");
 		iDisplay->SetQuantity(0);
 	}
+
 	for (auto item : totalList)
 	{
 		Resource resource = *resourceManager->Find(item.resource);

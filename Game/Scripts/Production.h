@@ -40,6 +40,12 @@ private:
 	void DomeProduction();
 	void FactoryProduction();
 
+	int numCollectTask = 0;
+	int maxCollectTask = 1;
+
+	int numRequestTask = 0;
+	int maxRequestTask = 1;
+
 public:
 
 	Production();

@@ -4,6 +4,7 @@
 #include "PlayerActions.h"
 #include "DroneProducer.h"
 #include "GameManager.h"
+#include "LightCycle.h"
 BuildingController::~BuildingController()
 {
 }

@@ -7,6 +7,7 @@ Dev: Greg Smith (B00308929)
 #include "Production.h"
 #include "utility\Clock.h"
 #include "GameManager.h"
+#include "LightCycle.h"
 
 using namespace std;
 
@@ -50,6 +51,7 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 	}
 	p->inventory.SetResourceManager(resourceMan);
 	p->cost = cost;
+
 	return p;
 }
 
@@ -75,6 +77,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->inventoryOutput = v2::Inventory(1);
 	copy->inventory.SetResourceManager(resourceManager);
 	copy->inventoryOutput.SetResourceManager(resourceManager);
+	LightCycle::Create(copyObject);
 	copyObject->AddComponent(copy);
 }
 
@@ -131,7 +134,7 @@ void Production::Update(double currentTime)
 	}
 	clock.UpdateClock();//updating clock time
 
-	if (task.GetType() == TASK_TYPE::NONE)
+	if (numCollectTask < maxCollectTask)
 	{
 		int contains = inventory.Contains(producing);
 		if (structureType == FACTORY) {
@@ -139,15 +142,17 @@ void Production::Update(double currentTime)
 		}
 		if (contains > 0)
 		{
-			task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, this, producing, 0);
+			task = v1::TaskSystem::Task(TASK_TYPE::COLLECT, 5, this, this, producing, 20);
 			hub->GetTaskManager()->AddTask(task, task.GetPriority());
+			numCollectTask++;
 		}
 	}
 	if (structureType == FACTORY) {
-		if (request.GetType() == TASK_TYPE::NONE && isProducing)
+		if (numRequestTask < maxRequestTask && isProducing)
 		{
-			request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 100);
+			request = v1::TaskSystem::Task(TASK_TYPE::REQUEST, 15, this, nullptr, inputResource, 20);
 			hub->GetTaskManager()->AddTask(request, request.GetPriority());
+			numRequestTask++;
 		}
 	}
 	clock.SetDelay(resourceManager->Find(producing)->GetProductionTimer() * 1000);
@@ -220,10 +225,10 @@ int Production::GetOutputCount()
 void Production::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::REQUEST) {
-		request = v1::TaskSystem::Task();
+		numRequestTask--;
 	}
 	else {
-		task = v1::TaskSystem::Task();
+		numCollectTask--;
 	}
 }
 
@@ -232,6 +237,9 @@ void Production::IncreaseLevel()
 	if (isActive && productionEfficiency < 9) {
 		productionEfficiency = productionEfficiency++;
 		upkeep = upkeep * 2;
+
+		maxCollectTask = productionEfficiency / 2 + 1;
+		maxRequestTask = productionEfficiency / 2 + 1;
 	}
 }
 
@@ -240,6 +248,9 @@ void Production::DecreaseLevel()
 	if (isActive && productionEfficiency > 1) {
 		productionEfficiency = productionEfficiency--;
 		upkeep = upkeep * 0.5;
+
+		maxCollectTask = productionEfficiency / 2 + 1;
+		maxRequestTask = productionEfficiency / 2 + 1;
 	}
 }
 

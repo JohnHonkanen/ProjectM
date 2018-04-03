@@ -6,6 +6,8 @@
 #include "GameManager.h"
 #include <queue>
 #include "Drone.h"
+#include "LightCycle.h"
+
 
 
 Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
@@ -21,6 +23,8 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 	h->inventory->SetMode(v2::Inventory::WHITELIST);
 	h->tileWidth = 10;
 	gameManager->playerEconManager.SetHUBInventory(h->inventory);
+
+	LightCycle::Create(gameObject);
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
@@ -227,6 +231,8 @@ void Hub::Start()
 {
 	inventory->AddItem(ResourceName::Gold, 3000);
 	//SetDebt(1000);
+	inventory->AddItem(ResourceName::Gold, 6000);
+	gameObject->GetComponent<LightCycle>()->ActivateLight();
 }
 
 void Hub::Update(double dt)

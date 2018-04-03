@@ -24,10 +24,9 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, drone->transform->GetPosition().y, 0));
 
 		Structure * structure;
-		int amount = 100;
+		int amount = task.GetAmount();
 		if (task == TASK_TYPE::REQUEST)
 		{
-			amount = task.GetAmount();
 			structure = task.To();
 		}
 		else {
@@ -46,10 +45,9 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 
 		drone->GetInventory().AddItem(resource, amountCollected);
 
-		if (structure->Contains(resource) == 0 || spaceLeftInDrone == 0)
-		{
-			return true;
-		}
+
+		return true;
+		
 
 		clock.ResetClock();
 	}

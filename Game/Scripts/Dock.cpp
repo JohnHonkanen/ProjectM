@@ -1,6 +1,7 @@
 #include "Dock.h"
 #include "components\MeshRenderer.h"
 #include "TradeShipSpawner.h"
+#include "LightCycle.h"
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -54,6 +55,7 @@ Dock * Dock::Create(int upkeep, int cost, DockName dockName, string nameOfDock)
 void Dock::Copy(GameObject * copyObject)
 {
 	copyObject->AddComponent(Create(upkeep, cost));
+	LightCycle::Create(copyObject);
 }
 
 void Dock::Start()
@@ -72,7 +74,7 @@ void Dock::Update()
 	BufferMarket();
 	MarketDumpTaskee();
 
- 	if (contractIndex == -1 || contractManager->GetContract(contractIndex).GetContractID() != contractID)
+ 	if (contractIndex == -1)
 	{
 		if (dockedShip != nullptr)
 		{
@@ -142,6 +144,20 @@ void Dock::GenerateContractConfiguration()
 	{
 		Contract c = contractManager->GetContract(contractIndex);
 		contractManager->StartContract(contractIndex);
+
+		if (!c.GetStatus())
+		{
+			contractManager->CompleteContract(contractIndex);
+			contractManager->RemoveContract(contractIndex);
+			contractFufilled = true;
+			contractIndex = -1;
+			dockedShip->Return();
+			dockedShip = nullptr;
+			docked = false;
+			task = Task();
+			return;
+		}
+
 		if (!contractFufilled)
 		{
 			int inInventory = inventory.Contains(c.GetResource().GetResouceID());
@@ -160,6 +176,8 @@ void Dock::GenerateContractConfiguration()
 
 			if (potential >= c.GetAmount())
 			{
+				contractManager->CompleteContract(contractIndex);
+				contractManager->RemoveContract(contractIndex);
 				contractFufilled = true;
 				contractIndex = -1;
 
@@ -199,6 +217,7 @@ void Dock::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::COLLECT) {
 		marketTask = v1::TaskSystem::Task();
+		numMarketTask--;
 	}
 	else {
 		if (index == 0) {
@@ -206,6 +225,7 @@ void Dock::TaskCompleted(TASK_TYPE type, int index)
 		}
 		else if(index == 1){
 			marketRequestTask = v1::TaskSystem::Task();
+			numMarketRequestTask--;
 		}
 	}
 }
@@ -239,28 +259,37 @@ int Dock::Deposit(ResourceName resourceName, int resourceAmount, int index)
 
 void Dock::MarketDumpTaskee()
 {
-
-	//Found Contract, now do something
-	if (marketTask == TASK_TYPE::NONE)
+	auto resources = marketDump.Contains();
+	int totalResources = 0;
+	for (auto resource : resources)
 	{
-		auto resources = marketDump.Contains();
+		totalResources += resource.quantity;
+	}
+	maxMarketTask = totalResources / 100;
+	//Found Contract, now do something
+	if (numMarketTask < maxMarketTask)
+	{
 		if (!resources.empty()) {
 			//Configure our task and send it on.
-			marketTask = Task(TASK_TYPE::COLLECT, 90, this, this, resources[0].resource, 0);
+			marketTask = Task(TASK_TYPE::COLLECT, 90, this, this, resources[0].resource, 100);
 			hub->GetTaskManager()->AddTask(marketTask, marketTask.GetPriority());
-
-			}
+			numMarketTask++;
 		}
-
-	//Found Contract, now do something
-	if (marketRequestTask == TASK_TYPE::NONE)
+	}
+	resources = marketRequest.Contains();
+	for (auto resource : resources)
 	{
-		auto resources = marketRequest.Contains();
+		totalResources += resource.quantity;
+	}
+	maxMarketRequestTask = totalResources / 100;
+	//Found Contract, now do something
+	if (numMarketRequestTask < maxMarketRequestTask)
+	{
 		if (!resources.empty()) {
 			//Configure our task and send it on.
 			marketRequestTask = Task(TASK_TYPE::REQUEST, 100, this, nullptr, resources[0].resource, resources[0].quantity, 1);
 			hub->GetTaskManager()->AddTask(marketRequestTask, marketRequestTask.GetPriority());
-
+			numMarketRequestTask--;
 		}
 	}
 }
