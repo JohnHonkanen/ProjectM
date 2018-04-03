@@ -57,8 +57,8 @@ void Dock::Copy(GameObject * copyObject)
 
 void Dock::Start()
 {
-	AddToMarketDump(ResourceName::Chicken, 100);
-	AddToMarketRequest(ResourceName::Chicken, 100);
+	/*AddToMarketDump(ResourceName::Chicken, 100);
+	AddToMarketRequest(ResourceName::Chicken, 100);*/
 }
 
 void Dock::Update()
@@ -279,8 +279,8 @@ void Dock::BufferMarket()
 			if (quantity > quantityNeeded) {
 				quantity = quantityNeeded;
 			}
-			// Ideally:: At this point here, you want to add gold to player economy
-			
+			// Add gold to player economy
+			GameManager::gameManager->marketManager.CompleteTransaction(resource, quantity);
 			marketRequest.Remove(resource, quantity);
 		}
 

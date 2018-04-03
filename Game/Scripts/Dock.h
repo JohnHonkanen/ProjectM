@@ -28,8 +28,8 @@ public:
 	void GenerateLocalMarketConfiguration();
 	void GenerateGalacticMarketConfiguration();
 
-	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump
-	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest
+	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump (BUY FROM MARKET)
+	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest (SELL TO MARKET)
 
 	void TaskCompleted(TASK_TYPE type, int index); //@Override
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override

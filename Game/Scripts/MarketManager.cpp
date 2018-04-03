@@ -2,6 +2,7 @@
 #include "core\GameEngine.h"
 #include "core\InputManager.h"
 #include "utility\Clock.h"
+#include "GameManager.h"
 
 MarketManager::MarketManager()
 {
@@ -159,4 +160,16 @@ void MarketManager::Update()
 vector<LocalMarket*> MarketManager::GetList() const
 {
 	return vector<LocalMarket*>();
+}
+
+void MarketManager::CompleteTransaction(ResourceName resourceName, int amount)
+{
+	if (marketQueue[LOCAL].FindResourceIndex(resourceName) != -1) {
+		marketQueue[LOCAL].CompleteTransaction(resourceName, amount);
+	}
+	else {
+		marketQueue[GALACTIC].CompleteTransaction(resourceName, amount);
+	}
+
+	
 }

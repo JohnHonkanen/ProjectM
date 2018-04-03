@@ -8,6 +8,7 @@
 #include "FunctionPtrButton.h"
 #include "../PlayerEconManager.h"
 #include "../GameManager.h"
+#include "../Dock.h"
 
 class MarketHubPurchaseBinder : public FunctionPtrBinder
 {
@@ -17,32 +18,33 @@ public:
 	void Call() {
 		auto marketList = market->GetResources();
 		auto pEconList = pEcon->GetPlayerEconList();
-
+		Dock* dock = static_cast<Dock*>(GameManager::gameManager->GetHub()->FindNearest(StructureType::DOCK, 0, 0));
 		itemID = this->buttonID;
-
-		/* WIP: Add code to:
-		1) Check if storage space is available + player has enough gold.
-		2) if yes, request resource purchased to be transported to warehouse from marketplace by a drone.
-
-		Waiting on above methods to be developed...
-		*/
-
+		
 		//if resource purchased...
 		if (market->GetItemStock(itemID) <= 100) {
 			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
-			// Check if enough funds available in pEcon to complete purchase
-			if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
-				// Remove gold bars from HUB Inventory + reqiest drone to send
-				pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
-				// if item received at dock...
-				// Adjust price/demand/stock amount of item
-				market->IncreaseBasePriceOf(itemID, 10);
-				market->DecreaseItemStock(itemID, 100);
-				market->IncreaseDemandOf(itemID, 5);
+			if (dock != nullptr) {
+				// Check if enough funds available in pEcon to complete purchase
+				if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+					// Remove gold bars from HUB Inventory + request drone to send
+					pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
 
-				// Request drone to pick up item : WIP
+					dock->AddToMarketDump(market->GetResourceName(itemID), 100);
+					// if item received at dock...
+					// Adjust price/demand/stock amount of item
+					market->IncreaseBasePriceOf(itemID, 10);
+					market->DecreaseItemStock(itemID, 100);
+					market->IncreaseDemandOf(itemID, 5);
+
+					// Request drone to pick up item : WIP
+				}
+			}
+			
+			if (dock == nullptr) {
+				cout << "::ERROR::DOCK_IS_NULL_PTR::" << endl;
 			}
 
 			// If NOT enough funds available in pEcon to complete purchase
@@ -67,15 +69,8 @@ public:
 	void Call() {
 		auto marketList = market->GetResources();
 		auto pEconList = pEcon->GetPlayerEconList();
+		Dock* dock = static_cast<Dock*>(GameManager::gameManager->GetHub()->FindNearest(StructureType::DOCK, 0, 0));
 		itemID = this->buttonID;
-
-		/* WIP: Add code to:
-		1) Check if item and amount is available via the hub.
-		2) if yes, request resource purchased to be transported to market by a drone.
-
-		Waiting on above methods to be developed...
-		*/
-
 
 		// If resource sold...
 
@@ -83,11 +78,11 @@ public:
 			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 		}
 		else {
-			// Add Gold Bars to HUB Inventory
-			pEcon->AddGoldBars(market->GetBasePriceOf(itemID));
-			market->DecreaseBasePriceOf(itemID, 100);
-			market->IncreaseItemStock(itemID, 100);
-			market->DecreaseDemandOf(itemID, 10);
+			if (dock != nullptr) {
+				// request drone to send item to dock
+				dock->AddToMarketRequest(market->GetResourceName(itemID), 100);
+			}
+			
 		}
 	}
 private:
