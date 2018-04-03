@@ -28,7 +28,7 @@ void LightCycle::Update(double dt)
 		return;
 	}
 
-	lightGameObject->transform->SetPosition(gameObject->transform->GetPosition() + vec3(0,30,0));
+	lightGameObject->transform->SetPosition(gameObject->transform->GetPosition() + vec3(0,15,0));
 	LightProperties pointProp;
 	if (GameManager::gameManager->dayNightCycle.GetTime() == TIME::NIGHT)
 	{
