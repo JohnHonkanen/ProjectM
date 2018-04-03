@@ -257,6 +257,21 @@ int Dock::Deposit(ResourceName resourceName, int resourceAmount, int index)
 	return 0;
 }
 
+void Dock::IncreaseTaskNumber(TASK_TYPE type, int index)
+{
+	if (type == TASK_TYPE::COLLECT) {
+		numMarketTask++;
+	}
+	else {
+		if (index == 0) {
+			
+		}
+		else if (index == 1) {
+			numMarketRequestTask++;
+		}
+	}
+}
+
 void Dock::MarketDumpTaskee()
 {
 	auto resources = marketDump.Contains();

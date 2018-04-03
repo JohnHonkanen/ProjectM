@@ -52,7 +52,7 @@ private:
 	class LocalMarket* market;
 	static const int MAX_MARKET_ITEM_SIZE = 9;
 
-	EHUD::TextWidget* text, *rate, *quantity[MAX_MARKET_ITEM_SIZE], *price[MAX_MARKET_ITEM_SIZE];
+	EHUD::TextWidget* text, *rate, *quantity[MAX_MARKET_ITEM_SIZE], *price[MAX_MARKET_ITEM_SIZE], *marketName;
 	EHUD::HUDElement *resourceHUD[MAX_MARKET_ITEM_SIZE];
 	EHUD::WHUDContainer* resourceIcon[MAX_MARKET_ITEM_SIZE];
 	WHUDContainerWrapper marketHUD;

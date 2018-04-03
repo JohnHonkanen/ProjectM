@@ -47,6 +47,7 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 			{
 				Task t = Task(TASK_TYPE::REQUEST, 20, task.From(), nullptr, task.GetResource(), amountLeft);
 				info.controller->GetHub()->GetTaskManager()->AddTask(t, t.GetPriority());
+				t.From()->IncreaseTaskNumber(t.GetType(), t.GetIndex());
 			}
 			return true;
 		}

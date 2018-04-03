@@ -79,45 +79,48 @@ void BuildingController::Update(double dt)
 			{
 				if (!mouseHeld)
 				{
-					Structure *sComp = objectToBuild->GetComponent<Structure>();
-					float tileWidth = float(sComp->GetTileWidth());
+					if (IsInDebt() == false) {
+						Structure *sComp = objectToBuild->GetComponent<Structure>();
+						float tileWidth = float(sComp->GetTileWidth());
 
-					if (FindStructure(coordinates.x, coordinates.y, tileWidth) == nullptr)
-					{
-						GameObject * structure = buildingManager->GetBuilding(structureName);
-						Structure *sComponent = structure->GetComponent<Structure>();
-						structure->GetComponent<LightCycle>()->ActivateLight();
-						mouseHeld = true;
-						sComponent->SetTilePosition(coordinates.x, coordinates.y);
-						sComponent->SetActive(false); //Turn on structures
-						RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);
-						structure->transform->SetPosition(snapPoint);
-						float yTrans = -5.0f;
-						switch (sComponent->GetType())
+						if (FindStructure(coordinates.x, coordinates.y, tileWidth) == nullptr)
 						{
-						case DOCK:
+							GameObject * structure = buildingManager->GetBuilding(structureName);
+							Structure *sComponent = structure->GetComponent<Structure>();
+							structure->GetComponent<LightCycle>()->ActivateLight();
+							mouseHeld = true;
+							sComponent->SetTilePosition(coordinates.x, coordinates.y);
+							sComponent->SetActive(false); //Turn on structures
+							RegisterToNetwork(sComponent, coordinates.x, coordinates.y, tileWidth);
+							structure->transform->SetPosition(snapPoint);
+							float yTrans = -5.0f;
+							switch (sComponent->GetType())
+							{
+							case DOCK:
 								yTrans = -3.5f;
 								sComponent->SetActive(true);
 								break;
-						case FACTORY:
-							yTrans = -8.0f;
-							break;
-						}
-						
-						structure->transform->Translate(vec3(0, yTrans, 0));
-						structure->transform->Rotate(vec3(-90,0,0));
-						structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));
+							case FACTORY:
+								yTrans = -8.0f;
+								break;
+							}
 
-						GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->RemoveGoldBars(sComponent->GetCost());
-						buildMode = false;
+							structure->transform->Translate(vec3(0, yTrans, 0));
+							structure->transform->Rotate(vec3(-90, 0, 0));
+							structure->transform->Scale(vec3(10) * float(sComponent->GetTileWidth()));
+
+							GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->RemoveGoldBars(sComponent->GetCost());
+							buildMode = false;
+						}
+						else {
+							printf("Slot Taken \n");
+						}
 					}
-					else {
-						printf("Slot Taken \n");
+
+					if (IsInDebt() == true) {
+						cout << "::ERROR::PLAYER_IS_IN_DEBT::" << endl;
 					}
-					
-				}
-				
-				
+				}	
 			}
 			else {
 				mouseHeld = false;
@@ -161,6 +164,11 @@ void BuildingController::AddTempObject(GameObject * object)
 PlayerActions * BuildingController::GetPlayerAction()
 {
 	return playerAction;
+}
+
+bool BuildingController::IsInDebt()
+{
+	return GameManager::gameManager->playerEconManager.IsInDebt();;
 }
 
 Structure * BuildingController::FindStructure(float x, float y, float width)

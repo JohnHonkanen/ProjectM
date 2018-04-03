@@ -23,6 +23,7 @@ void MarketHUDElement::Start()
 
 	marketHUD = WHUDContainerWrapper(EHUD::WHUDContainer::Create(this, { -25, 20, 240, 32 }, "Game/Assets/Textures/transparent_black.png", true), this->y);
 	text = EHUD::TextWidget::Create(marketHUD.GetContainer(), { 5, 20, 0, 0 }, "Resources  Quantity   Price", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	//marketHUD = EHUD::TextWidget::Create(marketHUD.GetContainer(), { 5, 20, 0, 0 }, "Resources  Quantity   Price", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	auto marketList = market->GetResources();
 	float increment = 45;
@@ -108,7 +109,7 @@ void MarketHUDElement::GenerateMarketHUDElement(int resourceID, float increment,
 		resourceIcon[resourceID] = EHUD::WHUDContainer::Create(this, { -5, 70 + resourceID * increment, 32, 32 }, resource.GetResourceIcon(), true);
 		quantity[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 100, 25, 0, 0 }, to_string(0), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 		price[resourceID] = EHUD::TextWidget::Create(resourceHUD[resourceID], { 185, 25, 0, 0 }, to_string(5), "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
-
+		
 }
 
 void MarketHUDElement::GenerateKSuffix(int resourceID)

@@ -23,6 +23,8 @@ public:
 	class PlayerActions *GetPlayerAction();
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;
+
+	bool IsInDebt();  // Gets player debt status from player economy.
 private:
 	Structure * FindStructure(float x, float y, float width);
 	void RegisterToNetwork(Structure * s, float x, float y, float width);

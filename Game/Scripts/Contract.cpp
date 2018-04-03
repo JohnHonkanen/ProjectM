@@ -168,9 +168,8 @@ int Contract::IncreaseCurrent(int amountToIncrease)
 	else {
 		// Calculate value of amount delivered + add to player economy + adjust contract current.
 		int amountDelivered = GetResource().GetBasePrice() * amountToIncrease;
-		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(amountDelivered);
-		
 		this->current += amountToIncrease;
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(amountDelivered);
 		return SetCurrent(this->current);
 	}
 }

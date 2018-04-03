@@ -7,12 +7,8 @@
 #include <queue>
 #include "Drone.h"
 #include "LightCycle.h"
-struct Slot
-{
-	StructureType type;
-	int x, y;
-	class Structure *structure;
-};
+
+
 
 Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 {
@@ -233,6 +229,8 @@ void Hub::OnLoad()
 
 void Hub::Start()
 {
+	inventory->AddItem(ResourceName::Gold, 3000);
+	//SetDebt(1000);
 	inventory->AddItem(ResourceName::Gold, 6000);
 	gameObject->GetComponent<LightCycle>()->ActivateLight();
 }
@@ -245,8 +243,20 @@ void Hub::Update(double dt)
 
 	if (timer.Alarm())
 	{
+		int goldAmount = inventory->Contains(ResourceName::Gold);
 		int upkeep = CalculateUpkeep();
-		inventory->Remove(ResourceName::Gold, upkeep);
+		int difference = 0;
+
+		if (upkeep > goldAmount) {
+			difference = upkeep - goldAmount;
+			AdjustDebt(difference);
+		}
+
+		if (goldAmount > 0) {
+			inventory->Remove(ResourceName::Gold, upkeep);
+			SetDebt(0);
+		}
+		
 		timer.ResetClock();
 	}
 }
@@ -341,12 +351,11 @@ void Hub::CreateDrone()
 		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
 		dronePrefabComp->IncreaseUpkeep(1);
 	}
-
 }
 
 int Hub::GetGold()
 {
-	return inventory->Contains(ResourceName::Gold);
+	return inventory->Contains(ResourceName::Gold) - GetDebt();
 }
 
 int Hub::GetDroneCost()
@@ -362,6 +371,26 @@ int Hub::GetDroneUpkeep()
 int Hub::GetBuildingUpkeep()
 {
 	return upkeepBuilding;
+}
+
+int Hub::GetDebt()
+{
+	return this->debt;
+}
+
+void Hub::SetDebt(int amount)
+{
+	this->debt = amount;
+}
+
+void Hub::AdjustDebt(int amount)
+{
+	this->debt += amount;
+}
+
+std::vector<Slot> Hub::GetAllBuildingInNetwork()
+{
+	return networkList;
 }
 
 void Hub::TallyResource()

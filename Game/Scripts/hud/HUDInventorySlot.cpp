@@ -30,10 +30,16 @@ void HUDInventorySlot::DrawWidget(unsigned int shader)
 	icon->ChangeImage(iconImage);
 	if (quantity > 0)
 	{
-		float q =(quantity / 1000.0f);
-		std::stringstream ss;
-		ss << std::fixed << std::setprecision(2) << q;
-		quantityText->text = ss.str() + "K";
+		if (quantity > 1000) {
+			float q = (quantity / 1000.0f);
+			std::stringstream ss;
+			ss << std::fixed << std::setprecision(2) << q;
+			quantityText->text = ss.str() + "K";
+		}
+		else {
+			quantityText->text = to_string(quantity);
+		}
+		
 	}
 	else
 	{

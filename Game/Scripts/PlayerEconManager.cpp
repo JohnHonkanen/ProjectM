@@ -1,4 +1,7 @@
 #include "PlayerEconManager.h"
+#include "GameManager.h"
+#include "core\GameEngine.h"
+#include "Production.h"
 
 PlayerEconManager::PlayerEconManager()
 {
@@ -62,12 +65,20 @@ void PlayerEconManager::OnLoad()
 
 void PlayerEconManager::Update()
 {
-	
+	clock.UpdateClock();
 
+	if (clock.Alarm()) {
+		GetCurrentGoldAmountIn(GetHUBInventory());
+		CheckIfPlayerInDebt();
+
+		clock.ResetClock();
+	}
 }
 
 void PlayerEconManager::Start()
 {
+	clock.SetDelay(1000);
+	clock.StartClock();
 	econList.resize(1);
 	AddEconomy(EconName::Player_Econ, "playerEcon");
 }
@@ -75,6 +86,102 @@ void PlayerEconManager::Start()
 void PlayerEconManager::SetHUBInventory(v2::Inventory * HUBInventory)
 {
 	this->HUBInventory = HUBInventory;
+}
+
+v2::Inventory* PlayerEconManager::GetHUBInventory()
+{
+	return this->HUBInventory;
+}
+
+int PlayerEconManager::GetCurrentGoldAmountIn(v2::Inventory * inventory)
+{
+	return GetHUBInventory()->Contains(ResourceName::Gold);
+}
+
+int PlayerEconManager::GetCurrentDebtAmount()
+{
+	return GameManager::gameManager->GetHub()->GetDebt();
+}
+
+void PlayerEconManager::AddInterestToDebt(int amount)
+{
+	return GameManager::gameManager->GetHub()->AdjustDebt(amount);
+}
+
+void PlayerEconManager::CheckIfPlayerInDebt()
+{
+	// Check if in debt first
+	IsInDebt();
+
+	if (IsInDebt() == true) {
+		ReduceProductionLevel();
+		AdjustInterest(CalculateInterest());
+		AddInterestToDebt(GetInterest());
+	}
+
+	if (IsInDebt() == false) {
+		SetInterest(0);
+	}
+}
+
+bool PlayerEconManager::IsInDebt()
+{
+	// If in debt
+	if (GetCurrentDebtAmount() > 0) {
+		
+		return this->inDept = true;
+	}
+
+	// If player is not in debt
+	if (GetCurrentDebtAmount() == 0) {
+
+		return this->inDept = false;
+	}
+}
+
+void PlayerEconManager::AdjustInterest(int amount)
+{
+	this->interestAmount = amount;
+}
+
+int PlayerEconManager::CalculateInterest()
+{
+	int calculatedInterest = GetCurrentDebtAmount() * defaultInterestPercentage;
+
+	if (GetCurrentDebtAmount() >= 1000) {
+		return calculatedInterest;
+	}
+	return 0;
+}
+
+int PlayerEconManager::GetInterest()
+{
+	return this->interestAmount;
+}
+
+void PlayerEconManager::SetInterest(int amount)
+{
+	this->interestAmount = amount;
+}
+
+void PlayerEconManager::ReduceProductionLevel()
+{
+	// Get all buildings in the network via the hub
+	auto slots = GameManager::gameManager->GetHub()->GetAllBuildingInNetwork();
+	
+	for (auto &slot : slots) {
+		// Get all factory + dome in network
+		if (slot.structure->GetType() == StructureType::DOME || StructureType::FACTORY) {
+			// Set strucutre level to one
+		
+			Production* production = static_cast<Production*>(slot.structure);
+			int efficiencyLevel = production->GetProductionEfficiency();
+
+			for (int i = 0; i < efficiencyLevel; i++) {
+				production->DecreaseLevel();
+			}
+		}
+	}
 }
 
 vector<PlayerEconomy*> PlayerEconManager::GetList() const
