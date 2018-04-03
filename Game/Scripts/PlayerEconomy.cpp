@@ -1,5 +1,6 @@
 #include "PlayerEconomy.h"
 #include "PlayerEconManager.h"
+#include "GameManager.h"
 
 PlayerEconomy::PlayerEconomy()
 {
@@ -38,7 +39,9 @@ void PlayerEconomy::GiveGoldBars(int amountToGive)
 
 void PlayerEconomy::AddGoldBars(int goldBars)
 {
-	playerEconManager->HUBInventory->AddItem(ResourceName::Gold, goldBars);
+	int debt = GameManager::gameManager->playerEconManager.GetCurrentDebtAmount();
+
+	playerEconManager->HUBInventory->AddItem(ResourceName::Gold, goldBars - debt);
 	playerEconManager->HUBInventory->CheckStorageFull(ResourceName::Gold);
 }
 
