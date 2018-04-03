@@ -28,6 +28,9 @@ public:
 	void Start();
 
 	void SetHUBInventory(v2::Inventory* HUBInventory);
+	v2::Inventory* GetHUBInventory(); // Get Hub inventory
+
+	int GetCurrentGoldAmountIn(v2::Inventory* inventory); // Get current gold amount in the inventory
 	
 	v2::Inventory* HUBInventory;
 	vector <PlayerEconomy*> GetList() const;

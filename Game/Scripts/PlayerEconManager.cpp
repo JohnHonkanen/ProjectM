@@ -62,7 +62,7 @@ void PlayerEconManager::OnLoad()
 
 void PlayerEconManager::Update()
 {
-	
+	GetCurrentGoldAmountIn(GetHUBInventory());
 
 }
 
@@ -75,6 +75,16 @@ void PlayerEconManager::Start()
 void PlayerEconManager::SetHUBInventory(v2::Inventory * HUBInventory)
 {
 	this->HUBInventory = HUBInventory;
+}
+
+Inventory* PlayerEconManager::GetHUBInventory()
+{
+	return this->HUBInventory;
+}
+
+int PlayerEconManager::GetCurrentGoldAmountIn(v2::Inventory * inventory)
+{
+	return GetHUBInventory()->Contains(ResourceName::Gold);
 }
 
 vector<PlayerEconomy*> PlayerEconManager::GetList() const
