@@ -6,6 +6,7 @@
 #include "hud\HUDCanvas.h"
 #include "..\Hub.h"
 #include "FunctionPtrButton.h"
+#include "../GameManager.h"
 
 class HubDroneBinder : public FunctionPtrBinder
 {
@@ -50,6 +51,7 @@ void HubHUD::OnLoad()
 	goldCounter = EHUD::TextWidget::Create(wrapper, { 580, 32, 0, 0 }, to_string(hub->GetGold()), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(1, 1, 1));
 	buildingUpkeep = EHUD::TextWidget::Create(statBox, { 20, 30, 0, 0 }, "Building Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
 	droneUpkeep = EHUD::TextWidget::Create(statBox, { 20, 60, 0, 0 }, "Drone Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
+	playerDebtInterest = EHUD::TextWidget::Create(statBox, {20, 90, 0, 0}, "Debt Interest: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
 	totalUpkeep = EHUD::TextWidget::Create(statBox, { 20, 280, 0, 0 }, "Total Upkeep: " + to_string(0), "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 24, 1, vec3(0));
 
 	WidgetToggleButton::Create(root, { 1170, 610, 100, 100 }, "Game/Assets/Textures/hub.png", wrapper);
@@ -89,6 +91,8 @@ void HubHUD::Update()
 	droneCost->text = to_string(hub->GetDroneCost());
 	buildingUpkeep->text = "Buildings Upkeep: " + to_string(hub->GetBuildingUpkeep());
 	droneUpkeep->text = "Drones Upkeep: " + to_string(hub->GetDroneUpkeep());
+	playerDebtInterest->text = "Debt Interest: " + to_string(GameManager::gameManager->playerEconManager.GetInterest());
+
 	totalUpkeep->text = "Total Upkeep: " + to_string(hub->GetBuildingUpkeep() + hub->GetDroneUpkeep());
 }
 

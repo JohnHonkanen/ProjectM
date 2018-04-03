@@ -4,6 +4,7 @@
 #include <vector>
 #include "../ResourceManager.h"
 #include "WidgetToggleButton.h"
+
 namespace Engine
 {
 	namespace HUD
@@ -26,6 +27,7 @@ public:
 	void Update();
 
 	void CreateSlot();
+
 private:
 	class Hub* hub;
 	ResourceManager *resourceManager;
@@ -39,7 +41,9 @@ private:
 	EHUD::TextWidget *droneCost;
 	EHUD::TextWidget *droneUpkeep;
 	EHUD::TextWidget *buildingUpkeep;
+	EHUD::TextWidget *playerDebtInterest;
 	EHUD::TextWidget *totalUpkeep;
+	
 
 	std::vector<HUDInventorySlot *> inventoryDisplay;
 
