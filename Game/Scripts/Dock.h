@@ -19,8 +19,8 @@ public:
 	vec3 ParkingLocation();
 private:
 	ContractManager * contractManager;
-	Contract *contract;
 	int contractID;
+	int contractIndex;
 	const Hub * hub;
 	bool contractFufilled = true;
 

@@ -21,6 +21,7 @@ Dock * Dock::Create(int upkeep, int cost)
 	d->isActive = false;
 	d->upkeep = upkeep;
 	d->cost = cost;
+	d->contractIndex = -1;
 
 	d->timer.StartClock();
 	d->timer.SetDelay(1000);
@@ -44,7 +45,7 @@ void Dock::Update()
 		return;
 	}
 
- 	if (contract == nullptr || contract->GetContractID() != contractID)
+ 	if (contractIndex == -1 || contractManager->GetContract(contractIndex).GetContractID() != contractID)
 	{
 		if (dockedShip != nullptr)
 		{
@@ -53,21 +54,17 @@ void Dock::Update()
 			docked = false;
 		}
 		//Scan for Contract
-		contract = &contractManager->GetFirstAvailable();
+		int index = contractManager->GetFirstAvailable();
 
-		if (contract->GetDifficulty() != -1)
+		if (index != -1)
 		{
 			inventory.Clear();
 			task = Task();
 			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
-			contractID = contract->GetContractID();
+			contractIndex = index;
+			contractID = contractManager->GetContract(index).GetContractID();
 		}
-		else {
-			contract = nullptr;
-		}
-
-		
 
 		return;
 	}
@@ -75,8 +72,9 @@ void Dock::Update()
 	//Found Contract, now do something
 	if (task == TASK_TYPE::NONE && contractFufilled)
 	{
+		Contract c = contractManager->GetContract(contractIndex);
 		//Configure our task and send it on.
-		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, contract->GetResource().GetResouceID(), contract->GetAmount());
+		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, c.GetResource().GetResouceID(), c.GetAmount());
 		hub->GetTaskManager()->AddTask(task, task.GetPriority());
 
 		contractFufilled = false;
@@ -84,9 +82,11 @@ void Dock::Update()
 
 	if (dockedShip)
 	{
+		Contract c = contractManager->GetContract(contractIndex);
+		contractManager->StartContract(contractIndex);
 		if (!contractFufilled)
 		{
-			int inInventory = inventory.Contains(contract->GetResource().GetResouceID());
+			int inInventory = inventory.Contains(c.GetResource().GetResouceID());
 
 			//Nothing to do
 			if (inInventory == 0)
@@ -94,16 +94,16 @@ void Dock::Update()
 				return;
 			}
 
-			int potential = contract->GetCurrent() + inInventory;
+			int potential = c.GetCurrent() + inInventory;
 
 
-			contract->IncreaseCurrent(inInventory);
-			inventory.Remove(contract->GetResource().GetResouceID(), inInventory);
+			contractManager->IncreaseContractCurrent(contractIndex, inInventory);
+			inventory.Remove(c.GetResource().GetResouceID(), inInventory);
 
-			if (potential >= contract->GetAmount())
+			if (potential >= c.GetAmount())
 			{
 				contractFufilled = true;
-				contract = nullptr;
+				contractIndex = -1;
 
 				task = Task();
 				//Flush Inventory of Junk
