@@ -83,7 +83,7 @@ void ProductionButton::Start()
 	EventRegistration();
 	RegisterToEvents();
 
-	containerDome = EHUD::WHUDContainer::Create(root, { 310,0,210,280 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
+	containerDome = EHUD::WHUDContainer::Create(root, { 310,0,210,210 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	containerDome->SetActive(false);
 	resourceListDome.push_back(ProductionSetterButton::Create(root, { 330,20,50,50 }, "", nullptr, ResourceName::SpaceCow));
 	resourceListDome.push_back(ProductionSetterButton::Create(root, { 390,20,50,50 }, "", nullptr, ResourceName::Chicken));

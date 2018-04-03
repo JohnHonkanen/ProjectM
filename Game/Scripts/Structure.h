@@ -65,6 +65,7 @@ public:
 	int  GetProductionEfficiency();						//
 	int  GetRadiationOutput();							//
 	int GetUpkeep() { return upkeep; }					// returns the buildings gold upkeep
+	int GetInitialUpkeep() { return initialUpkeep; }	// returns the buildings initialized upkeep
 	int GetCost() { return cost; }
 	bool GetPlaced();									//
 	bool GetActive();									//
@@ -79,7 +80,7 @@ public:
 	void setPowerUsage(int change);						//Changes building power usage
 	void SetProductionEfficiency(int change);			//Changes buildings
 	void SetRadiationOutput(int change);				//
-	bool SetUpkeep(int change);							//Used when adjusting the buildings upkeep when using prod ui
+	void SetUpkeep(int change);							//Used when adjusting the buildings upkeep when using prod ui
 	void SetPlaced(bool change);						//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);

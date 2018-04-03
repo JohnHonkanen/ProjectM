@@ -61,6 +61,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->powerUsage = Production::powerUsage;
 	copy->productionEfficiency = Production::productionEfficiency;
 	copy->upkeep = Production::upkeep;
+	copy->initialUpkeep = Production::upkeep;
 	copy->cost = cost;
 	copy->radiationOutput = Production::radiationOutput;
 	copy->isPlaced = Production::isPlaced;
@@ -91,9 +92,15 @@ void Production::OnLoad()
 void Production::DomeProduction()
 {
 	int availableSpace = inventory.CheckStorageFull(producing);
+	Resources* r = resourceManager->Find(producing);
+	int productionAmount = floor((r->GetProductionRate())*productionEfficiency);
+	if (productionAmount > availableSpace) {
+		productionAmount = availableSpace;
+	}
+	if (productionAmount == 0) {
+		return;
+	}
 	if (isProducing && availableSpace > 0) {
-		Resources* r = resourceManager->Find(producing);
-		int productionAmount = floor((r->GetProductionRate())*productionEfficiency);
 		inventory.AddItem(producing, productionAmount);
 		billboard->Spawn();
 	}
@@ -217,6 +224,22 @@ void Production::TaskCompleted(TASK_TYPE type)
 	}
 	else {
 		task = v1::TaskSystem::Task();
+	}
+}
+
+void Production::IncreaseLevel()
+{
+	if (isActive && productionEfficiency < 9) {
+		productionEfficiency = productionEfficiency++;
+		upkeep = upkeep * 2;
+	}
+}
+
+void Production::DecreaseLevel()
+{
+	if (isActive && productionEfficiency > 1) {
+		productionEfficiency = productionEfficiency--;
+		upkeep = upkeep * 0.5;
 	}
 }
 
