@@ -215,6 +215,7 @@ void Dock::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::COLLECT) {
 		marketTask = v1::TaskSystem::Task();
+		numMarketTask--;
 	}
 	else {
 		if (index == 0) {
@@ -222,6 +223,7 @@ void Dock::TaskCompleted(TASK_TYPE type, int index)
 		}
 		else if(index == 1){
 			marketRequestTask = v1::TaskSystem::Task();
+			numMarketRequestTask--;
 		}
 	}
 }
@@ -255,28 +257,37 @@ int Dock::Deposit(ResourceName resourceName, int resourceAmount, int index)
 
 void Dock::MarketDumpTaskee()
 {
-
-	//Found Contract, now do something
-	if (marketTask == TASK_TYPE::NONE)
+	auto resources = marketDump.Contains();
+	int totalResources = 0;
+	for (auto resource : resources)
 	{
-		auto resources = marketDump.Contains();
+		totalResources += resource.quantity;
+	}
+	maxMarketTask = totalResources / 100;
+	//Found Contract, now do something
+	if (numMarketTask < maxMarketTask)
+	{
 		if (!resources.empty()) {
 			//Configure our task and send it on.
-			marketTask = Task(TASK_TYPE::COLLECT, 90, this, this, resources[0].resource, 0);
+			marketTask = Task(TASK_TYPE::COLLECT, 90, this, this, resources[0].resource, 100);
 			hub->GetTaskManager()->AddTask(marketTask, marketTask.GetPriority());
-
-			}
+			numMarketTask++;
 		}
-
-	//Found Contract, now do something
-	if (marketRequestTask == TASK_TYPE::NONE)
+	}
+	resources = marketRequest.Contains();
+	for (auto resource : resources)
 	{
-		auto resources = marketRequest.Contains();
+		totalResources += resource.quantity;
+	}
+	maxMarketRequestTask = totalResources / 100;
+	//Found Contract, now do something
+	if (numMarketRequestTask < maxMarketRequestTask)
+	{
 		if (!resources.empty()) {
 			//Configure our task and send it on.
 			marketRequestTask = Task(TASK_TYPE::REQUEST, 100, this, nullptr, resources[0].resource, resources[0].quantity, 1);
 			hub->GetTaskManager()->AddTask(marketRequestTask, marketRequestTask.GetPriority());
-
+			numMarketRequestTask--;
 		}
 	}
 }

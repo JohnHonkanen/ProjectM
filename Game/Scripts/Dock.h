@@ -55,4 +55,9 @@ private:
 	DockName dockName;
 	//Debug timer
 	Engine::Utility::Clock timer;
+
+	int numMarketTask = 0;
+	int maxMarketTask = 1;
+	int numMarketRequestTask = 0;
+	int maxMarketRequestTask = 1;
 };

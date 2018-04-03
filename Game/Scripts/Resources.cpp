@@ -79,13 +79,15 @@ void Resources::SetBasePrice(int basePrice)
 
 void Resources::IncreaseItemBasePrice(int amount)
 {
-	int randomAmount = rand() % amount + 1;
+	amount = max(1, amount);
+	int randomAmount = rand() % amount;
 	IncreaseItemPrice(randomAmount);
 }
 
 void Resources::DecreaseItemBasePrice(int amount)
 {
-	int randomAmount = rand() % amount + 1;
+	amount = max(1, amount);
+	int randomAmount = rand() % amount;
 	DecreaseItemPrice(randomAmount);
 
 	if (GetBasePrice() > 3000) {
@@ -177,9 +179,9 @@ int Resources::GetDemand()
 void Resources::IncreaseDemand(int demand)
 {
 	int randomInt = rand() % 100;
-
+	demand = max(1, demand);
 	if (randomInt > 80) {
-		int newDemand = GetDemand() + (rand() % demand + 1);
+		int newDemand = GetDemand() + (rand() % demand );
 		this->demand += newDemand;
 	}
 
@@ -191,9 +193,9 @@ void Resources::IncreaseDemand(int demand)
 void Resources::DecreaseDemand(int demand)
 {
 	int randomInt = rand() % 100;
-
+	demand = max(1, demand);
 	if (randomInt > 50) {
-		int newDemand = GetDemand() + (rand() % demand + 1);
+		int newDemand = GetDemand() + (rand() % demand);
 		this->demand -= newDemand;
 	}
 
