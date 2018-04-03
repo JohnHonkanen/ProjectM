@@ -69,6 +69,7 @@ public:
 	void Call() {
 		auto marketList = market->GetResources();
 		auto pEconList = pEcon->GetPlayerEconList();
+		auto resourceList = GameManager::gameManager->GetHub()->GetResourceInNetwork();
 		Dock* dock = static_cast<Dock*>(GameManager::gameManager->GetHub()->FindNearest(StructureType::DOCK, 0, 0));
 		itemID = this->buttonID;
 
@@ -80,7 +81,14 @@ public:
 		else {
 			if (dock != nullptr) {
 				// request drone to send item to dock
-				dock->AddToMarketRequest(market->GetResourceName(itemID), 100);
+				if (resourceList[market->GetResourceName(itemID)] >= 100) {
+					dock->AddToMarketRequest(market->GetResourceName(itemID), 100);
+				}
+				else {
+					// Alert 
+					cout << "ERROR::NOT_ENOUGH_RESOURCE_IN_NETWORK::" << endl;
+				}
+				
 			}
 			
 		}
