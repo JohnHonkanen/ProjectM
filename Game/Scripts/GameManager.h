@@ -7,6 +7,7 @@
 #include "MarketManager.h"
 #include "Hub.h"
 #include "RecipeManager.h"
+#include "DayNightCycle.h"
 
 class GameManager : public Behaviour
 {
@@ -17,6 +18,7 @@ public:
 	void OnLoad();
 	void Start();
 	void Update();
+	void Update(double dt);
 
 	void SetHub(Hub *hub);
 	Hub * GetHub() const;
@@ -31,7 +33,7 @@ public:
 	PlayerEconManager playerEconManager;
 	MarketManager marketManager;
 	RecipeManager recipeManager;
-
+	DayNightCycle dayNightCycle;
 	static GameManager *gameManager;
 private:
 	Hub * hub;

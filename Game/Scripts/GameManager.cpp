@@ -27,6 +27,7 @@ void GameManager::OnLoad()
 	marketManager.OnLoad();
 	recipeManager.OnLoad();
 	GameEngine::manager.shaderManager.CreateShader("billboard", "Game/Shaders/billboard.vert", "Game/Shaders/billboard.frag");
+	dayNightCycle.OnLoad();
 }
 
 void GameManager::Start()
@@ -48,6 +49,13 @@ void GameManager::Update()
 	contractManager.Update();
 	playerEconManager.Update();
 	marketManager.Update();
+}
+
+void GameManager::Update(double dt)
+{
+	dt = dt / 1000;
+
+	dayNightCycle.Update(dt);
 }
 
 void GameManager::SetHub(Hub * in_hub)

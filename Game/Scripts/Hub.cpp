@@ -6,6 +6,7 @@
 #include "GameManager.h"
 #include <queue>
 #include "Drone.h"
+#include "LightCycle.h"
 struct Slot
 {
 	StructureType type;
@@ -26,6 +27,8 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 	h->inventory->SetMode(v2::Inventory::WHITELIST);
 	h->tileWidth = 10;
 	gameManager->playerEconManager.SetHUBInventory(h->inventory);
+
+	LightCycle::Create(gameObject);
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
@@ -231,6 +234,7 @@ void Hub::OnLoad()
 void Hub::Start()
 {
 	inventory->AddItem(ResourceName::Gold, 6000);
+	gameObject->GetComponent<LightCycle>()->ActivateLight();
 }
 
 void Hub::Update(double dt)

@@ -7,6 +7,7 @@ Dev: Greg Smith (B00308929)
 #include "Production.h"
 #include "utility\Clock.h"
 #include "GameManager.h"
+#include "LightCycle.h"
 
 using namespace std;
 
@@ -50,6 +51,7 @@ Production * Production::Create(string name, StructureType typ, int hp, int pow,
 	}
 	p->inventory.SetResourceManager(resourceMan);
 	p->cost = cost;
+
 	return p;
 }
 
@@ -75,6 +77,7 @@ void Production::Copy(GameObject * copyObject)
 	copy->inventoryOutput = v2::Inventory(1);
 	copy->inventory.SetResourceManager(resourceManager);
 	copy->inventoryOutput.SetResourceManager(resourceManager);
+	LightCycle::Create(copyObject);
 	copyObject->AddComponent(copy);
 }
 

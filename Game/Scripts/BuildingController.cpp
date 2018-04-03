@@ -4,6 +4,7 @@
 #include "PlayerActions.h"
 #include "DroneProducer.h"
 #include "GameManager.h"
+#include "LightCycle.h"
 BuildingController::~BuildingController()
 {
 }
@@ -85,6 +86,7 @@ void BuildingController::Update(double dt)
 					{
 						GameObject * structure = buildingManager->GetBuilding(structureName);
 						Structure *sComponent = structure->GetComponent<Structure>();
+						structure->GetComponent<LightCycle>()->ActivateLight();
 						mouseHeld = true;
 						sComponent->SetTilePosition(coordinates.x, coordinates.y);
 						sComponent->SetActive(false); //Turn on structures

@@ -1,6 +1,7 @@
 #include "Dock.h"
 #include "components\MeshRenderer.h"
 #include "TradeShipSpawner.h"
+#include "LightCycle.h"
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -54,6 +55,7 @@ Dock * Dock::Create(int upkeep, int cost, DockName dockName, string nameOfDock)
 void Dock::Copy(GameObject * copyObject)
 {
 	copyObject->AddComponent(Create(upkeep, cost));
+	LightCycle::Create(copyObject);
 }
 
 void Dock::Start()
