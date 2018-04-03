@@ -175,26 +175,20 @@ void ContractManager::Start()
 	}
 }
 
-Contract &ContractManager::GetFirstAvailable() 
+int ContractManager::GetFirstAvailable()
 {
-	bool completed = true;
+
 	for (int i = 0; i < listOfContract.size(); i++)
 	{
-		if (listOfContract[i].GetStatus() == true) {
-			if (!listOfContract[i].GetTaken())
-			{
-				listOfContract[i].SetTaken(true);
-				return listOfContract[i];
-			}
+		if (!listOfContract[i].GetTaken())
+		{
+			listOfContract[i].SetTaken(true);
+			return i;
 		}
-		
 	}
 
-	if (completed) {
-		cout << "ERROR::GETFIRSTAVAILABLE::CONTRACT::ISCOMPLETED" << endl;
-		Contract failedContract = Contract();
-		return failedContract;
-	}
+	return -1;
+
 }
 
 ContractName ContractManager::GetContractName()
@@ -231,6 +225,21 @@ Contract &ContractManager::FindContract(ContractName contractName, int contractI
 		break;
 	}
 	
+}
+
+Contract ContractManager::GetContract(int index)
+{
+	return listOfContract[index];
+}
+
+void ContractManager::StartContract(int index)
+{
+	listOfContract[index].StartTime();
+}
+
+void ContractManager::IncreaseContractCurrent(int index, int amount)
+{
+	listOfContract[index].IncreaseCurrent(amount);
 }
 
 vector<Contract> ContractManager::GetList()
