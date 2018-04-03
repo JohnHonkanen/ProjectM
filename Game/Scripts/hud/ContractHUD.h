@@ -27,11 +27,13 @@ public:
 	void Update();
 
 	void Input();
+	void GenerateTitleOfHUD();
 
 private:
 	/*HUD elements*/
 	EHUD::HUDCanvas* root;
 	EHUD::HUDElement* wrapper;
+	EHUD::TextWidget* contractTitle;
 
 	//class ContractHUDElement* CHElement, *CHElement2, *CHElement3;
 	int count = 0;
