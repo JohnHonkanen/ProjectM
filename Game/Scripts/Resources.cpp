@@ -88,8 +88,8 @@ void Resources::DecreaseItemBasePrice(int amount)
 	int randomAmount = rand() % amount + 1;
 	DecreaseItemPrice(randomAmount);
 
-	if (GetBasePrice() > 2000) {
-		DecreaseItemPrice(GetBasePrice() / 3);
+	if (GetBasePrice() > 3000) {
+		DecreaseItemPrice(GetBasePrice() / 30);
 	}
 }
 
