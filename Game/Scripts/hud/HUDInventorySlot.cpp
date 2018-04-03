@@ -17,8 +17,9 @@ void HUDInventorySlot::Start()
 {
 	iconWrapper = EHUD::WHUDContainer::Create(this, { 0,0,rect.width,rect.height }, bgImage, false);
 	icon = EHUD::WHUDContainer::Create(iconWrapper, { 5,5,rect.width -10 ,rect.height -10 }, "", false);
-	quantityText = EHUD::TextWidget::Create(iconWrapper, { 7.5, rect.height - 10, 0, 0 }, "",
-		"Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 12, 1, vec3(0, 0, 0));
+	bar = EHUD::WHUDContainer::Create(iconWrapper, { 0, rect.height - 20, rect.width, 20 }, "Game/Assets/Textures/transparent_black.png", false);
+	quantityText = EHUD::TextWidget::Create(iconWrapper, { 7.5, rect.height - 5, 0, 0 }, "",
+		"Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 12, 1, vec3(1, 1, 1));
 }
 
 void HUDInventorySlot::DrawWidget(unsigned int shader)
@@ -30,6 +31,7 @@ void HUDInventorySlot::DrawWidget(unsigned int shader)
 	icon->ChangeImage(iconImage);
 	if (quantity > 0)
 	{
+		bar->SetActive(true);
 		if (quantity > 1000) {
 			float q = (quantity / 1000.0f);
 			std::stringstream ss;
@@ -43,6 +45,7 @@ void HUDInventorySlot::DrawWidget(unsigned int shader)
 	}
 	else
 	{
+		bar->SetActive(false);
 		quantityText->text = "";
 	}
 }

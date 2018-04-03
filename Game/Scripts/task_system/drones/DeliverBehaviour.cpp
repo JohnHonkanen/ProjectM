@@ -42,13 +42,17 @@ bool v1::TaskSystem::DeliverBehaviour::Run(double dt)
 		{
 			boxObj->transform->SetPosition(vec3(0, -10, 0));
 			//Check if Task is Completed
-			int amountLeft = task.HasLeft();
-			if (amountLeft > 0)
+			if (task.GetType() == TASK_TYPE::REQUEST)
 			{
-				Task t = Task(TASK_TYPE::REQUEST, 20, task.From(), nullptr, task.GetResource(), amountLeft);
-				info.controller->GetHub()->GetTaskManager()->AddTask(t, t.GetPriority());
-				t.From()->IncreaseTaskNumber(t.GetType(), t.GetIndex());
+				int amountLeft = task.HasLeft();
+				if (amountLeft > 0)
+				{
+					Task t = Task(TASK_TYPE::REQUEST, 20, task.From(), nullptr, task.GetResource(), amountLeft);
+					info.controller->GetHub()->GetTaskManager()->AddTask(t, t.GetPriority());
+					t.From()->IncreaseTaskNumber(t.GetType(), t.GetIndex());
+				}
 			}
+			
 			return true;
 		}
 

@@ -22,6 +22,7 @@ private:
 	EHUD::WHUDContainer * iconWrapper;
 	EHUD::WHUDContainer * icon;
 	EHUD::TextWidget * quantityText;
+	EHUD::HUDElement *bar;
 
 	int quantity;
 	string bgImage;

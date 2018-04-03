@@ -61,4 +61,6 @@ private:
 	int maxMarketTask = 1;
 	int numMarketRequestTask = 0;
 	int maxMarketRequestTask = 1;
+	int numTask = 0;
+	int maxTask = 1;
 };
