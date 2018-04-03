@@ -24,16 +24,16 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, drone->transform->GetPosition().y, 0));
 
 		Structure * structure;
-
+		int amount = 100;
 		if (task == TASK_TYPE::REQUEST)
 		{
+			amount = task.GetAmount();
 			structure = task.To();
 		}
 		else {
 			structure = task.From();
 		}
 		ResourceName resource = task.GetResource();
-		int amount = 200;
 		int spaceLeftInDrone = drone->GetInventory().CheckStorageFull(resource);
 
 		if (spaceLeftInDrone < amount)

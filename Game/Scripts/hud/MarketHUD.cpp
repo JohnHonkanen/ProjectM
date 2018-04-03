@@ -21,35 +21,37 @@ public:
 		Dock* dock = static_cast<Dock*>(GameManager::gameManager->GetHub()->FindNearest(StructureType::DOCK, 0, 0));
 		itemID = this->buttonID;
 		
-		//if resource purchased...
-		if (market->GetItemStock(itemID) <= 100) {
-			cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
-		}
-		else {
-			if (dock != nullptr) {
-				// Check if enough funds available in pEcon to complete purchase
-				if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
-					// Remove gold bars from HUB Inventory + request drone to send
-					pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
+		if (marketHud->GetWrapper()->IsActive()) {
+			//if resource purchased...
+			if (market->GetItemStock(itemID) <= 100) {
+				cout << "Insufficient amount of: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
+			}
+			else {
+				if (dock != nullptr) {
+					// Check if enough funds available in pEcon to complete purchase
+					if (pEcon->GetGBAmount() > market->GetBasePriceOf(itemID)) {
+						// Remove gold bars from HUB Inventory + request drone to send
+						pEcon->RemoveGoldBars(market->GetBasePriceOf(itemID));
 
-					dock->AddToMarketDump(market->GetResourceName(itemID), 100);
-					// if item received at dock...
-					// Adjust price/demand/stock amount of item
-					market->IncreaseBasePriceOf(itemID, 10);
-					market->DecreaseItemStock(itemID, 100);
-					market->IncreaseDemandOf(itemID, 5);
+						dock->AddToMarketDump(market->GetResourceName(itemID), 100);
+						// if item received at dock...
+						// Adjust price/demand/stock amount of item
+						market->IncreaseBasePriceOf(itemID, 10);
+						market->DecreaseItemStock(itemID, 100);
+						market->IncreaseDemandOf(itemID, 5);
 
-					// Request drone to pick up item : WIP
+						// Request drone to pick up item : WIP
+					}
 				}
-			}
-			
-			if (dock == nullptr) {
-				cout << "::ERROR::DOCK_IS_NULL_PTR::" << endl;
-			}
 
-			// If NOT enough funds available in pEcon to complete purchase
-			if (pEcon->GetGBAmount() < market->GetBasePriceOf(itemID)) {
-				cout << "Insufficient funds in pEcon detected!" << endl;
+				if (dock == nullptr) {
+					cout << "::ERROR::DOCK_IS_NULL_PTR::" << endl;
+				}
+
+				// If NOT enough funds available in pEcon to complete purchase
+				if (pEcon->GetGBAmount() < market->GetBasePriceOf(itemID)) {
+					cout << "Insufficient funds in pEcon detected!" << endl;
+				}
 			}
 		}
 	}
@@ -75,22 +77,24 @@ public:
 
 		// If resource sold...
 
-		if (market->GetItemStock(itemID) >= market->GetMaxLimit()) {
-			cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
-		}
-		else {
-			if (dock != nullptr) {
-				// request drone to send item to dock
-				if (resourceList[market->GetResourceName(itemID)] >= 100) {
-					dock->AddToMarketRequest(market->GetResourceName(itemID), 100);
-				}
-				else {
-					// Alert 
-					cout << "ERROR::NOT_ENOUGH_RESOURCE_IN_NETWORK::" << endl;
-				}
-				
+		if (marketHud->GetWrapper()->IsActive()){
+
+			if (market->GetItemStock(itemID) >= market->GetMaxLimit()) {
+				cout << "Insufficient space for: " + market->GetNameOfItem(itemID) + " in " + market->GetNameOfMarket() + " storage!" << endl;
 			}
-			
+			else {
+				if (dock != nullptr) {
+					// request drone to send item to dock
+					if (resourceList[market->GetResourceName(itemID)] >= 100) {
+						dock->AddToMarketRequest(market->GetResourceName(itemID), 100);
+					}
+					else {
+						// Alert 
+						cout << "ERROR::NOT_ENOUGH_RESOURCE_IN_NETWORK::" << endl;
+					}
+				}
+
+			}
 		}
 	}
 private:
@@ -174,6 +178,16 @@ void MarketHUD::Start()
 
 void MarketHUD::Update()
 {
+	//// If market hud wrapper is not active, de-activate market buy/sell buttons.
+	//if (wrapper->IsActive() == false) {
+	//	buyButton->SetActive(!buyButton->IsActive());
+	//	sellButton->SetActive(!sellButton->IsActive());
+	//}
+
+	//if (wrapper->IsActive() == true){
+	//	buyButton->SetActive(buyButton->IsActive());
+	//	sellButton->SetActive(sellButton->IsActive());
+	//}
 }
 
 void MarketHUD::Input()

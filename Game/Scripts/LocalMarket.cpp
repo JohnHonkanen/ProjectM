@@ -206,7 +206,7 @@ void LocalMarket::CompleteTransaction(ResourceName resourceName, int amount)
 	if (resourceIDIndex != -1) {
 
 		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(GetBasePriceOf(resourceIDIndex * amount / 100));
-		DecreaseBasePriceOf(resourceIDIndex, 100);
+		DecreaseBasePriceOf(resourceIDIndex, GetBasePriceOf(resourceIDIndex) * 0.3);
 		IncreaseItemStock(resourceIDIndex, 100);
 		DecreaseDemandOf(resourceIDIndex, 10);
 

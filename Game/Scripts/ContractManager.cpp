@@ -229,6 +229,11 @@ void ContractManager::StartContract(int index)
 	listOfContract[index].StartTime();
 }
 
+void ContractManager::CompleteContract(int index)
+{
+	listOfContract[index].IsComplete();
+}
+
 void ContractManager::IncreaseContractCurrent(int index, int amount)
 {
 	listOfContract[index].IncreaseCurrent(amount);

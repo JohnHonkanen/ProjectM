@@ -69,8 +69,8 @@ void Dock::Update()
 		return;
 	}
 
-	MarketDumpTaskee();
 	BufferMarket();
+	MarketDumpTaskee();
 
  	if (contractIndex == -1)
 	{
@@ -246,7 +246,7 @@ void Dock::MarketDumpTaskee()
 		auto resources = marketDump.Contains();
 		if (!resources.empty()) {
 			//Configure our task and send it on.
-			marketTask = Task(TASK_TYPE::COLLECT, 50, this, this, resources[0].resource, 0);
+			marketTask = Task(TASK_TYPE::COLLECT, 90, this, this, resources[0].resource, 0);
 			hub->GetTaskManager()->AddTask(marketTask, marketTask.GetPriority());
 
 			}
