@@ -36,7 +36,7 @@ void LightCycle::Update(double dt)
 		pointProp.diffuse = pointProp.ambient;
 	}
 	else {
-		pointProp.ambient = lerp(pointProp.ambient, vec3(0.1f), 0.1f *float(dt / 1000));
+		pointProp.ambient = vec3(0);
 		pointProp.diffuse = pointProp.ambient;
 	}
 
