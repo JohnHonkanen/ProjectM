@@ -28,12 +28,14 @@ public:
 
 	void GenerateContractElements();
 	void GenerateKSuffix();
+	void GenerateDifficultyBackground(int difficulty);
+	int GetContractDifficulty();
 
 	void SetContract(Contract contractToSet);
 private:
 	Contract contract;
 	EHUD::TextWidget* text,	*contractStatus, *fulfill, *resource, *resourceName, *reward, *contractIssueNumber, *contractID, *difficulty;
-	EHUD::HUDElement* contractHUD;
+	EHUD::WHUDContainer* contractHUD;
 	EHUD::WHUDContainer* resourceIcon;
 	ResourceManager *resourceManager;
 

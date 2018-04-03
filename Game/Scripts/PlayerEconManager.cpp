@@ -126,13 +126,13 @@ void PlayerEconManager::CheckIfPlayerInDebt()
 
 bool PlayerEconManager::IsInDebt()
 {
-	cout << "Current Debt amount: " + to_string(GetCurrentDebtAmount()) << endl;
 	// If in debt
 	if (GetCurrentDebtAmount() > 0) {
 		
 		return this->inDept = true;
 	}
 
+	// If player is not in debt
 	if (GetCurrentDebtAmount() == 0) {
 
 		return this->inDept = false;
