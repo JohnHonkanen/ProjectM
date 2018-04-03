@@ -38,6 +38,9 @@ public:
 	int GetDroneUpkeep();
 	int GetBuildingUpkeep();
 
+	int GetDebt();
+	void SetDebt(int amount);
+	void AdjustDebt(int amount);
 private:
 	void TallyResource();
 	std::vector<Slot> networkList;
@@ -56,4 +59,5 @@ private:
 
 	int upkeepBuilding;
 	int upkeepDrone;
+	int debt = 0;
 };

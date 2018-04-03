@@ -1,4 +1,7 @@
 #include "PlayerEconManager.h"
+#include "GameManager.h"
+#include "core\GameEngine.h"
+
 
 PlayerEconManager::PlayerEconManager()
 {
@@ -62,12 +65,20 @@ void PlayerEconManager::OnLoad()
 
 void PlayerEconManager::Update()
 {
-	GetCurrentGoldAmountIn(GetHUBInventory());
+	clock.UpdateClock();
 
+	if (clock.Alarm()) {
+		GetCurrentGoldAmountIn(GetHUBInventory());
+		CheckIfPlayerInDebt();
+
+		clock.ResetClock();
+	}
 }
 
 void PlayerEconManager::Start()
 {
+	clock.SetDelay(1000);
+	clock.StartClock();
 	econList.resize(1);
 	AddEconomy(EconName::Player_Econ, "playerEcon");
 }
@@ -85,6 +96,69 @@ Inventory* PlayerEconManager::GetHUBInventory()
 int PlayerEconManager::GetCurrentGoldAmountIn(v2::Inventory * inventory)
 {
 	return GetHUBInventory()->Contains(ResourceName::Gold);
+}
+
+int PlayerEconManager::GetCurrentDebtAmount()
+{
+	return GameManager::gameManager->GetHub()->GetDebt();
+}
+
+void PlayerEconManager::AddInterestToDebt(int amount)
+{
+	return GameManager::gameManager->GetHub()->AdjustDebt(amount);
+}
+
+void PlayerEconManager::CheckIfPlayerInDebt()
+{
+	// Check if in debt first
+	IsInDebt();
+
+	if (IsInDebt() == true) {
+		AdjustInterest(CalculateInterest());
+		AddInterestToDebt(GetInterest());
+	}
+
+	if (IsInDebt() == false) {
+		SetInterest(0);
+	}
+}
+
+bool PlayerEconManager::IsInDebt()
+{
+	// If in debt
+	if (GetCurrentGoldAmountIn(GetHUBInventory()) < 0 || GetCurrentDebtAmount() > 0) {
+		return this->inDept = true;
+	}
+
+	if (GetCurrentDebtAmount() < 0) {
+		return this->inDept = false;
+	}
+}
+
+void PlayerEconManager::AdjustInterest(int amount)
+{
+	this->interestAmount = amount;
+	cout << "Interest Amount: " + to_string(GetInterest()) << endl;
+}
+
+int PlayerEconManager::CalculateInterest()
+{
+	int calculatedInterest = GetCurrentDebtAmount() * defaultInterestPercentage;
+
+	if (GetCurrentDebtAmount() >= 1000) {
+		return calculatedInterest;
+	}
+	return 0;
+}
+
+int PlayerEconManager::GetInterest()
+{
+	return this->interestAmount;
+}
+
+void PlayerEconManager::SetInterest(int amount)
+{
+	this->interestAmount = amount;
 }
 
 vector<PlayerEconomy*> PlayerEconManager::GetList() const
