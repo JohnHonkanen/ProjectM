@@ -8,7 +8,12 @@
 #include "Structure.h"
 #include "utility\Clock.h"
 
-struct Slot;
+struct Slot
+{
+	StructureType type;
+	int x, y;
+	class Structure *structure;
+};
 
 class Hub : public Structure
 {
@@ -41,6 +46,8 @@ public:
 	int GetDebt();
 	void SetDebt(int amount);
 	void AdjustDebt(int amount);
+
+	std::vector<Slot> GetAllBuildingInNetwork(); 
 private:
 	void TallyResource();
 	std::vector<Slot> networkList;

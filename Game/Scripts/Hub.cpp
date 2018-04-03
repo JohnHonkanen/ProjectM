@@ -6,12 +6,7 @@
 #include "GameManager.h"
 #include <queue>
 #include "Drone.h"
-struct Slot
-{
-	StructureType type;
-	int x, y;
-	class Structure *structure;
-};
+
 
 Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 {
@@ -253,6 +248,7 @@ void Hub::Update(double dt)
 
 		if (goldAmount > 0) {
 			inventory->Remove(ResourceName::Gold, upkeep);
+			SetDebt(0);
 		}
 		
 		timer.ResetClock();
@@ -349,7 +345,6 @@ void Hub::CreateDrone()
 		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
 		dronePrefabComp->IncreaseUpkeep(1);
 	}
-
 }
 
 int Hub::GetGold()
@@ -385,6 +380,11 @@ void Hub::SetDebt(int amount)
 void Hub::AdjustDebt(int amount)
 {
 	this->debt += amount;
+}
+
+std::vector<Slot> Hub::GetAllBuildingInNetwork()
+{
+	return networkList;
 }
 
 void Hub::TallyResource()

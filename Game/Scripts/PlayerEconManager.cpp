@@ -1,7 +1,7 @@
 #include "PlayerEconManager.h"
 #include "GameManager.h"
 #include "core\GameEngine.h"
-
+#include "Production.h"
 
 PlayerEconManager::PlayerEconManager()
 {
@@ -88,7 +88,7 @@ void PlayerEconManager::SetHUBInventory(v2::Inventory * HUBInventory)
 	this->HUBInventory = HUBInventory;
 }
 
-Inventory* PlayerEconManager::GetHUBInventory()
+v2::Inventory* PlayerEconManager::GetHUBInventory()
 {
 	return this->HUBInventory;
 }
@@ -114,6 +114,7 @@ void PlayerEconManager::CheckIfPlayerInDebt()
 	IsInDebt();
 
 	if (IsInDebt() == true) {
+		ReduceProductionLevel();
 		AdjustInterest(CalculateInterest());
 		AddInterestToDebt(GetInterest());
 	}
@@ -125,12 +126,15 @@ void PlayerEconManager::CheckIfPlayerInDebt()
 
 bool PlayerEconManager::IsInDebt()
 {
+	cout << "Current Debt amount: " + to_string(GetCurrentDebtAmount()) << endl;
 	// If in debt
-	if (GetCurrentGoldAmountIn(GetHUBInventory()) < 0 || GetCurrentDebtAmount() > 0) {
+	if (GetCurrentDebtAmount() > 0) {
+		
 		return this->inDept = true;
 	}
 
-	if (GetCurrentDebtAmount() < 0) {
+	if (GetCurrentDebtAmount() == 0) {
+
 		return this->inDept = false;
 	}
 }
@@ -138,7 +142,6 @@ bool PlayerEconManager::IsInDebt()
 void PlayerEconManager::AdjustInterest(int amount)
 {
 	this->interestAmount = amount;
-	cout << "Interest Amount: " + to_string(GetInterest()) << endl;
 }
 
 int PlayerEconManager::CalculateInterest()
@@ -159,6 +162,26 @@ int PlayerEconManager::GetInterest()
 void PlayerEconManager::SetInterest(int amount)
 {
 	this->interestAmount = amount;
+}
+
+void PlayerEconManager::ReduceProductionLevel()
+{
+	// Get all buildings in the network via the hub
+	auto slots = GameManager::gameManager->GetHub()->GetAllBuildingInNetwork();
+	
+	for (auto &slot : slots) {
+		// Get all factory + dome in network
+		if (slot.structure->GetType() == StructureType::DOME || StructureType::FACTORY) {
+			// Set strucutre level to one
+		
+			Production* production = static_cast<Production*>(slot.structure);
+			int efficiencyLevel = production->GetProductionEfficiency();
+
+			for (int i = 0; i < efficiencyLevel; i++) {
+				production->DecreaseLevel();
+			}
+		}
+	}
 }
 
 vector<PlayerEconomy*> PlayerEconManager::GetList() const

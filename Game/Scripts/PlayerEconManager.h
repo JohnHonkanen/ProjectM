@@ -42,7 +42,7 @@ public:
 	int GetInterest(); // Get interest + calculate
 	void SetInterest(int amount); // Set the interest 
 
-	void ReduceProductionLevel(); // Set 
+	void ReduceProductionLevel(); // Set Dome and factory production efficiency to 1
 
 	v2::Inventory* HUBInventory;
 	vector <PlayerEconomy*> GetList() const;
