@@ -4,12 +4,18 @@
 #include "ContractManager.h"
 #include "task_system\Task.h"
 
+enum class DockName {
+	Contract,
+	Local_Market,
+	Galactic_Market
+};
 
 class Dock : public Structure
 {
 public:
 	static Dock * Create();
 	static Dock * Create(int upkeep, int cost);
+	static Dock * Create(int upkeep, int cost, DockName dockName, string nameOfDock);
 
 	void Copy(GameObject * copyObject);
 	void Start();
@@ -17,6 +23,10 @@ public:
 
 	void DockShip(class TradeShip* ship);
 	vec3 ParkingLocation();
+
+	void GenerateContractConfiguration();
+	void GenerateLocalMarketConfiguration();
+	void GenerateGalacticMarketConfiguration();
 private:
 	ContractManager * contractManager;
 	Contract *contract;
@@ -28,7 +38,7 @@ private:
 
 	bool docked = false;
 	class TradeShip *dockedShip;
-
+	DockName dockName;
 	//Debug timer
 	Engine::Utility::Clock timer;
 };

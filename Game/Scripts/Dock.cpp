@@ -28,6 +28,28 @@ Dock * Dock::Create(int upkeep, int cost)
 	return d;
 }
 
+Dock * Dock::Create(int upkeep, int cost, DockName dockName, string nameOfDock)
+{
+	Dock *d = new Dock();
+	d->name = nameOfDock;
+	d->structureType = DOCK;
+	d->type = "Dock";
+	d->contractManager = &GameManager::gameManager->contractManager;
+	d->hub = GameManager::gameManager->GetHub();
+	d->tileWidth = 5;
+	d->contractFufilled = true;
+	d->isActive = false;
+
+	d->upkeep = upkeep;
+	d->cost = cost;
+
+
+	d->timer.StartClock();
+	d->timer.SetDelay(1000);
+
+	return d;
+}
+
 void Dock::Copy(GameObject * copyObject)
 {
 	copyObject->AddComponent(Create(upkeep, cost));
@@ -44,7 +66,7 @@ void Dock::Update()
 		return;
 	}
 
- 	if (contract == nullptr || contract->GetContractID() != contractID)
+	if (contract == nullptr || contract->GetContractID() != contractID)
 	{
 		if (dockedShip != nullptr)
 		{
@@ -67,10 +89,41 @@ void Dock::Update()
 			contract = nullptr;
 		}
 
-		
+
 
 		return;
 	}
+
+	switch (dockName) {
+	case DockName::Contract:
+		GenerateContractConfiguration();
+		break;
+	case DockName::Local_Market:
+		GenerateLocalMarketConfiguration();
+		break;
+	case DockName::Galactic_Market:
+		GenerateGalacticMarketConfiguration();
+		break;
+
+	default:
+		cout << "ERROR::NO_VALID_CONFIGURATION::" << endl;
+		break;
+	}
+}
+
+void Dock::DockShip(TradeShip * ship)
+{
+	dockedShip = ship;
+	docked = true;
+}
+
+vec3 Dock::ParkingLocation()
+{
+	return transform->GetPosition() + vec3(30, 0, 0);
+}
+
+void Dock::GenerateContractConfiguration()
+{
 
 	//Found Contract, now do something
 	if (task == TASK_TYPE::NONE && contractFufilled)
@@ -116,17 +169,56 @@ void Dock::Update()
 			}
 		}
 	}
-	
-
 }
 
-void Dock::DockShip(TradeShip * ship)
+void Dock::GenerateLocalMarketConfiguration()
 {
-	dockedShip = ship;
-	docked = true;
+	//Found Contract, now do something
+	if (task == TASK_TYPE::NONE && contractFufilled)
+	{
+		//Configure our task and send it on.
+		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, contract->GetResource().GetResouceID(), contract->GetAmount());
+		hub->GetTaskManager()->AddTask(task, task.GetPriority());
+
+		contractFufilled = false;
+	}
+
+	if (dockedShip)
+	{
+		if (!contractFufilled)
+		{
+			int inInventory = inventory.Contains(contract->GetResource().GetResouceID());
+
+			//Nothing to do
+			if (inInventory == 0)
+			{
+				return;
+			}
+
+			int potential = contract->GetCurrent() + inInventory;
+
+
+			contract->IncreaseCurrent(inInventory);
+			inventory.Remove(contract->GetResource().GetResouceID(), inInventory);
+
+			if (potential >= contract->GetAmount())
+			{
+				contractFufilled = true;
+				contract = nullptr;
+
+				task = Task();
+				//Flush Inventory of Junk
+				inventory.Clear();
+
+
+				dockedShip->Return();
+				dockedShip = nullptr;
+				docked = false;
+			}
+		}
+	}
 }
 
-vec3 Dock::ParkingLocation()
+void Dock::GenerateGalacticMarketConfiguration()
 {
-	return transform->GetPosition() + vec3(30, 0, 0);
 }
