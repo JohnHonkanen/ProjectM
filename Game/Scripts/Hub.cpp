@@ -230,8 +230,6 @@ void Hub::OnLoad()
 void Hub::Start()
 {
 	inventory->AddItem(ResourceName::Gold, 3000);
-	//SetDebt(1000);
-	inventory->AddItem(ResourceName::Gold, 6000);
 	gameObject->GetComponent<LightCycle>()->ActivateLight();
 }
 

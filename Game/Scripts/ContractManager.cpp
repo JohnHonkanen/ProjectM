@@ -19,15 +19,17 @@ Contract ContractManager::AddContract(ContractName contractName, string nameOfCo
 	switch (contractName) {
 	case ContractName::Player_Contract:
 		
-		contract.SetContractID(contractIndex);
+		contract.SetContractID(this->contractIndex);
 		contract.SetDifficulty();
 		contract.SetPayment();
-		contract.SetTime(1000000);
-		contract.SetContractIndex(contractIndex);
+		contract.SetTime(300000);
+		contract.SetContractIndex(this->contractIndex);
 		contract.SetStatus(true);
+		contract.SetAmount();
 		contract.InitComplete(false);
 
 		this->listOfContract.push_back(contract);
+		this->contractIndex++;
 
 		return contract;
 		break;
@@ -66,7 +68,6 @@ void ContractManager::Update()
 	clock.UpdateClock();
 
 	if (clock.Alarm()) {
-		listOfContract.reserve(this->listOfContract.size());
 		for (Contract &c : this->listOfContract) {
 			if (c.GetTime() > 0 && c.GetStatus() == true) {
 				c.ReduceTime(1000);
@@ -77,7 +78,6 @@ void ContractManager::Update()
 
 	// If new dock is detected, add new contract.
 	if (this->listOfContract.size() < GameManager::gameManager->GetHub()->GetNumberOf(StructureType::DOCK)) {
-		this->contractIndex++;
 		AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
 		
 		cout << listOfContract.size() << endl;
@@ -88,7 +88,7 @@ void ContractManager::Update()
 
 		// Set contract status to isComplete if timer reaches 0 
 		if (this->listOfContract[i].GetTime() <= 0) {
-			this->listOfContract[i].IsComplete();
+			//this->listOfContract[i].SetStatus(false);
 		}
 		i++;
 	}
@@ -155,7 +155,7 @@ int ContractManager::GetFirstAvailable()
 		if (!listOfContract[i].GetTaken())
 		{
 			listOfContract[i].SetTaken(true);
-			return i;
+			return listOfContract[i].GetContractID();
 		}
 	}
 
@@ -180,7 +180,7 @@ int ContractManager::GetIndexOfLastElement(int offSet)
 
 Resources ContractManager::GenerateRandomResourceID()
 {
-	int generatedResID = 3; //resourceManager->RandomResources(); 
+	int generatedResID = resourceManager->RandomResources(); 
 	Resources resource = resourceManager->FindResource(generatedResID);
 	return resource;
 }
@@ -201,29 +201,51 @@ Contract &ContractManager::FindContract(ContractName contractName, int contractI
 
 Contract ContractManager::GetContract(int index)
 {
-	return listOfContract[index];
+	for (Contract c : listOfContract) {
+		if (c.GetContractID() == index) {
+			return c;
+		} 
+	}
+	return Contract();
 }
 
 void ContractManager::StartContract(int index)
 {
-	listOfContract[index].StartTime();
+	for (Contract &c : listOfContract) {
+		if (c.GetContractID() == index) {
+			c.StartTime();
+		}
+	}
 }
 
 void ContractManager::CompleteContract(int index)
 {
-	listOfContract[index].IsComplete();
+	for (Contract &c : listOfContract) {
+		if (c.GetContractID() == index) {
+			c.IsComplete();
+		}
+	}
 }
 
 void ContractManager::IncreaseContractCurrent(int index, int amount)
 {
-	listOfContract[index].IncreaseCurrent(amount);
+	for (Contract &c : listOfContract) {
+		if (c.GetContractID() == index) {
+			c.IncreaseCurrent(amount);
+		}
+	}
 }
 
 void ContractManager::RemoveContract(int index)
 {
-	listOfContract.erase(listOfContract.begin() + index);
-	AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
-	this->contractIndex++;
+	for (int i = 0; i < listOfContract.size(); i++) {
+		if (listOfContract[i].GetContractID() == index) {
+			listOfContract.erase(listOfContract.begin() + i);
+			AddContract(ContractName::Player_Contract, to_string(this->contractIndex), this->contractIndex);
+
+			return;
+		}
+	}
 }
 
 vector<Contract> ContractManager::GetList()

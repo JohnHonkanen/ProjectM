@@ -60,8 +60,7 @@ void Dock::Copy(GameObject * copyObject)
 
 void Dock::Start()
 {
-	/*AddToMarketDump(ResourceName::Chicken, 100);
-	AddToMarketRequest(ResourceName::Chicken, 100);*/
+
 }
 
 void Dock::Update()
@@ -91,8 +90,9 @@ void Dock::Update()
 			task = Task();
 			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
-			contractIndex = index;
 			contractID = contractManager->GetContract(index).GetContractID();
+			contractIndex = contractID;
+			
 		}
 
 		return;
@@ -145,7 +145,7 @@ void Dock::GenerateContractConfiguration()
 		Contract c = contractManager->GetContract(contractIndex);
 		contractManager->StartContract(contractIndex);
 
-		if (!c.GetStatus())
+		if (c.GetTime() <= 0)
 		{
 			contractManager->CompleteContract(contractIndex);
 			contractManager->RemoveContract(contractIndex);

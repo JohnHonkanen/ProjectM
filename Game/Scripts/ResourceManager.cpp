@@ -81,7 +81,7 @@ void ResourceManager::OnLoad()
 	resource = AddResource(ResourceName::Chicken_Egg, "Chicken Egg", "EGGS", 10, 1000, "Game/Assets/Textures/Resource/egg-16.jpg", 100, randomInt, 1, 1);
 	resource = AddResource(ResourceName::Chicken_Meat, "Chicken Meat", "MEAT", 50, 1000, "Game/Assets/Textures/Resource/chicken-16.png", 1000, randomInt, 1, 1);
 	resource = AddResource(ResourceName::Kittain, "Kittain", "PET", 675, 1000, "Game/Assets/Textures/Resource/kittain-16.png", 100, randomInt, 1, 1);
-	resource = AddResource(ResourceName::Doggo, "Doggo", "PET", 675, 1000, "Game/Assets/Textures/Resource/missing-16.png", 100, randomInt, 1, 1);
+	resource = AddResource(ResourceName::Doggo, "Doggo", "PET", 675, 1000, "Game/Assets/Textures/Resource/doggo-32.jpg", 100, randomInt, 1, 1);
 	resource = AddResource(ResourceName::Steel_Cotton, "Steel Cotton", "MATERIAL", 30, 1000, "Game/Assets/Textures/Resource/steel_cotton-16.png", 1000, randomInt, 1, 1);
 	resource = AddResource(ResourceName::Mandrake, "Mandrake", "PLANT", 150, 1000, "Game/Assets/Textures/Resource/mandrake-16.png", 100, randomInt, 1, 1);
 	resource = AddResource(ResourceName::Grape, "Grape", "PLANT", 30, 1000, "Game/Assets/Textures/Resource/grape-16.png", 100, randomInt, 1, 1);
@@ -103,7 +103,7 @@ int ResourceManager::NumberOfActiveResources()
 int ResourceManager::RandomResources()
 {
 	int numberOfResources = NumberOfActiveResources();
-	int generatedResourceID = (rand() % numberOfResources) + 2;
+	int generatedResourceID = (rand() % numberOfResources) + 1;
 	return generatedResourceID;
 }
 

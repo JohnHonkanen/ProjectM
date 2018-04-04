@@ -33,7 +33,7 @@ void ContractHUDElement::Update()
 	GenerateDifficultyBackground(GetContractDifficulty());
 
 	// Contract ID
-	//contractID->text = "# " + to_string(contract.GetContractID());
+	contractID->text = "# " + to_string(contract.GetContractID());
 
 	// Contract Amount to FulFill
 	fulfill->text = to_string(contract.GetCurrent()) + "/" + to_string(contract.GetAmount());
@@ -82,7 +82,7 @@ void ContractHUDElement::GenerateContractElements()
 	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 280, 50 }, "Game/Assets/Textures/contract/black.jpg", true);
 
 	// Contract ID
-	//contractID = EHUD::TextWidget::Create(contractHUD, { 10, 12, 0, 0 }, "", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
+	contractID = EHUD::TextWidget::Create(contractHUD, { 10, 12, 0, 0 }, "", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
 
 	// Resource Icon
 	resourceIcon = EHUD::WHUDContainer::Create(this, { 10, 15, 32, 32 }, contract.GetResourceIcon(), true);
