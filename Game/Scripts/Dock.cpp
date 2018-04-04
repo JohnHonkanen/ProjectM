@@ -130,13 +130,13 @@ void Dock::GenerateContractConfiguration()
 {
 
 	//Found Contract, now do something
-	if (task == TASK_TYPE::NONE && contractFufilled)
+	if (numTask < maxTask)
 	{
 		Contract c = contractManager->GetContract(contractIndex);
 		//Configure our task and send it on.
-		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, c.GetResource().GetResouceID(), c.GetAmount());
+		task = Task(TASK_TYPE::REQUEST, 20, this, nullptr, c.GetResource().GetResouceID(), c.GetAmount() - c.GetCurrent());
 		hub->GetTaskManager()->AddTask(task, task.GetPriority());
-
+		numTask++;
 		contractFufilled = false;
 	}
 
@@ -222,6 +222,7 @@ void Dock::TaskCompleted(TASK_TYPE type, int index)
 	else {
 		if (index == 0) {
 			task = v1::TaskSystem::Task();
+			numTask--;
 		}
 		else if(index == 1){
 			marketRequestTask = v1::TaskSystem::Task();
@@ -264,7 +265,7 @@ void Dock::IncreaseTaskNumber(TASK_TYPE type, int index)
 	}
 	else {
 		if (index == 0) {
-			
+			numTask++;
 		}
 		else if (index == 1) {
 			numMarketRequestTask++;
