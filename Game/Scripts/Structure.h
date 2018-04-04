@@ -64,7 +64,7 @@ public:
 	int  GetPowerusage();								//Returns power usage
 	int  GetProductionEfficiency();						//
 	int  GetRadiationOutput();							//
-	int GetUpkeep() { return upkeep; }					// returns the buildings gold upkeep
+	virtual int GetUpkeep() { return upkeep; }					// returns the buildings gold upkeep
 	int GetInitialUpkeep() { return initialUpkeep; }	// returns the buildings initialized upkeep
 	int GetCost() { return cost; }
 	bool GetPlaced();									//

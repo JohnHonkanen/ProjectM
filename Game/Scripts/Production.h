@@ -76,6 +76,8 @@ public:
 
 	void IncreaseTaskNumber(TASK_TYPE type, int index);
 
+	int GetUpkeep(); //@Override
+
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);
 
