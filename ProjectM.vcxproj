@@ -55,6 +55,8 @@
     <ClInclude Include="Game\Scripts\hud\ProductionHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionResourceButton.h" />
     <ClInclude Include="Game\Scripts\hud\ProductionSetterButton.h" />
+    <ClInclude Include="Game\Scripts\hud\SellHUD.h" />
+    <ClInclude Include="Game\Scripts\hud\SellHUDElement.h" />
     <ClInclude Include="Game\Scripts\hud\WidgetToggleButton.h" />
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\InventoryV2.h" />
@@ -117,6 +119,8 @@
     <ClCompile Include="Game\Scripts\hud\ProductionHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionResourceButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\ProductionSetterButton.cpp" />
+    <ClCompile Include="Game\Scripts\hud\SellHUD.cpp" />
+    <ClCompile Include="Game\Scripts\hud\SellHUDElement.cpp" />
     <ClCompile Include="Game\Scripts\hud\WidgetToggleButton.cpp" />
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\InventoryV2.cpp" />
