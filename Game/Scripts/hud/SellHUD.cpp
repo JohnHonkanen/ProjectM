@@ -43,7 +43,7 @@ void SellHUD::OnLoad()
 	HUD::TextWidget::Create(wrapper, { 12 , 25, 100, 100 }, "Select the building you wish to sell ->", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
 	SHElement = SellHUDElement::Create(wrapper, { 25, 25, 0, 0 }, pla, rManager);
 
-	Engine::GameEngine::manager.inputManager.AddKey("ToggleSellMenu", "s");
+	Engine::GameEngine::manager.inputManager.AddKey("ToggleSellMenu", "l");
 }
 
 void SellHUD::Start()
@@ -52,14 +52,14 @@ void SellHUD::Start()
 
 void SellHUD::Update()
 {
-	if (pla->GetSelectedStructure() != nullptr)
-	{
-		wrapper->SetActive(true);
-	}
-	else
-	{
-		wrapper->SetActive(false);
-	}
+	//if (pla->GetSelectedStructure() != nullptr)
+	//{
+	//	wrapper->SetActive(true);
+	//}
+	//else
+	//{
+	//	wrapper->SetActive(false);
+	//}
 }
 
 void SellHUD::Input()
