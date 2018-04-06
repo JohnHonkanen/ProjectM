@@ -55,26 +55,7 @@ Draws the widgets on the HUD
 */
 void SellHUDElement::DrawWidget(unsigned int shader)
 {
-	//if (active) {
-	//	//SetAllActive(true);
-
-	//	if (pla->GetSelectedStructure() != nullptr)
-	//	{
-	//		auto * selectedStructure = pla->GetSelectedStructure();
-	//	}
-	//}
-	//else
-	//{
-	//	return;
-	//}
 }
-
-//void SellHUDElement::SetAllActive(bool state)
-//{
-//	active = state;
-//	sellHUD->SetActive(state);
-//	title->SetActive(state);
-//}
 
 void SellHUDElement::Input()
 {

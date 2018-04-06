@@ -10,6 +10,9 @@ public:
 	void Start();
 	void Update(double dt);
 	class Structure * GetSelectedStructure();
+	// Sets the selection status of the structure to nullptr
+	// This will cause it to be deselected
+	Structure * SetSelectedStructureNull() { return selectedStructure = nullptr; }
 private:
 	std::string selectedTexture;
 	std::string buildingTexture;

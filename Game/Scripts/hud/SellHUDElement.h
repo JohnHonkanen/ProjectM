@@ -29,7 +29,6 @@ public:
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
-	void SetAllActive(bool state);
 	void Input();
 private:
 	// Varibles declared and forward delclared

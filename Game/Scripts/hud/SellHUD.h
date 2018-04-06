@@ -25,6 +25,8 @@ public:
 	static SellHUD * Create(GameObject *gameObject,
 		EHUD::HUDCanvas *root, class PlayerActions* pla, class ResourceManager* rManager);
 	EHUD::HUDElement* GetWrapper();
+	// Sets the menu state to true or false - true = displayed
+	void SetSellMenuState(int sellMenuState) { openSellMenu = sellMenuState; }
 	void Copy(GameObject *copyObject);
 	void OnLoad();
 	void Start();
@@ -39,5 +41,6 @@ private:
 	class SellHUDElement* SHElement;
 	bool keyHeld = false;
 	class ResourceManager* rManager;
+	int openSellMenu;
 };
 

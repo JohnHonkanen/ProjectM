@@ -88,3 +88,11 @@ void BuildingManager::SetResourceManager(ResourceManager * resourceManager)
 {
 	this->resourceManager = resourceManager;
 }
+
+void BuildingManager::RemoveBuilding(Structure* building)
+{
+	auto it = buildingList.find(building->GetName());
+
+	buildingList.erase(it);
+
+}

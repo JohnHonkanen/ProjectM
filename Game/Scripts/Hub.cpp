@@ -60,6 +60,31 @@ void Hub::AddStructureToList(StructureType type, Structure * structure, int x, i
 	}
 }
 
+void Hub::RemoveBuildingFromLists(string structureName)
+{
+	// Remove structure from networkList, warehouseList and networkSlots
+	for(int i =0; i < networkList.size(); i++)
+	{
+		if(networkList[i].structure->gameObject->name == structureName)
+		{
+			networkList.erase(networkList.begin() + i);
+			break;
+		}
+	}
+	for (int i = 0; i < warehouseList.size(); i++)
+	{
+		if (warehouseList[i].structure->gameObject->name == structureName)
+		{
+			warehouseList.erase(warehouseList.begin() + i);
+			break;
+		}
+	}
+
+	//auto it = networkSlots.find();
+
+	
+}
+
 Structure * Hub::GetStructure(int x, int y)
 {
 	if (networkSlots.find(x) != networkSlots.end())

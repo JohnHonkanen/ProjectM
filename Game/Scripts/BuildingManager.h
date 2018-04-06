@@ -30,6 +30,8 @@ public:
 
 	void SearchWarehouses(map<string, unique_ptr<GameObject>> buildings);
 	void SetResourceManager(ResourceManager * resourceManager);
+	// Removes the building type from the buildingList
+	void RemoveBuilding(Structure * building);
 	template<class Archive>
 	void serialize(Archive & ar)
 	{

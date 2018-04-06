@@ -142,8 +142,6 @@ int main(int argc, char *argv[])
 	MainHUD::Create(hudController, canvas, buildingController, contractHUD, sellHUD);
 	//PlayerEconHUD::Create(hudController, canvas, &gameManager->playerEconManager);
 	ProductionHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
-	
-
 	InventoryHUD* inv = InventoryHUD::Create(hudController, canvas, pla, &gameManager->resourceManager);
 
 
