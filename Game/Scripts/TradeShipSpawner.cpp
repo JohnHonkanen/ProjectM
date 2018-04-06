@@ -37,8 +37,10 @@ void TradeShip::Update(double dt)
 		MoveTo(cameFrom, dt);
 		return;
 	}
-	vec3 dockPos = dock->transform->GetPosition();
+	vec3 dockPos= dock->transform->GetPosition();
+
 	dockPos.y += 2.0f;
+
 	MoveTo(dockPos, dt);
 }
 

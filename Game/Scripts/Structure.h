@@ -13,6 +13,8 @@ Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
 #include <vector>
 #include <cstring>
 #include "task_system\Task.h"
+#include "Drone.h"
+#include "task_system/drones/DroneController.h"
 
 using namespace std;
 using namespace glm;
@@ -48,6 +50,8 @@ protected:
 	v2::Inventory inventory;
 
 	v1::TaskSystem::Task task;
+
+	vector<v1::TaskSystem::DroneController*> registeredDrones;
 public:
 	
 	Structure();

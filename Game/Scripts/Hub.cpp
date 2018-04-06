@@ -37,6 +37,11 @@ void Hub::AddStructureToNetwork(StructureType type, Structure * structure, int x
 	networkSlots[x][y] = structure;
 }
 
+void Hub::RemoveStructureFromNetwork(StructureType type, Structure * structure, int x, int y)
+{
+	networkSlots[x][y] = nullptr;
+}
+
 void Hub::AddStructureToList(StructureType type, Structure * structure, int x, int y)
 {
 	switch (type)
@@ -60,29 +65,98 @@ void Hub::AddStructureToList(StructureType type, Structure * structure, int x, i
 	}
 }
 
-void Hub::RemoveBuildingFromLists(string structureName)
+void Hub::RemoveStructureFromList(StructureType type, Structure * structure, int x, int y, string structureName)
+{
+	switch (type)
+	{
+	case PRODUCTION:
+		for (int i = 0; i < networkList.size(); i++)
+		{
+			if (networkList[i].structure->gameObject->name == structureName)
+			{
+				networkList.erase(networkList.begin() + i);
+				break;
+			}
+		}
+		break;
+	case DOME:
+		for (int i = 0; i < networkList.size(); i++)
+		{
+			if (networkList[i].structure->gameObject->name == structureName)
+			{
+				networkList.erase(networkList.begin() + i);
+				break;
+			}
+		}
+		break;
+	case WAREHOUSE:
+		for (int i = 0; i < networkList.size(); i++)
+		{
+			if (networkList[i].structure->gameObject->name == structureName)
+			{
+				networkList.erase(networkList.begin() + i);
+				break;
+			}
+		}
+		for (int i = 0; i < warehouseList.size(); i++)
+		{
+			if (warehouseList[i].structure->gameObject->name == structureName)
+			{
+				warehouseList.erase(warehouseList.begin() + i);
+				break;
+			}
+		}
+		break;
+	case FACTORY:
+		for (int i = 0; i < networkList.size(); i++)
+		{
+			if (networkList[i].structure->gameObject->name == structureName)
+			{
+				networkList.erase(networkList.begin() + i);
+				break;
+			}
+		}
+		break;
+	default:
+		for (int i = 0; i < networkList.size(); i++)
+		{
+			if (networkList[i].structure->gameObject->name == structureName)
+			{
+				networkList.erase(networkList.begin() + i);
+				break;
+			}
+		}
+		break;
+	}
+}
+
+void Hub::RemoveBuildingFromLists(Structure * s, float x, float y, float width, string structureName)
 {
 	// Remove structure from networkList, warehouseList and networkSlots
-	for(int i =0; i < networkList.size(); i++)
+	for (int i = x; i < x + width; i++)
 	{
-		if(networkList[i].structure->gameObject->name == structureName)
+		for (int j = y; j < y + width; j++)
 		{
-			networkList.erase(networkList.begin() + i);
-			break;
+			RemoveStructureFromNetwork(s->GetType(), s, i, j);
 		}
 	}
-	for (int i = 0; i < warehouseList.size(); i++)
-	{
-		if (warehouseList[i].structure->gameObject->name == structureName)
-		{
-			warehouseList.erase(warehouseList.begin() + i);
-			break;
-		}
-	}
-
-	//auto it = networkSlots.find();
-
-	
+	RemoveStructureFromList(s->GetType(), s, x, y, s->gameObject->name);
+	//for(int i =0; i < networkList.size(); i++)
+	//{
+	//	if(networkList[i].structure->gameObject->name == structureName)
+	//	{
+	//		networkList.erase(networkList.begin() + i);
+	//		break;
+	//	}
+	//}
+	//for (int i = 0; i < warehouseList.size(); i++)
+	//{
+	//	if (warehouseList[i].structure->gameObject->name == structureName)
+	//	{
+	//		warehouseList.erase(warehouseList.begin() + i);
+	//		break;
+	//	}
+	//}
 }
 
 Structure * Hub::GetStructure(int x, int y)

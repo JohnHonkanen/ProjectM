@@ -14,6 +14,8 @@ Dev: Jack Smith (B00308927)
 #include "../Structure.h"
 #include "../PlayerEconomy.h"
 #include "../GameManager.h"
+#include  "../task_system/Task.h"
+#include "../task_system/drones/AbstractDroneBehaviour.h"
 
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
@@ -67,14 +69,22 @@ void SellHUD::Input()
 	{
 		if (pla->GetSelectedStructure() != nullptr)
 		{
+		//	v1::TaskSystem::TaskInformation info;
+	//		v1::TaskSystem::Task task = info.controller->GetTask();
 			wrapper->SetActive(true);
 			// Add some money to the player's Hub.
-			GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(50);
+			GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(50*(pla->GetSelectedStructure()->GetProductionEfficiency()));
+			GameManager::gameManager->buildingManager.GetBuilding(pla->GetSelectedStructure()->GetName());
 			std::cout << "Sold building for 50 gold" << std::endl;
 			// Remove the building from the system.
-			GameManager::gameManager->GetHub()->RemoveBuildingFromLists(pla->GetSelectedStructure()->gameObject->name);
+			float tileWidth = float(pla->GetSelectedStructure()->GetTileWidth());
+			int xCoord, yCoord;
+			pla->GetSelectedStructure()->GetTilePosition(xCoord, yCoord);
+			GameManager::gameManager->GetHub()->RemoveBuildingFromLists(pla->GetSelectedStructure(),xCoord,yCoord, tileWidth, pla->GetSelectedStructure()->gameObject->name);
 			// Destroy the building 
 			pla->GetSelectedStructure()->gameObject->Destroy();
+			pla->GetSelectedStructure()->gameObject = nullptr;
+			//pla->GetSelectedStructure()->TaskCompleted(task.GetType(), task.GetIndex());
 			// Deselect building
 			pla->SetSelectedStructureNull();
 			
