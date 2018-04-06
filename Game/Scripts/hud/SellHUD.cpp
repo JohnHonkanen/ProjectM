@@ -67,10 +67,15 @@ void SellHUD::Input()
 
 	if (openSellMenu == 1)
 	{
-		if (pla->GetSelectedStructure() != nullptr)
+		if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr)
 		{
-		//	v1::TaskSystem::TaskInformation info;
-	//		v1::TaskSystem::Task task = info.controller->GetTask();
+			// Complete the task the drones currently have that are connected to the building
+			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetController();
+			for(int i = 0; droneController.size(); i++)
+			{
+				droneController.at(i)->CancelTasks();
+			}
+			
 			wrapper->SetActive(true);
 			// Add some money to the player's Hub.
 			GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(50*(pla->GetSelectedStructure()->GetProductionEfficiency()));

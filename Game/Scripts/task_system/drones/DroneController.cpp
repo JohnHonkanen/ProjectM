@@ -73,7 +73,7 @@ namespace v1{
 						return false;
 					}
 				}
-
+				task.From()->RegisterDroneToStructure(this);
 				droneState->info = TaskInformation(task.To()->ParkingLocation(), this);
 				return true;
 			}
@@ -100,6 +100,18 @@ namespace v1{
 
 			return boxObj;
 		}
+
+		void DroneController::CancelTasks()
+		{
+			v1::TaskSystem::TaskInformation info;
+			v1::TaskSystem::Task task = info.controller->GetTask();
+			// Complete the task the drones currently have that are connected to the building
+			info.controller->SetState(nullptr);
+			info.controller->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
+			info.controller->SetInternalStateIdle();
+			info.controller->AssignTaskWithoutBehaviour(v1::TaskSystem::Task());
+		}
+
 		void DroneController::ApplyDroneBehaviour(double dt)
 		{
 			if (task.GetType() != TASK_TYPE::NONE && !forceIdle)
