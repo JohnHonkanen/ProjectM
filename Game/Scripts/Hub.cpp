@@ -141,22 +141,6 @@ void Hub::RemoveBuildingFromLists(Structure * s, float x, float y, float width, 
 		}
 	}
 	RemoveStructureFromList(s->GetType(), s, x, y, s->gameObject->name);
-	//for(int i =0; i < networkList.size(); i++)
-	//{
-	//	if(networkList[i].structure->gameObject->name == structureName)
-	//	{
-	//		networkList.erase(networkList.begin() + i);
-	//		break;
-	//	}
-	//}
-	//for (int i = 0; i < warehouseList.size(); i++)
-	//{
-	//	if (warehouseList[i].structure->gameObject->name == structureName)
-	//	{
-	//		warehouseList.erase(warehouseList.begin() + i);
-	//		break;
-	//	}
-	//}
 }
 
 Structure * Hub::GetStructure(int x, int y)

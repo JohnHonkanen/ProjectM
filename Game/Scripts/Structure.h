@@ -89,7 +89,7 @@ public:
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
 	void RegisterDroneToStructure(v1::TaskSystem::DroneController* drone) { registeredDrones.push_back(drone); }
-	vector<v1::TaskSystem::DroneController*> GetController() { return registeredDrones; }
+	vector<v1::TaskSystem::DroneController*> GetRegisteredDrones() { return registeredDrones; }
 
 	virtual void TaskCompleted(TASK_TYPE type, int index);
 	virtual void IncreaseTaskNumber(TASK_TYPE type, int index); 

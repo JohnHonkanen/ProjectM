@@ -15,7 +15,7 @@ Dev: Jack Smith (B00308927)
 #include "../PlayerEconomy.h"
 #include "../GameManager.h"
 #include  "../task_system/Task.h"
-#include "../task_system/drones/AbstractDroneBehaviour.h"
+#include "../task_system/drones/DroneController.h"
 
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
@@ -70,10 +70,10 @@ void SellHUD::Input()
 		if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr)
 		{
 			// Complete the task the drones currently have that are connected to the building
-			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetController();
-			for(int i = 0; droneController.size(); i++)
+			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
+			for(int i = 0; i < droneController.size(); i++)
 			{
-				droneController.at(i)->CancelTasks();
+				droneController.at(i)->CancelTasks(droneController.at(i));
 			}
 			
 			wrapper->SetActive(true);
@@ -89,7 +89,6 @@ void SellHUD::Input()
 			// Destroy the building 
 			pla->GetSelectedStructure()->gameObject->Destroy();
 			pla->GetSelectedStructure()->gameObject = nullptr;
-			//pla->GetSelectedStructure()->TaskCompleted(task.GetType(), task.GetIndex());
 			// Deselect building
 			pla->SetSelectedStructureNull();
 			

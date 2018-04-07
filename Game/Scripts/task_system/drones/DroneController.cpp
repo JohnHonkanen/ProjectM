@@ -101,15 +101,13 @@ namespace v1{
 			return boxObj;
 		}
 
-		void DroneController::CancelTasks()
+		void DroneController::CancelTasks(DroneController* droneController)
 		{
-			v1::TaskSystem::TaskInformation info;
-			v1::TaskSystem::Task task = info.controller->GetTask();
-			// Complete the task the drones currently have that are connected to the building
-			info.controller->SetState(nullptr);
-			info.controller->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
-			info.controller->SetInternalStateIdle();
-			info.controller->AssignTaskWithoutBehaviour(v1::TaskSystem::Task());
+			Task t = droneController->GetTask();
+			droneController->SetState(nullptr);
+			droneController->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
+			droneController->SetInternalStateIdle();
+			droneController->AssignTaskWithoutBehaviour(v1::TaskSystem::Task());
 		}
 
 		void DroneController::ApplyDroneBehaviour(double dt)
