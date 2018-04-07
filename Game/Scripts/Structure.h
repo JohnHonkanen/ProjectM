@@ -27,6 +27,7 @@ enum StructureType
 	DOME,
 	HUB,
 	DOCK,
+	UNBUILDABLEZONE,
 };
 
 class Structure : public Behaviour {

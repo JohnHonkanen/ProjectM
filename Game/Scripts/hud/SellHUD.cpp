@@ -16,6 +16,7 @@ Dev: Jack Smith (B00308927)
 #include "../GameManager.h"
 #include  "../task_system/Task.h"
 #include "../task_system/drones/DroneController.h"
+#include "../Dock.h"
 
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
@@ -86,6 +87,11 @@ void SellHUD::Input()
 			int xCoord, yCoord;
 			pla->GetSelectedStructure()->GetTilePosition(xCoord, yCoord);
 			GameManager::gameManager->GetHub()->RemoveBuildingFromLists(pla->GetSelectedStructure(),xCoord,yCoord, tileWidth, pla->GetSelectedStructure()->gameObject->name);
+			// Check if the building is a Dock
+			if(dynamic_cast<Dock*>(pla->GetSelectedStructure()) != nullptr)
+			{
+				auto dock = pla->GetSelectedStructure();
+			}
 			// Destroy the building 
 			pla->GetSelectedStructure()->gameObject->Destroy();
 			pla->GetSelectedStructure()->gameObject = nullptr;

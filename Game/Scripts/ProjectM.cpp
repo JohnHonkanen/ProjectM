@@ -37,6 +37,8 @@
 #include "TradeShipSpawner.h"
 #include "Hub.h"
 #include "Drone.h"
+#include "UnbuildableZone.h"
+#include <stdlib.h> 
 
 using namespace std;
 
@@ -88,6 +90,69 @@ int main(int argc, char *argv[])
 	}
 
 	gameManager->SetHub(hub);
+
+	////Setup some unbuildableZones
+	GameObject *uZObject1 = manager->CreateGameObject("UnbuildableZ1");
+	int startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	UnbuildableZone *unbuildableZone1 = UnbuildableZone::Create(uZObject1, gameManager);
+	uZObject1->transform->Scale(vec3(50.0f));
+	uZObject1->transform->Rotate(vec3(0, 0, 0));
+	uZObject1->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
+	uZObject1->transform->Translate(vec3(startPosX, 0, startPosZ));
+	uZObject1->material->diffuseMap = "Game/Assets/Textures/Rock/Rock_d.jpg";
+	vec2 UZsnapPoint = grid->GetCoordinates(vec3(startPosX,0, startPosZ));
+	// Set area on grid for building
+	UZsnapPoint.x -= 5;
+	UZsnapPoint.y -= 1;
+	for (int x = UZsnapPoint.x; x < UZsnapPoint.x + 10; x++)
+	{
+		for (int z = UZsnapPoint.y; z < UZsnapPoint.y + 4; z++)
+		{
+			hub->AddStructureToNetwork(UNBUILDABLEZONE, unbuildableZone1, x, z);
+		}
+	}
+
+	////Setup some unbuildableZones
+	GameObject *uZObject2 = manager->CreateGameObject("UnbuildableZ2");
+	startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	UnbuildableZone *unbuildableZone2 = UnbuildableZone::Create(uZObject2, gameManager);
+	uZObject2->transform->Scale(vec3(50.0f));
+	uZObject2->transform->Rotate(vec3(0, 0, 0));
+	uZObject2->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
+	uZObject2->transform->Translate(vec3(startPosX, 0, startPosZ));
+	uZObject2->material->diffuseMap = "Game/Assets/Textures/Rock/Rock_d.jpg";
+	UZsnapPoint = grid->GetCoordinates(vec3(startPosX, 0, startPosZ));
+	// Set area on grid for building
+	UZsnapPoint.x -= 5;
+	UZsnapPoint.y -= 1;
+	for (int x = UZsnapPoint.x; x < UZsnapPoint.x + 10; x++)
+	{
+		for (int z = UZsnapPoint.y; z < UZsnapPoint.y + 4; z++)
+		{
+			hub->AddStructureToNetwork(UNBUILDABLEZONE, unbuildableZone2, x, z);
+		}
+	}
+
+	////Setup some unbuildableZones
+	GameObject *uZObject3 = manager->CreateGameObject("UnbuildableZ3");
+    startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	UnbuildableZone *unbuildableZone3 = UnbuildableZone::Create(uZObject3, gameManager);
+	uZObject3->transform->Scale(vec3(50.0f));
+	uZObject3->transform->Rotate(vec3(0, 0, 0));
+	uZObject3->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
+	uZObject3->transform->Translate(vec3(startPosX, 0, startPosZ));
+	uZObject3->material->diffuseMap = "Game/Assets/Textures/Rock/Rock_d.jpg";
+	UZsnapPoint = grid->GetCoordinates(vec3(startPosX, 0, startPosZ));
+	// Set area on grid for building
+	UZsnapPoint.x -= 5;
+	UZsnapPoint.y -= 1;
+	for (int x = UZsnapPoint.x; x < UZsnapPoint.x + 10; x++)
+	{
+		for (int z = UZsnapPoint.y; z < UZsnapPoint.y + 4; z++)
+		{
+			hub->AddStructureToNetwork(UNBUILDABLEZONE, unbuildableZone3, x, z);
+		}
+	}
 
 	//Temp Code to make Structures
 	GameObject * dome = gameManager->buildingManager.CreateNewBuilding(
