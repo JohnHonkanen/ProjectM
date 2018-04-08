@@ -106,6 +106,7 @@ namespace v1{
 		{
 			SetState(nullptr);
 			GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
+		//	GetTask().To()->TaskCompleted(task.GetType(), task.GetIndex());
 			SetInternalStateIdle();
 			AssignTaskWithoutBehaviour(v1::TaskSystem::Task());
 		}
