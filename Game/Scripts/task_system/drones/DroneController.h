@@ -59,7 +59,7 @@ namespace v1 {
 
 			void SetInternalStateIdle() { state = IDLE; }
 
-			void CancelTasks(DroneController* droneController);
+			void CancelTasks();
 		private:
 			Hub * hub;
 			

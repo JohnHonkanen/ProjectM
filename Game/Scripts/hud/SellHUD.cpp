@@ -92,7 +92,7 @@ void SellHUD::Input()
 			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
 			for(int i = 0; i < droneController.size(); i++)
 			{
-				droneController.at(i)->CancelTasks(droneController.at(i));
+				droneController.at(i)->CancelTasks();
 			}
 			
 			wrapper->SetActive(true);
@@ -106,6 +106,8 @@ void SellHUD::Input()
 			pla->GetSelectedStructure()->GetTilePosition(xCoord, yCoord);
 			GameManager::gameManager->GetHub()->RemoveBuildingFromLists(pla->GetSelectedStructure(),xCoord,yCoord, tileWidth, pla->GetSelectedStructure()->gameObject->name);
 			// Destroy the building 
+			pla->GetSelectedStructure()->SetPlaced(false);
+			pla->GetSelectedStructure()->SetActive(false);
 			pla->GetSelectedStructure()->gameObject->Destroy();
 			pla->GetSelectedStructure()->gameObject = nullptr;
 			// Deselect building
