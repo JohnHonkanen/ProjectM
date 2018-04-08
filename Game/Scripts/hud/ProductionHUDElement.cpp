@@ -8,7 +8,6 @@
 #include "../GameManager.h"
 #include "FunctionPtrButton.h"
 
-
 class ActivateButtonHud : public FunctionPtrBinder
 {
 public:
@@ -46,9 +45,6 @@ private:
 	Production * production;
 };
 
-/*ToDo:
-Button to turn building on and off manually
-*/
 ProductionHUDElement::ProductionHUDElement()
 {
 }
@@ -60,8 +56,6 @@ ProductionHUDElement::~ProductionHUDElement()
 ProductionHUDElement * ProductionHUDElement::Create(HUDElement * element, EHUD::HUDRect rect,  Production *prod, ResourceManager* rManager)
 {
 	ProductionHUDElement *p = new ProductionHUDElement();
-
-	//p->rManager = rManager;
 	p->rect = rect;
 	p->prod = prod;
 	p->productionHUD = element;
@@ -97,7 +91,6 @@ void ProductionHUDElement::OnLoad()
 
 void ProductionHUDElement::Update()
 {
-
 		if (prod != nullptr) {
 			activateButtonBinder->SetProduction(prod);
 			increaseButtonBinder->SetProduction(prod);
@@ -136,12 +129,10 @@ void ProductionHUDElement::Update()
 				rButton->SetIcon("Game/Assets/Textures/Resource/missing-16.png");
 			}
 		}
-	
 }
 
 void ProductionHUDElement::DrawWidget(unsigned int shader)
 {
-
 }
 
 void ProductionHUDElement::Input()
