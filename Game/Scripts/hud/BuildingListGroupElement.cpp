@@ -18,7 +18,7 @@ void BuildingListGroup::Start()
 	buttons.push_back(BuildingSelectorButton::Create(parent, { 90,460, 60,60}, "Game/Assets/Textures/dome_icon.png", buildingController, "Dome"));
 	buttons.push_back(BuildingSelectorButton::Create(parent, { 160,460, 60,60 }, "Game/Assets/Textures/factory_icon.png", buildingController, "Factory"));
 	buttons.push_back(BuildingSelectorButton::Create(parent, { 230,460, 60,60 }, "Game/Assets/Textures/warehouse_icon.png", buildingController, "Warehouse"));
-	buttons.push_back(BuildingSelectorButton::Create(parent, { 300,460, 60,60 }, "Game/Assets/Textures/warehouse_icon.png", buildingController, "Dock"));
+	buttons.push_back(BuildingSelectorButton::Create(parent, { 300,460, 60,60 }, "Game/Assets/Textures/dock_icon.png", buildingController, "Dock"));
 }
 
 void BuildingListGroup::Update()

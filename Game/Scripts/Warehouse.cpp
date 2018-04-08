@@ -4,7 +4,7 @@ Dev: Jack Smith (B00308927)
 */
 
 #include "Warehouse.h"
-
+#include "LightCycle.h"
 using namespace std;
 
 Warehouse::Warehouse() {
@@ -53,7 +53,7 @@ void Warehouse::Copy(GameObject *copyObject)
 	copy->inventory.SetResourceManager(rm);
 	copy->rm = rm;
 	copy->tileWidth = tileWidth;
-
+	LightCycle::Create(copyObject);
 	copyObject->AddComponent(copy);
 
 }

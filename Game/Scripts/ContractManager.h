@@ -4,7 +4,6 @@
 #include "PlayerEconManager.h"
 #include "core\GameObject.h"
 #include "utility\Clock.h"
-//#include "GameManager.h"
 #include <list>
 #include <vector>
 
@@ -25,7 +24,7 @@ public:
 	void Update();
 	void Start();
 
-	Contract &GetFirstAvailable();
+	int GetFirstAvailable();
 
 	ContractName GetContractName(); // Returns name of Contract from contractName enum
 	int GetSizeOfListOfContract(); // Returns the size of listOfContract
@@ -33,6 +32,11 @@ public:
 	Resources GenerateRandomResourceID();
 	Contract &FindContract(ContractName contractName, int contractIndex);
 
+	Contract GetContract(int index);
+	void StartContract(int index);
+	void CompleteContract(int index);
+	void IncreaseContractCurrent(int index, int amount);
+	void RemoveContract(int index);
 	vector <Contract> GetList();
 private:
 	int contractIndex = 0;

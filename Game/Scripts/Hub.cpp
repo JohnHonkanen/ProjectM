@@ -6,12 +6,9 @@
 #include "GameManager.h"
 #include <queue>
 #include "Drone.h"
-struct Slot
-{
-	StructureType type;
-	int x, y;
-	class Structure *structure;
-};
+#include "LightCycle.h"
+
+
 
 Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 {
@@ -26,6 +23,8 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 	h->inventory->SetMode(v2::Inventory::WHITELIST);
 	h->tileWidth = 10;
 	gameManager->playerEconManager.SetHUBInventory(h->inventory);
+
+	LightCycle::Create(gameObject);
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
@@ -230,7 +229,8 @@ void Hub::OnLoad()
 
 void Hub::Start()
 {
-	inventory->AddItem(ResourceName::Gold, 6000);
+	inventory->AddItem(ResourceName::Gold, 3000);
+	gameObject->GetComponent<LightCycle>()->ActivateLight();
 }
 
 void Hub::Update(double dt)
@@ -241,8 +241,20 @@ void Hub::Update(double dt)
 
 	if (timer.Alarm())
 	{
+		int goldAmount = inventory->Contains(ResourceName::Gold);
 		int upkeep = CalculateUpkeep();
-		inventory->Remove(ResourceName::Gold, upkeep);
+		int difference = 0;
+
+		if (upkeep > goldAmount) {
+			difference = upkeep - goldAmount;
+			AdjustDebt(difference);
+		}
+
+		if (goldAmount > 0) {
+			inventory->Remove(ResourceName::Gold, upkeep);
+			SetDebt(0);
+		}
+		
 		timer.ResetClock();
 	}
 }
@@ -337,12 +349,11 @@ void Hub::CreateDrone()
 		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
 		dronePrefabComp->IncreaseUpkeep(1);
 	}
-
 }
 
 int Hub::GetGold()
 {
-	return inventory->Contains(ResourceName::Gold);
+	return inventory->Contains(ResourceName::Gold) - GetDebt();
 }
 
 int Hub::GetDroneCost()
@@ -358,6 +369,26 @@ int Hub::GetDroneUpkeep()
 int Hub::GetBuildingUpkeep()
 {
 	return upkeepBuilding;
+}
+
+int Hub::GetDebt()
+{
+	return this->debt;
+}
+
+void Hub::SetDebt(int amount)
+{
+	this->debt = amount;
+}
+
+void Hub::AdjustDebt(int amount)
+{
+	this->debt += amount;
+}
+
+std::vector<Slot> Hub::GetAllBuildingInNetwork()
+{
+	return networkList;
 }
 
 void Hub::TallyResource()

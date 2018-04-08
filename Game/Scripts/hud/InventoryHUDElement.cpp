@@ -39,13 +39,14 @@ InventoryHUDElement * InventoryHUDElement::Create(HUDElement * element, EHUD::HU
 void InventoryHUDElement::Start()
 {
 	slots.resize(9);
+	slots.reserve(9);
 	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Inventory contents
 	for (int x = 0; x < 3; x++)
 	{
 		for (int y = 0; y < 3; y++)
 		{
-			slots[x + y] = HUDInventorySlot::Create(this, { float(55 * x),float(55 * y), 50,50}, "Game/Assets/Textures/Production_HUD_Texture.png");
+			slots[x + (3*y)] = HUDInventorySlot::Create(this, { float(55 * x),float(55 * y), 50,50}, "Game/Assets/Textures/Production_HUD_Texture.png");
 		}
 	}
 		StartChildWidgets();
@@ -85,15 +86,12 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				v2::Inventory::Slot slot = inv.At(i);
 				if (slot.resource != nullptr)
 				{
-					string icon = slot.resource->GetResourceIcon();
 					slots[i]->SetIcon(slot.resource->GetResourceIcon());
 					slots[i]->SetQuantity(slot.quantity);
 				}
 				else
 				{
-					// slots[i]->SetIcon(slot.resource->GetResourceIcon());
-					// Need to change slot image to default image.
-					// Need default icon.
+					slots[i]->SetIcon("Game/Assets/Textures/Production_HUD_Texture.png");
 				}
 			}
 		}

@@ -42,6 +42,8 @@ public:
 	void DecreaseItemStock(int index, int amount); // Decrease Item stock amount at vector index
 
 	string GetNameOfItem(int index); // Get name of Item 
+	ResourceName GetResourceName(int index); // Get the Resourcename
+	int FindResourceIndex(ResourceName resourceName); // Get the Resource index
 
 	int GetDemandOf(int index); // Get Demand of item at vector index
 	void IncreaseDemandOf(int index, int amount); // Increase Demand of item at vector index
@@ -50,7 +52,7 @@ public:
 	void ChangeOverTimeOf(int index, int demand, int price); // Increase/Decrease Quantity/Price of resource available in market based on demand
 
 	int GetMaxLimit(); // Get MAX_LIMITER
-	
+	void CompleteTransaction(ResourceName resourceName, int amount);
 private:
 	static const int MAX_LIMITER = 99000;
 	static const int MIN_LIMITER = 0;

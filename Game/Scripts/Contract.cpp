@@ -1,6 +1,8 @@
 #include "Contract.h"
 #include "ContractManager.h"
 #include "glm\glm.hpp"
+#include "GameManager.h"
+#include "PlayerEconomy.h"
 
 Contract::Contract()
 {
@@ -36,6 +38,8 @@ Contract::Contract(const Contract & copy)
 	this->difficultyModifier = copy.difficultyModifier;
 	this->taken = copy.taken;
 	this->complete = copy.complete;
+	this->begin = copy.begin;
+	this->contractBonus = copy.contractBonus;
 }
 
 
@@ -60,18 +64,16 @@ int Contract::GetPayment()
 
 void Contract::SetPayment()
 {
-	int tempDif = GetDifficulty();
+	// Generate random amount of resources to fulfill
 	SetAmount();
 
-	if (tempDif == 1) {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
-	else if (tempDif == 2) {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
-	else {
-		this->payment = DifficultyModifier(tempDif) + (resource.GetBasePrice() * GetAmount());
-	}
+	// Calculate Price of contract total reward.
+	this->payment = resource.GetBasePrice() * GetAmount() + GetContractBonus();
+}
+
+int Contract::GetContractBonus()
+{
+	return this->contractBonus = DifficultyModifier(GetDifficulty());
 }
 
 Resources Contract::GetResource()
@@ -94,13 +96,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = (rand() % 10) + 15;
+		this->amount = (rand() % 10 + 1);
 	}
 	else if (tempDif == 2) {
-		this->amount = (rand() % 20) + 30;
+		this->amount = (rand() % 20 + 1);
 	}
 	else {
-		this->amount = (rand() % 60) + 90;
+		this->amount = (rand() % 60 + 1);
 	}
 }
 
@@ -135,8 +137,7 @@ int Contract::ReduceTime(int millisecond)
 
 	if (this->time < 0) {
 		this->time = 0;
-		SetStatus(false);
-		IsComplete();
+		//SetStatus(false);
 	}
 	return this->time;
 }
@@ -164,7 +165,10 @@ int Contract::IncreaseCurrent(int amountToIncrease)
 		return SetCurrent(GetAmount());
 	}
 	else {
+		// Calculate value of amount delivered + add to player economy + adjust contract current.
+		int amountDelivered = GetResource().GetBasePrice() * amountToIncrease;
 		this->current += amountToIncrease;
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(amountDelivered);
 		return SetCurrent(this->current);
 	}
 }
@@ -175,6 +179,9 @@ int Contract::DecreaseCurrent(int amountToDecrease)
 		return SetCurrent(0);
 	}
 	else {
+		// Calculate value of amount deducted + deduct from player economy + adjust contract current.
+		int amountDelivered = GetResource().GetBasePrice() * amountToDecrease;
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->RemoveGoldBars(amountDelivered);
 		this->current -= amountToDecrease;
 		return SetCurrent(this->current);
 	}
@@ -213,8 +220,18 @@ void Contract::SetStatus(bool active)
 
 bool Contract::IsComplete() 
 {
+	bool actuallyCompleted = false;
+
+	if (GetCurrent() == GetAmount())
+	{
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(GetContractBonus());
+		actuallyCompleted = true;
+	}
+	
 	SetStatus(false); // Set contract status to false
-	return this->complete = true;
+	this->complete = true;
+
+	return actuallyCompleted;
 }
 
 bool Contract::InitComplete(bool completeStatus)
@@ -223,18 +240,10 @@ bool Contract::InitComplete(bool completeStatus)
 	return this->complete;
 }
 
-void Contract::DebugContractOnce()
-{
-	// print result of contracts
-
-	printf("Contract ID: %i\n", contractID);
-}
 
 int Contract::DifficultyModifier(int tempDif)
 {
-	difficultyModifier = this->difficultyModifier * tempDif;
-
-	return difficultyModifier;
+	return this->difficultyModifier * tempDif;;
 }
 
 int Contract::GetResourceID()

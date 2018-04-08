@@ -31,8 +31,9 @@ void ContractHUD::OnLoad()
 {
 	// Create HUD elements based on contracts in the ContractManager
 	wrapper = EHUD::WHUDContainer::Create(root, { 950, 50, 750, 550 }, "Game/Assets/Textures/transparent_black.png", true);
+	GenerateTitleOfHUD();
 	wrapper->SetActive(false);
-
+	
 	Engine::GameEngine::manager.inputManager.AddKey("toggleContractHUD", "c");
 }
 
@@ -40,14 +41,15 @@ void ContractHUD::Start()
 {
 	this->sizeOfContractList = 9;//contractManager->GetSizeOfListOfContract();
 
+	
 	for (int i = 0; i < this->sizeOfContractList; i++) {
-		//vectorOfContracts.push_back(&contractManager->FindContract(ContractName::Player_Contract, this->index));
 		CHElement.push_back(ContractHUDElement::Create(wrapper, { 25 , (float)25 + 55 * i, 0, 0 }));
 	}
 }
 
 void ContractHUD::Update()
 {
+	
 	auto contractList = contractManager->GetList();
 
 	int numberOfElements = contractList.size();
@@ -79,3 +81,9 @@ void ContractHUD::Input()
 		}
 	}
 }
+
+void ContractHUD::GenerateTitleOfHUD()
+{
+	contractTitle = EHUD::TextWidget::Create(wrapper, { 70, -10, 0, 0 }, "CONTRACTS", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 30, 1, vec3(0, 1, 0));
+}
+

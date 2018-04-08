@@ -54,6 +54,11 @@ namespace v1
 			return amount;
 		}
 
+		int Task::GetIndex() const
+		{
+			return index;
+		}
+
 		Task::Task(): type(TASK_TYPE::NONE), to(nullptr)
 		{
 		}
@@ -63,19 +68,24 @@ namespace v1
 		}
 
 		Task::Task(TYPE t, uint p, Structure * from, Structure * to) :
-			type(t), priority(p), from(from), to(to)
+			type(t), priority(p), from(from), to(to), index(0)
 		{
 		}
 
 		Task::Task(TYPE t, uint p, Structure * from, Structure * to, ResourceName resource, int amount) :
 			type(t), priority(p), from(from), to(to),
-			resource(resource), amount(amount)
+			resource(resource), amount(amount), index(0)
 		{
 		}
 
-		Task::Task(const Task & task) : 
+		Task::Task(TYPE t, uint p, Structure * from, Structure * to, ResourceName resource, int amount, int index) : type(t), priority(p), from(from), to(to),
+			resource(resource), amount(amount), index(index)
+		{
+		}
+
+		Task::Task(const Task & task) :
 			type(task.type), priority(task.priority), uid(task.uid),
-			from(task.from), to(task.to), resource(task.resource), amount(task.amount)
+			from(task.from), to(task.to), resource(task.resource), amount(task.amount), index(task.index)
 		{
 
 		}

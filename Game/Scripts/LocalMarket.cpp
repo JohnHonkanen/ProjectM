@@ -1,4 +1,5 @@
 #include "LocalMarket.h"
+#include "GameManager.h"
 
 LocalMarket::LocalMarket()
 {
@@ -147,6 +148,21 @@ string LocalMarket::GetNameOfItem(int index)
 	return resourceForSale[index].GetName();
 }
 
+ResourceName LocalMarket::GetResourceName(int index)
+{
+	return resourceForSale[index].GetResouceID();
+}
+
+int LocalMarket::FindResourceIndex(ResourceName resourceName)
+{
+	for (int i = 0; i < resourceForSale.size(); i++) {
+		if (resourceName == resourceForSale[i].GetResouceID()) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 int LocalMarket::GetDemandOf(int index)
 {
 	return resourceForSale[index].GetDemand();
@@ -179,5 +195,25 @@ void LocalMarket::ChangeOverTimeOf(int index, int demand, int price)
 int LocalMarket::GetMaxLimit()
 {
 	return MAX_LIMITER;
+}
+
+void LocalMarket::CompleteTransaction(ResourceName resourceName, int amount)
+{
+
+	int resourceIDIndex = FindResourceIndex(resourceName);
+
+	// Adjust price
+	if (resourceIDIndex != -1) {
+
+		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(GetBasePriceOf(resourceIDIndex * amount / 100));
+		DecreaseBasePriceOf(resourceIDIndex, GetBasePriceOf(resourceIDIndex) * 0.3);
+		IncreaseItemStock(resourceIDIndex, 100);
+		DecreaseDemandOf(resourceIDIndex, 10);
+
+	}
+	
+	if (resourceIDIndex == -1) {
+		cout << "ERROR::COULD_NOT_FIND_RESOURCE_TO_COMPLETE_TRANSACTION::" << endl;
+	}
 }
 

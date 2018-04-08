@@ -32,6 +32,7 @@ public:
 	
 	void GenerateMarketHUDElement(int resourceID, float increment, Resources resource);
 	void GenerateKSuffix(int resourceID); // Add K if value of resource quantity exceeds 1000
+	void GenerateMarketName(); // Generates the market names for each market type
 private:
 
 	class WHUDContainerWrapper {
@@ -52,7 +53,7 @@ private:
 	class LocalMarket* market;
 	static const int MAX_MARKET_ITEM_SIZE = 9;
 
-	EHUD::TextWidget* text, *rate, *quantity[MAX_MARKET_ITEM_SIZE], *price[MAX_MARKET_ITEM_SIZE];
+	EHUD::TextWidget* text, *rate, *quantity[MAX_MARKET_ITEM_SIZE], *price[MAX_MARKET_ITEM_SIZE], *marketName;
 	EHUD::HUDElement *resourceHUD[MAX_MARKET_ITEM_SIZE];
 	EHUD::WHUDContainer* resourceIcon[MAX_MARKET_ITEM_SIZE];
 	WHUDContainerWrapper marketHUD;

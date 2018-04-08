@@ -34,7 +34,8 @@ class Resources
 {
 public:
 	Resources();
-	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer);
+	Resources(ResourceName resName, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer,
+		int productionCost);
 	Resources(const Resources &copyRes);
 	~Resources();
 	
@@ -77,6 +78,9 @@ public:
 	void IncreaseProductionTimer(int amountToIncreaseBy); // Increase the resource production speed
 	void DecreaseProductionTimer(int amountToDecreaseBy); // Decrease the resource production speed
 
+	int GetProductionCost(); // Get the resource production cost for resources made in domes.
+	void AdjustProductionCost(int amount); // Adjust resource production cost made in domes.
+
 	void update(); //Increase/Decrease price if item purchase/sold is detected (based on key input).
 
 	string GetResourceIcon(); // Get Resource icon
@@ -85,6 +89,7 @@ public:
 	ResourceName GetResouceID();
 private:
 	int itemID, itemValue, itemQuality, stackLimit, demand, productionTimer;
+	int productionCost = 0;
 	int itemStock = 0;
 	int basePrice; // Standard price
 	float baseModifier = 5.0;

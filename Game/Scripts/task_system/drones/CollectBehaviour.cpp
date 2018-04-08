@@ -24,7 +24,7 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 		boxObj->transform->SetPosition(drone->transform->GetPosition() - vec3(0, drone->transform->GetPosition().y, 0));
 
 		Structure * structure;
-
+		int amount = task.GetAmount();
 		if (task == TASK_TYPE::REQUEST)
 		{
 			structure = task.To();
@@ -33,7 +33,6 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 			structure = task.From();
 		}
 		ResourceName resource = task.GetResource();
-		int amount = 200;
 		int spaceLeftInDrone = drone->GetInventory().CheckStorageFull(resource);
 
 		if (spaceLeftInDrone < amount)
@@ -42,14 +41,13 @@ bool v1::TaskSystem::CollectBehaviour::Run(double dt)
 			spaceLeftInDrone = 0;
 		}
 
-		int amountCollected = structure->Collect(resource, amount);
+		int amountCollected = structure->Collect(resource, amount, task.GetIndex());
 
 		drone->GetInventory().AddItem(resource, amountCollected);
 
-		if (structure->Contains(resource) == 0 || spaceLeftInDrone == 0)
-		{
-			return true;
-		}
+
+		return true;
+		
 
 		clock.ResetClock();
 	}
@@ -87,7 +85,7 @@ void v1::TaskSystem::CollectBehaviour::Next()
 		{
 			info.controller->AssignTask(task);
 			info.controller->SetState(nullptr);
-			info.controller->GetTask().From()->TaskCompleted(task.GetType());
+			info.controller->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
 			info.controller->SetInternalStateIdle();
 			info.controller->AssignTaskWithoutBehaviour(Task());
 		}

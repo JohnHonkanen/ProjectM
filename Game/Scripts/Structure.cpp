@@ -47,9 +47,13 @@ void Structure::SetTilePosition(int x, int y)
 	tileY = y;
 }
 
-void Structure::TaskCompleted(TASK_TYPE type)
+void Structure::TaskCompleted(TASK_TYPE type, int index)
 {
 	task = v1::TaskSystem::Task();
+}
+
+void Structure::IncreaseTaskNumber(TASK_TYPE type, int index)
+{
 }
 
 vec3 Structure::ParkingLocation()
@@ -57,14 +61,14 @@ vec3 Structure::ParkingLocation()
 	return transform->GetPosition();
 }
 
-int Structure::Deposit(ResourceName resource, int amount)
+int Structure::Deposit(ResourceName resource, int amount, int index)
 {
 	inventory.AddItem(resource, amount);
 
 	return 0;
 }
 
-int Structure::Collect(ResourceName resource, int amount)
+int Structure::Collect(ResourceName resource, int amount, int index)
 {
 	int toRemove = amount;
 	int contains = inventory.Contains(resource);

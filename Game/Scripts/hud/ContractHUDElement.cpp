@@ -18,6 +18,7 @@ ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDR
 
 void ContractHUDElement::Start()
 {
+	
 	GenerateContractElements();
 	StartChildWidgets();
 }
@@ -27,6 +28,9 @@ void ContractHUDElement::Update()
 	if (!active) {
 		return;
 	}
+
+	// Contract Background 
+	GenerateDifficultyBackground(GetContractDifficulty());
 
 	// Contract ID
 	contractID->text = "# " + to_string(contract.GetContractID());
@@ -75,7 +79,7 @@ Contract ContractHUDElement::GetContract()
 void ContractHUDElement::GenerateContractElements()
 {
 	// Background
-	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 280, 50 }, "Game/Assets/Textures/black.jpg", true);
+	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 280, 50 }, "Game/Assets/Textures/contract/black.jpg", true);
 
 	// Contract ID
 	contractID = EHUD::TextWidget::Create(contractHUD, { 10, 12, 0, 0 }, "", "Game/Assets/Fonts/MavenPro-Regular.ttf", 16, 1, vec3(1, 1, 1));
@@ -102,5 +106,32 @@ void ContractHUDElement::GenerateKSuffix()
 		ss << std::fixed << std::setprecision(2) << q;
 		reward->text = "Reward: " + ss.str() + "K Gold";
 	}
+	else {
+		reward->text = "Reward: " + to_string(contract.GetPayment()) + " Gold";
+	}
+}
+
+void ContractHUDElement::GenerateDifficultyBackground(int difficulty)
+{
+	switch (difficulty) {
+	case 1:
+		contractHUD->ChangeImage("Game/Assets/Textures/contract/blue.jpg");
+		break;
+	case 2:
+		contractHUD->ChangeImage("Game/Assets/Textures/contract/green.jpg");
+		break;
+	case 3:
+		contractHUD->ChangeImage("Game/Assets/Textures/contract/red.jpg");
+		break;
+	default:
+		contractHUD->ChangeImage("Game/Assets/Textures/contract/pink.jpg");
+		break;
+	}
+
+}
+
+int ContractHUDElement::GetContractDifficulty()
+{
+	return contract.GetDifficulty();
 }
 

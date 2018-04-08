@@ -33,6 +33,8 @@ public:
 	void Update();
 	
 	vector <LocalMarket*> GetList() const;
+
+	void CompleteTransaction(ResourceName resourceName, int amount);
 private:
 	ResourceManager* resourceManager;
 	vector <LocalMarket> marketQueue;

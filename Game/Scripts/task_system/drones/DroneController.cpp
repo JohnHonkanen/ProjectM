@@ -270,7 +270,7 @@ namespace v1{
 				{
 					state = IDLE;
 					activeState = ACTIVE_IDLE;
-					task.From()->TaskCompleted(task.GetType());
+					task.From()->TaskCompleted(task.GetType(), task.GetIndex());
 					task = Task();
 					boxObj->transform->SetPosition(vec3(0, -10, 0));
 					collecting = false;

@@ -8,7 +8,8 @@ Resources::Resources()
 	this->resourceName = ResourceName::Null_Resource;
 }
 
-Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer)
+Resources::Resources(ResourceName itemID, string itemName, string sku, int basePrice, int itemStock, string resourceIcon, int stackLimit, int demand, int productionRate, int productionTimer,
+	int productionCost)
 {
 	this->itemID = static_cast<int>(itemID);
 	this->itemName = itemName;
@@ -21,6 +22,7 @@ Resources::Resources(ResourceName itemID, string itemName, string sku, int baseP
 	this->demand = demand;
 	this->productionRate = productionRate;
 	this->productionTimer = productionTimer;
+	this->productionCost = productionCost;
 }
 
 Resources::Resources(const Resources & copyRes)
@@ -36,6 +38,7 @@ Resources::Resources(const Resources & copyRes)
 	this->demand = copyRes.demand;
 	this->productionRate = copyRes.productionRate;
 	this->productionTimer = copyRes.productionTimer;
+	this->productionCost = copyRes.productionCost;
 }
 
 Resources::~Resources()
@@ -79,17 +82,19 @@ void Resources::SetBasePrice(int basePrice)
 
 void Resources::IncreaseItemBasePrice(int amount)
 {
-	int randomAmount = rand() % amount + 1;
+	amount = max(1, amount);
+	int randomAmount = rand() % amount;
 	IncreaseItemPrice(randomAmount);
 }
 
 void Resources::DecreaseItemBasePrice(int amount)
 {
-	int randomAmount = rand() % amount + 1;
+	amount = max(1, amount);
+	int randomAmount = rand() % amount;
 	DecreaseItemPrice(randomAmount);
 
-	if (GetBasePrice() > 2000) {
-		DecreaseItemPrice(GetBasePrice() / 3);
+	if (GetBasePrice() > 3000) {
+		DecreaseItemPrice(GetBasePrice() / 30);
 	}
 }
 
@@ -177,9 +182,9 @@ int Resources::GetDemand()
 void Resources::IncreaseDemand(int demand)
 {
 	int randomInt = rand() % 100;
-
+	demand = max(1, demand);
 	if (randomInt > 80) {
-		int newDemand = GetDemand() + (rand() % demand + 1);
+		int newDemand = GetDemand() + (rand() % demand );
 		this->demand += newDemand;
 	}
 
@@ -191,9 +196,9 @@ void Resources::IncreaseDemand(int demand)
 void Resources::DecreaseDemand(int demand)
 {
 	int randomInt = rand() % 100;
-
+	demand = max(1, demand);
 	if (randomInt > 50) {
-		int newDemand = GetDemand() + (rand() % demand + 1);
+		int newDemand = GetDemand() + (rand() % demand);
 		this->demand -= newDemand;
 	}
 
@@ -230,6 +235,16 @@ void Resources::IncreaseProductionTimer(int amountToIncreaseBy)
 void Resources::DecreaseProductionTimer(int amountToDecreaseBy)
 {
 	this->productionTimer -= amountToDecreaseBy;
+}
+
+int Resources::GetProductionCost()
+{
+	return this->productionCost;
+}
+
+void Resources::AdjustProductionCost(int amount)
+{
+	this->productionCost += productionCost;
 }
 
 void Resources::update()

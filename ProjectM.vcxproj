@@ -25,6 +25,7 @@
     <ClInclude Include="Game\Scripts\BuildingProductionAnims.h" />
     <ClInclude Include="Game\Scripts\BuildingSpawnAnim.h" />
     <ClInclude Include="Game\Scripts\CameraController.h" />
+    <ClInclude Include="Game\Scripts\DayNightCycle.h" />
     <ClInclude Include="Game\Scripts\Dock.h" />
     <ClInclude Include="Game\Scripts\Drone.h" />
     <ClInclude Include="Game\Scripts\DroneProducer.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Game\Scripts\hud\BuildingHUD.h" />
     <ClInclude Include="Game\Scripts\hud\ButtonWidget.h" />
     <ClInclude Include="Game\Scripts\hud\ContractHUDElement.h" />
+    <ClInclude Include="Game\Scripts\hud\DockHUD.h" />
     <ClInclude Include="Game\Scripts\hud\FunctionPtrButton.h" />
     <ClInclude Include="Game\Scripts\hud\HubHUD.h" />
     <ClInclude Include="Game\Scripts\hud\HUDInventorySlot.h" />
@@ -57,6 +59,7 @@
     <ClInclude Include="Game\Scripts\Inventory.h" />
     <ClInclude Include="Game\Scripts\InventoryV2.h" />
     <ClInclude Include="Game\Scripts\InventoryWrapper.h" />
+    <ClInclude Include="Game\Scripts\LightCycle.h" />
     <ClInclude Include="Game\Scripts\LocalMarket.h" />
     <ClInclude Include="Game\Scripts\MarketManager.h" />
     <ClInclude Include="Game\Scripts\ObjectPlacer.h" />
@@ -84,6 +87,7 @@
     <ClCompile Include="Game\Scripts\BuildingProductionAnims.cpp" />
     <ClCompile Include="Game\Scripts\BuildingSpawnAnim.cpp" />
     <ClCompile Include="Game\Scripts\CameraController.cpp" />
+    <ClCompile Include="Game\Scripts\DayNightCycle.cpp" />
     <ClCompile Include="Game\Scripts\Dock.cpp" />
     <ClCompile Include="Game\Scripts\Drone.cpp" />
     <ClCompile Include="Game\Scripts\DroneProducer.cpp" />
@@ -97,6 +101,7 @@
     <ClCompile Include="Game\Scripts\hud\BuildingHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\ButtonWidget.cpp" />
     <ClCompile Include="Game\Scripts\hud\ContractHUDElement.cpp" />
+    <ClCompile Include="Game\Scripts\hud\DockHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\FunctionPtrButton.cpp" />
     <ClCompile Include="Game\Scripts\hud\HubHUD.cpp" />
     <ClCompile Include="Game\Scripts\hud\HUDInventorySlot.cpp" />
@@ -116,6 +121,7 @@
     <ClCompile Include="Game\Scripts\Inventory.cpp" />
     <ClCompile Include="Game\Scripts\InventoryV2.cpp" />
     <ClCompile Include="Game\Scripts\InventoryWrapper.cpp" />
+    <ClCompile Include="Game\Scripts\LightCycle.cpp" />
     <ClCompile Include="Game\Scripts\LocalMarket.cpp" />
     <ClCompile Include="Game\Scripts\MarketManager.cpp" />
     <ClCompile Include="Game\Scripts\ObjectPlacer.cpp" />
