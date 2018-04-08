@@ -5,6 +5,8 @@ Dev: Jack Smith (B00308927)
 #pragma once
 #include "components\Behaviour.h"
 #include <vector>
+#include "../Dock.h"
+
 //Forward Declaration
 namespace Engine
 {

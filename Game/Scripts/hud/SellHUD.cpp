@@ -16,6 +16,8 @@ Dev: Jack Smith (B00308927)
 #include "../GameManager.h"
 #include  "../task_system/Task.h"
 #include "../task_system/drones/DroneController.h"
+#include "../Dock.h"
+//#include "../UnbuildableZone.h"
 
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
@@ -49,6 +51,7 @@ void SellHUD::OnLoad()
 	SHElement = SellHUDElement::Create(wrapper, { 25, 25, 0, 0 }, pla, rManager);
 
 	Engine::GameEngine::manager.inputManager.AddKey("ToggleSellMenu", "l");
+
 }
 
 void SellHUD::Start()
@@ -67,8 +70,18 @@ void SellHUD::Input()
 
 	if (openSellMenu == 1)
 	{
-		if (pla->GetSelectedStructure() != nullptr && dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr)
+		if (pla->GetSelectedStructure() != nullptr 
+			&& dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr
+			/*&& dynamic_cast<UnbuildableZone*>(pla->GetSelectedStructure()) == nullptr*/)
 		{
+			
+			// If the structure is a dock with a ship docked send the ship away
+			if(dynamic_cast<Dock*>(pla->GetSelectedStructure()) != nullptr)
+			{
+				auto temp = pla->GetSelectedStructure();
+				Dock* d = dynamic_cast<Dock*>(temp);
+				d->SetDockDestoryed(true);
+			}
 			// Complete the task the drones currently have that are connected to the building
 			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
 			for(int i = 0; i < droneController.size(); i++)

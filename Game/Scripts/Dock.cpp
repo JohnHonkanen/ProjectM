@@ -2,6 +2,7 @@
 #include "components\MeshRenderer.h"
 #include "TradeShipSpawner.h"
 #include "LightCycle.h"
+#include <stdio.h>
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -65,6 +66,21 @@ void Dock::Start()
 
 void Dock::Update()
 {
+	if((dockDestroyed && dockedShip != nullptr))
+	{
+		dockedShip->Return();
+		dockedShip = nullptr;
+		docked = false;
+		dockDestroyed = false;
+		transform->SetPosition(vec3(10000, 10000, 10000));
+		return;
+	}
+	if((dockDestroyed && dockedShip == nullptr))
+	{
+		transform->SetPosition(vec3(10000, 10000, 10000));
+		dockDestroyed = false;
+		return;
+	}
 	if (!isActive)
 	{
 		return;
@@ -72,7 +88,6 @@ void Dock::Update()
 
 	BufferMarket();
 	MarketDumpTaskee();
-
  	if (contractIndex == -1)
 	{
 		if (dockedShip != nullptr)
@@ -97,6 +112,7 @@ void Dock::Update()
 
 		return;
 	}
+	
 
 	switch (dockName) {
 	case DockName::Contract: // Currently, a general dock for everything

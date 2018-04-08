@@ -37,7 +37,7 @@ void TradeShip::Update(double dt)
 		MoveTo(cameFrom, dt);
 		return;
 	}
-	vec3 dockPos= dock->transform->GetPosition();
+	vec3 dockPos = dock->transform->GetPosition();
 
 	dockPos.y += 2.0f;
 
@@ -60,7 +60,7 @@ void TradeShip::RotateToFace(vec3 pos)
 	vec3 dir = pos - transform->GetPosition();
 	float angle = atan2(dir.x, dir.z);
 	vec3 objAngle = transform->GetRotation();
-	objAngle.y = degrees(angle) + 90.0f + rotYOffset; 
+	objAngle.y = degrees(angle) + 90.0f + rotYOffset;
 	transform->SetEulerAngle(objAngle);
 }
 
@@ -105,7 +105,7 @@ void TradeShip::MoveTo(vec3 pos, double dt)
 			else {
 				gameObject->Destroy();
 			}
-			
+
 		}
 	}
 	else {
