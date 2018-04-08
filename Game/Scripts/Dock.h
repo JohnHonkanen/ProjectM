@@ -37,6 +37,7 @@ public:
 	void IncreaseTaskNumber(TASK_TYPE type, int index); //@Override
 	void SetDockDestoryed(bool state) { dockDestroyed = state; }
 	bool GetDockDestoryed() { return dockDestroyed; }
+	void AddInboundShip(class TradeShip* ts);
 	
 private:
 	void MarketDumpTaskee(); // Generate task for market dump

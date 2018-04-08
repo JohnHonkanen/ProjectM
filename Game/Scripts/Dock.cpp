@@ -72,13 +72,7 @@ void Dock::Update()
 		dockedShip = nullptr;
 		docked = false;
 		dockDestroyed = false;
-		transform->SetPosition(vec3(10000, 10000, 10000));
-		return;
-	}
-	if((dockDestroyed && dockedShip == nullptr))
-	{
-		transform->SetPosition(vec3(10000, 10000, 10000));
-		dockDestroyed = false;
+		transform->SetPosition(vec3(10000));
 		return;
 	}
 	if (!isActive)
@@ -287,6 +281,11 @@ void Dock::IncreaseTaskNumber(TASK_TYPE type, int index)
 			numMarketRequestTask++;
 		}
 	}
+}
+
+void Dock::AddInboundShip(TradeShip * ts)
+{
+	dockedShip = ts;
 }
 
 void Dock::MarketDumpTaskee()

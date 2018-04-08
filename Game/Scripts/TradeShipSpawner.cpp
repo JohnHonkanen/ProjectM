@@ -154,6 +154,7 @@ void TradeShipSpawner::CreateTradeShip(Dock *dock)
 	ts->transform->SetPosition(vec3(glm::linearRand(-1000, 1000), 500, glm::linearRand(-1000, 1000)));
 	ts->SetCameFrom(ts->transform->GetPosition());
 	ts->SetDock(dock);
+	dock->AddInboundShip(ts);
 	ts->transform->SetScale(vec3(20));
 	ts->transform->Rotate(vec3(-90, 0, 0));
 	tradeShips.push_back(ts);

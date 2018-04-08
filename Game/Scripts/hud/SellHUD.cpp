@@ -17,6 +17,7 @@ Dev: Jack Smith (B00308927)
 #include  "../task_system/Task.h"
 #include "../task_system/drones/DroneController.h"
 #include "../Dock.h"
+#include "../Warehouse.h"
 //#include "../UnbuildableZone.h"
 
 
@@ -81,6 +82,11 @@ void SellHUD::Input()
 				auto temp = pla->GetSelectedStructure();
 				Dock* d = dynamic_cast<Dock*>(temp);
 				d->SetDockDestoryed(true);
+			}
+			// Clear a warehouse inventory when it's deleted.
+			if(dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
+			{
+				pla->GetSelectedStructure()->GetInventory().RemoveAll();
 			}
 			// Complete the task the drones currently have that are connected to the building
 			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
