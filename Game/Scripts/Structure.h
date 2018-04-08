@@ -1,7 +1,7 @@
 /*
 Structure class that maintains the base properties off all structures
 
-Devs: Jack Smith (B00308927) & Greg Smith (B00308929)
+Dev: Greg Smith (B00308929)
 */
 #pragma once
 
@@ -87,16 +87,9 @@ public:
 	virtual void TaskCompleted(TASK_TYPE type, int index);
 	virtual void IncreaseTaskNumber(TASK_TYPE type, int index); 
 
-	virtual vec3 ParkingLocation();
-	virtual int Deposit(ResourceName resource, int amount, int index);
-	virtual int Collect(ResourceName resource, int amount, int index);
-	virtual int Contains(ResourceName resource);
-	virtual void TaskCompleted(TASK_TYPE type);
-	
-
 	virtual vec3 ParkingLocation();								//Returns a buildings position
-	virtual int Deposit(ResourceName resource, int amount);		//Adds an item to the buildings inventory of quantity amount
-	virtual int Collect(ResourceName resource, int amount);		//Removes an amount of a resource after checking if the inventory holds as much as is being requested, if it does not it takes what is available
+	virtual int Deposit(ResourceName resource, int amount, int index);		//Adds an item to the buildings inventory of quantity amount
+	virtual int Collect(ResourceName resource, int amount, int index);		//Removes an amount of a resource after checking if the inventory holds as much as is being requested, if it does not it takes what is available
 	virtual int Contains(ResourceName resource);				//checks how much of an resource is stored in the inventory
 
 	template<class Archive>

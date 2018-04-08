@@ -67,12 +67,15 @@ public:
 
 	bool GetProducing() { return isProducing; }
 
-	int Collect(ResourceName resource, int amount);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
+	int Collect(ResourceName resource, int amount, int index);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
 	int GetInputCount();										//Returns a factory's ingredient amount
 	int GetOutputCount();										//Returns output inventory's amount
-	void TaskCompleted(TASK_TYPE type);							//
+	void TaskCompleted(TASK_TYPE type, int index);							//
 	void IncreaseLevel();										//Increases a buildings productivity and upkeep
 	void DecreaseLevel();										//reduces a buildings productivity and upkeep
+	int GetUpkeep();
+	void IncreaseTaskNumber(TASK_TYPE type, int index);
+
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>
