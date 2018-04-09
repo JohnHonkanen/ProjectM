@@ -76,7 +76,6 @@ public:
 	int GetUpkeep();
 	void IncreaseTaskNumber(TASK_TYPE type, int index);
 
-	int GetUpkeep(); //@Override
 	BuildingProductionAnims* GetBillboard() const { return billboard; }
 
 	// Serilazation method to store the required variables to an xml document.
