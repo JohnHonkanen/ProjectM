@@ -26,19 +26,19 @@ using namespace glm;
 
 class Production : public Structure {
 private:
-	ResourceName producing;
-	ResourceName inputResource;
-	Engine::Utility::Clock clock;
-	Hub * hub;
-	ResourceManager * resourceManager;
-	bool isProducing = false;
-	BuildingProductionAnims* billboard;
-	v1::TaskSystem::Task request;
+	ResourceName producing;										//Resource building is producing
+	ResourceName inputResource;									//Resource needed to create buildings output, found using recipe
+	Engine::Utility::Clock clock;								//Clock for update triggers
+	Hub * hub;													//Hub reference
+	ResourceManager * resourceManager;							//Resource manager reference
+	bool isProducing = false;									//Defines if an output has been set for a building
+	BuildingProductionAnims* billboard;							//Billboarding reference, triggered on an items production
+	v1::TaskSystem::Task request;								//
 
-	v2::Inventory inventoryOutput;
+	v2::Inventory inventoryOutput;								//Second inventory for factory where buildings require an input
 
-	void DomeProduction();
-	void FactoryProduction();
+	void DomeProduction();										//
+	void FactoryProduction();									//
 
 	int numCollectTask = 0;
 	int maxCollectTask = 1;
@@ -55,36 +55,29 @@ public:
 
 	void Copy(GameObject *copyObject);
 
-	void Start();
+	void Start();												//Starts clock and sets alarm
 	void OnLoad();
-	void Update(double currentTime);
+	void Update(double currentTime);							//calls production metod and generates building tasks
 
-	void SetProduction(ResourceName type);
-	void SetActive(bool change);
-	ResourceName GetProduction() { return producing; }
+	void SetProduction(ResourceName type);						//Sets building production, and empties onventory if production type in changed
+	void SetActive(bool change);								//Sets if building is active, and when not active also sets it to not be producing a resource
+	ResourceName GetProduction() { return producing; }			//Returns resource building is producing
 
 	Resources* GetResource() { return resourceManager->Find(producing); }
 
 	bool GetProducing() { return isProducing; }
 
-	int Collect(ResourceName resource, int amount, int index);
-	int GetInputCount();
-	int GetOutputCount();
-	void TaskCompleted(TASK_TYPE type, int index);
-	void IncreaseLevel();
-	void DecreaseLevel();
-
+	int Collect(ResourceName resource, int amount, int index);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
+	int GetInputCount();										//Returns a factory's ingredient amount
+	int GetOutputCount();										//Returns output inventory's amount
+	void TaskCompleted(TASK_TYPE type, int index);							//
+	void IncreaseLevel();										//Increases a buildings productivity and upkeep
+	void DecreaseLevel();										//reduces a buildings productivity and upkeep
+	int GetUpkeep();
 	void IncreaseTaskNumber(TASK_TYPE type, int index);
 
 	int GetUpkeep(); //@Override
 	BuildingProductionAnims* GetBillboard() const { return billboard; }
-
-	//void domeProduction(int eff, bool act);
-	//void factoryProduction(int eff, bool act);
-
-	//int getStorage();
-	//void setStorage(int change); //Defunct method
-
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>

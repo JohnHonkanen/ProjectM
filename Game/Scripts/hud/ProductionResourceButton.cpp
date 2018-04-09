@@ -49,8 +49,6 @@ ProductionResourceButton * ProductionResourceButton::Create(HUDElement * element
 	ProductionResourceButton * button = new ProductionResourceButton();
 	button->rect = rect;
 	button->baseTexture = baseTexture;
-	//button->mouseEnterTexture = mouseOverTexture;
-	//button->mouseDownTexture = mouseDownTexture;
 	button->root = element;
 	button->production = production;
 	element->AttachWidget(button);

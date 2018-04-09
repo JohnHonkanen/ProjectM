@@ -75,8 +75,8 @@ int main(int argc, char *argv[])
 	hubObject->transform->Rotate(vec3(0, 0, 0));
 	hubObject->transform->SetPosition(grid->GetSnapPoint(vec3(0)));
 	hubObject->transform->Translate(vec3(0, 15, 0));
-	hubObject->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
-	hubObject->material->altDiffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	hubObject->material->diffuseMap = "Game/Assets/Textures/Models/Hub_UVW.png";
+	hubObject->material->altDiffuseMap = "Game/Assets/Textures/Models/building_selected.jpg";
 	//end of Hub Setup
 	vec2 snapPoint = grid->GetCoordinates(vec3(0));
 	snapPoint.x -= 5;
@@ -201,19 +201,19 @@ int main(int argc, char *argv[])
 		Production::Create("Dome", DOME, 10, 1, 1, 1, 300, 1,false, false, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Dome.DAE"
 	);
-	dome->material->diffuseMap = "Game/Assets/Textures/Dome_UVW.png";
+	dome->material->diffuseMap = "Game/Assets/Textures/Models/Dome_UVW.png";
 
 	GameObject * factory = gameManager->buildingManager.CreateNewBuilding(
 		Production::Create("Factory", FACTORY, 10, 1, 1,1,500, 1, false, false, &gameManager->resourceManager, hub),
 		"Game/Assets/Models/mobajuice/Factory.DAE"
 	);
-	factory->material->diffuseMap = "Game/Assets/Textures/factory_UVW.png";
+	factory->material->diffuseMap = "Game/Assets/Textures/Models/Factory_UVW.png";
 
 	GameObject * warehouse = gameManager->buildingManager.CreateNewBuilding(
 		Warehouse::Create("Warehouse", 10, 1, 1, 1, false, false, &gameManager->resourceManager),
 		"Game/Assets/Models/mobajuice/Warehouse.DAE"
 	);
-	warehouse->material->diffuseMap = "Game/Assets/Textures/building_hud.jpg";
+	warehouse->material->diffuseMap = "Game/Assets/Textures/Models/Warehouse_UVW.png";
 
 	GameObject *dock = gameManager->buildingManager.CreateNewBuilding(
 		Dock::Create(10, 150),

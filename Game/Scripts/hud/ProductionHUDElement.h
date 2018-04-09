@@ -29,36 +29,36 @@ public:
 
 
 private:
-	EHUD::TextWidget* title;
-	EHUD::TextWidget* level;
-	EHUD::TextWidget* upkeep;
+	EHUD::TextWidget* title;									//Displays building name
+	EHUD::TextWidget* level;									//Displays building production efficiency
+	EHUD::TextWidget* upkeep;									//Displays building upkeep
 
-	EHUD::TextWidget* producing;
-	EHUD::TextWidget* ingredient;
-	EHUD::TextWidget* storage1;
-	EHUD::TextWidget* storage2;
+	EHUD::TextWidget* producing;								//Displays resource building is outputting
+	EHUD::TextWidget* ingredient;								//Displays resource required for factory production
+	EHUD::TextWidget* storage1;									//Displays output storage volume
+	EHUD::TextWidget* storage2;									//Displays factory input storage volume
 
-	string IconName(ResourceName res);			//Returns the resource string from the resource manager
-	ResourceName GetIngredient();				//Returns the ResourceName input from the recipe manager
-
-
-	vector<EHUD::TextWidget*> text;
-	class Production * prod;
-
-	class ProductionButton * pButton;		//Set Production button
-
-	class ProductionResourceButton * rButton;		//Producing Resource Button
-	class ProductionResourceButton * iButton;		//Ingredient Resource Button
-	class FunctionPtrButton * aButton;				//Active Building Button
-	class FunctionPtrButton * uButton;				//Increase building level
-	class FunctionPtrButton * dButton;				//Decrease building level
+	string IconName(ResourceName res);							//Returns the resource string from the resource manager
+	ResourceName GetIngredient();								//Returns the ResourceName input from the recipe manager
 
 
-	EHUD::HUDElement* productionHUD;
-	class ResourceManager* rManager;
+	vector<EHUD::TextWidget*> text;								//
+	class Production * prod;									//
 
-	class ActivateButtonHud * activateButtonBinder;
-	class IncreaseButtonHud * increaseButtonBinder;
-	class DecreaseButtonHud * decreaseButtonBinder;
+	class ProductionButton * pButton;							//Set Production button
+
+	class ProductionResourceButton * rButton;					//Producing Resource Button
+	class ProductionResourceButton * iButton;					//Ingredient Resource Button
+	class FunctionPtrButton * aButton;							//Active Building Button
+	class FunctionPtrButton * uButton;							//Increase building level
+	class FunctionPtrButton * dButton;							//Decrease building level
+
+
+	EHUD::HUDElement* productionHUD;							//
+	class ResourceManager* rManager;							//
+
+	class ActivateButtonHud * activateButtonBinder;				//
+	class IncreaseButtonHud * increaseButtonBinder;				//
+	class DecreaseButtonHud * decreaseButtonBinder;				//
 
 };

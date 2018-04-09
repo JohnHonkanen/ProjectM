@@ -37,3 +37,4 @@ private:
 	class EHUD::HUDElement *root;
 	class EHUD::HUDElement *container;
 };
+//Button opens appropriate production building resource selection menu
