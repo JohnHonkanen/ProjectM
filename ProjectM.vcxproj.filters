@@ -205,6 +205,9 @@
     <ClCompile Include="Game\Scripts\hud\SellHUDElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scripts\UnbuildableZone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Scripts\task_system\drones\AbstractDroneBehaviour.h">
@@ -406,6 +409,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Scripts\hud\SellHUDElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scripts\UnbuildableZone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
