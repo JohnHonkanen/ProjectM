@@ -20,8 +20,7 @@ Dev: Jack Smith (B00308927)
 #include "../Warehouse.h"
 #include "../Production.h"
 #include "../LightCycle.h"
-
-//#include "../UnbuildableZone.h"
+#include "../UnbuildableZone.h"
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
 {
@@ -81,7 +80,7 @@ void SellHUD::Input()
 	{
 		if (pla->GetSelectedStructure() != nullptr 
 			&& dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr
-			/*&& dynamic_cast<UnbuildableZone*>(pla->GetSelectedStructure()) == nullptr*/)
+			&& dynamic_cast<UnbuildableZone*>(pla->GetSelectedStructure()) == nullptr)
 		{
 			// If the structure is a production strucutre, the billboard is destroyed 
 			// When the structure is sold.

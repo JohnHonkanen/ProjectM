@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 
 	////Setup some unbuildableZones
 	GameObject *uZObject1 = manager->CreateGameObject("UnbuildableZ1");
-	int startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	int startPosX = (rand() % 500 + -500), startPosZ = (rand() % 500 + -500);
 	UnbuildableZone *unbuildableZone1 = UnbuildableZone::Create(uZObject1, gameManager);
 	uZObject1->transform->Scale(vec3(50.0f));
 	uZObject1->transform->Rotate(vec3(0, 0, 0));
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
 	////Setup some unbuildableZones
 	GameObject *uZObject2 = manager->CreateGameObject("UnbuildableZ2");
-	startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	startPosX = (rand() % 500 + -500), startPosZ = (rand() % 500 + -500);
 	UnbuildableZone *unbuildableZone2 = UnbuildableZone::Create(uZObject2, gameManager);
 	uZObject2->transform->Scale(vec3(50.0f));
 	uZObject2->transform->Rotate(vec3(0, 0, 0));
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 
 	////Setup some unbuildableZones
 	GameObject *uZObject3 = manager->CreateGameObject("UnbuildableZ3");
-    startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+    startPosX = (rand() % 500 + -500), startPosZ = (rand() % 500 + -500);
 	UnbuildableZone *unbuildableZone3 = UnbuildableZone::Create(uZObject3, gameManager);
 	uZObject3->transform->Scale(vec3(50.0f));
 	uZObject3->transform->Rotate(vec3(0, 0, 0));
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 
 	////Setup some unbuildableZones
 	GameObject *uZObject4 = manager->CreateGameObject("UnbuildableZ3");
-	startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	startPosX = (rand() % 500 + -500), startPosZ = (rand() % 500 + -500);
 	UnbuildableZone *unbuildableZone4 = UnbuildableZone::Create(uZObject4, gameManager);
 	uZObject4->transform->Scale(vec3(50.0f));
 	uZObject4->transform->Rotate(vec3(0, 0, 0));
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 	////Setup some unbuildableZones
 	GameObject *uZObject5 = manager->CreateGameObject("UnbuildableZ3");
-	startPosX = (rand() % 1000 + -1000), startPosZ = (rand() % 1000 + -1000);
+	startPosX = (rand() % 500 + -500), startPosZ = (rand() % 500 + -500);
 	UnbuildableZone *unbuildableZone5 = UnbuildableZone::Create(uZObject5, gameManager);
 	uZObject5->transform->Scale(vec3(50.0f));
 	uZObject5->transform->Rotate(vec3(0, 0, 0));
