@@ -77,6 +77,7 @@ public:
 	void IncreaseTaskNumber(TASK_TYPE type, int index);
 
 	int GetUpkeep(); //@Override
+	BuildingProductionAnims* GetBillboard() const { return billboard; }
 
 	//void domeProduction(int eff, bool act);
 	//void factoryProduction(int eff, bool act);

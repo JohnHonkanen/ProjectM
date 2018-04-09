@@ -57,6 +57,7 @@ void BuildingController::Start()
 
 void BuildingController::Update(double dt)
 {
+	playerAction->SetBuildingStatus(buildMode);
 	if (buildMode)
 	{
 		int mx, my; //Mouse Position

@@ -88,8 +88,9 @@ public:
 	void SetPlaced(bool change);						//
 	virtual void SetActive(bool change);				//
 	void SetTilePosition(int x, int y);
-	void RegisterDroneToStructure(v1::TaskSystem::DroneController* drone) { registeredDrones.push_back(drone); }
-	void DeRegisterDroneToStructure() { registeredDrones.erase(registeredDrones.begin()); }
+	void RegisterDroneToStructure(v1::TaskSystem::DroneController* drone);
+	void DeRegisterDroneToStructure(v1::TaskSystem::DroneController* drone);
+	int FindRegisteredDrone(v1::TaskSystem::DroneController* drone) const;
 	vector<v1::TaskSystem::DroneController*> GetRegisteredDrones() { return registeredDrones; }
 
 	virtual void TaskCompleted(TASK_TYPE type, int index);

@@ -34,6 +34,8 @@ public:
 	void Start();
 	void Update();
 	void Input();
+
+	void ToggleSellMode() { sellMode = !sellMode; };
 private:
 	/**HUD elements */
 	class PlayerActions* pla;
@@ -44,5 +46,6 @@ private:
 	bool keyHeld = false;
 	class ResourceManager* rManager;
 	int openSellMenu;
+	bool sellMode = false;
 };
 

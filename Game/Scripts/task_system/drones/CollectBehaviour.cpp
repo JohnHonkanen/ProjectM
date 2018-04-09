@@ -86,15 +86,19 @@ void v1::TaskSystem::CollectBehaviour::Next()
 			info.controller->AssignTask(task);
 			info.controller->SetState(nullptr);
 			info.controller->GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
-			//info.controller->GetTask().To()->DeRegisterDroneToStructure();
+			info.controller->GetTask().From()->DeRegisterDroneToStructure(info.controller);
+			info.controller->GetTask().To()->DeRegisterDroneToStructure(info.controller);
 			info.controller->SetInternalStateIdle();
 			info.controller->AssignTaskWithoutBehaviour(Task());
 		}
 		else {
 			state->info.to = nearest->ParkingLocation();
 			state->info.finalStep = true;
-
 			task.SetTo(nearest);
+			if (task == TASK_TYPE::COLLECT)
+			{
+				task.To()->RegisterDroneToStructure(info.controller);
+			}
 			info.controller->AssignTaskWithoutBehaviour(task);
 			info.controller->SetState(state);
 		}

@@ -18,8 +18,10 @@ Dev: Jack Smith (B00308927)
 #include "../task_system/drones/DroneController.h"
 #include "../Dock.h"
 #include "../Warehouse.h"
-//#include "../UnbuildableZone.h"
+#include "../Production.h"
+#include "../LightCycle.h"
 
+//#include "../UnbuildableZone.h"
 
 SellHUD * SellHUD::Create(GameObject * gameObject, EHUD::HUDCanvas *root, PlayerActions* pla, ResourceManager* rManager)
 {
@@ -45,10 +47,9 @@ void SellHUD::Copy(GameObject * copyObject)
 void SellHUD::OnLoad()
 {
 	//Create our HUD elements based on buildings in Building Manager
-	wrapper = EHUD::WHUDContainer::Create(root, { 750, 450, 400, 100 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 750, 450, 400, 50 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	wrapper->SetActive(false);
-	HUD::TextWidget::Create(wrapper, { 20 , 25, 100, 100 }, "Select the building you wish to sell", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
-	HUD::TextWidget::Create(wrapper, { 20 , 75, 100, 100 }, "Once selected, press L to confirm", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
+	HUD::TextWidget::Create(wrapper, { 20 , 25, 100, 50 }, "Select the building you wish to sell", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
 	SHElement = SellHUDElement::Create(wrapper, { 25, 25, 0, 0 }, pla, rManager);
 
 	Engine::GameEngine::manager.inputManager.AddKey("ToggleSellMenu", "l");
@@ -61,21 +62,38 @@ void SellHUD::Start()
 
 void SellHUD::Update()
 {
+	if(pla->GetBuildingStatus())
+	{
+		wrapper->SetActive(false);
+	}
 }
 
 // Handles Input from the player
 void SellHUD::Input()
 {
-
-    openSellMenu = GameEngine::manager.inputManager.GetKey("ToggleSellMenu");
-
+	openSellMenu = GameEngine::manager.inputManager.GetKey("ToggleSellMenu");
+	if(wrapper->IsActive())
+	{
+		openSellMenu = 1;
+	}
+	bool soldBuilding = false;
 	if (openSellMenu == 1)
 	{
 		if (pla->GetSelectedStructure() != nullptr 
 			&& dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr
 			/*&& dynamic_cast<UnbuildableZone*>(pla->GetSelectedStructure()) == nullptr*/)
 		{
-			
+			// If the structure is a production strucutre, the billboard is destroyed 
+			// When the structure is sold.
+			if (dynamic_cast<Production*>(pla->GetSelectedStructure()) != nullptr)
+			{
+				auto temp = pla->GetSelectedStructure();
+				Production* p = dynamic_cast<Production*>(temp);
+				BuildingProductionAnims* b = p->GetBillboard();
+				b->isEnabled = false;
+				b->DestroyBillboard();
+				b->gameObject->Destroy();
+			}
 			// If the structure is a dock with a ship docked send the ship away
 			if(dynamic_cast<Dock*>(pla->GetSelectedStructure()) != nullptr)
 			{
@@ -108,16 +126,21 @@ void SellHUD::Input()
 			// Destroy the building 
 			pla->GetSelectedStructure()->SetPlaced(false);
 			pla->GetSelectedStructure()->SetActive(false);
+			pla->GetSelectedStructure()->gameObject->GetComponent<LightCycle>()->DestroyLight();
 			pla->GetSelectedStructure()->gameObject->Destroy();
 			pla->GetSelectedStructure()->gameObject = nullptr;
 			// Deselect building
 			pla->SetSelectedStructureNull();
+			soldBuilding = true;
 			
 		}
 		if (!keyHeld)
 		{
 			keyHeld = true;
-			wrapper->SetActive(!wrapper->IsActive());
+			if (soldBuilding)
+			{
+				wrapper->SetActive(false);
+			}
 		}
 	}
 	else {
