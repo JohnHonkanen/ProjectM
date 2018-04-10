@@ -28,6 +28,8 @@ Hub * Hub::Create(GameObject * gameObject, GameManager * gameManager)
 
 	h->taskManager = v1::TaskSystem::TaskManager::Create(gameObject);
 
+	gameObject->transform->Rotate(vec3(0, 180, 0));
+
 	return h;
 
 }
