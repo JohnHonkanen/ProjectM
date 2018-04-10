@@ -38,7 +38,9 @@ void TradeShip::Update(double dt)
 		return;
 	}
 	vec3 dockPos = dock->transform->GetPosition();
+
 	dockPos.y += 2.0f;
+
 	MoveTo(dockPos, dt);
 }
 
@@ -58,7 +60,7 @@ void TradeShip::RotateToFace(vec3 pos)
 	vec3 dir = pos - transform->GetPosition();
 	float angle = atan2(dir.x, dir.z);
 	vec3 objAngle = transform->GetRotation();
-	objAngle.y = degrees(angle) + 90.0f + rotYOffset; 
+	objAngle.y = degrees(angle) + 90.0f + rotYOffset;
 	transform->SetEulerAngle(objAngle);
 }
 
@@ -103,7 +105,7 @@ void TradeShip::MoveTo(vec3 pos, double dt)
 			else {
 				gameObject->Destroy();
 			}
-			
+
 		}
 	}
 	else {
@@ -152,6 +154,7 @@ void TradeShipSpawner::CreateTradeShip(Dock *dock)
 	ts->transform->SetPosition(vec3(glm::linearRand(-1000, 1000), 500, glm::linearRand(-1000, 1000)));
 	ts->SetCameFrom(ts->transform->GetPosition());
 	ts->SetDock(dock);
+	dock->AddInboundShip(ts);
 	ts->transform->SetScale(vec3(20));
 	ts->transform->Rotate(vec3(-90, 0, 0));
 	tradeShips.push_back(ts);

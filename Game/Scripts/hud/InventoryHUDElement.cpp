@@ -76,11 +76,11 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 {
 	if (pla->GetSelectedStructure() != nullptr)
 	{
-		Warehouse * warehouse = dynamic_cast<Warehouse*>(pla->GetSelectedStructure());
+		Structure * selected = pla->GetSelectedStructure();
 
-		if (warehouse != nullptr)
+		if (selected->GetType() == WAREHOUSE)
 		{
-			v2::Inventory& inv = warehouse->GetInventory();
+			v2::Inventory& inv = selected->GetInventory();
 			for (int i = 0; i < slots.size(); i++)
 			{
 				v2::Inventory::Slot slot = inv.At(i);

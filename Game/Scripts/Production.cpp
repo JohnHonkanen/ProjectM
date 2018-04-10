@@ -264,6 +264,11 @@ void Production::IncreaseTaskNumber(TASK_TYPE type, int index)
 	}
 }
 
+int Production::GetUpkeep()
+{
+	return upkeep + resourceManager->Find(producing)->GetProductionCost();
+}
+
 //void ProductionLine() {
 //	int availableSpace = inventory.CheckStorageFull(producing);
 //	if (structureType == DOME && isProducing) {

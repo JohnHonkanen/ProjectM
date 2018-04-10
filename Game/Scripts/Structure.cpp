@@ -47,6 +47,37 @@ void Structure::SetTilePosition(int x, int y)
 	tileY = y;
 }
 
+void Structure::RegisterDroneToStructure(v1::TaskSystem::DroneController* drone)
+{
+	 registeredDrones.push_back(drone);
+}
+
+void Structure::DeRegisterDroneToStructure(v1::TaskSystem::DroneController* drone)
+{
+	int index = FindRegisteredDrone(drone);
+	// If drone is not found, return
+	if(index == -1)
+	{
+		return;
+	}
+	else
+	{
+		registeredDrones.erase(registeredDrones.begin() + index);
+	}
+}
+
+int Structure::FindRegisteredDrone(v1::TaskSystem::DroneController* drone) const
+{
+	for (int i=0 ; i< registeredDrones.size(); i++)
+	{
+		if(drone == registeredDrones.at(i))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 void Structure::TaskCompleted(TASK_TYPE type, int index)
 {
 	task = v1::TaskSystem::Task();

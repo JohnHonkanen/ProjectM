@@ -58,6 +58,8 @@ namespace v1 {
 			void SetInternalState(State in_state) { state = in_state; };
 
 			void SetInternalStateIdle() { state = IDLE; }
+
+			void CancelTasks();
 		private:
 			Hub * hub;
 			

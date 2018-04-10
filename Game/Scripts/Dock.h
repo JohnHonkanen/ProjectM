@@ -35,6 +35,10 @@ public:
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override
 	int Deposit(ResourceName resourceName, int resourceAmount, int index); //@Override
 	void IncreaseTaskNumber(TASK_TYPE type, int index); //@Override
+	void SetDockDestoryed(bool state) { dockDestroyed = state; }
+	bool GetDockDestoryed() { return dockDestroyed; }
+	void AddInboundShip(class TradeShip* ts);
+	
 private:
 	void MarketDumpTaskee(); // Generate task for market dump
 	void BufferMarket(); // Does magic with inventory
@@ -52,6 +56,7 @@ private:
 	v2::Inventory marketPlaceBuffer; // Marketplace buffer inventory
 
 	bool docked = false;
+	bool dockDestroyed = false;
 	class TradeShip *dockedShip;
 	DockName dockName;
 	//Debug timer

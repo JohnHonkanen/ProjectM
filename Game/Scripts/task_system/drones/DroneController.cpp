@@ -73,7 +73,11 @@ namespace v1{
 						return false;
 					}
 				}
-
+				task.From()->RegisterDroneToStructure(this);
+				if (task == TASK_TYPE::REQUEST)
+				{
+					task.To()->RegisterDroneToStructure(this);
+				}
 				droneState->info = TaskInformation(task.To()->ParkingLocation(), this);
 				return true;
 			}
@@ -100,6 +104,17 @@ namespace v1{
 
 			return boxObj;
 		}
+
+		void DroneController::CancelTasks()
+		{
+			SetState(nullptr);
+			GetTask().From()->TaskCompleted(task.GetType(), task.GetIndex());
+			GetTask().From()->DeRegisterDroneToStructure(this);
+			GetTask().To()->DeRegisterDroneToStructure(this);
+			SetInternalStateIdle();
+			AssignTaskWithoutBehaviour(v1::TaskSystem::Task());
+		}
+
 		void DroneController::ApplyDroneBehaviour(double dt)
 		{
 			if (task.GetType() != TASK_TYPE::NONE && !forceIdle)
@@ -271,6 +286,7 @@ namespace v1{
 					state = IDLE;
 					activeState = ACTIVE_IDLE;
 					task.From()->TaskCompleted(task.GetType(), task.GetIndex());
+					//task.From()->DeRegisterDroneToStructure();
 					task = Task();
 					boxObj->transform->SetPosition(vec3(0, -10, 0));
 					collecting = false;

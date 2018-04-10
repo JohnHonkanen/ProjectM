@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "glm\glm.hpp"
 #include "glm\gtx\compatibility.hpp"
+#include "render/LightManager.h"
 LightCycle * LightCycle::Create(GameObject * gameObject)
 {
 	LightCycle * lc = new LightCycle();
@@ -30,6 +31,7 @@ void LightCycle::Update(double dt)
 
 	lightGameObject->transform->SetPosition(gameObject->transform->GetPosition() + vec3(0,15,0));
 	LightProperties pointProp;
+	pointProp.type = POINT_LIGHT;
 	if (GameManager::gameManager->dayNightCycle.GetTime() == TIME::NIGHT)
 	{
 		pointProp.ambient = lerp(pointProp.ambient, vec3(0.7f), 0.1f *float(dt / 1000));
@@ -57,4 +59,10 @@ void LightCycle::ActivateLight()
 	};
 	light->SetLightProperties(pointProp);
 	lightGameObject->transform->SetPosition(gameObject->transform->GetPosition() + vec3(0, 30, 0));
+}
+
+void LightCycle::DestroyLight()
+{
+	LightManager::Get()->RemoveLight(POINT_LIGHT, light);
+	lightGameObject->Destroy();
 }

@@ -20,7 +20,11 @@ class Hub : public Structure
 public:
 	static Hub *Create(GameObject* gameObject, class GameManager* gameManager);
 	void AddStructureToNetwork(enum StructureType type, class Structure* structure, int x, int y);
+	void RemoveStructureFromNetwork(StructureType type, Structure * structure, int x, int y);
 	void AddStructureToList(enum StructureType type, class Structure* structure, int x, int y);
+	void RemoveStructureFromList(StructureType type, Structure * structure, int x, int y, string structureName);
+	// Removes a building from the network
+	void RemoveBuildingFromLists(Structure * s, float x, float y, float width, string structureName);
 	class Structure* GetStructure(int x, int y);
 	class Structure* FindNearest(enum StructureType type, int x, int y);
 	class Structure* FindNearestToDeposit(enum StructureType type, int x, int y, ResourceName resource);

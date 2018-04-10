@@ -96,13 +96,13 @@ void Contract::SetAmount()
 	tempDif = GetDifficulty();
 
 	if (tempDif == 1) {
-		this->amount = (rand() % 10);
+		this->amount = (rand() % 10 + 1);
 	}
 	else if (tempDif == 2) {
-		this->amount = (rand() % 20);
+		this->amount = (rand() % 20 + 1);
 	}
 	else {
-		this->amount = (rand() % 60);
+		this->amount = (rand() % 60 + 1);
 	}
 }
 
@@ -137,8 +137,7 @@ int Contract::ReduceTime(int millisecond)
 
 	if (this->time < 0) {
 		this->time = 0;
-		SetStatus(false);
-		IsComplete();
+		//SetStatus(false);
 	}
 	return this->time;
 }
@@ -223,7 +222,7 @@ bool Contract::IsComplete()
 {
 	bool actuallyCompleted = false;
 
-	if (current >= amount)
+	if (GetCurrent() == GetAmount())
 	{
 		GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(GetContractBonus());
 		actuallyCompleted = true;

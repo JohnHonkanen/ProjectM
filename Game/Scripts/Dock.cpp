@@ -2,6 +2,7 @@
 #include "components\MeshRenderer.h"
 #include "TradeShipSpawner.h"
 #include "LightCycle.h"
+#include <stdio.h>
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -60,12 +61,20 @@ void Dock::Copy(GameObject * copyObject)
 
 void Dock::Start()
 {
-	/*AddToMarketDump(ResourceName::Chicken, 100);
-	AddToMarketRequest(ResourceName::Chicken, 100);*/
+
 }
 
 void Dock::Update()
 {
+	if((dockDestroyed && dockedShip != nullptr))
+	{
+		dockedShip->Return();
+		dockedShip = nullptr;
+		docked = false;
+		dockDestroyed = false;
+		transform->SetPosition(vec3(10000));
+		return;
+	}
 	if (!isActive)
 	{
 		return;
@@ -73,7 +82,6 @@ void Dock::Update()
 
 	BufferMarket();
 	MarketDumpTaskee();
-
  	if (contractIndex == -1)
 	{
 		if (dockedShip != nullptr)
@@ -91,12 +99,14 @@ void Dock::Update()
 			task = Task();
 			contractFufilled = true;
 			GameManager::gameManager->GetTradeShipSpawner()->CreateTradeShip(this);
-			contractIndex = index;
 			contractID = contractManager->GetContract(index).GetContractID();
+			contractIndex = contractID;
+			
 		}
 
 		return;
 	}
+	
 
 	switch (dockName) {
 	case DockName::Contract: // Currently, a general dock for everything
@@ -145,7 +155,7 @@ void Dock::GenerateContractConfiguration()
 		Contract c = contractManager->GetContract(contractIndex);
 		contractManager->StartContract(contractIndex);
 
-		if (!c.GetStatus())
+		if (c.GetTime() <= 0)
 		{
 			contractManager->CompleteContract(contractIndex);
 			contractManager->RemoveContract(contractIndex);
@@ -271,6 +281,11 @@ void Dock::IncreaseTaskNumber(TASK_TYPE type, int index)
 			numMarketRequestTask++;
 		}
 	}
+}
+
+void Dock::AddInboundShip(TradeShip * ts)
+{
+	dockedShip = ts;
 }
 
 void Dock::MarketDumpTaskee()

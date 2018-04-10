@@ -169,8 +169,6 @@ void ProductionButton::CloseProductionWindows()
 	}
 }
 
-
-
 ProductionButton * ProductionButton::Create(HUDElement * element, EHUD::HUDRect rect, std::string baseTexture, Production *production)
 {
 	ProductionButton * button = new ProductionButton();

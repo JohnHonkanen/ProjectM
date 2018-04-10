@@ -11,6 +11,7 @@ public:
 	void Update(double dt);
 
 	void ActivateLight();
+	void DestroyLight();
 private:
 	Light * light;
 	GameObject *lightGameObject;

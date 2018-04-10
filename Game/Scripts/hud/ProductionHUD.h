@@ -24,9 +24,9 @@ public:
 									class PlayerActions *pla,
 									class ResourceManager* rManager);
 	void Copy(GameObject* gameObject);
-	void OnLoad();
+	void OnLoad();												
 	void Start();
-	void Update();
+	void Update();												//Creates the main production building HUD when a dome or factory is selected
 	void Input();
 
 

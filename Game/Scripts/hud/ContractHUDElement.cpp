@@ -18,6 +18,7 @@ ContractHUDElement * ContractHUDElement::Create(HUDElement * element, EHUD::HUDR
 
 void ContractHUDElement::Start()
 {
+	
 	GenerateContractElements();
 	StartChildWidgets();
 }
@@ -78,7 +79,6 @@ Contract ContractHUDElement::GetContract()
 void ContractHUDElement::GenerateContractElements()
 {
 	// Background
-	
 	contractHUD = EHUD::WHUDContainer::Create(this, { 0, 0, 280, 50 }, "Game/Assets/Textures/contract/black.jpg", true);
 
 	// Contract ID

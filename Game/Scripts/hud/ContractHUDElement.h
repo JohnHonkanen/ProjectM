@@ -30,6 +30,7 @@ public:
 	void GenerateKSuffix();
 	void GenerateDifficultyBackground(int difficulty);
 	int GetContractDifficulty();
+	
 
 	void SetContract(Contract contractToSet);
 private:

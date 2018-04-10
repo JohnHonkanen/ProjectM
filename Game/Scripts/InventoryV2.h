@@ -47,6 +47,9 @@ namespace v2 {
 		// Amount is the number of items you wish to remove from a building if you try to remove too many it returns the reminder that couldn't be removed.
 		int Remove(ResourceName res, int amount);
 
+		// Removes all Items from an Inventory
+		void RemoveAll();
+
 		// Used to send items from one building to another
 		// Amount is the number of items you wish to send, comes back as the remainder of unsent items.
 		int Send(Inventory * dest, ResourceName res, int amount);

@@ -53,6 +53,9 @@ GameObject* BuildingManager::CreateNewBuilding(Structure * cStructure, string as
 		case WAREHOUSE:
 			cStructure->SetTileWidth(3);
 			break;
+		case UNBUILDABLEZONE:
+			cStructure->SetTileWidth(3);
+			break;
 		default:
 			//cStructure->SetTileWidth(3);
 			break;
@@ -87,4 +90,12 @@ void BuildingManager::SearchWarehouses(map<string, unique_ptr<GameObject>> build
 void BuildingManager::SetResourceManager(ResourceManager * resourceManager)
 {
 	this->resourceManager = resourceManager;
+}
+
+void BuildingManager::RemoveBuilding(Structure* building)
+{
+	auto it = buildingList.find(building->GetName());
+
+	buildingList.erase(it);
+
 }

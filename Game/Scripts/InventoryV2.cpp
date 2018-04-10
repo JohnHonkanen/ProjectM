@@ -81,6 +81,14 @@ namespace v2 {
 		return amount;
 	}
 
+	void Inventory::RemoveAll()
+	{
+		for(int i =0; i < storage.size(); i++)
+		{
+			storage.erase(storage.begin() + i);
+		}
+	}
+
 	int Inventory::Send(Inventory * dest, ResourceName res, int amount)
 	{
 		DSend(dest, rm->Find(res), amount);

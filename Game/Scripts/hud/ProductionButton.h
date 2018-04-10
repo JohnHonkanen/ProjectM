@@ -20,12 +20,12 @@ public:
 	/** Pointer Exit Bounds Event*/
 	void OnPointerExit(EventData data);
 	/** Pointer Click Event*/
-	void OnPointerMouseDown(EventData data);
+	void OnPointerMouseDown(EventData data);					//
 	void EventRegistration();
-	void Start();
+	void Start();												//Generates resource lists for factory and dome on start
 	void Input();
 	void Update();
-	void SetProduction(class Production *production);
+	void SetProduction(class Production *production);			//Sets building production when a resource is clicked
 	void SetIcon(string icon) { iconImage = icon; }
 	void CloseProductionWindows();
 	
@@ -44,6 +44,6 @@ private:
 
 	vector<class ProductionSetterButton*> resourceListDome, resourceListFactory;
 
-	void ConfigureResources();
+	void ConfigureResources();									//Defines which items are displayed in a resource window
 	
 };
