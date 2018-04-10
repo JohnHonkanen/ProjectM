@@ -31,6 +31,7 @@ public:
 	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump (BUY FROM MARKET)
 	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest (SELL TO MARKET)
 
+	void CompleteContract();
 	void TaskCompleted(TASK_TYPE type, int index); //@Override
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override
 	int Deposit(ResourceName resourceName, int resourceAmount, int index); //@Override

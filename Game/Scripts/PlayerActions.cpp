@@ -40,8 +40,14 @@ void PlayerActions::Update(double dt)
 		{
 			//Selected a building
 			Structure *structure = hub->GetStructure(coordinates.x, coordinates.y);
+			
 			if (structure != nullptr)
 			{
+				if (structure->GetType() == UNBUILDABLEZONE)
+				{
+					return;
+				}
+
 				if (selectedStructure != nullptr)
 				{
 					selectedStructure->gameObject->material->diffuseMap = buildingTexture;

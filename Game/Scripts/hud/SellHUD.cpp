@@ -98,7 +98,9 @@ void SellHUD::Input()
 			{
 				auto temp = pla->GetSelectedStructure();
 				Dock* d = dynamic_cast<Dock*>(temp);
+				d->CompleteContract();
 				d->SetDockDestoryed(true);
+				
 			}
 			// Clear a warehouse inventory when it's deleted.
 			if(dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)

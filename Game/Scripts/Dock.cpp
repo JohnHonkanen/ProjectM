@@ -223,6 +223,11 @@ void Dock::AddToMarketRequest(ResourceName resourceName, int amountToRequest)
 	marketRequest.AddItem(resourceName, amountToRequest);
 }
 
+void Dock::CompleteContract()
+{
+	contractManager->CompleteContract(contractIndex);
+}
+
 void Dock::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::COLLECT) {
