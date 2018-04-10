@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	GameObject * terrain = manager->CreateGameObject("Terrain");
 	Terrain::TerrainGrid *grid = Terrain::TerrainGrid::Create(terrain, 10, 300, 300, 0.003, 1, "terrainGridShader", true, vec3(0, 1, 0));
 	Terrain::TerrainRenderer::Create(terrain, "Game/Assets/Textures/sand.png", "terrainShader");
-	terrain->transform->Translate(vec3(-1000, 0, 0));
+	terrain->transform->Translate(vec3(0, 0, 0));
 
 	//HUB
 	int amount = 0;

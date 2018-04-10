@@ -325,7 +325,7 @@ void Dock::MarketDumpTaskee()
 			//Configure our task and send it on.
 			marketRequestTask = Task(TASK_TYPE::REQUEST, 100, this, nullptr, resources[0].resource, resources[0].quantity, 1);
 			hub->GetTaskManager()->AddTask(marketRequestTask, marketRequestTask.GetPriority());
-			numMarketRequestTask--;
+			numMarketRequestTask++;
 		}
 	}
 }

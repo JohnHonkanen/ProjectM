@@ -67,6 +67,7 @@ public:
 
 	bool GetProducing() { return isProducing; }
 
+	int Deposit(ResourceName resource, int amount, int index);
 	int Collect(ResourceName resource, int amount, int index);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
 	int GetInputCount();										//Returns a factory's ingredient amount
 	int GetOutputCount();										//Returns output inventory's amount
