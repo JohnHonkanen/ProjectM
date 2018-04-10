@@ -9,7 +9,7 @@ TradeShip * TradeShip::Create(GameObject * gameObject)
 	ts->dock = nullptr;
 	gameObject->AddComponent(ts);
 	MeshRenderer::Create(gameObject, "Game/Assets/Models/mobajuice/Trader.dae");
-	gameObject->material->diffuseMap = "Game/Assets/Textures/building_selected.jpg";
+	gameObject->material->diffuseMap = "Game/Assets/Textures/Models/trade_uv.png";
 	return ts;
 }
 

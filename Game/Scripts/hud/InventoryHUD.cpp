@@ -1,4 +1,4 @@
-/*
+ /*
 InventoryHUD class used at a HUD widget to display the inventories of buildings.
 Dev: Jack Smith (B00308927)
 */
