@@ -34,7 +34,7 @@ void InventoryHUD::Copy(GameObject * copyObject)
 void InventoryHUD::OnLoad()
 {
 	//Create our HUD elements based on buildings in Building Manager
-	wrapper = EHUD::WHUDContainer::Create(root, { 205, 525, 210, 195 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 220, 525, 210, 195 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	wrapper->SetActive(false);
 	HUD::TextWidget::Create(wrapper, { 12.5 , 20, 100, 100 }, "Inventory", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
 	GameEngine::manager.inputManager.AddKey("OpenInventoryMenu", "e");

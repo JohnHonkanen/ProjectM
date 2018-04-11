@@ -37,7 +37,7 @@ void MainHUD::OnLoad()
 		contractHUD->GetWrapper()
 	);
 
-	WidgetToggleButton::Create(wrapper, { 35 , 425 , 60,60 }, "Game/Assets/Textures/sell_icon.png",
+	WidgetToggleButton::Create(wrapper, { 1100 , 630 , 60,60 }, "Game/Assets/Textures/sell_icon.png",
 		sellHUD->GetWrapper()
 	);
 }

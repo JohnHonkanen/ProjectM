@@ -46,9 +46,9 @@ void SellHUD::Copy(GameObject * copyObject)
 void SellHUD::OnLoad()
 {
 	//Create our HUD elements based on buildings in Building Manager
-	wrapper = EHUD::WHUDContainer::Create(root, { 750, 450, 400, 50 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
+	wrapper = EHUD::WHUDContainer::Create(root, { 690, 632.5, 400, 50 }, "Game/Assets/Textures/Production_HUD_Texture.png", true);
 	wrapper->SetActive(false);
-	HUD::TextWidget::Create(wrapper, { 20 , 25, 100, 50 }, "Select the building you wish to sell", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
+	HUD::TextWidget::Create(wrapper, { 20, 25, 100, 50 }, "Select the building you wish to sell", "Game/Assets/Fonts/BlackOpsOne-Regular.ttf", 18, 1, vec3(1, 1, 1));
 	SHElement = SellHUDElement::Create(wrapper, { 25, 25, 0, 0 }, pla, rManager);
 
 	Engine::GameEngine::manager.inputManager.AddKey("ToggleSellMenu", "l");
@@ -82,6 +82,13 @@ void SellHUD::Input()
 			&& dynamic_cast<Hub*>(pla->GetSelectedStructure()) == nullptr
 			&& dynamic_cast<UnbuildableZone*>(pla->GetSelectedStructure()) == nullptr)
 		{
+			// Complete the task the drones currently have that are connected to the building
+			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
+			for(int i = 0; i < droneController.size(); i++)
+			{
+				droneController.at(i)->CancelTasks();
+			}
+			
 			// If the structure is a production strucutre, the billboard is destroyed 
 			// When the structure is sold.
 			if (dynamic_cast<Production*>(pla->GetSelectedStructure()) != nullptr)
@@ -94,26 +101,19 @@ void SellHUD::Input()
 				b->gameObject->Destroy();
 			}
 			// If the structure is a dock with a ship docked send the ship away
-			if(dynamic_cast<Dock*>(pla->GetSelectedStructure()) != nullptr)
+			if (dynamic_cast<Dock*>(pla->GetSelectedStructure()) != nullptr)
 			{
 				auto temp = pla->GetSelectedStructure();
 				Dock* d = dynamic_cast<Dock*>(temp);
 				d->CompleteContract();
 				d->SetDockDestoryed(true);
-				
+
 			}
 			// Clear a warehouse inventory when it's deleted.
-			if(dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
+			if (dynamic_cast<Warehouse*>(pla->GetSelectedStructure()) != nullptr)
 			{
 				pla->GetSelectedStructure()->GetInventory().RemoveAll();
 			}
-			// Complete the task the drones currently have that are connected to the building
-			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
-			for(int i = 0; i < droneController.size(); i++)
-			{
-				droneController.at(i)->CancelTasks();
-			}
-			
 			wrapper->SetActive(true);
 			// Add some money to the player's Hub.
 			GameManager::gameManager->playerEconManager.FindPlayerEcon(EconName::Player_Econ)->AddGoldBars(50*(pla->GetSelectedStructure()->GetProductionEfficiency()));

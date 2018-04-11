@@ -92,6 +92,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				else
 				{
 					slots[i]->SetIcon("Game/Assets/Textures/Production_HUD_Texture.png");
+					slots[i]->SetQuantity(NULL);
 				}
 			}
 		}
