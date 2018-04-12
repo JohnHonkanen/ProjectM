@@ -62,7 +62,7 @@ namespace v1 {
 
 			void SetInternalStateIdle() { state = IDLE; }
 
-			void CancelTasks();
+			bool CancelTasks();
 		private:
 			Hub * hub;
 			
