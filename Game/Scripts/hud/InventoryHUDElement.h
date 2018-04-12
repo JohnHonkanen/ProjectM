@@ -30,18 +30,14 @@ public:
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
-	void IncreaseTextVector() { text.size() + 1; }
 	void Input();
 private:
 	// Varibles declared and forward delclared
 	EHUD::TextWidget* title;
-	vector<EHUD::TextWidget*> text;
 	class PlayerActions* pla;
 	EHUD::HUDElement* inventoryHUD;
-	class InventoryPopulator* invP;
 	class ResourceManager* rManager;
 	bool keyHeld;
-	int index=0;
 	vector<HUDInventorySlot*> slots;
 };
 

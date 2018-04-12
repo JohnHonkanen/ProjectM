@@ -40,48 +40,58 @@ namespace v2 {
 		Inventory(int storageSize);
 		~Inventory();
 
-		// Adds an item to a building
+		// Adds an item to a inventory
 		int AddItem(ResourceName resource, int amount);
 
-		// Used to remove items from buildings
-		// Amount is the number of items you wish to remove from a building if you try to remove too many it returns the reminder that couldn't be removed.
+		// Used to remove items from inventorys
+		// Amount is the number of items you wish to remove from a inventory if you try to remove too many it returns the reminder that couldn't be removed.
 		int Remove(ResourceName res, int amount);
 
 		// Removes all Items from an Inventory
 		void RemoveAll();
 
-		// Used to send items from one building to another
+		// Used to send items from one inventory to another
 		// Amount is the number of items you wish to send, comes back as the remainder of unsent items.
 		int Send(Inventory * dest, ResourceName res, int amount);
 
-		// Checks if the building's storage is full
+		// Checks if the inventory's storage is full
 		// Available space is the space left in the storage for the resource specified. i.e. Depends on stackSize.
 		int CheckStorageFull(ResourceName res);
 
-		// Checks if the resources is in a building
+		// Checks if the resources is in a inventory
 		int Contains(ResourceName res);
 
+		//Check if the resource is contained in the list of resources
 		vector<ResourceSlot> Contains();
 
+		//Returns the slot at the specified index in the inventory
 		Slot & At(int index) { return storage[index]; }
 
 		// Returns READ ONLY inventory to be read for HUD for example.
 		std::vector<Slot> GetInventory() const { return std::vector<Slot>(storage.begin(),storage.end()); }
 
+		//Returns a resource manager to be used to access general resources
 		ResourceManager * GetResourceManager() { return rm; }
 
+		// Sets the resourcemanager
 		void SetResourceManager(ResourceManager * rm);
 
+		// Adds a resource filter
 		void AddFilter(ResourceName resource);
 
+		// Sets the filter mode
 		void SetMode(FILTERMODE mode);
 
+		// Validates a resource by processing it through the WhiteList and BlackList
 		bool ValidateResource(ResourceName name);
 
+		// Copies an InventoryV2
 		void Copy(GameObject *copyObject);
 
+		// Completely clears the inventory
 		void Clear();
 
+		// Serializes an InventoryV2
 		template<class Archive>
 		void serialize(Archive & ar)
 		{

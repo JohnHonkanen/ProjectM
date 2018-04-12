@@ -34,7 +34,7 @@ public:
 	void Start();
 	void Update();
 	void Input();
-
+	//Toggles the sell mode for the hud wrapper 
 	void ToggleSellMode() { sellMode = !sellMode; };
 private:
 	/**HUD elements */

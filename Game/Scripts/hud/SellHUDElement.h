@@ -25,7 +25,6 @@ public:
 	SellHUDElement();
 	~SellHUDElement();
 	static SellHUDElement* Create(HUDElement* element, EHUD::HUDRect rect, class PlayerActions* pla, class ResourceManager* rManager);
-	EHUD::HUDElement* GetWrapper();
 	void Start();
 	void Update();
 	void DrawWidget(unsigned int shader);
