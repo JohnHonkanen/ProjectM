@@ -84,9 +84,16 @@ void SellHUD::Input()
 		{
 			// Complete the task the drones currently have that are connected to the building
 			vector<v1::TaskSystem::DroneController*> droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
-			for(int i = 0; i < droneController.size(); i++)
+			while(!droneController.empty())
 			{
-				droneController.at(i)->CancelTasks();
+				droneController = pla->GetSelectedStructure()->GetRegisteredDrones();
+				if (droneController.empty())
+				{
+					break;
+				}
+				if (!droneController.at(0)->CancelTasks()) {
+					pla->GetSelectedStructure()->DeRegisterDroneToStructure(droneController.at(0));
+				}
 			}
 			
 			// If the structure is a production strucutre, the billboard is destroyed 

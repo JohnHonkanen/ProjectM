@@ -431,7 +431,7 @@ void Hub::CreateDrone()
 		component->SetUpkeep(dronePrefabComp->GetUpkeep());
 		drones.push_back(component);
 
-		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() * drones.size() * 0.05);
+		dronePrefabComp->IncreaseCost(dronePrefabComp->GetCost() *  0.05);
 		dronePrefabComp->IncreaseUpkeep(1);
 	}
 }

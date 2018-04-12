@@ -54,7 +54,8 @@ void Structure::RegisterDroneToStructure(v1::TaskSystem::DroneController* drone)
 
 void Structure::DeRegisterDroneToStructure(v1::TaskSystem::DroneController* drone)
 {
-	int index = FindRegisteredDrone(drone);
+	int index = -1;
+	index = FindRegisteredDrone(drone);
 	// If drone is not found, return
 	if(index == -1)
 	{
