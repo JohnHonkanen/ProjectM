@@ -40,7 +40,6 @@ void InventoryHUDElement::Start()
 {
 	slots.resize(9);
 	slots.reserve(9);
-	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Inventory contents
 	for (int x = 0; x < 3; x++)
 	{
@@ -54,17 +53,7 @@ void InventoryHUDElement::Start()
 
 void InventoryHUDElement::Update()
 {
-	int placeRes1 = GameEngine::manager.inputManager.GetKey("PlaceRes1");
-	if (placeRes1 == 1)
-	{
-		if (!keyHeld)
-		{
-			keyHeld = true;
-		}
-	}
-	else {
-		keyHeld = false;
-	}
+
 }
 
 /*
@@ -92,6 +81,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				else
 				{
 					slots[i]->SetIcon("Game/Assets/Textures/Production_HUD_Texture.png");
+					slots[i]->SetQuantity(NULL);
 				}
 			}
 		}

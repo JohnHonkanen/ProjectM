@@ -3,13 +3,11 @@ UnbuildableZone class used to block placement of other buildings
 Dev: Jack Smith (B00308927)
 */
 
+#pragma once
 #include "components\Behaviour.h"
-#include "core/GameObject.h"
 #include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include "Structure.h"
-#include <array>
-#include <memory>
 
 using namespace std;
 using namespace glm;

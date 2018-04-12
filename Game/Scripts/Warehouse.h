@@ -31,8 +31,6 @@ public:
 	void OnLoad();
 	void Update();
 
-	void Update(int change);
-
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>
 	void serialize(Archive & ar)
