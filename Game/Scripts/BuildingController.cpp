@@ -57,6 +57,7 @@ void BuildingController::Start()
 
 void BuildingController::Update(double dt)
 {
+	playerAction->SetBuildingStatus(buildMode);
 	if (buildMode)
 	{
 		int mx, my; //Mouse Position
@@ -154,11 +155,6 @@ void BuildingController::SetBuildMode(bool mode)
 void BuildingController::SetMouseHeld(bool state)
 {
 	mouseHeld = state;
-}
-
-void BuildingController::AddTempObject(GameObject * object)
-{
-	objectToBuild = object;
 }
 
 PlayerActions * BuildingController::GetPlayerAction()

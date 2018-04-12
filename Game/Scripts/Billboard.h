@@ -17,6 +17,7 @@ public:
 	void Update(double dt);
 	void Draw();
 
+	/** Sets the texture of the billboard particle image*/
 	void SetTexture(std::string texture);
 
 	static unsigned int VAO, VBO;

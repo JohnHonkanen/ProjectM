@@ -10,7 +10,10 @@ public:
 	void OnLoad();
 	void Update(double dt);
 
+	/** Activate a Light*/
 	void ActivateLight();
+	/** Delete a Light*/
+	void DestroyLight();
 private:
 	Light * light;
 	GameObject *lightGameObject;

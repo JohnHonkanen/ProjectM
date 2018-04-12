@@ -187,6 +187,25 @@ void Production::SetActive(bool change)
 	isProducing = change;
 }
 
+int Production::Deposit(ResourceName resource, int amount, int index)
+{
+	if (inventory.At(0).resource != nullptr)
+	{
+		if (inventory.At(0).resource->GetResouceID() != producing)
+		{
+			inventory.Clear();
+		}
+	}
+	
+
+	if (resource == inputResource)
+	{
+		inventory.AddItem(resource, amount);
+	} 
+	
+	return 0;
+}
+
 int Production::Collect(ResourceName resource, int amount, int index)
 {
 	if (structureType == DOME) {

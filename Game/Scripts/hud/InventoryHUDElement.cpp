@@ -40,7 +40,6 @@ void InventoryHUDElement::Start()
 {
 	slots.resize(9);
 	slots.reserve(9);
-	GameEngine::manager.inputManager.AddKey("PlaceRes1", "1");
 	// Inventory contents
 	for (int x = 0; x < 3; x++)
 	{
@@ -54,17 +53,7 @@ void InventoryHUDElement::Start()
 
 void InventoryHUDElement::Update()
 {
-	int placeRes1 = GameEngine::manager.inputManager.GetKey("PlaceRes1");
-	if (placeRes1 == 1)
-	{
-		if (!keyHeld)
-		{
-			keyHeld = true;
-		}
-	}
-	else {
-		keyHeld = false;
-	}
+
 }
 
 /*
@@ -76,11 +65,11 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 {
 	if (pla->GetSelectedStructure() != nullptr)
 	{
-		Warehouse * warehouse = dynamic_cast<Warehouse*>(pla->GetSelectedStructure());
+		Structure * selected = pla->GetSelectedStructure();
 
-		if (warehouse != nullptr)
+		if (selected->GetType() == WAREHOUSE)
 		{
-			v2::Inventory& inv = warehouse->GetInventory();
+			v2::Inventory& inv = selected->GetInventory();
 			for (int i = 0; i < slots.size(); i++)
 			{
 				v2::Inventory::Slot slot = inv.At(i);
@@ -92,6 +81,7 @@ void InventoryHUDElement::DrawWidget(unsigned int shader)
 				else
 				{
 					slots[i]->SetIcon("Game/Assets/Textures/Production_HUD_Texture.png");
+					slots[i]->SetQuantity(NULL);
 				}
 			}
 		}

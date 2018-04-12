@@ -17,7 +17,7 @@ namespace EHUD = Engine::HUD;
 class MainHUD : public Behaviour
 {
 public:
-	static MainHUD * Create(GameObject *gameObject, EHUD::HUDCanvas *root, BuildingController * buildingController, class ContractHUD* contractHUD);
+	static MainHUD * Create(GameObject *gameObject, EHUD::HUDCanvas *root, BuildingController * buildingController, class ContractHUD* contractHUD, class SellHUD* sellHUD);
 	void Copy(GameObject *copyObject);
 
 	void OnLoad();
@@ -32,4 +32,5 @@ private:
 	BuildingController * buildingController;
 	class ContractHUD* contractHUD;
 	class MarketHUD* marketHUD;
+	class SellHUD * sellHUD;
 };

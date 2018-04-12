@@ -23,8 +23,11 @@ namespace v1
 			void Copy(GameObject * object);
 			//Adds a Task to the task queue
 			void AddTask(Task task, int priority);
+			/** Checks to see if the task queue is not empty*/
 			bool HasTask();
+			/** Get the top task*/
 			Task Top() const;
+			/** Get the top task and remove it from the list */
 			Task Pop();
 		private:
 			 TaskQueue queue;

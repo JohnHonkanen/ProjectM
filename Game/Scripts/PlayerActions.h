@@ -10,6 +10,13 @@ public:
 	void Start();
 	void Update(double dt);
 	class Structure * GetSelectedStructure();
+	// Sets the selection status of the structure to nullptr
+	// This will cause it to be deselected
+	Structure * SetSelectedStructureNull() { return selectedStructure = nullptr; }
+	/** Set to check if we are current in build mode in BuildingController */
+	void SetBuildingStatus(bool status) { building = status; }
+	/** Get BuildingStatus */
+	bool GetBuildingStatus() const{ return building; }
 private:
 	std::string selectedTexture;
 	std::string buildingTexture;
@@ -17,4 +24,5 @@ private:
 	class BuildingController *buldingController;
 	class Hub *hub;
 	class Structure *selectedStructure;
+	bool building = false;
 };

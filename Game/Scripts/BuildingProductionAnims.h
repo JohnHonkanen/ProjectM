@@ -13,11 +13,11 @@ public:
 
 	void SetTextureToDisplay(std::string texture);
 	void Spawn();
+	void DestroyBillboard();
 private:
 	
 	Transform * spawnLocation;
 	GameObject * billboard;
 	GameObject * prefab;
-
 	std::string texture;
 };

@@ -75,3 +75,8 @@ void BuildingProductionAnims::Spawn()
 	billboard->transform->SetPosition(spawnLocation->GetPosition() + vec3(0, 10, 0));
 	billboardComponent->alpha = 1;
 }
+
+void BuildingProductionAnims::DestroyBillboard()
+{
+	billboard->Destroy();
+}

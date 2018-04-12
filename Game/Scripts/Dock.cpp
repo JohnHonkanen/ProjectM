@@ -2,6 +2,7 @@
 #include "components\MeshRenderer.h"
 #include "TradeShipSpawner.h"
 #include "LightCycle.h"
+#include <stdio.h>
 using namespace v1::TaskSystem;
 
 Dock * Dock::Create()
@@ -65,6 +66,15 @@ void Dock::Start()
 
 void Dock::Update()
 {
+	if((dockDestroyed && dockedShip != nullptr))
+	{
+		dockedShip->Return();
+		dockedShip = nullptr;
+		docked = false;
+		dockDestroyed = false;
+		transform->SetPosition(vec3(10000));
+		return;
+	}
 	if (!isActive)
 	{
 		return;
@@ -72,7 +82,6 @@ void Dock::Update()
 
 	BufferMarket();
 	MarketDumpTaskee();
-
  	if (contractIndex == -1)
 	{
 		if (dockedShip != nullptr)
@@ -97,6 +106,7 @@ void Dock::Update()
 
 		return;
 	}
+	
 
 	switch (dockName) {
 	case DockName::Contract: // Currently, a general dock for everything
@@ -213,6 +223,11 @@ void Dock::AddToMarketRequest(ResourceName resourceName, int amountToRequest)
 	marketRequest.AddItem(resourceName, amountToRequest);
 }
 
+void Dock::CompleteContract()
+{
+	contractManager->CompleteContract(contractIndex);
+}
+
 void Dock::TaskCompleted(TASK_TYPE type, int index)
 {
 	if (type == TASK_TYPE::COLLECT) {
@@ -273,6 +288,11 @@ void Dock::IncreaseTaskNumber(TASK_TYPE type, int index)
 	}
 }
 
+void Dock::AddInboundShip(TradeShip * ts)
+{
+	dockedShip = ts;
+}
+
 void Dock::MarketDumpTaskee()
 {
 	auto resources = marketDump.Contains();
@@ -305,7 +325,7 @@ void Dock::MarketDumpTaskee()
 			//Configure our task and send it on.
 			marketRequestTask = Task(TASK_TYPE::REQUEST, 100, this, nullptr, resources[0].resource, resources[0].quantity, 1);
 			hub->GetTaskManager()->AddTask(marketRequestTask, marketRequestTask.GetPriority());
-			numMarketRequestTask--;
+			numMarketRequestTask++;
 		}
 	}
 }

@@ -21,9 +21,12 @@ public:
 	void Start();
 	void Update();
 
+	/** Docks the trade ship and set up all the links correctly*/
 	void DockShip(class TradeShip* ship);
+	/** Get the location for drone parking*/
 	vec3 ParkingLocation();
 
+	/** Generate Configurations for various markets*/
 	void GenerateContractConfiguration();
 	void GenerateLocalMarketConfiguration();
 	void GenerateGalacticMarketConfiguration();
@@ -31,10 +34,16 @@ public:
 	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump (BUY FROM MARKET)
 	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest (SELL TO MARKET)
 
+	/**Complete the held contract*/
+	void CompleteContract();
 	void TaskCompleted(TASK_TYPE type, int index); //@Override
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override
 	int Deposit(ResourceName resourceName, int resourceAmount, int index); //@Override
 	void IncreaseTaskNumber(TASK_TYPE type, int index); //@Override
+	void SetDockDestoryed(bool state) { dockDestroyed = state; }
+	bool GetDockDestoryed() { return dockDestroyed; }
+	void AddInboundShip(class TradeShip* ts);
+	
 private:
 	void MarketDumpTaskee(); // Generate task for market dump
 	void BufferMarket(); // Does magic with inventory
@@ -52,6 +61,7 @@ private:
 	v2::Inventory marketPlaceBuffer; // Marketplace buffer inventory
 
 	bool docked = false;
+	bool dockDestroyed = false;
 	class TradeShip *dockedShip;
 	DockName dockName;
 	//Debug timer

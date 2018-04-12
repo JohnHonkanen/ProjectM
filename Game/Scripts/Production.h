@@ -67,7 +67,8 @@ public:
 
 	bool GetProducing() { return isProducing; }					//Returns if the building has a production set
 
-	int Collect(ResourceName resource, int amount, int index);	//Calls structure collect method if building is a dome, or uses local collect if building is a factory
+	int Deposit(ResourceName resource, int amount, int index);
+	int Collect(ResourceName resource, int amount, int index);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
 	int GetInputCount();										//Returns a factory's ingredient amount
 	int GetOutputCount();										//Returns output inventory's amount
 	void TaskCompleted(TASK_TYPE type, int index);				//Changes num value of local task management
@@ -76,6 +77,7 @@ public:
 	int GetUpkeep();											//Returns buildings upkeep
 	void IncreaseTaskNumber(TASK_TYPE type, int index);			//Increases local task variable to record how many task requests have been sent to create a limit
 
+	BuildingProductionAnims* GetBillboard() const { return billboard; }
 
 	// Serilazation method to store the required variables to an xml document.
 	template<class Archive>
