@@ -86,7 +86,7 @@ public:
 	string GetResourceIcon(); // Get Resource icon
 	void SetResourceIcon(string resourceIcon); // Set a resource icon
 
-	ResourceName GetResouceID();
+	ResourceName GetResouceID(); // Returns the ResourceName of the resource
 private:
 	int itemID, itemValue, itemQuality, stackLimit, demand, productionTimer;
 	int productionCost = 0;
