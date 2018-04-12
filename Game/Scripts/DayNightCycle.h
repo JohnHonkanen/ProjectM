@@ -11,6 +11,7 @@ public:
 	DayNightCycle();
 	void OnLoad();
 	void Update(double dt);
+	/** Get the current time of the game: ENUM TIME::DAY or TIME::FALSE*/
 	TIME GetTime();
 private:
 	TIME time;

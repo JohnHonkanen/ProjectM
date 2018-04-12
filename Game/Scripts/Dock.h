@@ -21,9 +21,12 @@ public:
 	void Start();
 	void Update();
 
+	/** Docks the trade ship and set up all the links correctly*/
 	void DockShip(class TradeShip* ship);
+	/** Get the location for drone parking*/
 	vec3 ParkingLocation();
 
+	/** Generate Configurations for various markets*/
 	void GenerateContractConfiguration();
 	void GenerateLocalMarketConfiguration();
 	void GenerateGalacticMarketConfiguration();
@@ -31,6 +34,7 @@ public:
 	void AddToMarketDump(ResourceName resourceName, int amountToDump); // Adds items to marketdump (BUY FROM MARKET)
 	void AddToMarketRequest(ResourceName resourceName, int amountToRequest); // Adds items to marketRequest (SELL TO MARKET)
 
+	/**Complete the held contract*/
 	void CompleteContract();
 	void TaskCompleted(TASK_TYPE type, int index); //@Override
 	int Collect(ResourceName resourceName, int resourceAmount, int index); //@Override

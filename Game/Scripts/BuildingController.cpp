@@ -157,11 +157,6 @@ void BuildingController::SetMouseHeld(bool state)
 	mouseHeld = state;
 }
 
-void BuildingController::AddTempObject(GameObject * object)
-{
-	objectToBuild = object;
-}
-
 PlayerActions * BuildingController::GetPlayerAction()
 {
 	return playerAction;
