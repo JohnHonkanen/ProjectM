@@ -11,7 +11,9 @@ public:
 	void Update();
 	void DrawWidget(unsigned int shader);
 
+	/** Add an additinal button to our group*/
 	void AddButtons(class AnimatedButton *button);
+	/** Activate/Deactivate the group*/
 	void ToggleButtons();
 private:
 	class BuildingController * buildingController;

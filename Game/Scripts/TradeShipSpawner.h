@@ -7,10 +7,13 @@ class TradeShip : public Behaviour {
 public:
 	static TradeShip *Create(GameObject *gameObject);
 	void Copy(GameObject * gameObject);
+	/** Set the dock that the trader*/
 	void SetDock(Dock *dock);
 
 	void Update(double dt);
+	/** Ask the trader to return */
 	void Return();
+	/** Set the spawn and return positions */
 	void SetCameFrom(vec3 from);
 private:
 	void RotateToFace(vec3 pos);
@@ -33,6 +36,7 @@ public:
 	void OnLoad();
 	void Update();
 
+	/** Create a trade ship, to fly to a dock*/
 	void CreateTradeShip(Dock *dock);
 private:
 	TradeShip * prefab;

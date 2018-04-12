@@ -14,12 +14,14 @@ public:
 	void Start();
 	void Update(double dt);
 
+	/** Check to see if the player is current building something*/
 	bool GetBuildMode();
+	/** Manually change the build mode to another mode */
 	void SetBuildMode(bool mode);
+	/** Manually change the mouse held to another state */
 	void SetMouseHeld(bool state);
-	//To Be Removed
-	void AddTempObject(GameObject *object);
 
+	/** Get the Player Actions class */
 	class PlayerActions *GetPlayerAction();
 	//Our Collision Helper to check our point in grid
 	TerrainCollisionHelper colHelper;

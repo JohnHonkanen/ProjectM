@@ -20,13 +20,16 @@ public:
 	void Update();
 	void Update(double dt);
 
+	/** Get and Set the Hub*/
 	void SetHub(Hub *hub);
 	Hub * GetHub() const;
 
+	/** Get and Set the TradeShip Spawner*/
 	void SetTradeShipSpawner(class TradeShipSpawner *spawner);
 	class TradeShipSpawner * GetTradeShipSpawner() const;
 	bool mouseOverHudElement = false;
 
+	/** Managers in the game*/
 	BuildingManager buildingManager;
 	ResourceManager resourceManager;
 	ContractManager contractManager;

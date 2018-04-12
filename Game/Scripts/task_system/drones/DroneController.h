@@ -15,8 +15,11 @@ namespace v1 {
 			DroneController(Drone *drone, Hub * hub);
 			void Start();
 			void Update(double dt);
+			/**Assigns the task and activate the GoTo behaviour to start the process*/
 			bool AssignTask(Task t);
+			/** Assigns a task without the GoTo behaviour call*/
 			bool AssignTaskWithoutBehaviour(Task t);
+			/** Force a task onto the drone, ignoring wheter or not it already has a task */
 			void ForceTask(Task t);
 
 			void SetState(class AbstractDroneBehaviour * state) { droneState = state; };
