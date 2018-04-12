@@ -1,7 +1,5 @@
 /*
 Production Class - Used for maintaing any building type that produces resources.
-
-Dev: Greg Smith (B00308929)
 */
 
 #pragma once

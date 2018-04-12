@@ -1,6 +1,5 @@
 /*
 SellHUDElement supports elements within the total SellHUD
-Dev : Jack Smith(B00308927)
 */
 #include "SellHUDElement.h"
 #include "hud\widgets\TextWidget.h"

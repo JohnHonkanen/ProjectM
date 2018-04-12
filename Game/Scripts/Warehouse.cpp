@@ -1,6 +1,5 @@
 /*
 Warehouse class used to store and send/recieve resources
-Dev: Jack Smith (B00308927)
 */
 
 #include "Warehouse.h"

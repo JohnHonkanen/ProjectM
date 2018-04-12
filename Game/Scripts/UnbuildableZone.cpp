@@ -1,6 +1,5 @@
 /*
 UnbildableZone class used to block the placement of other buildings
-Dev: Jack Smith (B00308927)
 */
 #include "LightCycle.h"
 #include "UnbuildableZone.h"

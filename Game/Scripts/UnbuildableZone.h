@@ -1,6 +1,5 @@
 /*
 UnbuildableZone class used to block placement of other buildings
-Dev: Jack Smith (B00308927)
 */
 
 #pragma once

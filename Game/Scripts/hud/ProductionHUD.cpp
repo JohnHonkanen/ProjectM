@@ -1,6 +1,5 @@
 /*
 ProductionHUD class used a HUD widget to display the properties of buildings and change production type.
-Dev: Greg Smith (B00308929)
 */
 #include "ProductionHUD.h"
 #include "core\GameObject.h"

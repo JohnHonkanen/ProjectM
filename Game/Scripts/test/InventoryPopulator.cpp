@@ -1,7 +1,6 @@
 /*
 InventoryPopulator class used as a helper to test the warehouse inventories 
 at runtime.
-Dev: Jack Smith (B00308927)
 */
 
 #include "InventoryPopulator.h"

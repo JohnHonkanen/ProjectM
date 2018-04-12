@@ -1,7 +1,6 @@
 /*
 InventoryHUDElement class that creates and processes HUD elements within 
 the HUD space for strucuture inventories.
-Dev: Jack Smith (B00308927) & John Honkanen (B00291253)
 */
 #include "InventoryHUDElement.h"
 #include "hud\widgets\TextWidget.h"

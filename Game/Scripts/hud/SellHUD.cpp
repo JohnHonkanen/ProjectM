@@ -1,6 +1,5 @@
 /*
 SellHUD class used to allow the player to sell buildings
-Dev: Jack Smith (B00308927)
 */
 #include "core\GameObject.h"
 #include "core\GameEngine.h"
