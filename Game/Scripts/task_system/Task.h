@@ -40,7 +40,9 @@ namespace v1
 				to = s;
 			}
 
+			/** Add an amount of resources to the task */
 			int Fufill(int amount);
+			/** Checks how much there is left to fufill*/
 			int HasLeft();
 			ResourceName GetResource() const;
 			int GetAmount() const;

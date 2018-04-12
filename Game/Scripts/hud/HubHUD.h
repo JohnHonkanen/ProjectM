@@ -26,6 +26,7 @@ public:
 	void OnLoad();
 	void Update();
 
+	/** Create an empty slot element for the inventory*/
 	void CreateSlot();
 
 private:
