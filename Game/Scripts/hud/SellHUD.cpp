@@ -70,7 +70,7 @@ void SellHUD::Update()
 // Handles Input from the player
 void SellHUD::Input()
 {
-	openSellMenu = GameEngine::manager.inputManager.GetKey("ToggleSellMenu");
+	//openSellMenu = GameEngine::manager.inputManager.GetKey("ToggleSellMenu");
 	if(wrapper->IsActive())
 	{
 		openSellMenu = 1;
