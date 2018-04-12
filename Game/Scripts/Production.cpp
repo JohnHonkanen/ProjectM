@@ -268,24 +268,3 @@ int Production::GetUpkeep()
 {
 	return upkeep + resourceManager->Find(producing)->GetProductionCost();
 }
-
-//void ProductionLine() {
-//	int availableSpace = inventory.CheckStorageFull(producing);
-//	if (structureType == DOME && isProducing) {
-//		if (availableSpace > 0) {
-//			Resources* r = resourceManager->Find(producing);
-//			int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
-//			inventory.AddItem(producing, productionAmount);
-//			billboard->Spawn();
-//		}
-//	}
-//	else if (structureType == FACTORY && isProducing && inventory.Contains(inputResource) > 0) {//change 0 to resources production ratio
-//		if (availableSpace > 0) {
-//			Resources* r = resourceManager->Find(producing);
-//			int productionAmount = floor((r->GetStackLimit()*0.25)*productionEfficiency);
-//			inventory.AddItem(producing, productionAmount);
-//			billboard->Spawn();
-//		}
-//	}
-//}
- 

@@ -19,12 +19,12 @@ public:
 	/** Pointer Exit Bounds Event*/
 	void OnPointerExit(EventData data);
 	/** Pointer Click Event*/
-	void OnPointerMouseDown(EventData data);					
+	void OnPointerMouseDown(EventData data);					//Sets the buildings production to the resource that has been clicked			
 	void EventRegistration();
 	void Start();
-	void SetProduction(class Production *production);			//When button is clicked, building production is set to related resource
-	void SetResource(ResourceName resource);					
-	void SetIcon(std::string icon);
+	void SetProduction(class Production *production);			//When button is clicked, selected building production is changed
+	void SetResource(ResourceName resource);					//Sets the resource produced to the one selected
+	void SetIcon(std::string icon);								//Sets the icon to that of the resource clicked
 
 	static ProductionSetterButton *Create(HUDElement *element, EHUD::HUDRect rect, std::string icon, class Production *production, ResourceName resource);
 private:

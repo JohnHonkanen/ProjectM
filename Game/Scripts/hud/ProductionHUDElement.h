@@ -42,8 +42,8 @@ private:
 	ResourceName GetIngredient();								//Returns the ResourceName input from the recipe manager
 
 
-	vector<EHUD::TextWidget*> text;								//
-	class Production * prod;									//
+	vector<EHUD::TextWidget*> text;								
+	class Production * prod;									
 
 	class ProductionButton * pButton;							//Set Production button
 
@@ -54,11 +54,11 @@ private:
 	class FunctionPtrButton * dButton;							//Decrease building level
 
 
-	EHUD::HUDElement* productionHUD;							//
-	class ResourceManager* rManager;							//
+	EHUD::HUDElement* productionHUD;			
+	class ResourceManager* rManager;							
 
-	class ActivateButtonHud * activateButtonBinder;				//
-	class IncreaseButtonHud * increaseButtonBinder;				//
-	class DecreaseButtonHud * decreaseButtonBinder;				//
+	class ActivateButtonHud * activateButtonBinder;				
+	class IncreaseButtonHud * increaseButtonBinder;				
+	class DecreaseButtonHud * decreaseButtonBinder;				
 
 };

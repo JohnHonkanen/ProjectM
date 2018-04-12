@@ -16,18 +16,18 @@ namespace EHUD = Engine::HUD;
 class ProductionButton : public ButtonWidget {
 public:
 	/** Pointer Enter Bounds Event*/
-	void OnPointerEnter(EventData data);
+	void OnPointerEnter(EventData data);						//Stops items under buttons being clicked while elemment is on screen
 	/** Pointer Exit Bounds Event*/
-	void OnPointerExit(EventData data);
+	void OnPointerExit(EventData data);							//
 	/** Pointer Click Event*/
-	void OnPointerMouseDown(EventData data);					//
+	void OnPointerMouseDown(EventData data);					//Opens hud element to set building production
 	void EventRegistration();
 	void Start();												//Generates resource lists for factory and dome on start
 	void Input();
-	void Update();
+	void Update();												//handles the opening of the hud element
 	void SetProduction(class Production *production);			//Sets building production when a resource is clicked
-	void SetIcon(string icon) { iconImage = icon; }
-	void CloseProductionWindows();
+	void SetIcon(string icon) { iconImage = icon; }				//Sets a resources icon 
+	void CloseProductionWindows();								//Changes/closes hud element when another building is selected
 	
 
 

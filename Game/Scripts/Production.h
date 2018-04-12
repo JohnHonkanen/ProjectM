@@ -37,14 +37,14 @@ private:
 
 	v2::Inventory inventoryOutput;								//Second inventory for factory where buildings require an input
 
-	void DomeProduction();										//
-	void FactoryProduction();									//
+	void DomeProduction();										//Handles production of a dome
+	void FactoryProduction();									//handles Production of a factory
 
-	int numCollectTask = 0;
-	int maxCollectTask = 1;
+	int numCollectTask = 0;										//Records how many collect tasks have been sent
+	int maxCollectTask = 1;										//Limits how many collect tasks can be sent
 
-	int numRequestTask = 0;
-	int maxRequestTask = 1;
+	int numRequestTask = 0;										//Records how many request tasks have been sent
+	int maxRequestTask = 1;										//Limits how many request tasks can be sent
 
 public:
 
@@ -63,18 +63,18 @@ public:
 	void SetActive(bool change);								//Sets if building is active, and when not active also sets it to not be producing a resource
 	ResourceName GetProduction() { return producing; }			//Returns resource building is producing
 
-	Resources* GetResource() { return resourceManager->Find(producing); }
+	Resources* GetResource() { return resourceManager->Find(producing); }//Returns the item a building is producing
 
-	bool GetProducing() { return isProducing; }
+	bool GetProducing() { return isProducing; }					//Returns if the building has a production set
 
-	int Collect(ResourceName resource, int amount, int index);				//Calls structure collect method if building is a dome, or uses local collect if building is a factory
+	int Collect(ResourceName resource, int amount, int index);	//Calls structure collect method if building is a dome, or uses local collect if building is a factory
 	int GetInputCount();										//Returns a factory's ingredient amount
 	int GetOutputCount();										//Returns output inventory's amount
-	void TaskCompleted(TASK_TYPE type, int index);							//
+	void TaskCompleted(TASK_TYPE type, int index);				//Changes num value of local task management
 	void IncreaseLevel();										//Increases a buildings productivity and upkeep
 	void DecreaseLevel();										//reduces a buildings productivity and upkeep
-	int GetUpkeep();
-	void IncreaseTaskNumber(TASK_TYPE type, int index);
+	int GetUpkeep();											//Returns buildings upkeep
+	void IncreaseTaskNumber(TASK_TYPE type, int index);			//Increases local task variable to record how many task requests have been sent to create a limit
 
 
 	// Serilazation method to store the required variables to an xml document.

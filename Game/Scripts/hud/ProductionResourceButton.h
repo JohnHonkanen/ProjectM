@@ -21,10 +21,10 @@ public:
 	/** Pointer Click Event*/
 	void OnPointerMouseDown(EventData data);
 	void EventRegistration();
-	void Start();
+	void Start();													//Sets position of buttons/text inside production hud element, hard coded locations atm
 	void Input();
-	void Update();
-	void DeleteItems(class V2 * inv);
+	void Update();													//Updates information attached to text/icons based on what building is selected
+	void DeleteItems(class V2 * inv);								
 
 	void SetIcon(string icon) { baseTexture = icon; }
 
